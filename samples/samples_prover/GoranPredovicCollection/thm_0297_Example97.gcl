@@ -1,0 +1,66 @@
+% thmname Primer 97 iz \cite{chou}
+% thmnamee Example 97 from \cite{chou}
+
+% thmtext Neka je $G$ ta\ch ka na krugu $k$ sa centrom
+% thmtext $O$ i pre\ch nikom $BC$ i neka je $A$
+% thmtext sredina luka $BG$ istoga kruga. Ta\ch ka $D$
+% thmtext je podno\zh je normale spu\sh tene iz $A$
+% thmtext na pre\ch nik $BC$. Neka su dalje
+% thmtext $E = AD \cap BG$ i
+% thmtext $F = AC \cap BG$. Dokazati da je
+% thmtext $AE \cong BE \cong EF$.
+
+% thmtexte Let $G$ be a point on the circle $(O)$ with
+% thmtexte diameter $BC$, $A$ be the midpoint of the arc
+% thmtexte $BG$. $AD \perp BC$. $E = AD \cap BG$ and
+% thmtexte $F = AC \cap BG$. Show that
+% thmtexte $AE \cong BE \cong EF$.
+
+dim 100 100
+
+point B 10 50
+point C 90 50
+midpoint O B C
+
+circle k O B
+
+oncircle G' O B
+% skip
+point G 55.30 89.65
+
+med m B G
+intersec2 A A_1 k m
+
+line b B C
+perp d A b
+
+line g B G
+% skip
+line o A O
+line c A C
+
+intersec E d g
+intersec D d b
+% skip
+intersec M g o
+intersec F g c 
+
+cmark_rb E
+cmark_l B
+cmark_r C
+cmark_b O
+cmark_b D
+cmark_b M
+cmark_lt A
+cmark_rt G
+cmark_t F
+
+drawcircle k
+drawsegment B C
+drawsegment B G
+drawsegment A D
+drawsegment A O
+drawsegment A C
+
+% prove { equal { segment A E } { segment B E } }
+% prove { equal { sratio B E E F } { 1 } }

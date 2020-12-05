@@ -1,0 +1,38 @@
+point B 35 30
+point C 90 30
+point A 50 80
+
+line a B C
+line b A C
+line c A B
+
+med a_1 C B
+med b_1 A C
+med c_1 A B
+
+intersec O a_1 b_1
+circle l O A
+
+layer 0 
+drawsegment A B
+drawsegment B C
+drawsegment C A
+drawcircle O A
+
+cmark_t A
+cmark_lb B
+cmark_b C 
+
+layer 1
+drawline a 
+drawline b
+drawline c  
+
+layer 2
+cmark_rt O 
+drawline a_1
+drawline b_1
+drawline c_1  
+
+hide_layers_from 1
+

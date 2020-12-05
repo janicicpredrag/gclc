@@ -1,0 +1,63 @@
+% thmname Primer 59 iz \cite{chou}
+% thmnamee Example 59 from \cite{chou}
+
+% thmtext Dva duplo perspektivna trougla su istovremeno
+% thmtext i troustruko perspektivna.
+
+% thmnote Dva trougla $ABC$ i $A_1B_1C_1$ su perspektivna 
+% thmnote ukoliko su prave $AA_1$, $BB_1$ i $CC_1$
+% thmnote kolinearne. Konstrukcija duplo perspektivnog
+% thmnote je polazna u dokazu teoreme (iskusniji \ch italac
+% thmnote mo\zh e na osnovu izbora koordinata ta\ch aka
+% thmnote rekonstruisati korake konstrukcije).
+
+% thmtexte Two doubly perspective triangles are in fact
+% thmtexte triply perspective.
+
+dim 130 100
+
+point O 20 20
+point A 70 20
+point B 40.40 60.70
+point C 73.20 52.50
+point O_1 57.10 64.00
+
+line co1 C O_1
+line ao A O
+line ao1 A O_1
+line bo B O
+line bo1 B O_1
+line co C O
+
+intersec A_1 co1 ao
+intersec B_1 ao1 bo
+intersec C_1 bo1 co
+
+line ba1 B A_1
+line ac1 A C_1
+intersec O_2 ba1 ac1
+
+cmark_b O
+cmark_b A
+cmark_l B
+cmark_r B_1
+cmark_lt O_1
+cmark_b C
+cmark_l O_2
+cmark_rb C_1
+cmark_b A_1
+
+drawsegment O B_1
+drawsegment O A_1
+drawsegment O C_1
+drawsegment A B_1
+drawsegment B C_1
+drawsegment A C_1
+drawsegment B A_1
+drawsegment O_1 A_1
+
+% skip
+line b1co2 B_1 C
+drawdashline b1co2
+
+% prove { collinear C B_1 O_2 }

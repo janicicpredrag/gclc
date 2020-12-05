@@ -1,0 +1,90 @@
+% thmname Primer 127 iz \cite{chou}
+% thmnamee Example 127 from \cite{chou}
+
+% thmtext Dat je trougao $ABC$ i ta\ch ka $M$ na simetrali
+% thmtext ugla $BAC$. Iz $M$ su spu\sh tene normale $MQ$
+% thmtext i $MR$ na prave $AC$ i $AB$. Neka je $N$ presek
+% thmtext prave $QR$ i prave $AA_1$, gde je $A_1$ sredi\sh te
+% thmtext stranice $BC$. Dokazati da je prava $MN$ normalna
+% thmtext na pravu $BC$.
+
+% thmnote Teorema va\zh i za unutra\sh nji ugao temena $A$,
+% thmnote kao i za spolja\sh nji ugao (pogledati alternativnu
+% thmnote sliku).
+
+% thmtexte Of $Q$, $R$ are the projections of a point $M$
+% thmtexte of the internal bisector $AM$ of the angle $A$
+% thmtexte of the triangle $ABC$ upon the sides $AC$, $AB$,
+% thmtexte show that the perpendicular $MP$ from $M$ upon
+% thmtexte $BC$ meets $QR$ in the point $N$ on the median
+% thmtexte $AA_1$ of $ABC$.
+
+dim 150 110
+
+point A 65 20
+point B 120 20
+point C 50 90
+
+line a C B
+bis s B A C
+intersec X s a
+
+% skip
+point M 102.91 66.89
+online M' A X
+
+line b A C
+line c A B
+foot Q M b
+foot R M c
+
+midpoint A_1 B C
+line a1 A A_1
+line qr Q R
+intersec N qr a1
+
+% skip
+point B1 10 20
+% skip
+bis s1 B1 A C
+% skip
+point M_1 48.20 33.60
+% skip
+foot Q_1 M_1 b
+% skip
+foot R_1 M_1 c
+% skip
+line qr1 Q_1 R_1
+% skip
+intersec N_1 qr1 a1
+
+cmark_b A
+cmark_b B
+cmark_l C
+cmark_t M
+cmark_lb Q
+cmark_b R
+cmark_rt A_1
+cmark_t N
+cmark_lt M_1
+cmark_r Q_1
+cmark_b R_1
+cmark_t N_1
+
+
+drawsegment R_1 B
+drawsegment C B
+drawsegment A C
+drawsegment A A_1
+drawsegment M N
+drawsegment M Q
+drawsegment A M
+drawsegment M R
+drawdashsegment Q R
+drawdashsegment M_1 N_1
+drawdashsegment M_1 Q_1
+drawdashsegment A M_1
+drawdashsegment M_1 R_1
+drawdashsegment N_1 R_1
+
+% prove { perpendicular B C M N }

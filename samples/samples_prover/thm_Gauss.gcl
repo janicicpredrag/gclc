@@ -1,0 +1,60 @@
+area 5 5 90 90 
+ 
+point A_0 50 10
+point A_1 90 10
+point A_2 75 40
+point A_3 55 25
+
+line a12 A_1 A_2
+line a03 A_0 A_3
+
+line a01 A_0 A_1
+line a23 A_2 A_3
+
+intersec X a12 a03
+intersec Y a01 a23
+
+
+midpoint M_1 A_1 A_3
+midpoint M_2 A_0 A_2
+midpoint M_3 X Y 
+
+cmark_b A_0
+cmark_b A_1
+cmark_rt A_2
+cmark_l A_3
+
+cmark_t X
+cmark_b Y
+
+cmark_b M_1
+cmark_r M_2
+cmark_rt M_3
+
+drawsegment A_0 A_1
+drawsegment A_0 A_2
+drawsegment A_0 A_3
+drawsegment A_1 A_2
+drawsegment A_1 A_3
+drawsegment A_2 A_3
+
+drawdashsegment A_1 X
+drawdashsegment A_3 X
+
+drawdashsegment A_0 Y
+drawdashsegment A_2 Y
+
+drawline M_1 M_2
+
+prooflevel 7
+prove { collinear M_1 M_2 M_3 }
+% or 
+% prove { equal { signed_area3 M_1 M_2 M_3 } { 0 } }
+%
+
+
+
+
+
+
+

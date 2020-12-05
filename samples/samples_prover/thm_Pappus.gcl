@@ -1,0 +1,43 @@
+point A 50 10
+point B 90 10
+online C A B 
+
+cmark_t A
+cmark_t B
+cmark_t C
+
+point A_1 35 40
+point A_2 45 43
+line A_1A_2 A_1 A_2
+  
+line A_1B A_1 B
+parallel AB_1 A A_1B
+intersec B_1 A_1A_2 AB_1
+
+line CB_1 C B_1
+parallel BC_1 B CB_1 
+intersec C_1 A_1A_2 BC_1
+
+cmark_t A_1
+cmark_t B_1
+cmark_t C_1
+
+drawline A C
+drawline A_1 C_1
+
+drawsegment A B_1
+drawsegment B A_1
+drawsegment B C_1
+drawsegment C B_1
+
+color 255 0 0
+drawsegment A C_1
+drawsegment C A_1
+
+prove { parallel A_1 C A C_1 }
+% or
+% prove { equal 
+%			{ signed_area3 A_1 A C_1 } 
+%			{ signed_area3 C A C_1 } 
+%	  }
+

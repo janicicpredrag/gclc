@@ -1,0 +1,86 @@
+% thmname Primer 3 iz \cite{chou}
+% thmnamee Example 3 from \cite{chou}
+
+% thmtext Date su tri kolinearne ta\ch ke $A$, $B$ i $C$
+% thmtext i ta\ch ke $D$ i $E$ van prave $AB$. Ta\ch ke
+% thmtext $J$, $G$, $K$, $I$, $L$, $H$ i $F$ su konstruisane
+% thmtext kao redom preseci parova pravih: $AE$ i $CD$,
+% thmtext $AD$ i $BE$, $BD$ i $EC$, $AE$ i $BD$, $CD$ i $BE$,
+% thmtext $EC$ i $AD$ i na kraju $DE$ i $AB$. Neka je dalje
+% thmtext $O$ presek pravih $JH$ i $IG$. Dokazati da su
+% thmtext ta\ch ke $O$, $E$ i $D$ kolinearne, kao i da
+% thmtext su ta\ch ke $O$, $L$ i $K$ tako\dj e kolinearne.
+
+% thmtexte Starting from five points $A$, $B$, $C$, $D$ and $E$
+% thmtexte with $A$, $B$, $C$ collinear, new lines and points
+% thmtexte of intersection are formed. $ED$, $IG$, $LK$ and $JH$
+% thmtexte are collinear.
+
+dim 100 100
+
+point A 20 20
+point B 55 20
+line ab A B
+online C' A B
+% skip
+point C 50 20
+
+point D 40.20 47.20
+point E 53.30 37.50
+
+line ae A E
+line cd C D
+line ad A D
+line be B E
+line bd B D
+line ec E C
+line de D E
+
+intersec J ae cd
+intersec G ad be
+intersec K bd ec
+intersec I ae bd
+intersec L cd be
+intersec H ec ad
+intersec F de ab
+
+line jh J H
+line ig I G
+intersec O jh ig
+
+cmark_rb A
+cmark_b B
+cmark_lb C
+cmark_t D
+cmark_rb E
+cmark_lb J
+cmark_lt G
+cmark_r K
+cmark_b I
+cmark_r L
+cmark_rb H
+cmark_b F
+cmark_r O
+
+% skip
+line oed O E
+% skip
+line olk O L
+
+drawline oed
+drawline olk
+
+drawdashline ab
+drawdashline ae
+drawdashline cd
+drawdashline ad
+%drawdashline be
+%drawdashline bd
+drawdashline ec
+% drawdashline de
+
+drawdashsegment I G
+drawdashsegment J H
+
+% prove { collinear O E D }
+% prove { collinear O L K }

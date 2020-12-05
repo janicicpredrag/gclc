@@ -1,0 +1,61 @@
+% thmname Primer 94 iz \cite{chou}
+% thmnamee Example 94 from \cite{chou}
+
+% thmtext Oko trougla $ABE$ opisan je krug $k$ sa
+% thmtext centrom $O$. Neka je $PE$ proizvoljna
+% thmtext tangenta na krug $k$. Simetrala
+% thmtext ugla $\angle APE$ se\ch e du\zh i
+% thmtext $EA$ i $BE$ u ta\ch kama $C$ i $D$.
+% thmtext Dokazati da je $EC \cong ED$.
+
+% thmtexte Through $P$ a tangent $PE$ and a secant
+% thmtexte $PAB$ of circle $(O)$ are drawn. The
+% thmtexte bisector of angle $APE$ meets $AE$ and
+% thmtexte $BE$ at $C$ and $D$. Show that
+% thmtexte $EC \cong ED$.
+
+dim 110 90
+
+point E 35 20
+point O 35 45
+
+circle k O E
+oncircle A' O E
+oncircle B' O E
+
+% skip
+point A 17.71 63.06
+% skip
+point B 58.58 36.68
+
+line ab A B
+line oe O E
+perp ep E oe
+intersec P ep ab
+
+line ae A E
+line be B E
+
+bis p E P A
+intersec C ae p
+intersec D be p
+
+cmark_t O
+cmark_b E
+cmark_b P
+cmark_lt A
+cmark_r B
+cmark_lb C
+cmark_t D
+
+drawsegment E P
+drawsegment E O
+drawsegment A P
+drawsegment A E
+drawsegment A B
+drawcircle k
+drawdashline p
+drawsegment E A
+drawsegment E B
+
+% prove { equal { segment E D } { segment E C } }

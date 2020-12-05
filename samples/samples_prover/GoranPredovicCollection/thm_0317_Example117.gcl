@@ -1,0 +1,70 @@
+% thmname Primer 117 iz \cite{chou}
+% thmnamee Example 117 from \cite{chou}
+
+% thmtext Iz ta\ch ke $A$ dve tangente su povu\ch ene na krug
+% thmtext sa centrom $O$, doti\ch u\cj i krug u ta\ch kama $B$ i $C$.
+% thmtext Iz proizvoljne ta\ch ke $P$ na krugu, spu\sh tene su
+% thmtext normale $PE$, $PF$ i $PD$ na prave $AC$, $AB$ i $BC$
+% thmtext redom. Dokazati da je:
+% thmtext $PD^2 = PE \cdot PF$.
+
+% thmtexte From a point $A$ two lines are drawn tangent to
+% thmtexte circle $(O)$ at $B$ and $C$. From a point $P$ on
+% thmtexte the circle peprendiculars are drawn to $BC$, $AB$
+% thmtexte and $AC$. Let $D$, $F$, $E$ be the feet. Show that:
+% thmtexte $PD^2 = PE \cdot PF$.
+
+% thmnote Konstrukcija je izvedena na slede\cj i na\ch in:
+% thmnote izabrane su proizvoljne nekolinearne ta\ch ke $A$, $B$ i $X$.
+% thmnote Ta\ch ka $O$ je odre\dj ena kao presek normale iz $B$ na $AB$
+% thmnote i simetrale ugla $BAX$. Ta\ch ka $C$ je podno\zh je normale
+% thmnote iz $O$ na $AX$. Ta\ch ka $P$ je izabrana proizvoljno na
+% thmnote krugu sa polupre\ch nikom $OB$, i $E$, $F$, $D$ su
+% thmnote podno\zh ja normala iz $P$ na $AC$, $AB$ i $BC$.
+
+dim 110 90
+
+point A 20 20
+point B 70 20
+line ab A B
+
+point X 60 70
+line ac A X
+
+bis s B A X
+perp b B ab
+intersec O b s
+foot C O ac
+
+circle k O B
+
+% skip
+point P 46.05 42.01
+oncircle P' O B
+
+line bc B C
+
+foot F P ab
+foot E P ac
+foot D P bc
+
+cmark_b A
+cmark_b B
+cmark_rt O
+cmark_lt C
+cmark_rt D
+cmark_b F
+cmark_lt E
+cmark_lb P
+
+drawcircle k
+drawsegment A B
+drawsegment A C
+drawsegment O B
+drawsegment O C
+drawsegment C B
+drawsegment P F
+drawsegment P E
+drawsegment P D
+
+% prove { equal { mult { segment P D } { segment P D } } { mult { segment P E } { segment P F } } }

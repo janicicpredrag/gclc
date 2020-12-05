@@ -1,0 +1,39 @@
+% thmname Paralelogram teorema
+% thmnamee Parallelogram Theorem
+
+% thmtext U ravni je dat trougao $ABC$. Neka
+% thmtext je prava $p$ paralela na $BC$ iz ta\ch ke $A$
+% thmtext i neka je prava $q$ paralela na $AB$ iz
+% thmtext tacke $C$. Neka je $D$ presek pravih $p$ i $q$
+% thmtext Dokazati da je $\overline{AB} = \overline{DC}$.
+
+% thmtexte Given triangle $ABC$, let $p$ be line through $A$ parallel
+% thmtexte with $BC$, and let $q$ be line through $C$ parallel
+% thmtexte with $AB$. Let $p$ and $q$ intersects at $D$. Show that
+% thmtexte $\overline{AB} = \overline{DC}$.
+
+dim 130 70
+
+point A 20 20
+point B 80 20
+point C 103.40 55.10
+
+line ab A B
+line bc B C
+
+%parallel p A bc
+%parallel q C ab
+%intersec D p q
+translate D B A C
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+
+drawsegment A B
+drawsegment C B
+drawsegment A D
+drawsegment C D
+
+% prove { equal { sratio A B D C } { 1 } }

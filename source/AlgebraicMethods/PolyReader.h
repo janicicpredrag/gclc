@@ -1,0 +1,32 @@
+#pragma once
+
+#include "stdinc.h"
+#include "XPolynomial.h"
+
+class PolyReader
+{
+private:
+	static int _GotoOpenBracket(char* stream, int pos, int end);
+	static int _GotoCloseBracket(char* stream, int s, int e);
+	static int _GotoSeparator(char* stream, int s, int e);
+	static char _GotoNextChar(char* stream, int s);
+
+
+	static void _Print(char* stream, int s, int e);
+    static void _Error(const char* msg);
+    static void _Assert(bool assert, const char* msg);
+
+	static XPolynomial* _ReadXPolynomial(char* stream, int start, int end);
+	static XTerm* _ReadXTerm(char* stream, int s, int e);
+	static UPolynomialFraction* _ReadUFraction(char* stream, int s, int e);
+	static UPolynomial* _ReadUPolynomial(char* stream, int s, int e);
+	static UTerm* _ReadUTerm(char* stream, int s, int e);
+	static Power* _ReadUPower(char* stream, int s, int e);
+	static Power* _ReadXPower(char* stream, int s, int e);
+
+
+public:
+	static XPolynomial* ReadXPolynomial(char* stream);
+	static void PrintPolynomials(vector<XPolynomial*>& vpols, int level = 0, int size = -1);
+	static void PrintPolynomial(XPolynomial* xp, int level = 0, int index = -1, bool tabular = false);
+};

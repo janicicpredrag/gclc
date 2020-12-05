@@ -1,0 +1,48 @@
+% thmname Uglovi nad istom tetivom
+% thmnamee Quadrilateral Inscribed in Circle
+
+% thmtext Dokazati da su svi uglovi nad istom tetivom
+% thmtext jednaki ili se dopunjuju do opru\zh enog ugla.
+
+% thmtexte If quadrilateral $ABCD$ is inscribed in circle,
+% thmtexte show that angles $\angle ACB$ and $\angle $ADB$
+% thmtexte are equal.
+
+dim 110 90
+
+point A 40 20
+point B 70 20
+
+point X 56 45
+line ax A X
+
+med m A B
+intersec O ax m
+
+circle k O A
+
+drawcircle k
+
+oncircle C' O A
+% skip
+point C 33.76 61.42
+oncircle D' O A 
+% skip
+point D 69.32 67.30
+
+drawsegment C A
+drawsegment C B
+drawsegment D A
+drawsegment D B
+
+cmark_lt C
+cmark_rt D
+cmark_lb A
+cmark_rb B
+%cmark_b O
+
+drawsegment A B
+
+%% tan(a) = tan(180-a), therefore we are proving weaker condition
+%% that angles are equal or their sum is 180 degrees
+% prove { equal { angle A C B } { angle A D B } }

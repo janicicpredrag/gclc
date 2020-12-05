@@ -1,0 +1,90 @@
+% thmname Krug devet ta\ch aka
+% thmnamee Nine Points Circle
+
+% thmtext Dokazati da se podno\zh ja visina trougla,
+% thmtext sredi\sh ta stranica i sredi\sh ta du\zh i
+% thmtext koje povezuju temena sa ortocentrom, nalaze
+% thmtext na istom krugu.
+
+% thmnote Slika nam daje ideju gde se centar kruga nalazi.
+% thmnote Iskoristi\cj emo to i dokazati da su tri para
+% thmnote ta\ch aka istovremeno i pre\ch nici kruga devet ta\ch aka
+% thmnote (odnosno bi\cj e dokazano i vi\sh e nego
+% thmnote \sh to se tra\zh i u zadatku, ali \cj e
+% thmnote to u\ch initi dokaz ne te\zh im, ve\cj \ lak\sh im!).
+% thmnote Krug devet ta\ch aka je tako\dj e poznat pod mnogim imenima:
+% thmnote Fojerbahov krug, Ojlerov krug, Terkvemov krug, 
+% thmnote krug \sh est ta\ch aka, itd.
+
+% thmtexte Prove that in any triangle midpoints of each side,
+% thmtexte feet of each altitude and midpoints of the segments
+% thmtexte of each altitude from its vertex to the orthocenter
+% thmtexte lie on circle.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+point C 80 100
+
+line ab A B
+line ac A C
+line bc B C
+
+foot D A bc
+foot E B ac
+foot F C ab
+
+midpoint G A B
+midpoint J B C
+midpoint I C A
+
+line ad A D
+line be B E
+intersec H ad be
+
+midpoint K A H
+midpoint L B H
+midpoint M C H
+
+line kj K J
+line gm G M
+intersec O kj gm
+circle k O G
+drawcircle k
+drawdashline kj
+drawdashline gm
+
+cmark_b A
+cmark_b B
+cmark_t C
+
+cmark_r D
+cmark_l E
+cmark_b F
+cmark_b G
+cmark_lb H
+cmark_t I
+cmark_r J
+cmark_lb M
+cmark_b K
+cmark_t L
+
+cmark_t O
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+drawsegment A D
+drawsegment B E
+drawsegment C F
+
+%% prove { equal { segment O G } { segment O K } }
+% K is on circle with diameter GM
+%% prove { perpendicular G M G K }
+% I is on circle with diameter GM
+%% prove { perpendicular G M G I }
+% E is on circle with diameter GM
+% prove { perpendicular G M G E }
+%% prove { equal { angle E I D } { angle E M D } }

@@ -1,0 +1,58 @@
+% thmname Primer 103 iz \cite{chou}
+% thmnamee Example 103 from \cite{chou}
+
+% thmtext Prava paralelna sa bazom trapeza $ABCD$
+% thmtext se\ch e stranice i dijagonale trapeza
+% thmtext u ta\ch kama $H$, $G$, $F$ i $E$.
+% thmtext Dokazati da je:
+% thmtext $EF \cong GH$.
+
+% thmtexte A line parallel to the base of trapezoid
+% thmtexte $ABCD$ meet ifs two sides and two diagonals
+% thmtexte at $H$, $G$, $F$ and $E$. Show that:
+% thmtexte $EF \cong GH$.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+
+point D 45 90
+
+% skip
+point C 85 90
+
+line a A B
+parallel cd D a
+online C' cd
+
+online H' A D
+% skip
+point H 31.95 53.46
+
+parallel h H a
+line b B C
+intersec E h b
+line d B D
+line c C A
+intersec G c h
+intersec F d h
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+cmark_l H
+cmark_r E
+cmark_rb G
+cmark_lb F
+
+drawsegment A B
+drawsegment C B
+drawsegment C D
+drawsegment A D
+drawsegment A C
+drawsegment B D
+drawsegment H E
+
+% prove { equal { sratio H G F E } { 1 } }

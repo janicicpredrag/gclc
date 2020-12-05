@@ -1,0 +1,58 @@
+% thmname Primer 49 iz \cite{chou}
+% thmnamee Example 49 from \cite{chou}
+
+% thmtext Dat je trapez $ABCD$ gde su $AB$ i $CD$
+% thmtext paralelne. Dokazati da prava koja sadr\zh i
+% thmtext presek dijagonala trapeza i presek suprotnih
+% thmtext stranica trapeza polovi bazu $AB$ trapeza.
+
+% thmnote Dovoljno je dokazati jednak odnos du\zh i
+% thmnote po\sh to se nalaze na istoj pravoj.
+
+% thmtexte Prove that the line joining the point of intersection
+% thmtexte of the extensions of the nonparallel sides of a trapezoid
+% thmtexte to the point of intersection of its diagonals bisects the base
+% thmtexte of the trapezoid.
+
+dim 130 80
+
+point A 20 20
+point B 110 20
+point C 90 50
+
+% skip
+point D 55 50
+
+line ab A B
+parallel cd C ab
+online D' cd
+
+line bc B C
+line ad A D
+line ac A C
+line bd B D
+
+intersec F ad bc
+intersec E ac bd
+
+line ef E F
+intersec G ab ef
+
+cmark_b A
+cmark_b B
+cmark_rt C
+cmark_lt D
+cmark_rb E
+cmark_rt F
+cmark_b G
+
+drawsegment A F
+drawsegment B F
+drawsegment G F
+drawsegment A B
+drawsegment C D
+drawsegment A C
+drawsegment B D
+
+% prove { equal { sratio A G G B } { 1 } }
+

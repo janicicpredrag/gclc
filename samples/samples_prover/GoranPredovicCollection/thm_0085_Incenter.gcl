@@ -1,0 +1,38 @@
+% thmname Upisani krug trougla
+% thmnamee Incenter Exists Theorem
+
+% thmtext U svaki trougao se mo\zh e upisati krug.
+
+% thmtexte Show that every triangle has incenter.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+point C 70 90
+
+bis sa B A C
+bis sc A C B
+bis sb C B A
+
+intersec S sa sb
+
+line ab A B
+% skip
+intersec C1 sc ab
+
+cmark_rb S
+
+drawdashline sa
+drawdashline sb
+drawdashline sc
+
+cmark_b A
+cmark_b B
+cmark_lt C
+
+drawsegment A B
+drawsegment C B
+drawsegment A C
+
+% prove { equal { angle A C S } { angle S C B } }

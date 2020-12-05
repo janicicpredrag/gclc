@@ -1,0 +1,47 @@
+% thmname Primer 31 iz \cite{chou}
+% thmnamee Example 31 from \cite{chou}
+
+% thmtext Dokazati da u proizvoljnom trouglu va\zh i jednakost:
+% thmtext $OH^2 = 9R^2 - a^2 - b^2 - c^2$.
+
+% thmtexte $OH^2 = 9R^2 - a^2 - b^2 - c^2$.
+
+dim 90 90
+point A 20 20
+point B 70 20
+point C 55 70
+
+med ma B C
+med mc A B
+intersec O ma mc
+
+line ab A B
+perp ch C ab
+
+line ac A C
+perp bh B ac
+
+intersec H ch bh
+
+% skip
+intersec D ch ab
+
+% skip
+circle k O A
+
+drawcircle k
+
+cmark_b O
+cmark_l H
+cmark_lb A
+cmark_rb B
+cmark_t C
+
+drawsegment C D
+drawsegment C O
+drawsegment A O
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+% prove { equal { mult { 9 } { segment O A } } { sum { segment O H } { sum { segment A B } { sum { segment A C } { segment B C } } } } }

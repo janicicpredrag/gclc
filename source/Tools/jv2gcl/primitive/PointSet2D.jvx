@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE jvx-model SYSTEM "http://www.javaview.de/rsrc/jvx.dtd">
+<jvx-model>
+	<meta generator="JavaView v.2.49.016"/>
+	<meta date="Sun Feb 16 00:51:14 GMT+01:00 2003"/>
+	<version type="dump">0.10</version>
+	<title>Sample Point Set</title>
+	<geometries>
+		<geometry name="Sample Point Set">
+			<pointSet point="show" dim="2">
+				<points num="5">
+					<p>0.0 0.0</p>
+					<p>5.0 5.0</p>
+					<p>2.5 2.5</p>
+					<p>5.0 0.0</p>
+					<p>0.0 5.0</p>
+					<thickness>10.0</thickness>
+				</points>
+			</pointSet>
+		</geometry>
+	</geometries>
+</jvx-model>

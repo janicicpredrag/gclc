@@ -1,0 +1,55 @@
+% thmname Primer 84 iz \cite{chou}
+% thmnamee Example 84 from \cite{chou}
+
+% thmtext Prava koja prolazi kroz presek dijagonala paralelograma
+% thmtext $ABCD$ se\ch e prave odre\dj ene stranicama paralelograma
+% thmtext u ta\ch kama $E$, $F$, $G$ i $H$. Dokazati da je
+% thmtext $EF \cong GH$.
+
+% thmtexte A line passing through the intersection $O$ of the
+% thmtexte diagonals of parallelogram $ABCD$ meets the four sides
+% thmtexte at $E$, $F$, $G$, $H$. Show that $EF \cong GH$.
+
+dim 130 110
+
+point A 30 30
+point B 110 30
+point C 90 80
+
+line ab A B
+line bc B C
+parallel cd C ab
+parallel ad A bc
+intersec D cd ad
+
+online H' B C
+% skip
+point H 79.97 105.07
+
+line bd B D
+line ac A C
+intersec O ac bd
+line oh O H
+
+intersec F oh cd
+intersec G oh ab
+intersec E oh ad
+
+cmark_lb A
+cmark_b B
+cmark_r C
+cmark_t D
+cmark_lt F
+cmark_b O
+cmark_l H
+cmark_r E
+
+drawsegment A B
+drawsegment H B
+drawsegment C D
+drawsegment E D
+drawsegment E H
+drawsegment A C
+drawsegment B D
+
+% prove { equal { sratio E F G H } { 1 } }

@@ -1,0 +1,50 @@
+% thmname Primer 126 iz \cite{chou}
+% thmnamee Example 126 from \cite{chou}
+
+% thmtext 
+
+% thmtexte 
+
+dim 90 115
+
+point B 20 50
+point C 70 50
+point A 60 105
+
+med ma B C
+med mc A B
+intersec O ma mc
+
+circle k O B
+
+line oc O C
+line ob O B
+perp pc C oc
+perp pb B ob
+line c A B
+line b A C
+parallel rb B b
+parallel rc C c
+
+intersec B_1 pc rb
+intersec C_1 pb rc
+
+cmark_lb B
+cmark_rb C
+cmark_rt A
+cmark_rt O
+cmark_b B_1
+cmark_b C_1
+
+drawcircle k
+drawsegment B C
+drawsegment B O
+drawsegment O C
+drawsegment B A
+drawsegment A C
+drawsegment B C_1
+drawsegment B B_1
+drawsegment C C_1
+drawsegment C B_1
+
+% prove { equal { mult { segment B C } { segment B C } } { mult { segment B C_1 } { segment B_1 C } } }

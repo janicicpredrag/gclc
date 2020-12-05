@@ -1,0 +1,75 @@
+% thmname Primer 5.1 iz \cite{chou}
+% thmnamee Example 5.1 from \cite{chou}
+
+% thmtext Dat je kvadrat $ABCD$. Na pravoj koja
+% thmtext prolazi kroz teme $C$ i paralelna je
+% thmtext dijagonali kvadrata $BD$ izabrana je
+% thmtext ta\ch ka $E$ takva da je $BD \cong BE$.
+% thmtext Neka je $F$ presek prave $BE$ i prave $CD$.
+% thmtext Dokazati da je $DE \cong DF$.
+
+% thmtexte Let $ABCD$ be a square. $CG$ is parallel
+% thmtexte to the diagonal $BD$. Point $E$ is on
+% thmtexte $CG$ such that $BE \cong BD$. $F$ is the
+% thmtexte intersection of $BE$ and $DC$. Show that
+% thmtexte $DF \cong DE$.
+
+% thmnote Ova teorema ima dve razli\ch ite slike
+% thmnote (pogledati ta\ch ke $E_1$ i $F_1$).
+% thmnote Algebarski dokaz za obe konfiguracije je isti,
+% thmnote dok se elementarni dokaz razlikuje u zavisnosti
+% thmnote od izabrane slike.
+
+dim 110 60
+
+point A 59 20
+point B 78 20
+
+line ab A B
+perp p A ab
+
+circle k A B
+intersec2 D D_1 k p
+
+perp q D p
+perp r B ab
+
+intersec C q r
+
+line d B D
+parallel c C d
+
+circle k1 B D
+intersec2 E E_1 k1 c
+
+line be B E
+line cd C D
+intersec F be cd
+
+% skip
+line be1 B E_1
+% skip
+intersec F_1 be1 cd
+
+cmark_b A
+cmark_b B
+cmark_t D
+cmark_t C
+cmark_t E
+cmark_lb F
+cmark_rt E_1
+cmark_t F_1
+
+drawsegment A B
+drawsegment A D
+drawsegment C B
+drawsegment F_1 C
+drawsegment B D
+drawsegment B E
+drawsegment E D
+drawsegment C E
+drawsegment E E_1
+drawsegment F_1 E_1
+drawdashsegment D E_1
+
+% prove { equal { segment D F } { segment D E } }

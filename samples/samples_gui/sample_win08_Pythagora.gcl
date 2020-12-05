@@ -1,0 +1,227 @@
+dim 110 125 
+
+point A 30 60
+point B 80 60
+midpoint S A B
+
+point CC 0 100 100 100
+getx ind CC
+
+if_then_else { ind<50 }
+{
+   if_then_else { ind<25 }
+   {
+     expression phi { (50-ind)*2.2 }
+     rotate C S phi B
+   }
+   {
+     expression phi { ind*2.2 }
+     rotate C S phi B
+   }
+}
+{
+   rotate C S 110 B
+}
+%point C cx cy
+
+distance ac  A C
+distance bc  B C
+distance ab  A B
+
+if_then_else { ac==0 }
+{ set_equal AC1 A }
+{ turtle AC1 C A 90 ac }
+
+if_then_else { ac==0 }
+{ set_equal AC2 A }
+{ turtle AC2 A C 270 ac }
+
+if_then_else { bc==0 }
+{ set_equal BC1 B }
+{ turtle BC1 C B 270 bc }
+
+if_then_else { bc==0 }
+{ set_equal BC2 B }
+{ turtle BC2 B C 90 bc }
+
+turtle AB1 B A 270 ab
+turtle AB2 A B 90 ab
+
+line c A B
+if_then_else { bc==0 } { line a B AB2 } { line a B C }
+if_then_else { ac==0 } { line b A AB1 } { line b A C }
+perp n C c
+foot D C c
+line c1 AB1 AB2
+intersec E c1 n
+line e C E
+
+parallel a1 AB2 a
+parallel a2 A a
+parallel b1 AB1 b
+parallel b2 B b
+
+intersec F a1 b1
+intersec G a1 b2
+intersec H a2 b2
+intersec K a2 b1
+intersec U b1 a
+
+
+if_then_else { ind<=50 }
+{
+color 100 100 255
+filltriangle A D E
+filltriangle A AB1 E
+
+color 255 125 125
+filltriangle E AB2 B  
+filltriangle E D B
+
+color 100 100 255
+filltriangle A C AC1
+filltriangle C AC1 AC2
+
+color 255 125 125
+line FG F G 
+line AC A C
+intersec X FG AC 
+line BC B C 
+sim X BC X 
+sim Y BC G 
+filltriangle C B Y
+filltriangle C Y X
+}
+{
+if_then_else { ind<=60 }
+{
+color 100 100 255
+filltriangle A D E
+filltriangle A AB1 E
+
+color 255 125 125
+filltriangle E AB2 B  
+filltriangle E D B
+}
+{
+if_then_else { ind<=70 }
+{
+color 100 100 255
+filltriangle A F AB1 
+filltriangle A F D
+filltriangle A C D
+
+color 255 125 125
+filltriangle F AB2 B
+filltriangle F C B
+}
+{
+if_then_else { ind<=80 }
+{
+color 255 125 125
+line FG F G 
+line AC A C 
+intersec X FG AC 
+filltriangle C B X
+filltriangle G B X
+
+color 100 100 255
+filltriangle A K C
+filltriangle C K U
+filltriangle A C D
+}
+{
+if_then_else { ind<=90 }
+{
+color 100 100 255
+filltriangle A C AC1
+filltriangle C AC1 AC2
+
+color 255 125 125
+line FG F G 
+line AC A C
+intersec X FG AC 
+line BC B C 
+sim X BC X 
+sim Y BC G 
+filltriangle C B Y
+filltriangle C Y X
+}
+{
+color 100 100 255
+filltriangle A D E
+filltriangle A AB1 E
+
+filltriangle A C AC1
+filltriangle C AC1 AC2
+
+color 255 125 125
+filltriangle E AB2 B  
+filltriangle E D B
+
+line FG F G 
+line AC A C
+intersec X FG AC 
+line BC B C 
+sim X BC X 
+sim Y BC G 
+filltriangle C B Y
+filltriangle C Y X
+}
+}
+}
+}
+}
+
+
+color 0 0 0
+
+cmark_l A
+cmark_rb B
+cmark_t C
+%if_then_else { ac<bc }
+%{ cmark_rb D }
+%{ cmark_lb D }
+cmark AC1
+cmark AC2
+linethickness -3
+drawsegment A C
+normal
+drawsegment A AC1
+drawsegment AC2 C
+drawsegment AC1 AC2
+cmark BC1
+cmark BC2
+linethickness -3
+drawsegment B C
+normal
+drawsegment B BC1
+drawsegment BC2 C
+drawsegment BC1 BC2
+linethickness -3
+drawsegment A B
+normal
+drawsegment A AB1
+drawsegment AB2 B
+drawsegment AB1 AB2
+%cmark_rb E
+%cmark_lt F
+%cmark_t G
+%cmark_t H
+%cmark_t K
+%cmark AB1
+%cmark AB2
+%printat_l AB1 {A1}
+%printat_r AB2 {B1}
+
+drawsegment D E
+drawsegment C D
+drawline a
+drawline b
+drawline a1
+drawline a2
+drawline b1
+drawline b2
+
+animation_frames 99 10
+

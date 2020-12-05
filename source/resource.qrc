@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/build.png</file>
+        <file>icons/deduction_control.png</file>
+        <file>icons/document-new.png</file>
+        <file>icons/document-open.png</file>
+        <file>icons/document-save.png</file>
+        <file>icons/prooof-latex.png</file>
+        <file>icons/prooof-xml.png</file>
+        <file>icons/proving.png</file>
+        <file>icons/proving-area.png</file>
+        <file>icons/proving-groebner.png</file>
+        <file>icons/proving-wu.png</file>
+        <file>icons/watch.png</file>
+        <file>icons/zoom-in.png</file>
+        <file>icons/zoom-normal.png</file>
+        <file>icons/zoom-out.png</file>
+        <file>icons/media-playback-start.png</file>
+        <file>icons/media-playback-stop.png</file>
+        <file>icons/media-playback-pause.png</file>
+        <file>icons/free-points.png</file>
+        <file>icons/WinGCLC.ico</file>
+        <file>icons/WinGCLCDoc.ico</file>
+        <file>icons/help.png</file>
+        <file>manual/gclc_man.pdf</file>
+    </qresource>
+</RCC>

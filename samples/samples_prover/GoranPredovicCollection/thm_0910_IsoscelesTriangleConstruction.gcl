@@ -1,0 +1,39 @@
+% thmname Konstrukcija jednakostrani\ch nog trougla
+% thmnamee The Construction of Isosceles Triangle
+
+% thmtext Jednakonstani\ch ni trougao $ABC$ je konstruisan
+% thmtext tako \sh to je izabrana proizvoljna du\zh \ $AB$,
+% thmtext a zatim ta\ch ka $C$ odre\dj ena kao presek
+% thmtext simetrale du\zh i $AB$ i kruga sa centrom $A$
+% thmtext i polupre\ch nikom $AB$. Dokazati da je
+% thmtext ugao $\angle CAB$ jednak $60$ stepeni.
+
+% thmtexte Segment $AB$ is given. Let $m$ be median of $AB$
+% thmtexte and let circle $k$ be circle with center $A$ and
+% thmtexte half-diameter $B$. If $C$ is the intersection of
+% thmtexte circle $k$ and median $m$, show that triangle
+% thmtexte $ABC$ is isosceles.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+
+med c A B
+circle k A B
+
+intersec2 C C_1 k c
+
+cmark_b A
+cmark_rb B
+cmark_rt C
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+drawline c
+drawcircle k
+
+% prove { equal { mult { angle B A C } { angle B A C } } { 3 } }
+

@@ -1,0 +1,51 @@
+% thmname Leon-An teorema
+% thmnamee Leon Anne's Theorem
+
+% thmtext U ravni je dat \ch etvorouga $ABCD$. Neka su $M_1$ i $M_2$
+% thmtext sredi\sh ta dijagonala $AC$ i $BD$ i neka je $O$ proizvoljna
+% thmtext ta\ch ka na pravoj $M_1M_2$. Dokazati da je zbir povr\sh ina
+% thmtext trouglova $ABO$ i $CDO$ jednak polovini povr\sh ine 
+% thmtext \ch etvorougla $ABCD$.
+
+% thmtexte Given quadrilateral $ABCD$, let $M_1$ and $M_2$ be
+% thmtexte midpoints of diagonals $AC$ and $BD$, and let $O$
+% thmtexte be point on line $M_1M_2$. Show that the sum of
+% thmtexte areas of triangles $ABO$ and $CDO$ equals the half of the
+% thmtexte area of quadrilateral $ABCD$.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+point C 75 85 
+point D 40 65
+
+midpoint M_1 A C
+midpoint M_2 B D
+line m12 M_1 M_2
+% skip
+point O 31.05 61.90
+online O' M_1 M_2
+
+line ac A C
+line bd B D
+
+drawline ac
+drawline bd
+drawdashline m12
+
+cmark_b M_1
+cmark_b M_2
+cmark_t O
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+
+drawsegment A B
+drawsegment C B
+drawsegment C D
+drawsegment A D
+
+%% prove { equal { mult { 2 } { sum { signed_area3 A B O } { signed_area3 C D O } } } { sum { signed_area3 A B C } { signed_area3 A C D } } }
+% prove { equal { mult { 2 } { sum { signed_area3 A B O } { signed_area3 C D O } } } { signed_area4 A B C D } }

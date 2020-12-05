@@ -1,0 +1,36 @@
+// GCLCInput.h: interface for the CGCLCInput class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#if !defined(AFX_GCLCINPUT_H__3236E062_F952_11D6_8D20_FCAD996DA70D__INCLUDED_)
+#define AFX_GCLCINPUT_H__3236E062_F952_11D6_8D20_FCAD996DA70D__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+
+#include "GCompiler.h"
+
+
+class CGCLCInput  
+{
+public:
+	CGCLCInput();
+	virtual ~CGCLCInput();
+
+	// start read from the begining of the input
+	virtual void Reset() { 	m_iInputLine = 1; m_iPosition = 0; m_iGlobalPosition=1; };	
+	virtual GReturnValue ReadChar(char* c)=0;
+	virtual bool EndOfInputData()=0;
+
+	int GetCurrentLine()	{	return m_iInputLine;	}
+	int GetCurrentPosition()	{	return m_iPosition;	}
+	int GetCurrentGlobalPosition()	{	return m_iGlobalPosition;	}
+
+protected:	
+	int m_iInputLine, m_iPosition, m_iGlobalPosition;
+};
+
+
+#endif // !defined(AFX_GCLCINPUT_H__3236E062_F952_11D6_8D20_FCAD996DA70D__INCLUDED_)

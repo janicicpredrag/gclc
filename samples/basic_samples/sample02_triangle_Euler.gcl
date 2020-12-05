@@ -1,0 +1,67 @@
+point A 40 80 
+point B 30 30
+point C 100 30
+
+cmark_lt A
+cmark_lt B
+cmark_rt C 
+
+drawsegment A B
+drawsegment B C
+drawsegment C A
+
+line a B C
+line b A C
+line c A B
+
+midpoint A_1 B C
+midpoint B_1 A C
+midpoint C_1 A B
+
+cmark_rb A_1
+cmark_rt B_1
+cmark_lt C_1
+
+perp ha A a
+perp hb B b
+perp hc C c
+
+intersec D ha a
+intersec E hb b
+intersec F hc c 
+
+cmark_rb D
+cmark_rt E
+cmark_lt F
+
+drawsegment A D
+drawsegment B E
+drawsegment C F
+
+intersec H ha hb
+cmark_rb H
+
+midpoint D' A H
+midpoint E' B H
+midpoint F' C H
+
+cmark_r D'
+cmark_r E'
+cmark_b F'
+
+line ta A A_1
+line tb B B_1
+line tc C C_1
+
+intersec T ta tb
+cmark_r T 
+
+towards S H T 0.75
+cmark_l S
+drawcircle S D
+
+
+
+
+
+

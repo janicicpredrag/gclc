@@ -1,0 +1,59 @@
+% thmname Primer 69 iz \cite{chou}
+% thmnamee Example 69 from \cite{chou}
+
+% thmtext Dijagonale paralelograma i upisanog
+% thmtext paralelograma su konkurentne.
+
+% thmtexte The diagonals of a parallelogram and those
+% thmtexte of its inscribed parallelogram are concurrent.
+
+dim 130 100
+
+point A 20 20
+point B 90 20
+point C 110 70
+
+line ab A B
+line bc B C
+parallel cd C ab
+parallel ad A bc
+intersec D cd ad
+
+midpoint A_1 A B
+midpoint B_1 B C
+midpoint C_1 C D
+midpoint D_1 D A
+
+line ac A C
+line bd B D
+intersec O ac bd
+
+%line ac1 A_1 C_1
+%line bd1 B_1 D_1
+%intersec O_1 ac1 bd1
+
+cmark_b A
+cmark_b B
+cmark_b A_1
+cmark_t C
+cmark_t D
+cmark_t C_1
+cmark_r B_1
+cmark_l D_1
+cmark_b O
+
+drawsegment A B
+drawsegment B C
+drawsegment C D
+drawsegment D A
+drawsegment A_1 B_1
+drawsegment B_1 C_1
+drawsegment C_1 D_1
+drawsegment D_1 A_1
+drawdashsegment A C
+drawdashsegment B D
+drawdashsegment A_1 C_1
+drawdashsegment B_1 D_1
+
+% prove { collinear A_1 C_1 O }
+% prove { collinear D_1 B_1 O }

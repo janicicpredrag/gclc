@@ -1,0 +1,60 @@
+% thmname Primer 91 iz \cite{chou}
+% thmnamee Example 91 from \cite{chou}
+
+% thmtext Neka je $D$ ta\ch ka na stranici $BC$ pravouglog trougla
+% thmtext $ABC$ takva da krug sa centrom $O$ i pre\ch nikom $CD$
+% thmtext doti\ch e hipotenuzu $AB$ u ta\ch ki $E$. Neka je
+% thmtext $F = AC \cap DE$. Dokazati da je $AF \cong AE$.
+
+% thmnote Konstrukcija je izvedena tako \sh to su
+% thmnote ta\ch ke $C$ i $D$ izabrane proizvoljno,
+% thmnote ta\ch ka $E$ je izabrana proizvoljno na krugu
+% thmnote sa pre\ch nikom $CD$, a ostale ta\ch ke
+% thmnote tako da zadovoljavaju uslove konstrukcije.
+
+% thmtexte Let $D$ be a point on the side $CB$ of a right triangle
+% thmtexte $ABC$ such that the circle ($O$) with diameter $CD$
+% thmtexte touches the hypotenuses $AB$ at $E$. Let
+% thmtexte $F = AC \cap DE$. Show that $AF \cong AE$
+
+
+dim 130 110
+
+point C 20 30
+point D 70 30
+line cd C D
+midpoint O C D
+
+circle k O C
+oncircle E' O C
+
+% skip
+point E 53.34 53.57
+
+line oe O E
+perp ab E oe
+
+perp ac C cd
+intersec A ac ab
+
+intersec B ab cd
+
+line de D E
+intersec F de ac
+
+cmark_lb C
+cmark_b O
+cmark_rb D
+cmark_rt E
+cmark_l A
+cmark_b B
+cmark_l F
+
+drawcircle k
+drawsegment C B
+drawsegment A B
+drawsegment C F
+drawsegment O E
+drawsegment D F
+
+% prove { equal { segment A F } { segment A E } }

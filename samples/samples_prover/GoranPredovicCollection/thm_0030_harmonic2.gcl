@@ -1,0 +1,67 @@
+% thmname Harmoni\ch ne ta\ch ke 2
+% thmnamee Harmonic Points 2
+
+% thmtext Dat je \ch etvorougao $ABCD$. Neka je $K$ presek
+% thmtext pravih $AD$ i $BC$, $L$ presek pravih $AB$ i
+% thmtext $CD$, $F$ presek pravih $KL$ i $FD$ i $G$ presek
+% thmtext pravih $KL$ i $AC$. Dokazati da je \ch etvorka
+% thmtext $LFKG$ harmonijski spregnuta, odnosno da je
+% thmtext $\frac{\overline{LK}}{\overline{KF}} = \frac{\overline{GL}}{\overline{GF}}$.
+
+% thmtexte Given four points $A$, $B$, $C$ and $D$,
+% thmtexte points of intersections are formed: $L = AB \cap CD$, 
+% thmtexte $K = AC \cap BC$, $F = KL \cap BD$ and $G = KL \cap AC$.
+% thmtexte Show that segment $KL$ is harmonically divided by
+% thmtexte the points $F$ and $G$, ie:
+% thmtexte $\frac{\overline{LK}}{\overline{KF}} = \frac{\overline{GL}}{\overline{GF}}$.
+
+% thmnote Isti primer je ponovljen sa druga\ch ijom konfiguracijom. Obratiti pa\zh nju
+% thmnote na sliku, odabir koordinata i kompleksnost dokaza.
+
+dim 130 50
+
+point A 30 32
+point B 40 40
+point C 48 28
+point D 40 25
+
+cmark_lt A
+cmark_t B
+cmark_rt C
+cmark_lb D
+
+% point L
+line AB A B
+line CD C D
+intersec L AB CD
+cmark_b L
+
+% point K
+line AD A D
+line BC B C
+intersec K AD BC
+cmark_b K
+
+% point F
+line BD B D
+line KL K L
+intersec F BD KL
+cmark_b F
+
+% point G
+line AC A C
+intersec G AC KL
+cmark_b G
+
+drawsegment B L
+drawsegment C L
+drawsegment A K
+drawsegment B K
+drawsegment B F
+drawsegment A G
+%drawsegment L G
+
+line lkfg L K
+drawdashline lkfg
+
+% prove { harmonic L K F G }

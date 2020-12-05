@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT main_proof (proof_title,definitions,proof,status,NDGconditions,prover_report)>
+
+<!--******** Proof title **************-->
+<!ELEMENT proof_title (#PCDATA)>
+
+<!--******** Definitions **************-->
+<!ELEMENT definitions (definition)*>
+<!ELEMENT definition (#PCDATA)>
+
+<!--******** Proof **************-->
+<!ELEMENT proof (proof_step|lemma)*>
+<!ELEMENT proof_step (equality,explanation,semantics)>
+
+<!ELEMENT lemma (proof,status)>
+<!ATTLIST lemma level CDATA #REQUIRED>
+
+<!ELEMENT equality (expression,expression)>
+<!ELEMENT inequality (expression,expression)>
+
+<!ELEMENT expression (number|constant|sum|mult|fraction|segment_ratio|signed_area3|
+		signed_area4|pythagoras_difference3|pythagoras_difference4)>
+<!ELEMENT number (#PCDATA)>
+<!ELEMENT constant (#PCDATA)>
+<!ELEMENT sum (expression,expression)>
+<!ELEMENT mult (expression,expression)>
+<!ELEMENT fraction (expression,expression)>
+<!ELEMENT segment_ratio (segment,segment)>
+<!ELEMENT segment (point,point)>
+<!ELEMENT point (#PCDATA)>
+<!ELEMENT signed_area3 (point,point,point)>
+<!ELEMENT signed_area4 (point,point,point,point)>
+<!ELEMENT pythagoras_difference3 (point,point,point)>
+<!ELEMENT pythagoras_difference4 (point,point,point,point)>
+
+<!ELEMENT explanation (#PCDATA)>
+
+<!ELEMENT semantics (value,value)>
+<!ELEMENT value (#PCDATA)>
+
+
+
+<!ELEMENT status EMPTY>
+<!ATTLIST status 
+		 value (proved | disproved | failed) #REQUIRED>
+
+<!ELEMENT NDGconditions (NDGcondition)*>
+<!ELEMENT NDGcondition ((equality|inequality),explanation)>
+
+
+<!ELEMENT prover_report (elimination_steps,geometrical_steps,algebraic_steps,total_number_of_steps,time)>
+<!ELEMENT elimination_steps (#PCDATA)>
+<!ELEMENT geometrical_steps (#PCDATA)>
+<!ELEMENT algebraic_steps (#PCDATA)>
+<!ELEMENT total_number_of_steps (#PCDATA)>
+<!ELEMENT time (#PCDATA)>
+
+
+
+
+
+
+

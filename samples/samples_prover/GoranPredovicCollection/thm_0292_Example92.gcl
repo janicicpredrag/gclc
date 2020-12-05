@@ -1,0 +1,57 @@
+% thmname Primer 92 iz \cite{chou}
+% thmnamee Example 92 from \cite{chou}
+
+% thmtext Sa pre\ch nika $CD$ kruga sa centrom $O$, spu\sh tene
+% thmtext su normale $CE$ i $DF$ na tetivu $AB$. Dokazati
+% thmtext da je $OE \cong OF$.
+
+% thmnote Konstrukcija je izvedena tako \sh to su izabrane
+% thmnote proizvoljne ta\ch ke $A$, $B$, $X$, $Y$ i $Z$. Centar
+% thmnote kruga je odre\dj en kao presek prave $XY$ i simetrale
+% thmnote du\zh i $AB$. Pre\ch nik $CD$ je odre\dj en kao
+% thmnote presek prave $OZ$ i kruga.
+
+% thmtexte From the ends $D$ and $C$ of a diameter of circle $(O)$
+% thmtexte perpendiculars are drawn to chort $AB$. Let $E$ and $F$
+% thmtexte be the feet of the perpendiculars. Show that
+% thmtexte $OE \cong OF$.
+
+dim 130 110
+
+point A 25 30
+point B 105 30
+point X 100 100
+point Y 92 90
+line xy X Y
+
+med m A B
+intersec O m xy
+circle k O A
+
+point Z 80 80
+line cd O Z
+
+intersec2 D C k cd
+
+line ab A B
+foot E C ab
+foot F D ab
+
+cmark_lb A
+cmark_rb B
+cmark_lt O
+cmark_lb C
+cmark_rt D
+cmark_t E
+cmark_b F
+
+drawcircle k
+
+drawdashsegment O E
+drawdashsegment O F
+drawsegment A B
+drawsegment C D
+drawsegment C E
+drawsegment D F
+
+% prove { equal { segment O E } { segment O F } }

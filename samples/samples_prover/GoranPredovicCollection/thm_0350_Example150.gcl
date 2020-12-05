@@ -1,0 +1,47 @@
+% thmname Primer 150 iz \cite{chou}
+% thmnamee Example 150 from \cite{chou}
+
+% thmtext Neka je $G$ te\zh i\sh te trougla $ABC$ i
+% thmtext neka je $M$ proizvoljna ta\ch ka u ravni.
+% thmtext Dokazati da je:
+% thmtext $3 \cdot MG^2 + AG^2 + BG^2 + CG^2 = AM^2 + BM^2 + CM^2$.
+
+% thmtexte If $G$ is a centroid of triangle $ABC$,
+% thmtexte show that for any given point $M$:
+% thmtexte $3 \cdot MG^2 + AG^2 + BG^2 + CG^2 = AM^2 + BM^2 + CM^2$.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 40 88
+point M 93 90
+
+midpoint F A B
+midpoint E A C
+midpoint D B C
+
+line cf C F
+line ad A D
+intersec G ad cf
+
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_t M
+cmark_lt G
+cmark_b F
+cmark_lt E
+cmark_rt D
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment M B
+drawsegment C M
+drawsegment C F
+drawsegment A D
+drawsegment B E
+drawsegment G M
+
+% prove { equal { sum { mult { segment M G } { 3 } } { sum { segment A G } { sum { segment C G } { segment B G } } } } { sum { segment A M } { sum { segment B M } { segment C M } } } }

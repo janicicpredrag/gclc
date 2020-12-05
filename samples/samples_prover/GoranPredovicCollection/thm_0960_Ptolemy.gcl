@@ -1,0 +1,48 @@
+% thmname Ptolomejeva teorema
+% thmnamee Ptolemy's Theorem
+
+% thmtext Proizvod dijagonala \ch etvorougla upisanog u krug jednak je
+% thmtext zbiru proizvoda naspramnih stranica.
+
+% thmnote Dokaza\cj emo slabije tvr\dj enje, da je algebarska suma tri
+% thmnote proizvoda iz zadatka jednaka nuli (odnosno da je jedan
+% thmnote od njih jednak zbiru druga dva).
+
+% thmtexte Let a quadrilateral $ABCD$ be inscribed in a circle. 
+% thmtexte Then the sum of the products of the two pairs of 
+% thmtexte opposite sides equals the product of its 
+% thmtexte two diagonals. In other words,
+% thmtexte $AD \cdot BC + AB \cdot CD = AC \cdot BD$.
+
+dim 110 95
+
+point A 20 30
+point B 90 30
+point C 60 80
+
+med p A B
+med q B C      
+intersec O p q
+circle k O A
+
+oncircle D' O A
+% skip
+point D 30.42 71.10
+
+cmark_lb A
+cmark_rb B
+cmark_rt C
+cmark_lt D
+cmark_b O
+
+drawsegment A B
+drawsegment A D
+drawsegment A D
+drawsegment C B
+drawsegment D B
+drawsegment C D
+drawsegment C A
+
+drawcircle k
+
+% prove { alg_sum_zero3 { mult { segment A B } { segment C D } } { mult { segment A D } { segment B C } } { mult { segment A C } { segment B D } } }

@@ -1,0 +1,84 @@
+% thmname Paposov heksagon
+% thmnamee Pappus Hexagon Theorem
+
+% thmtext Na pravoj $p$ su date ta\ch ke $A$, $B$ i $C$,
+% thmtext dok su na pravoj $q$ date ta\ch ke $A_1$, $B_1$
+% thmtext i $C_1$. Neka je $P = AB_1 \cap A_1B$,
+% thmtext $Q = AC_1 \cap A_1C$ i $R = BC_1 \cap B_1C$.
+% thmtext Dokazati da su ta\ch ke $P$, $Q$ i $R$
+% thmtext kolinearne.
+
+% thmnote Ova teorema je posledica Paskalove teoreme
+% thmnote za krive drugog reda. Dve prave su specijalan
+% thmnote slu\ch aj krive drugog reda.
+
+% thmtexte Let $A$, $B$ and $C$ be three points on the
+% thmtexte line $p$, and let $A_1$, $B_1$ and $C_1$ be
+% thmtexte three points on the line $q$. Following intersections are created:
+% thmtexte $P = AB_1 \cap A_1B$, $Q = AC_1 \cap A_1C$ and
+% thmtexte $R = BC_1 \cap B_1C$. Show that points
+% thmtexte $P$, $Q$ and $R$ are collinear.
+
+dim 110 90
+
+point A 40 10
+point B 90 10 
+online C' A B
+% skip
+point C 14.10 10
+
+point A_1 35.20 38.20
+point B_1 76.80 64.60
+online C_1' A_1 B_1
+% skip
+point C_1 48.30 46.39
+
+line A_1B_1 A_1 B_1 
+
+line AB_1 A B_1
+line AC_1' A C_1'
+% skip
+line AC_1 A C_1
+line BA_1 B A_1
+line BC_1' B C_1'
+% skip
+line BC_1 B C_1
+line CA_1' C' A_1
+% skip
+line CA_1 C A_1
+line CB_1' C' B_1
+% skip
+line CB_1 C B_1
+
+intersec P AB_1 BA_1
+intersec Q' AC_1' CA_1'
+% skip
+intersec Q AC_1 CA_1
+intersec S' BC_1' CB_1'
+% skip
+intersec S BC_1 CB_1
+
+cmark_b A
+cmark_b B
+cmark_b C
+
+cmark_lt A_1
+cmark_rb B_1
+cmark_l C_1
+
+cmark_rb P
+cmark_r Q
+cmark_r S
+
+drawdashline P S
+drawsegment A B_1
+drawsegment A Q
+drawsegment B A_1
+drawsegment B C_1
+drawsegment C Q
+drawsegment C B_1
+drawline A_1 C_1
+drawline A C
+
+% prove { collinear P Q S }
+

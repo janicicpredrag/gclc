@@ -1,0 +1,64 @@
+% thmname Primer 123 iz \cite{chou}
+% thmnamee Example 123 from \cite{chou}
+
+% thmtext Neka je $P$ proizvoljna ta\ch ka
+% thmtext na polukrugu sa pre\ch nikom $AB$.
+% thmtext Ako su $C$ i $D$ ta\ch ke na polukrugu
+% thmtext takve da su lukovi $BC$ i $CD$ jednaki,
+% thmtext i ako su $E$ i $F$ prese\ch ne ta\ch ke
+% thmtext pravih $AC$ i $PB$, odnosno pravih $AD$
+% thmtext i $PC$, dokazati da se prave $EF$ i
+% thmtext $AD$ seku pod pravim uglom.
+
+% thmtexte If $P$ is any point on a semicircle,
+% thmtexte diameter $AB$, and $BC$, $CD$ are two
+% thmtexte equal arcs, then if $E = CA \cap PB$,
+% thmtexte $F = AD \cap PC$, prove that $AD$
+% thmtexte is perpendicular to $EF$.
+
+dim 110 110
+
+point A 20 55
+point B 90 55
+
+midpoint O A B
+
+circle k O A
+
+% skip
+point D 32.62 81.91
+oncircle D' O A
+
+med p B D
+intersec2 C C1 p k
+
+% skip
+point P 22.36 67.63
+oncircle P' O A
+
+line pb P B
+line ca C A
+intersec E ca pb
+
+line ad A D
+line pc P C
+intersec F ad pc
+
+cmark_l P
+cmark_lt F
+cmark_b E
+cmark_t D
+cmark_rt C
+cmark_lb A
+cmark_rb B
+cmark_b O
+
+drawsegment A B
+drawcircle k
+drawsegment A D
+drawsegment A C
+drawsegment P B
+drawsegment P C
+drawdashsegment F E
+
+% prove { perpendicular E F A D }

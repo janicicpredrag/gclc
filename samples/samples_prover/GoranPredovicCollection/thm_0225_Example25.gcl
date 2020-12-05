@@ -1,0 +1,73 @@
+% thmname Primer 25 iz \cite{chou}
+% thmnamee Example 25 from \cite{chou}
+
+% thmtext Proizvoljna prava se\ch e stranice trougla
+% thmtext $ABC$ u ta\ch kama $D$, $E$ i $F$. Neka su
+% thmtext $P$, $Q$ i $R$ sredi\sh ta du\zh i $EF$, $FD$ i $DE$.
+% thmtext Dalje, neka prave $AP$, $BQ$ i $CR$ seku prave
+% thmtext $BC$, $CA$ i $AB$ u ta\ch kama $X$, $Y$ i $Z$.
+% thmtext Dokazati da su $X$, $Y$ i $Z$ kolinearne.
+
+% thmtexte A tranversal curs the sides $BC$, $CA$, $AB$
+% thmtexte of triangle $ABC$ in $D$, $E$, $F$. $P$, 
+% thmtexte $Q$, $R$ are the midpoints of $EF$, $FD$,
+% thmtexte $DE$ and $AP$, $BQ$, $CR$ intersec $BC$, $CA$,
+% thmtexte $AB$ in $X$, $Y$, $Z$. Show that $X$, $Y$, $Z$ are collinear.
+
+dim 150 110
+
+point A 20 20
+point B 70 20
+point C 60 70
+
+line ab A B
+line bc B C
+line ac A C
+
+% skip
+point F 63 20
+online F' A B
+online D' B C
+% skip
+point D 66.06 39.70
+line fd F D
+
+intersec E fd ac
+
+midpoint P E F
+midpoint Q F D
+midpoint R D E
+
+line ap A P
+line bq B Q
+line cr C R
+
+intersec X ap bc
+intersec Y bq ac
+intersec Z cr ab
+
+line xyz X Y
+drawdashline xyz
+
+cmark_lb X
+cmark_t Y
+cmark_b Z
+cmark_r P
+cmark_l Q
+cmark_r R
+cmark_t E
+cmark_b F
+cmark_r D
+cmark_b A
+cmark_b B
+cmark_t C
+
+drawsegment A P
+drawsegment B Y
+drawsegment C Z
+drawsegment A Z
+drawsegment C B
+drawsegment A E
+drawsegment F E
+
+% prove { collinear X Y Z }

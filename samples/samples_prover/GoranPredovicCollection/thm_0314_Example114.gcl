@@ -1,0 +1,54 @@
+% thmname Primer 114 iz \cite{chou}
+% thmnamee Example 114 from \cite{chou}
+
+% thmtext Na krugu sa pre\ch nikom $AB$ data je
+% thmtext ta\ch ka $F$. Tangenta iz ta\ch ke $F$
+% thmtext se\ch e normale na pravu $AB$ povu\ch ene
+% thmtext iz ta\ch aka $A$ i $B$ u ta\ch kama
+% thmtext $D$ i $E$.
+% thmtext Dokazati da je:
+% thmtext $OA^2 = DF \cdot EF$.
+
+% thmtexte Through point $F$ on the circle with
+% thmtexte diameter $AB$ a tangent to the circle
+% thmtexte is drawn meeting the two lines,
+% thmtexte perpendicular to $AB$ at $A$ and $B$,
+% thmtexte at $D$ and $E$. Show that:
+% thmtexte $OA^2 = DF \cdot EF$.
+
+dim 110 110
+
+point A 20 45
+point B 90 45
+
+midpoint O A B
+circle k O A
+
+% skip
+point F 48.77 79.44
+oncircle F' O A
+line ab A B
+line f F O
+
+perp de F f
+perp ad A ab
+perp be B ab
+
+intersec D ad de
+intersec E be de
+
+cmark_l A
+cmark_r B
+cmark_b O
+cmark_lt F
+cmark_t D
+cmark_t E
+
+drawsegment A B
+drawsegment O F
+drawsegment D E
+drawsegment E B
+drawsegment A D
+drawcircle k
+
+% prove { equal { mult { segment O A } { segment O A } } { mult { segment D F } { segment E F } } }

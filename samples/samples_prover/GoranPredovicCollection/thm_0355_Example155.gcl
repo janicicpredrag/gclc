@@ -1,0 +1,63 @@
+% thmname Primer 155 iz \cite{chou}
+% thmnamee Example 155 from \cite{chou}
+
+% thmtext Centar upisanog i centar ekterno upisanog
+% thmtext kruga dele simetralu ugla na kojoj se nalaze
+% thmtext u harmoni\ch nom odnosu. Odnosno, ta\ch ke
+% thmtext $C$, $D$, $I$ i $I_c$ su harmonijski spregnute.
+
+% thmtexte Two tritangent centers divide the bisector
+% thmtexte on which they are located, harmonically
+% thmtexte (ie, points $C$, $D$, $I$ and $I_c$
+% thmtexte are harmonic).
+
+dim 120 110
+
+point A 20 63
+point B 85 63
+point C 28 98
+
+bis sc A C B
+bis sa B A C
+perp sa_1 A sa
+line c A B
+
+intersec I sa sc
+intersec I_c sa_1 sc
+intersec D sc c
+
+% skip
+foot X I c
+% skip
+foot Y I_c c
+% skip
+circle k I X
+% skip
+circle k1 I_c Y
+% skip
+towards A1 C A 10
+% skip
+towards B1 C B 10
+
+drawdashsegment A A1
+drawdashsegment B B1
+drawdashcircle k
+drawdashcircle k1
+
+cmark_lt A
+cmark_rt B
+cmark_t C
+cmark_rt I
+cmark_lb D
+cmark_rt I_c
+
+drawsegment A C
+drawsegment C B
+drawsegment A B
+drawsegment C I_c
+drawsegment A I
+drawsegment B I
+drawsegment A I_c
+
+% prove { harmonic C D I I_c }
+

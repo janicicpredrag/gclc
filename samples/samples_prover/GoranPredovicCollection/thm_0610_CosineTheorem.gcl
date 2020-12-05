@@ -1,0 +1,48 @@
+% thmname Kosinusna teorema
+% thmnamee The Law of Cosine
+
+% thmtext $c^2 + b^2 - 2bc \cos \alpha = a^2$
+
+% thmtexte $c^2 + b^2 - 2bc \cos \alpha = a^2$
+
+% thmnote $\cos \alpha = \frac{CD}{AC}$
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 70 90
+
+line c A B
+foot D C c
+
+cmark_b A
+cmark_b B
+cmark_b D
+cmark_t C
+
+drawsegment C D
+drawsegment A B
+drawsegment C B
+drawsegment A C
+
+% skip
+point a 83.00 58.40
+printat a { a }
+% skip
+point b 42.40 61.00
+printat b { b }
+% skip
+point c 57.90 28.20
+printat c { c }
+% skip
+point al 30.00 34.10
+printat al { \alpha }
+% skip
+point x 40 30
+drawarc A x 50
+% skip
+point xx 41 30
+drawarc A xx 50
+
+% prove { equal { mult { mult { sum { mult { -1 } { segment C B } } { sum { segment A C } { segment B A } } } { sum { mult { -1 } { segment C B } } { sum { segment A C } { segment B A } } } } { segment A C } } { mult { 4 } { mult { segment A C } { mult { segment B A } { segment A D } } } } }

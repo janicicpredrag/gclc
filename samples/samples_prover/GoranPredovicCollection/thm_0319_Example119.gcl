@@ -1,0 +1,49 @@
+% thmname Primer 119 iz \cite{chou}
+% thmnamee Example 119 from \cite{chou}
+
+% thmtext Neka je $P$ ta\ch ka na krugu opisanom oko
+% thmtext jednakostrani\ch nog trougla $ABC$. Dokazati da me\dj u
+% thmtext tri du\zh i $PA$, $PB$ i $PC$, jedna je jednaka
+% thmtext sumi druge dve.
+
+% thmnote Dovoljno je pokazati da je algebarska suma du\zh i
+% thmnote $PA$, $PB$ i $PC$ jednaka nuli.
+
+% thmtexte Of the three lines joining the vertices
+% thmtexte of an equilateral triangle to a point
+% thmtexte on its circumcircle, one is equal to the
+% thmtexte sum of the other two.
+
+dim 110 100
+
+point A 20 30
+point B 90 30
+
+circle k A B
+med mc A B
+intersec2 C C1 k mc
+
+med mb A C
+intersec O mc mb
+
+circle k1 O A
+
+oncircle P' O A
+% skip
+point P 75.80 84.86
+
+cmark_lb A
+cmark_rb B
+cmark_rt P
+cmark_b O
+cmark_t C
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawdashsegment P A
+drawdashsegment P B
+drawdashsegment P C
+drawcircle k1
+
+% prove { alg_sum_zero3 { segment P A } { segment P B } { segment P C } }

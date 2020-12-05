@@ -1,0 +1,61 @@
+background 230 230 190    
+
+point color_ref0 0 0 200 0
+point color_ref1 200 0
+distance d color_ref0 color_ref1 
+
+number     r1 0 
+expression g1 { 200-d }
+expression b1 { d }
+
+number     r2 200 
+expression g2 { 200-d }
+number     b2 0
+
+
+point O  0 0 
+point X 40 0 % circle radius 
+
+point O1 30 90 100 30  
+translate P1 O X O1
+circle k1 O1 P1
+
+point O2 35 25 100 90  
+translate P2 O X O2
+circle k2 O2 P2
+
+intersec2 X1 X2 k1 k2
+
+color r1 g1 b1
+fillcircle O1 P1
+
+color r2 g2 b2
+fillcircle O2 P2
+
+expression r { (r1+r2)/2 }
+expression g { (g1+g2)/2 }
+expression b { (b1+b2)/2 }
+
+angle_o alpha X1 O1 X2
+color r g b
+if_then_else { alpha > 0 && alpha < 180 }
+{
+	fillarc0 O1 X1 alpha
+}
+{
+	angle_o alpha X2 O1 X1
+	fillarc0 O1 X2 alpha
+}
+
+angle_o alpha X1 O2 X2
+if_then_else { alpha > 0 && alpha < 180 }
+{
+	fillarc0 O2 X1 alpha
+}
+{
+	angle_o alpha X2 O2 X1
+	fillarc0 O2 X2 alpha
+}
+
+animation_frames 100 10
+

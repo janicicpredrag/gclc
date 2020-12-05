@@ -1,0 +1,50 @@
+% thmname Paralelogram teorema 2
+% thmnamee Parallelogram Theorem 2
+
+% thmtext U ravni je dat trougao $ABC$. Neka
+% thmtext je prava $p$ paralela na $BC$ iz ta\ch ke $A$
+% thmtext i neka je prava $q$ paralela na $AVB$ iz
+% thmtext tacke $C$. Neka je $D$ presek pravih $p$ i $q$ i
+% thmtext neka je $E$ presek pravih $AC$ i $BCD$.
+% thmtext Dokazati da je $\overline{AE} = \overline{EC}$.
+
+% thmtexte Given triangle $ABC$, let $p$ be line through $A$ parallel
+% thmtexte with $BC$, and let $q$ be line through $C$ parallel
+% thmtexte with $AB$. Let $p$ and $q$ intersects at $D$. 
+% thmtexte Let $BD$ intersect $AC$ at $E$. Show that:
+% thmtexte $\overline{AE} = \overline{EC}$.
+
+dim 130 70
+
+point A 20 20
+point B 80 20
+point C 97.60 51.50
+
+line ab A B
+line bc B C
+
+parallel p A bc
+parallel q C ab
+
+intersec D p q
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+
+drawsegment A B
+drawsegment C B
+drawsegment A D
+drawsegment C D
+
+line ac A C
+line bd B D
+intersec E ac bd
+cmark_t E
+
+drawdashsegment A C
+drawdashsegment B D
+
+% prove { equal { sratio A E E C } { 1 } }
+% prove { same_length A E E C }

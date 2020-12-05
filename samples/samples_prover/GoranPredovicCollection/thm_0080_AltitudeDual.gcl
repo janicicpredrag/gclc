@@ -1,0 +1,72 @@
+% thmname Dualna teorema visinama trougla
+% thmnamee Dual Altitude Theorem
+
+
+% thmtext Dat je trougao $ABC$ i ta\ch ka $O$ u
+% thmtext istoj ravni. Neka su $p$, $q$ i $r$
+% thmtext prave koje prolaze kroz $O$ i normalne su
+% thmtext sa pravama $OA$, $OB$ i $OC$ redom.
+% thmtext Neka su $D$, $E$ i $F$ prese\ch ne ta\ch ke
+% thmtext pravih $p$, $q$ i $r$ sa pravama
+% thmtext $BC$, $AC$ i $BC$ redom. Dokazati da su
+% thmtext $D$, $E$ i $F$ kolinearne.
+
+% thmtexte Triangle $ABC$ and point $O$ are given.
+% thmtexte Let $p$, $q$ and $r$ be lines through the point
+% thmtexte $O$ which are perpendicular with lines $OA$, $OB$ and
+% thmtexte $OC$ respectively. Let $D$, $E$, and $F$ be
+% thmtexte intersections of lines $p$, $q$ and $r$ with lines
+% thmtexte $BC$, $AC$ and $BC$ respectively. Show that
+% thmtexte $D$, $E$ and $F$ are collinear.
+
+dim 100 80
+
+point A 20 20
+point B 80 20
+point C 40 60
+point O 75 45
+
+line bc B C
+line ca C A
+line ab A B
+
+line oa O A
+perp od O oa
+intersec D od bc
+
+line ob O B
+perp oe O ob
+intersec E oe ca
+
+line oc O C
+perp of O oc
+intersec F of ab
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_r O
+cmark_b D
+cmark_t E
+cmark_b F
+
+drawsegment A B
+drawsegment D C
+drawsegment C A
+
+%drawdashline od
+%drawdashline oe
+%drawdashline of
+
+drawsegment O A
+drawsegment O B
+drawsegment O C
+
+drawdashsegment O E
+drawdashsegment O F
+drawdashsegment O D
+
+line def D E
+drawdashline def
+
+% prove { collinear D E F }

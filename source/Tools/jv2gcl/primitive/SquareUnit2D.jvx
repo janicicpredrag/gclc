@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<jvx-model>
+	<meta generator="JavaView v.2.00.a5"/>
+	<meta date="Sun Oct 29 16:35:59 GMT+01:00 2000"/>
+	<version type="dump">0.10</version>
+	<title>Rectangle 2D</title>
+	<geometries>
+		<geometry name="Rectangle 2D">
+			<pointSet point="show" dim="2">
+				<points num="4">
+					<p>0.0 0.0</p>
+					<p>1.0 0.0</p>
+					<p>1.0 1.0</p>
+					<p>0.0 1.0</p>
+					<thickness>6.0</thickness>
+					<color type="rgb">255 255 0</color>
+				</points>
+			</pointSet>
+			<faceSet face="show" edge="show">
+				<faces num="1">
+					<f>0 1 2 3</f>
+					<color type="rgb">0 175 0</color>
+				</faces>
+			</faceSet>
+		</geometry>
+	</geometries>
+</jvx-model>
+

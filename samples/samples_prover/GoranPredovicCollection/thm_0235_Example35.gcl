@@ -1,0 +1,54 @@
+% thmname Primer 35 iz \cite{chou}
+% thmnamee Example 35 from \cite{chou}
+
+% thmtext Neka je $ABC$ jednakostrani\ch ni trougao upisan
+% thmtext u krug sa centrom $O$, i neka je $P$ proizvoljna ta\ch ka na krugu. Dokazati
+% thmtext da Simsonova linija iz ta\ch ke $P$ polovi polupre\ch nik $PO$.
+
+% thmtexte Let $ABC$ be an equilateral triangle inscribed in a circle
+% thmtexte with center $O$, and let $P$ be any point on the circle.
+% thmtexte Then the Simson line of $P$ bisects the radius $OP$.
+
+dim 130 110
+
+point A 30 30
+point B 100 30
+
+circle k1 A B
+med mc A B
+intersec2 C C1 k1 mc
+
+med mb A C
+intersec O mc mb
+
+circle k O A
+
+oncircle P' O A
+% skip
+point P 105.25 53.81
+
+line cb C B
+line ac A C
+foot D P cb
+foot E P ac
+line de D E
+line po P O
+intersec I po de
+
+cmark_b I
+drawline de
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t O
+cmark_r P
+cmark_rt D
+cmark_l E
+drawdashsegment P O
+
+drawcircle k
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+% prove { equal { sratio O I I P } { 1 } }

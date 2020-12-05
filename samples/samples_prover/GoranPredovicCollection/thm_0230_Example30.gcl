@@ -1,0 +1,55 @@
+% thmname Primer 30 iz \cite{chou}
+% thmnamee Example 30 from \cite{chou}
+
+% thmtext Neka su $H$ i $O$ ortocentar i centar opisanog
+% thmtext kruga trougla $ABC$.
+% thmtext Dokazati da je $\angle HAO = |\angle B - \angle C|$.
+
+% thmtexte Let $H$ and $O$ be the orthocenter
+% thmtexte and circumcenter of triangle $ABC$.
+% thmtexte Show
+% thmtexte $\angle HAC = | \angle B - \angle C |$.
+
+dim 130 110
+
+point C 20 30
+point B 110 30
+point A 90 95
+
+line ab A B
+line ac A C
+line bc B C
+
+foot D A bc
+% skip
+foot B_1 B ac
+% skip
+line ha A D
+% skip
+line hb B B_1
+% skip
+intersec H ha hb
+
+med ma A B
+med mb A C
+intersec O ma mb
+
+% skip
+circle k O A
+
+cmark_lb C
+cmark_rb B
+cmark_rt A
+cmark_r H
+cmark_l O
+cmark_b D
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+drawsegment A D
+drawcircle k
+drawsegment O A
+drawsegment H A
+
+% prove { equal { sum { angle O A D } { mult { mult { mult { angle A B C } { angle O A D } } { angle A C B } } { -1 } } } { sum { angle A B C } { angle A C B } } }

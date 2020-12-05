@@ -1,0 +1,63 @@
+% thmname Primer 88 iz \cite{chou}
+% thmnamee Example 88 from \cite{chou}
+
+% thmtext Data je ta\ch ka $D$ na osnovi $AC$ jednakostrani\ch nog
+% thmtext trougla $ABC$. Neka su $E$ i $F$ podno\zh ja normala
+% thmtext iz ta\ch ke $D$ na stranice $AB$ i $BC$ i neka je
+% thmtext $H$ podno\zh je visine trougla $ABC$ iz temena $C$.
+% thmtext Dokazati da je zbir du\zh i $DE$ i $DF$ jednak visini
+% thmtext $CH$.
+
+% thmnote Dovoljno je dokazati da je algebarska suma du\zh i
+% thmnote $DE$, $DF$ i $CH$ jednaka nuli.
+
+% thmtexte Show that the sum of distances of a point
+% thmtexte on the base of an isosceles triangle to its
+% thmtexte two sides is equal to the altitudes on the
+% thmtexte sides.
+
+dim 110 80
+
+point A 20 20
+point B 90 20
+
+% skip
+point C 33.17 60.88
+oncircle C' B A
+
+% skip
+point D 23.73 31.58
+online D' A C
+
+line ab A B
+% skip
+line bc B C
+line bc' B C'
+
+% skip
+foot E D ab
+% skip
+foot F D bc
+% skip
+foot H C ab
+
+foot E' D' ab
+foot F' D' bc'
+foot H' C' ab
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_l D
+cmark_b H
+cmark_b E
+cmark_rt F
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C H
+drawsegment D E
+drawsegment D F
+
+% prove { alg_sum_zero3 { segment D E } { segment D F } { segment C H } }

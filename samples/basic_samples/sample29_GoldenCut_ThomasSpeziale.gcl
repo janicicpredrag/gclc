@@ -1,0 +1,37 @@
+dim 208 135
+
+point LL 10 10
+point UL 10 125
+expression phi {(1+sqrt(5))/2}
+fontsize 16
+printat_rt UL {Golden Spiral}
+
+circleprecision 360
+
+number n 0
+while {n < 18}
+{
+	rotate pivot LL -90 UL
+	rotate pivotmirror UL 90 LL
+	towards LR LL pivot phi
+	towards UR UL pivotmirror phi
+
+	distance d LL UL
+	distance long LL LR
+	expression d {d/long}
+
+	drawsegment LL UL
+	drawsegment LL LR
+	
+	drawsegment UL UR
+	drawsegment UR LR
+	drawsegment pivot pivotmirror
+	drawarc pivot pivotmirror 90
+	
+	translate LL LL pivotmirror LL
+	translate UL UL UR UL
+	translate UR UR LR UR
+	translate LR LR pivot LR
+	expression n {n + 1}
+}
+

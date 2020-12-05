@@ -1,0 +1,80 @@
+% thmname Paskalova teorema
+% thmnamee Pascal's Theorem
+
+% thmtext Na krugu $k$ sa centrom $O$ date su ta\ch ke
+% thmtext $A$, $B$, $C$, $D$, $E$, i $F$. Neka su
+% thmtext $P$, $Q$ i $S$ preseci parova pravih $AB$ i
+% thmtext $FD$, $BC$ i $EF$, $AE$ i $CD$ redom.
+% thmtext Dokazati da su ta\ch ke $P$, $Q$ i $S$
+% thmtext kolinearne.
+
+% thmnote Paskalova teorema va\zh i i ako se umesto na krugu ta\ch ke
+% thmnote nalaze na proizvoljnoj krivoj drugog reda. To je posledica
+% thmnote osobina projektivne geometrije --- svaki krug se mo\zh e
+% thmnote projektivnim transformacijama koje \ch uvaju incidentnost
+% thmnote pravih i ta\ch aka preslikati u proizvoljnu krivu drugog reda.
+
+% thmtexte Hexagon $ABCDEF$ is incsibed in a circle with
+% thmtexte center $O$. Show that three points at which
+% thmtexte pairs of opposite sides meet, lie on a
+% thmtexte straight line.
+
+dim 100 100
+
+point A 20.50 51.40
+point O 50 50
+
+circle k O A
+
+oncircle B' O A
+oncircle C' O A
+oncircle D' O A
+oncircle E' O A
+oncircle F' O A
+
+% skip
+point B 60.40 77.60
+% skip
+point C 72.30 69.20
+% skip
+point D 21.40 42.10
+% skip
+point E 51.30 20.60
+% skip
+point F 78.20 41.90
+
+line ab A B
+line df D F
+line bc B C
+line fe F E
+line cd C D
+line ea E A
+
+drawdashline ab
+drawdashline df
+drawdashline bc
+drawdashline fe
+drawdashline cd
+drawdashline ea
+
+intersec P ab df
+intersec Q bc fe
+intersec S cd ea
+
+cmark_lt A
+cmark_t O
+cmark_t B
+cmark_t C
+cmark_lb D
+cmark_t E
+cmark_lt F
+cmark_t P
+cmark_t Q
+cmark_t S
+
+drawcircle k
+
+line pqs P Q
+drawline pqs
+
+% prove { collinear P Q S }

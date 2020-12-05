@@ -1,0 +1,30 @@
+// FileInput.h: interface for the CFileInput class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#if !defined(AFX_FILEINPUT_H__3236E063_F952_11D6_8D20_FCAD996DA70D__INCLUDED_)
+#define AFX_FILEINPUT_H__3236E063_F952_11D6_8D20_FCAD996DA70D__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+#include <stdio.h>
+#include "GCLCInput.h"
+
+
+class CFileInput : public CGCLCInput 
+{
+public:
+	CFileInput(FILE* h);
+	virtual ~CFileInput();
+	
+	GReturnValue ReadChar(char* c);
+	bool EndOfInputData();
+
+private:	
+	FILE *m_h;
+
+};
+
+#endif // !defined(AFX_FILEINPUT_H__3236E063_F952_11D6_8D20_FCAD996DA70D__INCLUDED_)

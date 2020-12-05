@@ -1,0 +1,213 @@
+dim 140 140 
+point Center 70 70
+point XX 70 70 135 70 
+
+animation_frames 99 8
+
+distance d Center XX
+point X0 0 0
+point X1 d d 
+
+point X2 1 0
+line x X0 X2
+point Z 510 0 -510 0
+distance z Z X0
+point Z1 0 z
+line z1 Z Z1
+getx zx Center
+point Z2 0 zx
+parallel z2 Z2 z1
+intersec Z3 z2 x 
+getx zx Z3
+point Z4 zx zx
+point ZC1 255 0
+point ZC2 -255 0
+distance zc1 Z ZC1 
+distance zc2 Z ZC2 
+sim Z5 X0 Z4
+
+color zc1 zc1 255
+fontsize 20
+printat_t Z4 {Predrag Janicic}
+color zc1 zc1 255
+printat_b Z4 {presents}
+color 255 zc2 zc2
+fontsize 40
+printat Z5 {WinGCLC 2009}
+
+fontsize 10 
+point Xcol 255 0 180 0
+distance col Xcol X0
+color col col col  
+
+translate P1 X1 X0 Center
+translate P2 X0 X1 Center
+
+getx Xlb P1  
+getx Ylb P1 
+getx Xrt P2 
+gety Yrt P2  
+area Xlb Ylb Xrt Yrt
+
+point B 50 60
+point C 80 60
+point A 55 80
+
+line a B C
+line b A C
+line c A B
+
+midpoint A_1 B C
+midpoint B_1 A C
+midpoint C_1 A B
+
+med a_1 C B
+med b_1 A C
+med c_1 A B
+
+intersec O a_1 b_1
+circle l O A
+
+bis a_2 B A C
+bis b_2 A B C
+bis c_2 A C B
+
+intersec S a_2 b_2 
+perp sa S a
+perp sb S b
+perp sc S c
+
+intersec P sa a
+intersec Q sb b
+intersec R sc c 
+circle k S P
+
+sim P' S P
+
+perp c_3 C c_2
+perp b_3 B b_2
+perp a_3 A a_2
+
+intersec S_a a_2 b_3
+intersec S_b b_2 c_3
+intersec S_c c_2 a_3
+
+perp sa S_a a
+perp sb S_a b
+perp sc S_a c
+
+intersec P_a sa a
+intersec Q_a sb b 
+intersec R_a sc c
+
+circle k_a S_a P_a
+
+perp sa S_b a
+perp sb S_b b
+perp sc S_b c
+
+intersec P_b sa a
+intersec Q_b sb b 
+intersec R_b sc c
+
+circle k_b S_b P_b
+
+perp sa S_c a
+perp sb S_c b
+perp sc S_c c
+
+intersec P_c sa a
+intersec Q_c sb b 
+intersec R_c sc c
+
+circle k_c S_c P_c
+
+intersec2 M N l a_1
+perp m M c
+intersec M' m c
+perp n N c
+intersec N' n c
+
+sim P_{a}' S_a P_a
+
+cmark_lt A
+cmark_lt B
+cmark_rt C 
+
+cmark_rt O 
+cmark_r S
+
+cmark_rb A_1
+cmark_rt P'
+cmark_rt P_{a}'
+cmark_t M
+cmark_lb N
+cmark_l M'
+cmark_l N'
+
+cmark_lt P 
+cmark_rt Q
+cmark_l  R
+
+cmark_rt P_a
+cmark_rt Q_a
+cmark_lt R_a
+
+cmark_lt P_b
+cmark_r  Q_b
+cmark_lt R_b
+
+cmark_lt P_c
+cmark_rt Q_c
+cmark_lt R_c
+
+cmark_lb S_a
+cmark_rt S_b
+cmark_lt S_c
+
+%color 180 180 180
+
+drawsegment S P
+drawsegment S Q
+drawsegment S R
+
+drawsegment S_a P_a
+drawsegment S_a Q_a
+drawsegment S_a R_a
+
+drawsegment S_b P_b
+drawsegment S_b Q_b
+drawsegment S_b R_b
+
+drawsegment S_c P_c
+drawsegment S_c Q_c
+drawsegment S_c R_c
+
+drawsegment A P_{a}'
+drawsegment A P_a
+drawsegment P_a P_{a}'
+
+drawsegment P P'
+
+drawsegment N N'
+drawsegment M M'
+drawsegment M N 
+
+drawsegment S_c S_b
+drawsegment A S_a
+
+drawline a 
+drawline b
+drawline c  
+
+drawcircle S P
+drawcircle S_a P_a
+drawcircle S_b P_b
+drawcircle S_c P_c
+
+drawcircle O A
+
+double
+drawsegment A B
+drawsegment B C
+drawsegment C A

@@ -1,0 +1,85 @@
+% thmname Primer 85 iz \cite{chou}
+% thmnamee Example 85 from \cite{chou}
+
+% thmtext Dat je paralelogram $ABCD$. Neka su $P$ i $Q$
+% thmtext ta\ch ke na stranicama $BC$ i $AD$ takve da je
+% thmtext $PQ \parallel AB$. Neka su dalje $M = BQ \cap AP$
+% thmtext i $N = CQ \cap PD$. Dokazati da je $MN$ paralelna
+% thmtext sa $AD$ i jednaka polovini te stranice.
+
+% thmnote Kada se doka\zh e paralelnost, druga pretpostavka
+% thmnote se dokazuje kroz odnos du\zh i.
+
+% thmtexte Let $P$ and $Q$ be two points on side $BC$
+% thmtexte and $AD$ of a parallelogram such that
+% thmtexte $PQ \parallel AB$; $M = AP \cap BQ$,
+% thmtexte $N = DP \cap QC$. Show that $MN \parallel AD$
+% thmtexte and $MN = AD/2$.
+
+dim 130 100
+
+point A 20 20
+point B 80 20
+point C 110 70
+
+line ab A B
+line bc B C
+parallel ad A bc
+parallel cd C ab
+intersec D ad cd
+
+online P' B C
+parallel pq' P' ab
+intersec Q' pq' ad
+
+% skip
+point P 85.45 29.09
+% skip
+parallel pq P ab
+% skip
+intersec Q pq ad
+
+line pd' P' D
+line qc' Q' C
+intersec N' pd' qc'
+
+% skip
+line pd P D
+% skip
+line qc Q C
+% skip
+intersec N pd qc
+
+line pa' P' A
+line qb' Q' B
+intersec M' pa' qb'
+
+% skip
+line pa P A
+% skip
+line qb Q B
+% skip
+intersec M pa qb
+
+cmark_b M
+cmark_b A
+cmark_t N
+cmark_b B
+cmark_t C
+cmark_t D
+cmark_r P
+cmark_l Q
+
+drawsegment P D
+drawsegment P A
+drawsegment Q C
+drawsegment B Q
+drawsegment P Q
+drawsegment A B
+drawsegment A D
+drawsegment C B
+drawsegment C D
+
+drawdashsegment M N
+
+% prove { equal { sratio A D M N } { 2 } }

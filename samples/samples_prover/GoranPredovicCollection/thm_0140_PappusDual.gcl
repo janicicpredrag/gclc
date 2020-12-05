@@ -1,0 +1,66 @@
+% thmname Dualna Paposova teorema
+% thmnamee Pappus' Dual Theorem
+
+% thmtext U ravni su date ta\ch ke $O$, $A$,
+% thmtext $B$, $C$ i $O_1$. Ta\ch ke $A_1$,
+% thmtext $B_1$, $C_1$ i $I$ su konstruisane
+% thmtext kao preseci parova pravih: $O_1B$ i
+% thmtext $OC$, $OA$ i $O_1C$, $OB$ i $O_1A$,
+% thmtext $BB_1$ i $AA_1$. Dokazati da su
+% thmtext ta\ch ke $C$, $C_1$ i $I$ kolinearne.
+
+% thmtexte Given points $O$, $A$, $B$, $C$ and $O_1$
+% thmtexte new points are constructed as:
+% thmtexte $A_1 = O_1B \cap OC$, $B_1 = OA \cap O_1C$,
+% thmtexte $C_1 = OB \cap O_1A$, $I = BB_1 \cap AA_1$.
+% thmtexte Show that points $C$, $C_1$ and $I$ are collinear.
+
+dim 130 130
+
+point O 25.80 48.30
+point A 95.20 55.00
+point B 120.10 91.60
+point C 44.50 112.70
+point O_1 62.40 56.80
+
+line o1b O_1 B
+line oc O C
+line oa O A
+line o1c O_1 C
+line ob O B
+line o1a O_1 A
+
+intersec A_1 o1b oc
+intersec B_1 oa o1c
+
+line bb1 B B_1
+line aa1 A A_1
+
+intersec C_1 ob o1a
+intersec I bb1 aa1
+
+line cc1i C I
+drawdashline cc1i
+
+cmark_b A_1
+cmark_rb B_1
+cmark_lt C_1
+cmark_rb I
+
+cmark_l O
+cmark_b A
+cmark_b B
+cmark_l C
+cmark_lt O_1
+
+drawsegment A_1 C
+drawsegment O B
+drawsegment O A
+drawsegment A C_1
+drawsegment A_1 B
+drawsegment C B_1
+
+drawdashsegment A_1 A
+drawdashsegment I B
+
+% prove { collinear C C_1 I }

@@ -1,0 +1,61 @@
+% thmname Primer 29 iz \cite{chou}
+% thmnamee Example 29 from \cite{chou}
+
+% thmtext U ravni je dat trougao $ABC$. Krugovi $k_1$ i $k_2$
+% thmtext sadr\zh e teme $A$ i dodiruju pravu $BC$ u temenima
+% thmtext $B$ i $C$ redom. Ako su $p$ i $q$ polupre\ch nici
+% thmtext krugova $k_1$ i $k_2$, dokazati da je $pq = R^2$, 
+% thmtext gde je $R$ polupre\ch nik opisanog kruga trougla $ABC$.
+
+% thmnote Prvo su konstruisani krugovi $k_1$ i $k_2$ sa centrima
+% thmnote $P$ i $Q$.
+
+% thmtexte In a triangle $ABC$, let $p$ and $q$ be the radii of two
+% thmtexte circles through $A$, touching side $BC$ at $B$ and $C$,
+% thmtexte respectively. Then $pq = R^2$.
+
+dim 90 90
+
+point B 20 20
+point C 70 20
+point A 55 60
+
+med ma B C
+med mb A C
+intersec O ma mb
+
+line bc B C
+
+perp p B bc
+med mc A B
+intersec P p mc
+
+perp q C bc
+intersec Q mb q
+
+% skip
+circle k1 Q A
+% skip
+circle k2 P A
+
+drawcircle k1
+drawcircle k2
+
+cmark_t P
+cmark_t Q
+cmark_b B
+cmark_b C
+cmark_t A
+cmark_t O
+
+drawsegment P B
+drawsegment P A
+drawsegment Q C
+drawsegment Q A
+drawdashsegment O B
+drawdashsegment O C
+drawsegment A B
+drawsegment C B
+drawsegment A C
+
+% prove { equal { mult { segment Q C } { segment P B } } { mult { segment O B } { segment O B } } }

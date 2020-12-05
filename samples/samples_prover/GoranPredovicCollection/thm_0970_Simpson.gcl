@@ -1,0 +1,65 @@
+% thmname Simsonova teorema
+% thmnamee Simson's Theorem
+
+% thmtext U ravni je dat trougao $ABC$ oko koga je opisan
+% thmtext krug $k$ sa centrom $O$. Neka je $D$ proizvoljna
+% thmtext ta\ch ka na krugu $k$ i neka su $E$, $F$ i $G$
+% thmtext podno\zh ja normala iz ta\ch ke $D$ na prave
+% thmtext $AB$, $AC$ i $BC$ redom. Dokazati da su ta\ch ke
+% thmtext $E$, $F$ i $G$ kolinearne.
+
+% thmtexte Let $D$ be a point on the circumscribed
+% thmtexte cirle $(O)$ of triangle $ABC$. From $D$, three
+% thmtexte perpendiculars are drawn to the three sides $BC$,
+% thmtexte $CA$ and $AB$ of triangle $ABC$. Let $E$, $F$ and $G$
+% thmtexte be the three feet respectively. Show that $E$, $F$ and $G$
+% thmtexte are collinear.
+
+dim 100 100
+
+point A 20 50
+point O 55 50
+
+circle k O A
+
+oncircle B' O A
+oncircle C' O A
+oncircle D' O A
+% skip
+point B 79.50 25.40
+% skip
+point C 49.50 84.50
+% skip
+point D 30.80 24.70
+
+line ab A B
+line bc B C
+line ac A C
+
+foot E D bc
+foot F D ac
+foot G D ab
+
+cmark_l A
+cmark_b B
+cmark_t C
+cmark_b D
+cmark_t O
+cmark_t E
+cmark_t F
+cmark_t G
+
+drawsegment A B
+drawsegment F C
+drawsegment C B
+
+drawcircle k
+
+drawdashsegment E D
+drawdashsegment F D
+drawdashsegment G D
+
+line efg E F
+drawdashline efg
+
+% prove { collinear E F G }

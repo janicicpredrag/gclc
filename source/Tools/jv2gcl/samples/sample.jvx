@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE jvx-model SYSTEM "http://www.javaview.de/rsrc/jvx.dtd">
+<jvx-model>
+	<meta generator="JavaView v.2.00.a3"/>
+	<meta date="Tue Oct 17 11:43:49 GMT+02:00 2000"/>
+	<version type="dump">0.10</version>
+	<title>Sample Cube</title>
+	<geometries>
+		<geometry name="Sample Cube">
+			<pointSet point="hide" dim="3">
+				<points num="8">
+					<p>1.0 1.0 1.0</p>
+					<p>1.0 1.0 -1.0</p>
+					<p>1.0 -1.0 1.0</p>
+					<p>1.0 -1.0 -1.0</p>
+					<p>-1.0 1.0 1.0</p>
+					<p>-1.0 1.0 -1.0</p>
+					<p>-1.0 -1.0 1.0</p>
+					<p>-1.0 -1.0 -1.0</p>
+					<thickness>2.0</thickness>
+					<color type="rgb">255 0 0</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+				</points>
+			</pointSet>
+			<faceSet face="show" edge="show">
+				<faces num="6">
+					<f>0 2 3 1</f>
+					<f>4 6 7 5</f>
+					<f>0 4 5 1</f>
+					<f>2 6 7 3</f>
+					<f>0 4 6 2</f>
+					<f>1 5 7 3</f>
+					<color type="rgb">100 230 255</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+				</faces>
+			</faceSet>
+		</geometry>
+	</geometries>
+</jvx-model>
+

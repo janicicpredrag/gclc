@@ -1,0 +1,48 @@
+% thmname Primer 145 iz \cite{chou}
+% thmnamee Example 145 from \cite{chou}
+
+% thmtext Dokazati da su rastojanja ta\ch ke na te\zh i\sh noj
+% thmtext liniji trougla od stranica trougla inverzno proporcionalna
+% thmtext dvema stranicama trougla, odnosno:
+% thmtext $NK : NJ = BC : AC$.
+
+
+% thmtexte Show that the distance of a point on a
+% thmtexte median of triangle from the sides including
+% thmtexte the median are inversely proportional to these
+% thmtexte sides, ie:
+% thmtexte $NK : NJ = BC : AC$.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 40 88
+
+midpoint F A B
+
+line a B C
+line b A C
+
+% skip
+point N 49.18 52.51
+online N' C F
+foot K N b
+foot J N a
+
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_b F
+cmark_lt K
+cmark_rt J
+cmark_lb N
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C F
+drawsegment N K
+drawsegment N J
+
+% prove { equal { mult { segment N K } { segment A C } } { mult { segment N J } { segment B C } } }

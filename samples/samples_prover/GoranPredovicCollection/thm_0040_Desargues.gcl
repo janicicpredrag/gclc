@@ -1,0 +1,81 @@
+% thmname Dezargova teorema
+% thmnamee Desargues' theorem
+
+% thmtext Ako se prave $A_1B_1$,
+% thmtext $A_2B_2$ i $A_3B_3$ seku u jednoj ta\ch ki,
+% thmtext tada su preseci pravih $A_1A_2 \cap B_1B_2$,
+% thmtext $A_1A_3 \cap B_1B_3$ i $A_2A_3 \cap B_2B_3$
+% thmtext tri kolinearne ta\ch ke.
+
+% thmtexte If lines $A_1B_1$, $A_2B_2$ and $A_3B_3$ are
+% thmtexte concurrent, show that intersections
+% thmtexte $A_1A_2 \cap B_1B_2$, $A_1A_3 \cap B_1B_3$
+% thmtexte and $A_2A_3 \cap B_2B_3$ are collinear.
+
+dim 110 90
+
+point S 20 30
+
+point A_2 36.60 30
+
+% skip
+point B_2 53.00 30
+
+line sa2 S A_2
+online B_2' S A_2
+
+point A_1 27.20 24.70
+online B_1' S A_1
+% skip
+point B_1 38.40 16.434
+
+point A_3 42.20 41.10 
+online B_3' S A_3
+% skip
+point B_3 56 48
+
+line a12 A_1 A_2
+line a13 A_1 A_3
+line a23 A_2 A_3
+line b12 B_1 B_2
+line b13 B_1 B_3
+line b23 B_2 B_3
+
+intersec P a12 b12
+intersec Q a13 b13
+intersec R a23 b23
+
+% skip
+line pqr P Q
+drawdashline pqr
+
+drawline a12
+drawline a13
+drawline a23
+drawline b12
+drawline b13 
+drawline b23
+
+cmark_t P
+cmark_l Q
+cmark_l R
+cmark_b A_1
+cmark_rb A_2
+cmark_rb A_3
+cmark_b B_1
+cmark_rb B_2
+cmark_rb B_3
+cmark_b S
+
+% skip
+line sa1 S A_1
+% skip
+line sa2 S A_2
+% skip
+line sa3 S A_3
+
+drawline sa1
+drawline sa2
+drawline sa3
+
+% prove { collinear P Q R }

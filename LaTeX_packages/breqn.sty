@@ -1,0 +1,2060 @@
+% This is a slightly patched copy of version 0.93 [mjd,2002-05-29]
+\NeedsTeXFormat{LaTeX2e}[1994/12/01]
+\ProvidesPackage{breqn}[2002/05/29 v0.94 beta]
+\@ifl@t@r\fmtversion{1995/06/01}{}{%
+  \@namedef{newmuskip}{\alloc@3\muskip\muskipdef\@cclvi}%
+  \@namedef{newtoks}{\alloc@5\toks\toksdef\@cclvi}%
+  \@namedef{newif}#1{\count@\escapechar \escapechar\m@ne
+      \let#1\iffalse \@if#1\iftrue \@if#1\iffalse \escapechar\count@}%
+}
+\edef\breqnpopcats{%
+  \catcode\number`\"=\number\catcode`\"
+  \relax
+}
+\catcode`\^=7 \catcode`\_=8 \catcode`\"=12 \relax
+\DeclareOption{debug}{}
+\DeclareOption{mathstyleoff}{%
+  \PassOptionsToPackage{mathstyleoff}{flexisym}%
+}
+\ProcessOptions\relax
+\@ifpackageloaded{flexisym}{}{%
+  \RequirePackage[cmbase]{flexisym}[1997/01/01]
+  % Reiterate this here, for now, until I have a chance to better
+  % sort things out. [mjd,2002-05-29]
+  \edef\breqnpopcats{\breqnpopcats
+    \catcode\number`\^=\number\catcode`\^
+    \catcode\number`\_=\number\catcode`\_
+  }%
+  \catcode`\^=7 \catcode`\_=8 \catcode`\"=12 \relax
+}
+\RequirePackage{keyval}\relax
+\@ifundefined{options}{%
+\newcommand{\options}[2]{%
+  \expandafter\options@a\csname opt@#1.sty\endcsname{#2}%
+  \setkeys{#1}{#2}%
+}
+\def\options@a#1#2{%
+  \edef\@tempa{\options@b#2,\@empty\@nil}%
+  \ifx#1\relax \let#1\@empty\fi
+  \xdef#1{#1\ifx#1\@empty\@xp\@gobble\@tempa\@empty\else\@tempa \fi}%
+}
+\def\options@b#1,#2#3\@nil{%
+  \options@c#1 \@nil
+  \ifx#2\@empty \else\options@b#2#3\@nil\fi
+}
+\def\options@c#1 #2\@nil{\options@d#1=\@nil}
+\def\options@d#1=#2\@nil{\ifx\@empty #1\@empty\else,\fi#1}
+}{}% end @ifundefined test
+\let\@nx\noexpand
+\let\@xp\expandafter
+\@ifundefined{@emptytoks}{\newtoks\@emptytoks}{}
+\chardef\f@ur=4
+\newcount\inf@bad \inf@bad=1000000
+\newcount\maxint \maxint=2147483647
+\let\int@a=\@tempcnta
+\let\int@b=\@tempcntb
+\let\int@c=\count@
+\let\dim@a\@tempdima
+\let\dim@b\@tempdimb
+\let\dim@c\@tempdimc
+\let\dim@d\dimen@
+\let\dim@e\dimen@ii
+\let\dim@A\dimen@i
+\let\skip@a\@tempskipa
+\let\skip@b\@tempskipb
+\let\skip@c\skip@
+\let\toks@a\@temptokena
+\let\toks@b\toks@
+\toksdef\toks@c=2
+\toksdef\toks@d=4
+\toksdef\toks@e=6
+\toksdef\toks@f=8
+\def\abs@num#1{\ifnum#1<\z@-\fi#1}
+\def\@ifnext#1#2#3{%
+  \let\@tempd= #1\def\@tempa{#2}\def\@tempb{#3}%
+  \futurelet\@tempc\@ifnexta
+}
+\def\@ifnexta{\ifx\@tempc\@tempd \let\@tempb\@tempa \fi \@tempb}
+\def\@ifstar#1#2{%
+  \let\@tempd*\def\@tempa*{#1}\def\@tempb{#2}%
+  \futurelet\@tempc\@ifnexta
+}
+\def\@optarg#1#2{\@ifnext[{#1}{#1[#2]}}
+\def\@True{00}
+\def\@False{01}
+\def\@Not#1{0\ifcase#11 \or\@xp 1\else \@xp 0\fi}
+\def\@And#1#2{0\ifcase#1#2 \@xp 0\else \@xp 1\fi}
+\def\@Or#1#2{0\ifnum#1#2<101 \@xp 0\else \@xp 1\fi}
+\def\freeze@glue#1{#11#1\relax}
+\def\z@rule{\vrule\@width\z@}% no \relax ! use with care
+\def\keep@glue{\z@rule\relax}
+% usage: \message{H\replicate{5}{i h}ow de doo dee!}
+\begingroup \catcode`\&=11
+\gdef\replicate#1{%
+  \csname &\expandafter\replicate@a\romannumeral\number\number#1 000q\endcsname
+}
+\endgroup
+\long\def\replicate@a#1#2\endcsname#3{#1\endcsname{#3}#2}
+\begingroup \catcode`\&=11
+\long\gdef\&m#1#2{#1\csname &#2\endcsname{#1}}
+\endgroup
+\@xp\let\csname\string &q\endcsname\@gobble
+\g@addto@macro\mathchars@reset{%
+  \let\@symRel\@secondoftwo \let\@symBin\@secondoftwo
+  \let\@symDeL\@secondoftwo \let\@symDeR\@secondoftwo
+  \let\@symDeB\@secondoftwo
+}
+\def\eq@cons#1#2{%
+  \begingroup \let\@elt\relax \xdef#1{\@elt{#2}#1}\endgroup
+}
+\providecommand{\@saveprimitive}[2]{%
+  \begingroup
+  \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
+  \ifx\@tempa\@tempb \global\let#2#1%
+  \else
+    \edef\@tempb{\meaning#2}%
+    \ifx\@tempa\@tempb
+    \else \@saveprimitive@a#1#2%
+    \fi
+  \fi
+  \endgroup
+}
+\def\@saveprimitive@a#1#2{%
+  \begingroup
+  \def\@tempb##1#1##2{\edef\@tempb{##2}\@car{}}%
+  \@tempb\nullfont{select font nullfont}%
+    \topmark{\string\topmark:}%
+    \firstmark{\string\firstmark:}%
+    \botmark{\string\botmark:}%
+    \splitfirstmark{\string\splitfirstmark:}%
+    \splitbotmark{\string\splitbotmark:}%
+    #1{\string#1}%
+  \edef\@tempa{\expandafter\strip@prefix\meaning\@tempb}%
+  \edef\@tempb{\meaning#1}%
+  \ifx\@tempa\@tempb \global\let#2#1%
+  \else
+    \PackageError{breqn}%
+      {Unable to properly define \string#2; primitive
+      \noexpand#1no longer primitive}\@eha
+    \fi
+  \fi
+  \endgroup
+}
+\begingroup \catcode`\$=3 % just to make sure
+  \global\let\@@math=$ \gdef\@@display{$$}
+\endgroup
+\let\@@endmath=\@@math
+\let\@@enddisplay=\@@display
+\@saveprimitive\vadjust\@@vadjust
+\@saveprimitive\insert\@@insert
+\@saveprimitive\mark\@@mark
+\let\debug=\begingroup
+\let\gubed=\endgroup
+\def\debugmsg{\message{|= \iffalse}\fi
+  \@xp\@gobble\string
+}
+\def\debugwr#1{\immediate\write\sixt@@n{|= #1}}
+\def\debug@box#1{%
+  \batchmode{\showboxbreadth\maxdimen\showboxdepth99\showbox#1}%
+  \errorstopmode
+}
+\def\eqinfo{%
+  \debug@box\EQ@copy
+  \wlog{||= EQ@copy: \the\wd\EQ@copy\space x
+    \the\ht\EQ@copy+\the\dp\EQ@copy
+  }%
+}
+\def\debug@para{%
+  \debugwr{\hsize\the\hsize, \parfillskip\the\parfillskip}%
+  \debugmsg{\leftskip\the\leftskip, \rightskip\the\rightskip}%
+  \debugmsg{\linepenalty\the\linepenalty, \adjdemerits\the\adjdemerits}%
+  \debugmsg{\pretolerance\the\pretolerance, \tolerance\the\tolerance,
+    \parindent\the\parindent}%
+}
+\@ifpackagewith{breqn}{debug}{}{%
+  \let\debug\iffalse \let\gubed\fi
+  \let\debugmsg\@gobble \let\debug@lines\relax \let\debug@para\relax
+  \let\debugwr\@gobble
+  \let\debug@box\@gobble \let\debug@push\@gobbletwo
+}
+\@ifundefined{listwidth}{\newdimen\listwidth}{}
+\listwidth=\z@
+\def\do#1#2{\begingroup
+  \def\?##1#1##2##3##4##5\@nil{\endgroup##2##3\afterassignment\do##4}%
+  \?C\newcount#2#2D\newdimen#2#2S\newskip#2#2U\newmuskip#2#2%
+    K\newtoks#2#2F\newif#2{\z@\z@}T\newif#2{\let#2\iftrue}%
+    B\newbox#2{\z@\z@}d{\newcommand#2{}}{}{\def#2}%
+    Q\relax\@gobbletwo\relax \@nil}%
+\do % def, Count, Dimen, Skip, mUskip, toKs, Box, False, True
+d\eqfontsize{}         % Inherit from context
+d\eqcolor{black}       % Default to black
+D\eqnumsep=9pt         % Min space between equ number and body
+D\eqmargin=8pt         % For `multline' gap emulation
+d\eqindent{C}%         % C or I, centered or indented
+d\eqnumside{R}%        % R or L, right or left
+d\eqnumplace{M}%       % M or T or B, middle top or bottom
+d\eqnumfont{\upshape}% % Upright even when surrounding text is slanted
+d\eqnumform#1{(#1\@@italiccorr)} % Add parens
+d\eqnumsize{}          % Allow numbers to have different typesize ...
+d\eqnumcolor{}         % ... or color than eq body e.g. \color{blue}
+S\eqlinespacing=14pt plus2pt % Base-to-base space between lines
+S\eqlineskip=3pt plus2pt % Min space if eqlinespacing too small
+D\eqlineskiplimit=2pt  % Threshold for switching to eqlineskip
+U\eqbinoffset=15mu minus-3mu % Offset from mathrel alignment pt for mathbins
+U\eqdelimoffset=2mu    % Additional offset for break inside delims
+D\eqindentstep=8pt     % Indent used when LHS wd is n/a or too large
+d\eqcompactzone{5em}   % Force compact unless RHS max exceeds this
+K\eqstyle={}           % Customization hook
+C\eqbreakdepth=2       % Allow breaks within delimiters to this depth
+C\eqlinepenalty=199    % No page breaks between equation lines
+C\eqinterlinepenalty=10000 % No page breaks between equation lines
+C\intereqpenalty=\@M   % Pagebreak penalty between equations
+S\intereqskip=3pt plus2pt % Additional vert space between equations
+C\prerelpenalty=-\@M   % Linebreak penalty before mathrel symbols
+C\prebinoppenalty=888  % Linebreak penalty before mathbins
+U\Dmedmuskip=4mu minus 3mu % medmuskip in displays
+U\Dthickmuskip=5mu minus 2mu % thickmuskip in displays
+Q\relax                % End of assignments
+\do % def, Dimen, Skip, mUskip, toKs, Box, False, True
+d\eq@number{}          % Internal variable
+S\eqleftskip=\@centering  % Space on the left
+S\eqrightskip=\@centering % Space on the right
+S\eq@vspan=\z@skip     % Glue used to vcenter the eq number
+U\eq@binoffset=\eqbinoffset % Roughly, \eqbinoffset + \eqdelimoffset
+B\EQ@box               % Storage for equation body
+B\EQ@copy              % For eq body sans vadjust/insert/mark material
+B\EQ@numbox            % For equation number
+%%B\EQ@vimbox            % Vadjust, insert, or mark material
+%%B\EQ@vimcopy           % Spare copy of same
+%%B\eq@impinging         % Temporary box for measuring number placement
+T\if@eq@number         % Number present or not?
+C\eq@lines=\z@         % Internal counter, actual number of lines
+C\eq@curline=\z@       % Loop counter
+C\eq@badness=\z@       % Used in testing for overfull lines
+C\EQ@vims=\z@          % For bookkeeping
+Q\relax
+\newdimen\eq@dp \newdimen\eq@sidespace
+\newdimen\eq@wdL \newdimen\grp@wdL \newdimen\grp@bodywidth
+\newdimen\eq@bodywidth \newdimen\eq@wdRmax \newdimen\eq@firstht
+\newdimen\eq@indentstep \newdimen\eq@linewidth \newdimen\eq@freewidth
+\newdimen\grp@linewidth
+\def\do#1#2{\if Q#1\relax \else\@xp\do\fi}\do
+D\eq@bodywidth  % Total width for framing
+D\eq@wdL        % Width of the left-hand-side
+D\eq@sidespace  % Min leftover space for centering
+D\grp@wdL       % Max width of LHS's in a group
+D\grp@bodywidth % Max width of all equations in a group
+D\eq@firstht    % Height of first line
+D\eq@dp         % Depth of last line
+D\eq@indentstep % Indent amount when LHS is not present
+D\eq@linewidth  % Width actually used for display
+D\grp@linewidth % Max eq@linewidth over a group
+D\eq@freewidth  % eq@linewidth - space for number
+Q\relax
+\eq@indentstep=\maxdimen
+\eq@sidespace=\maxdimen
+\let\given@sidespace\@empty
+\def\eq@overrun{0pt}
+\@ifpackagewith{amsmath}{leqno}{%
+  \@ifpackagewith{amsmath}{reqno}{}{\def\eqnumside{L}}%
+}{%
+  \def\@tempa#1,leqno.clo,#2#3\@nil{%
+    \ifx @#2\relax\else \def\eqnumside{L}\fi
+  }%
+  \@xp\@tempa\@filelist,leqno.clo,@\@nil
+  \if L\eqnumside
+  \else
+    \@ifundefined{iftagsleft@}{}{%
+      \edef\eqnumside{%
+        \if TT\csname fi\endcsname\csname iftagsleft@\endcsname
+          L\else R\fi
+      }%
+    }
+  \fi
+}
+\@ifpackagewith{amsmath}{fleqn}{%
+  \def\eqindent{I}%
+}{%
+  \def\@tempa#1,fleqn.clo,#2#3\@nil{%
+    \ifx @#2\relax\else \def\eqindent{I}\fi
+  }%
+  \@xp\@tempa\@filelist,fleqn.clo,@\@nil
+  \if I\eqindent
+  \else
+    \@ifundefined{if@fleqn}{}{%
+      \edef\eqindent{%
+        \if TT\csname fi\endcsname\csname if@fleqn\endcsname
+          I\else C\fi
+      }%
+    }%
+  \fi
+}
+\if I\eqindent
+  \@ifundefined{mathindent}{%
+    \newdimen\mathindent
+  }{%
+    \@ifundefined{@mathmargin}{}{%
+      \mathindent\@mathmargin
+    }%
+  }
+\fi
+\let\EQ@hasLHS=\@False
+\let\EQ@QED=\@empty
+\def\mark@lhs#1{%
+  \ifnum\lr@level<\@ne
+    \let\mark@lhs\relax
+    \global\let\EQ@hasLHS=\@True
+    \global\let\EQ@prebin@space\EQ@prebin@space@a
+    \mark@lhs@a
+    \penalty9999 % instead of normal \rel@break
+  % else no penalty = forbid break
+  \fi
+}
+\def\mark@lhs@a{%
+  \mskip\thickmuskip \@@vadjust{\penalty\tw@}\penalty-\@Mi\@@vadjust{}%
+}
+\newcommand\hiderel[1]{\mathrel{\advance\lr@level\@ne#1}}
+\let\m@@Bin\m@Bin
+\let\m@@Rel\m@Rel
+\let\EQ@prebin@space\relax
+\def\EQ@prebin@space@a{\mskip-\eq@binoffset \keep@glue \mskip\eq@binoffset}
+\def\bin@break{\ifnum\lastpenalty=\z@\penalty\prebinoppenalty\fi
+  \EQ@prebin@space}
+\def\rel@break{%
+  \ifnum\abs@num\lastpenalty <\abs@num\prerelpenalty
+    \penalty\prerelpenalty
+  \fi
+}
+\def\d@@Bin{\bin@break \m@@Bin}
+\def\d@@Rel{\mark@lhs \rel@break \m@@Rel}
+\let\m@@symRel\@symRel \def\d@@symRel{\mark@lhs \rel@break \m@@symRel}
+\let\m@@symBin\@symBin \def\d@@symBin{\bin@break \m@@symBin}
+\let\m@@symDel\@symDel
+\let\m@@symDeR\@symDeR
+\let\m@@symDeB\@symDeB
+\let\m@@symDeA\@symDeA
+\global\everydisplay\expandafter{\the\everydisplay \display@setup}
+\def\display@setup{%
+  \medmuskip\Dmedmuskip \thickmuskip\Dthickmuskip
+  \let\m@Bin\d@@Bin \let\m@Rel\d@@Rel
+  \let\@symRel\d@@symRel \let\@symBin\d@@symBin
+  \let\m@DeL\d@@DeL \let\m@DeR\d@@DeR \let\m@DeB\d@@DeB
+  \let\m@DeA\d@@DeA
+  \let\@symDeL\d@@symDeL \let\@symDeR\d@@symDeR
+  \let\@symDeB\d@@symDeB \let\@symDeA\d@@symDeA
+  \let\left\eq@left \let\right\eq@right \global\lr@level\z@
+  \everyhbox{\everyhbox\@emptytoks
+    \let\display@setup\relax \textmath@setup \let\textmath@setup\relax
+  }%
+  \everyvbox{\everyvbox\@emptytoks
+    \let\display@setup\relax \textmath@setup \let\textmath@setup\relax
+  }%
+}
+\def\textmath@setup{%
+  \let\m@Bin\m@@Bin \let\m@Rel\m@@Rel
+  \let\@symRel\m@@symRel \let\@symBin\m@@symBin
+  \let\m@DeL\m@@DeL \let\m@DeR\m@@DeR \let\m@DeB\m@@DeB
+  \let\m@DeA\m@@DeA
+  \let\@symDeL\m@@symDeL \let\@symDeR\m@@symDeR
+  \let\@symDeB\m@@symDeB \let\@symDeA\m@@symDeA
+  \let\left\@@left \let\right\@@right
+}
+\@ifundefined{@displaytrue}{%
+  \@xp\newif\csname if@display\endcsname
+  \everydisplay\@xp{\the\everydisplay \@displaytrue}
+}{}
+% \begin{dmath}[label={xyz}]
+\define@key{breqn}{label}{\def\next@label{\label{#1}}}
+\global\let\next@label\@empty
+% \begin{dmath}[number={\nref{foo}\textprime}]
+\define@key{breqn}{number}{\def\eq@number{#1}%
+  \let\@currentlabel\eq@number
+}
+% \begin{dmath}[shiftnumber]
+\define@key{breqn}{shiftnumber}{\let\eq@shiftnumber\@True}
+% \begin{dmath}[holdnumber]
+\define@key{breqn}{holdnumber}{\let\eq@holdnumber\@True}
+% \begin{dmath}[density={.5}]
+\define@key{breqn}{density}{\def\eq@density@factor{#1}}
+% \begin{dmath}[indentstep={1em}]
+\define@key{breqn}{indentstep}{\eqindentstep#1\relax}
+% \begin{dmath}[compact]
+\define@key{breqn}{compact}[-99]{\prerelpenalty=#1\relax}
+% \begin{dmath}[layout={S}]%
+\define@key{breqn}{layout}[?]{%
+  \edef\eq@layout{\@car#1?\@nil}%
+}
+% \begin{dmath}[spread={1pt}]
+\define@key{breqn}{spread}{%
+  \advance\eqlinespacing#1%
+  \advance\eqlineskip#1\eqlineskiplimit\eqlineskip
+}
+\define@key{breqn}{sidespace}{%
+  \dimen@#1\relax % error checking
+  \def\given@sidespace{#1}%
+}
+% \begin{dmath}[style={\small}]
+\define@key{breqn}{style}{\eqstyle\@xp{\the\eqstyle #1}}
+% \begin{dmath}[frame]
+\define@key{breqn}{frame}[\fboxrule]{\let\eq@frame=T%
+  \dim@a#1\relax\edef\eq@framewd{\the\dim@a}%
+  \freeze@glue\eqlinespacing \freeze@glue\eqlineskip
+}
+\define@key{breqn}{fullframe}[]{\let\eq@frame=U%
+  \freeze@glue\eqlinespacing \freeze@glue\eqlineskip
+}
+\let\eq@frame=F % no frame
+\def\eq@framewd{\fboxrule}
+\define@key{breqn}{framesep}[\fboxsep]{%
+  \ifx\eq@frame=F\let\eq@frame=T\fi
+  \dim@a#1\relax \edef\eq@framesep{\the\dim@a}%
+  \freeze@glue\eqlinespacing \freeze@glue\eqlineskip
+}
+\def\eq@framesep{\fboxsep}
+% \begin{dmath}[background={red}]
+\define@key{breqn}{background}{\def\eq@background{#1}%
+  \freeze@glue\eqlinespacing \freeze@glue\eqlineskip
+}
+%
+% \begin{dmath}[color={purple}]
+\define@key{breqn}{color}{\def\eq@foreground{#1}}
+% \begin{dmath}[center]
+\define@key{breqn}{center}[]{\let\eq@centerlines\@True}
+\let\eq@centerlines\@False
+% \begin{dgroup}[noalign]
+\define@key{breqn}{noalign}[]{\let\grp@align\@False}
+\let\grp@align\@True % default
+% \begin{dgroup}[breakdepth={2}]
+\define@key{breqn}{breakdepth}{\eqbreakdepth#1\relax}
+% \begin{darray}[cols={lcrlcr}]
+\define@key{breqn}{cols}{\global\let\@preamble\@empty
+  \darray@mkpream#1\@percentchar
+}
+\newenvironment{dmath}{\@eq@numbertrue \@optarg\@dmath{}}{}
+\def\@dmath[#1]{%
+  \if\eq@group\else\eq@prelim\fi
+  \setkeys{breqn}{#1}%
+  \the\eqstyle
+  \eq@setnumber
+  \begingroup
+  \eq@setup@a
+  \eq@startup
+}
+\def\enddmath#1{\check@punct@or@qed}
+\def\end@dmath{%
+  \eq@capture
+  \endgroup
+  \EQ@setwdL
+  \eq@measure
+  \if\eq@group \grp@push \else \eq@finish\fi
+}
+\newenvironment{dmath*}{%
+  \@eq@numberfalse \@optarg\@dmath{}%
+}{}
+\@namedef{end@dmath*}{\end@dmath}
+\@namedef{enddmath*}#1{\check@punct@or@qed}
+\def\eq@prelim{%
+  \if@noskipsec \leavevmode \fi
+  \if@inlabel \leavevmode \global\@inlabelfalse \fi
+  \if@nobreak \global\@nobreakfalse \predisplaypenalty\@M \fi
+  \everypar\@emptytoks
+  \noindent
+  \eq@nulldisplay
+  \par %% \eq@saveparinfo %% needs work
+  \let\intertext\breqn@intertext
+}
+\def\breqn@parshape@warning{%
+  \PackageWarning{breqn}{%
+    Complex paragraph shape cannot be followed by this equation}%
+}
+\let\eq@prevshape\@empty
+\def\eq@saveparinfo{%
+  \count@\prevgraf \advance\count@-\thr@@ % for the null display
+  \edef\eq@prevshape{\prevgraf\the\count@\space}%
+  \ifcase\parshape
+    % case 0: no action required
+  \or \edef\eq@prevshape{\eq@prevshape
+        \parshape\@ne\displayindent\displaywidth\relax
+      }%
+  \else
+    \breqn@parshape@warning
+  \fi
+}
+\def\eq@setnumber{%
+  \debugwr{=====================================================}%
+  \if@eq@number
+    \ifx\eq@number\@empty
+      \stepcounter{equation}\let\eq@number\theequation
+    \fi
+  \fi
+  \ifx\eq@number\@empty
+  \else
+    \set@label{equation}\eq@number
+    \global\sbox\EQ@numbox{%
+      \next@label \global\let\next@label\@empty
+      \eqnumcolor\eqnumsize
+      \eqnumfont{\eqnumform{\eq@number}}%
+\debug      \typeout{|= Eq number (\eq@number)
+         placement '\eqnumside\eqnumplace'}%
+\gubed
+    }%
+    \@eq@numbertrue % locally true
+    \debugwr{Eq number width: \the\wd\EQ@numbox\space
+      (ht/dp: \the\ht\EQ@numbox+\the\dp\EQ@numbox)}%
+    \debugwr{Eq number sep: \the\eqnumsep}%
+  \fi
+}
+\def\eq@finish{%
+  \begingroup
+  \csname eq@\eqindent \if@eq@number\eqnumside\eqnumplace\fi\endcsname
+  \ifnum\eq@lines=\prevgraf
+  \else
+\debug
+\batchmode\showboxbreadth\maxdimen\showboxdepth99\showlists\errorstopmode
+\gubed
+    \debugmsg{%
+      prevgraf \the\prevgraf\space != eq@lines \the\eq@lines?}%
+  \fi
+  \endgroup
+  \eq@botspace
+}
+\def\peek@branch#1#2{%
+  \let\peek@b#1\let\peek@space#2\futurelet\@let@token\peek@a
+}
+\def\peek@skipping@spaces#1{\peek@branch#1\peek@skip@space}
+\def\peek@a{%
+  \ifx\@let@token\@sptoken \expandafter\peek@space
+  \else \expandafter\peek@b\fi
+}
+\lowercase{\def\peek@skip@space} {\futurelet\@let@token\peek@a}%
+\def\check@punct{\futurelet\@let@token\check@punct@a}
+\def\check@punct@a{%
+  \edef\@tempa{%
+    \ifx\@let@token\@sptoken\@nx\finish@end
+    \else\ifx\@let@token ,\@nx\check@qed
+    \else\ifx\@let@token .\@nx\check@qed
+    \else\check@punct@b % check the less common possibilities
+    \fi\fi\fi
+  }%
+  \@tempa
+}
+\begingroup
+\toks@a{%
+  \ifx\@let@token ;\@nx\check@qed
+  \else\ifx\@let@token ?\@nx\check@qed
+  \else\ifx\@let@token !\@nx\check@qed
+}
+\toks@c{\fi\fi\fi}% matching with \toks@a
+\catcode`\.=\active \catcode`\,=\active \catcode`\;=\active
+\catcode`\?=\active \catcode`\!=\active
+\toks@b{
+  \else\ifx\@let@token ,\@nx\check@qed
+  \else\ifx\@let@token .\@nx\check@qed
+  \else\ifx\@let@token ;\@nx\check@qed
+  \else\ifx\@let@token ?\@nx\check@qed
+  \else\ifx\@let@token !\@nx\check@qed
+  \else\@nx\finish@end
+  \fi\fi\fi\fi\fi
+}
+\xdef\check@punct@b{%
+  \the\toks@a\the\toks@b\the\toks@c
+}
+\endgroup
+\let\found@punct\@empty
+\def\check@qed#1{%
+  \gdef\found@punct{#1}%
+  \peek@skipping@spaces\check@qed@a
+}
+\def\check@qed@a{%
+  \ifx\end\@let@token \@xp\check@qed@b
+  \else \@xp\finish@end
+  \fi
+}
+\def\check@qed@b#1#2{%
+  \@ifundefined{#2qed}{}{%
+    \toks@\@xp{\found@punct\csname#2qed\endcsname}%
+    \xdef\found@punct{\the\toks@}%
+  }%
+  \finish@end
+  \end{#2}%
+}
+\def\@tempa#1\endcsname#2\@nil{\def\latex@end##1{#2}}
+\expandafter\@tempa\end{#1}\@nil
+\def\end#1{\csname end#1\endcsname \latex@end{#1}}%
+\def\check@punct@or@qed#1{%
+  \def\finish@end{\csname end@#1\endcsname\latex@end{#1}}%
+  \check@punct
+}
+\newcommand\eqpunct[1]{\thinspace#1}
+\providecommand\set@label[2]{\protected@edef\@currentlabel{#2}}
+\def\eq@topspace#1{%
+  \begingroup
+    \global\let\EQ@shortskips\@False
+    \if\@And{\eq@group}{\@Not\GRP@top}%
+      \parskip\intereqskip \penalty\intereqpenalty
+    \else
+      \eq@setdisplayskips
+    \fi
+    \ifx F\eq@frame
+    \else
+      \advance\parskip\eq@framesep \advance\parskip\eq@framewd\relax
+    \fi
+    #1%
+  \endgroup
+}
+\def\eq@setdisplayskips{%
+  \if \if@eq@number\eqnumside \else F\fi L%
+    \parskip\abovedisplayskip
+  \else
+    \afterassignment\eq@firstindent % sets \dim@a
+    \int@a\eq@parshape \relax
+\debugwr{first indent \the\dim@a, predisplaysize \the\predisplaysize}%
+    \advance\dim@a-2em % standard TeX value
+    \ifdim\dim@a>\predisplaysize
+      \global\let\EQ@shortskips\@True
+      \parskip\abovedisplayshortskip
+      \aftergroup\belowdisplayskip\aftergroup\belowdisplayshortskip
+    \else
+      \parskip\abovedisplayskip
+    \fi
+\debugwr{parskip \the\parskip}%
+  \fi
+}
+\def\eq@firstindent#1 #2 #3\relax{\dim@a#2\relax}
+\def\eq@botspace{%
+  \penalty\postdisplaypenalty
+  \ifx F\eq@frame
+  \else
+    \advance\belowdisplayskip\eq@framesep
+    \advance\belowdisplayskip\eq@framewd\relax
+  \fi
+  \vskip\belowdisplayskip
+  \@endpetrue % kill parindent if current paragraph continues
+  \global\@ignoretrue % ignore following spaces
+  \eq@resume@parshape
+}
+\def\eq@resume@parshape{}
+\def\eq@startup{%
+  \global\let\EQ@hasLHS\@False
+  \global\let\found@punct\@empty
+  \setbox\z@\vbox\bgroup
+    \noindent \@@math \displaystyle
+    \penalty-\@Mi
+}
+\def\eq@setup@a{%
+  \everymath\everydisplay
+  %\let\@newline\eq@newline % future possibility?
+  \let\\\eq@newline
+  \let\insert\eq@insert \let\mark\eq@mark \let\vadjust\eq@vadjust
+  \hsize\maxdimen \pretolerance\@M
+  \linepenalty\@m
+  \rightskip\z@\@plus\@M\p@ \leftskip\z@skip \parfillskip\z@skip
+  \clubpenalty\@ne \widowpenalty\z@ \interlinepenalty\z@
+  \global\let\EQ@prebin@space\relax
+  \binoppenalty\@M \relpenalty\@M
+}
+\def\eq@unclosed@left{%
+  \PackageError{breqn}{%
+    Delimiter mismatch---not enough closing delimiters%
+  }{%
+   Or perhaps too many open delimiters, somewhere in this
+equation.\MessageBreak
+   \@ehc
+  }%
+}
+\def\eq@capture{%
+  \ifnum\lr@level>\z@ \eq@unclosed@left \global\lr@level\z@ \fi
+  \ifnum\lastpenalty>-\@M \penalty-\@Mi \fi
+  \keep@glue\@@endmath
+  \eq@addpunct
+  \@@par
+  \eq@wdL\z@
+  \global\let\EQ@setwdL\@empty
+  \global\let\EQ@thickmuskip\@empty
+\debug
+\batchmode\showboxbreadth\maxdimen\showboxdepth99\showlists\errorstopmode
+\gubed
+  \setbox\tw@\lastbox
+  \global\setbox\EQ@box\hbox{\unhbox\tw@\unskip\unskip\unpenalty}%
+  \unskip\unpenalty
+  \global\setbox\EQ@copy\copy\EQ@box
+%%  \global\setbox\EQ@vimcopy\copy\EQ@vimbox
+  \clubpenalty\z@
+  \eq@repack % recursive
+  \setbox\tw@\lastbox
+  \global\setbox\EQ@box\hbox{\unhcopy\tw@\unskip\unpenalty \unhbox\EQ@box}%
+  \global\setbox\EQ@copy\hbox{\unhbox\tw@\unskip\unpenalty \unhbox\EQ@copy}%
+\debug
+\batchmode\showbox\EQ@copy \showthe\eq@wdL\errorstopmode
+\gubed
+  \egroup % end vbox started earlier
+}
+\def\eq@addpunct{%
+  \ifx\found@punct\@empty
+  \else \eqpunct{\found@punct}%
+  \fi
+  \EQ@afterspace
+}
+\global\let\EQ@afterspace\@empty
+\global\let\EQ@setwdL\@empty
+\global\let\EQ@thickmuskip\@empty
+\def\eq@LHS@check{%
+  \if\EQ@hasLHS
+    \setbox\z@\hbox{\unhcopy\EQ@copy\setbox\tw@\lastbox
+      \EQ@thickmuskip}%
+    \eq@wdL\wd\z@
+    \xdef\EQ@setwdL{\eq@wdL\the\eq@wdL\relax}%
+\debugwr{Changed wdL to \the\eq@wdL}%
+  \fi
+}
+\def\eq@repack{%
+  \ifcase\lastpenalty
+     % case 0: normal case
+    \setbox\tw@\lastbox
+    \eq@repacka\EQ@copy \eq@repacka\EQ@box
+    \unskip
+  \or % case 1: finished recursing
+    \unpenalty
+    \setbox\tw@\lastbox
+    \eq@repacka\EQ@copy \eq@repacka\EQ@box
+    \eq@LHS@check
+    \@xp\@gobble
+  \or % case 2: save box width = LHS width
+    \unpenalty
+    \setbox\tw@\lastbox
+    \setbox\z@\copy\tw@ \setbox\z@\hbox{\unhbox\z@\unskip\unpenalty}%
+    \advance\eq@wdL\wd\z@
+    \xdef\EQ@setwdL{\eq@wdL\the\eq@wdL\relax}%
+    \global\setbox\EQ@copy\hbox{%
+      \hbox{\unhcopy\tw@\unskip\unpenalty
+        \xdef\EQ@thickmuskip{\hskip\the\lastskip\relax}%
+        \unskip}%
+      \box\EQ@copy
+    }%
+    \global\setbox\EQ@box\hbox{%
+      \hbox{\unhbox\tw@\unskip\unpenalty\unskip}%
+      \box\EQ@box
+    }%
+    \unskip
+  \or % case 3: unpack left-right box
+    \unpenalty
+    \eq@lrunpack
+  \else
+    \breqn@repack@err
+  \fi
+  \eq@repack % RECURSE
+}
+\def\breqn@repack@err{%
+  \PackageError{breqn}{eq@repack penalty neq 0,1,2,3}\relax
+}
+\def\eq@repacka#1{%
+  \global\setbox#1\hbox{\unhcopy\tw@ \unskip
+    \count@-\lastpenalty
+    \ifnum\count@<\@M \else \advance\count@-\@M \fi
+    \unpenalty
+    \ifx\EQ@copy#1\ifnum\count@>\thr@@ \count@\@ne\fi\fi
+    \ifcase\count@
+        % case 0, normal line break
+      \penalty-\@M % put back the linebreak penalty
+    \or % case 1, do nothing (end of equation)
+      \relax
+    \or % case 2, no-op (obsolete case)
+    \or % case 3, transfer vspace and/or penalty
+      \ifx#1\EQ@box \eq@revspace \else \eq@revspaceb \fi
+    \or % case 4, put back an insert
+      \eq@reinsert
+    \or % case 5, put back a mark
+      \eq@remark
+    \or % case 6, put back a vadjust
+      \eq@readjust
+    \else % some other break penalty
+      \penalty-\count@
+    \fi
+    \unhbox#1}%
+}
+\def\eq@nulldisplay{%
+  \begingroup \frozen@everydisplay\@emptytoks
+  \@@display
+  \predisplaypenalty\@M \postdisplaypenalty\@M
+  \abovedisplayskip\z@skip \abovedisplayshortskip\z@skip
+  \belowdisplayskip\z@skip \belowdisplayshortskip\z@skip
+  \xdef\EQ@displayinfo{%
+    \prevgraf\the\prevgraf \predisplaysize\the\predisplaysize
+    \displaywidth\the\displaywidth \displayindent\the\displayindent
+    \listwidth\the\linewidth
+    \ifdim\displayindent>\z@
+      \advance\listwidth\the\leftmargin
+      \advance\listwidth\the\rightmargin
+    \fi
+    \relax}%
+  \halign{##\cr}%
+  \@@enddisplay
+  \par
+  \endgroup
+  \EQ@displayinfo
+}
+\def\eq@newline{%
+  \@ifstar{\eq@newlinea\@M}{\eq@newlinea\eqinterlinepenalty}}
+\def\eq@newlinea#1{%
+  \@ifnext[{\eq@newlineb{#1}}{\eq@newlineb{#1}[\maxdimen]}}
+\def\eq@newlineb#1[#2]{\penalty-\@M}
+\def\eq@revspace{%
+  \global\setbox\EQ@vimbox\vbox{\unvbox\EQ@vimbox
+    \unpenalty
+    \global\setbox\@ne\lastbox}%
+  \@@vadjust{\unvbox\@ne}%
+  \penalty-\@M
+}
+\def\eq@revspaceb{%
+  \global\setbox\EQ@vimcopy\vbox{\unvbox\EQ@vimcopy
+    \unpenalty
+    \global\setbox\@ne\lastbox}%
+  \@@vadjust{\unvbox\@ne}%
+  \penalty-\@M
+}
+\def\eq@break#1{\penalty-1000#1 \keep@glue}
+\let\@parshape\@empty
+\def\eq@measure{%
+  \ifdim\eq@indentstep=\maxdimen \eq@indentstep\eqindentstep \fi
+  \ifdim\eq@linewidth=\z@ \else \edef\eq@linewidths{{\the\eq@linewidth}}\fi
+  \eqrightskip \z@\@plus.2\columnwidth
+  \begingroup \eq@params
+  \leftskip\z@skip
+  \debug\eqinfo\gubed
+  \global\EQ@continue{\eq@trial}%
+  \eq@trial % uses \eq@linewidths
+  \eq@failout % will be a no-op if the trial succeeded
+  \endgroup
+  \EQ@trial
+}
+\let\EQ@trial\@empty
+\newtoks\EQ@continue
+\let\EQ@widths\@empty
+\def\eq@linewidths{\displaywidth\linewidth\columnwidth}
+\def\eq@trial{%
+  \ifx\@empty\eq@linewidths
+    \global\EQ@continue{}%
+  \else
+    \iffalse{\fi \@xp\eq@trial@a \eq@linewidths}%
+  \fi
+  \the\EQ@continue
+}
+\def\eq@trial@a#1{%
+  \dim@c#1\relax
+\debugwr{trial-A: width #1 (\the\dim@c)}%
+  \ifx T\eq@frame \eq@frame@adjust\dim@c \fi
+  \ifdim\dim@c>\eq@linewidth
+    \eq@linewidth\dim@c \eq@freewidth\eq@linewidth
+    \if@eq@number
+      \advance\eq@freewidth-\eqnumsep
+      \advance\eq@freewidth-\wd\EQ@numbox
+    \fi
+    \let\eq@trial@b\eq@trial@d
+    \csname eq@try@layout@\eq@layout\endcsname
+  \fi
+  \edef\eq@linewidths{\iffalse}\fi
+}
+\@namedef{eq@try@layout@?}{%
+  \let\eq@trial@b\eq@trial@c
+  \if\EQ@hasLHS
+\debugmsg{trial-A: LHS present (\the\eq@wdL)}%
+    \ifdim\eq@wdL>\eq@linewidth
+\debugwr{trial-A: LHS > linewidth}%
+       \dim@a\wd\EQ@copy \advance\dim@a-\eq@wdL
+       \ifdim\dim@a<.25\eq@linewidth \eq@try@layout@S
+       \else \eq@try@layout@l
+       \fi
+    \else
+      \ifdim\eq@wdL>.7\eq@linewidth
+\debugmsg{trial-A: LHS > .7 linewidth (linewidth=\the\eq@linewidth)}%
+        \eq@try@layout@iS
+      \else
+\debugmsg{trial-A: LHS not extraordinarily wide}%
+        \eq@try@layout@L
+      \fi
+    \fi
+  \else
+\debugwr{trial-A: No LHS here}%
+    \eq@try@layout@iS
+  \fi
+}
+\def\eq@trial@done{%
+\debugwr{End trial: Success!}%
+  \let\eq@failout\relax
+}
+\def\eq@trial@init{\global\let\EQ@fallback\eq@nextlayout}
+\def\eq@trial@save#1{%
+\debug \def\eq@zek{^^J|== \space}\let\eq@kez\@empty\debugwr{trial info:\eq@measurements}\debugmsg{bounding box: \the\eq@bodywidth x\the\eq@vspan^^J}%
+  \let\eq@zek\relax \let\eq@kez\relax
+\gubed
+  \xdef#1{%
+    \eq@linewidth\the\eq@linewidth \eq@freewidth\the\eq@freewidth
+    \eq@lines\the\eq@lines \eq@badness\the\eq@badness
+    \eq@wdL\the\eq@wdL \eq@bodywidth\the\eq@bodywidth \eq@sidespace\the\eq@sidespace
+    \eq@vspan\the\eq@vspan \eq@dp\the\eq@dp \eq@firstht\the\eq@firstht
+    \prerelpenalty\the\prerelpenalty % might change during processing
+    \def\@nx\eq@badline{\eq@badline}%
+    \def\@nx\eq@layout{\eq@layout}%
+    \def\@nx\eq@parshape{\@parshape}%
+    \def\@nx\eq@measurements{\eq@measurements}%
+    \def\@nx\adjust@rel@penalty{\adjust@rel@penalty}%
+    \def\@nx\eq@shiftnumber{\eq@shiftnumber}%
+  }%
+}
+\def\eq@recalc{%
+  \eq@bodywidth\z@ \eq@vspan\z@skip \eq@badness\z@
+  \eq@wdRmax\z@
+  \let\eq@zek\eq@recalc@a \eq@measurements \let\eq@zek\relax
+  \ifdim\eq@bodywidth<\eq@linewidth
+    \eq@sidespace\eq@linewidth \advance\eq@sidespace -\eq@bodywidth
+    \divide\eq@sidespace\tw@
+  \else
+    \eq@sidespace\z@
+  \fi
+}
+\def\eq@recalc@a#1x#2+#3\eq@kez{%
+  \eq@firstht#2\relax
+  \let\eq@zek\eq@recalc@b
+  \eq@zek#1x#2+#3\eq@kez
+}
+\def\eq@recalc@b#1^^J#2,#3x#4+#5@#6\eq@kez{%
+  \dim@a#3\relax
+  \ifdim\dim@a>\eq@wdRmax \eq@wdRmax\dim@a\fi
+  \advance\dim@a#2\relax
+  \ifdim\dim@a>\eq@bodywidth \eq@bodywidth\dim@a \fi
+  \eq@dp#5\relax
+  \advance\eq@vspan#1\advance\eq@vspan#4\advance\eq@vspan#5\relax
+  \ifnum#6>\eq@badness \eq@badness#6\relax\fi
+}
+\let\EQ@last@trial\@empty
+\def\eq@failout{%
+\debugmsg{End trial: failout}%
+  \global\let\EQ@trial\EQ@last@trial
+}
+\def\eq@frame@adjust#1{%
+  \dim@a\eq@framewd \advance\dim@a\eq@framesep
+  \advance#1-2\dim@a
+}
+\def\eq@layout{?}
+\def\eq@try@layout@D{%
+  \dim@a\eq@linewidth \advance\dim@a-\eq@indentstep
+  \edef\@parshape{\parshape 2
+    0pt \the\eq@wdL\space \the\eq@indentstep\space \the\dim@a\relax
+  }%
+  \def\adjust@rel@penalty{\penalty-99 }%
+  \eq@trial@b{D}{\eq@try@layout@A}%
+}
+\def\eq@try@layout@A{%
+  \edef\@parshape{\parshape 1 0pt \the\eq@linewidth\relax}%
+  \if\EQ@hasLHS \def\adjust@rel@penalty{\penalty-99 }\fi
+  \eq@trial@b{A}{}%
+}
+\def\eq@reindent@A{%
+  \dim@a\eq@linewidth \advance\dim@a-\eq@bodywidth
+  \edef\eq@parshape{%
+    \parshape 2
+      0pt \the\eq@bodywidth\space
+      \the\dim@a\space \the\eq@bodywidth\relax
+  }%
+  \leftskip\z@skip
+}
+\def\eq@try@layout@L{%
+  \dim@b\eq@linewidth \advance\dim@b-\eq@wdL
+  \edef\@parshape{\parshape 2 0pt \the\eq@linewidth\space
+    \the\eq@wdL\space \the\dim@b\relax
+  }%
+  \eq@trial@b{L}{\eq@try@layout@D}%
+}
+\def\eq@try@layout@iS{%
+  \edef\@parshape{\parshape 1 0pt \the\eq@freewidth\relax}%
+  \eq@trial@b{i}{\eq@try@layout@S}%
+}
+\def\eq@try@layout@S{%
+  \dim@b\eq@linewidth \advance\dim@b-2\eqmargin \advance\dim@b-1em%
+  \int@a\wd\EQ@copy \divide\int@a\dim@b
+  \advance\dim@b-\int@a\eq@indentstep\relax
+  \if@eq@number
+    \ifdim\dim@b>15em%
+      \advance\dim@b-\eqnumsep \advance\dim@b-\wd\EQ@numbox
+    \fi
+  \fi
+  \int@b\z@
+  \def\@tempa{\dim}%
+  \edef\@parshape{\parshape 2 0pt \the\dim@b\space
+    \the\eqmargin\space\the\dim@b\relax}%
+  \eq@trial@b{S}{\eq@try@layout@A}%
+}
+\def\eq@try@layout@l{%
+  \dim@a\eq@linewidth \advance\dim@a-\eq@indentstep
+  \int@a\eq@wdL \divide\int@a\dim@a
+  \advance\int@a\tw@
+  \edef\@parshape{\parshape \number\int@a\space
+    0pt \the\eq@linewidth
+  }%
+  \advance\int@a-\tw@
+  \dim@b=2\eq@indentstep
+  \dim@c\eq@linewidth \advance\dim@c-\dim@b
+  \edef\@parshape{\@parshape
+    \replicate{\int@a}{ \the\eq@indentstep\space\the\dim@a}%
+    \space\the\dim@b\space\the\dim@c
+  }%
+  \eq@trial@b{l}{\eq@try@layout@A}%
+}
+\def\eq@fix@lastline{%
+  \setbox\tw@\lastbox \dim@b\wd\tw@
+  \eq@dp\dp\tw@
+  \nointerlineskip\hbox to\dim@b{\unhbox\tw@
+    \skip@c\lastskip \unskip\unskip\hskip\skip@c
+  }%
+}
+\def\eq@trial@b{\eq@trial@c}
+\def\eq@compact@test{%
+  \debugwr{wdRmax: \the\eq@wdRmax}%
+  \let\@tempa\@empty
+  \if L\eq@layout
+    \ifnum\prerelpenalty=-\@M % standard noncompact value
+      \ifdim\eq@wdRmax>\eqcompactzone\relax
+      \else
+        \prerelpenalty=-99
+        \def\EQ@fallback{\endgroup
+          \begingroup \@firstoftwo{\eq@try@layout@L}}%
+        % This is sensitively dependent on the code that currently
+        % follows! Talk about bug prone! Watch out!
+        \def\@tempa##1{\csname iffalse\endcsname}%
+        \eq@repack@compact
+      \fi
+    \fi
+  \fi
+  \@tempa
+}
+\def\eq@trial@c#1#2{%
+\debug\message{^^J}\gubed
+\debugwr{Trying layout "#1" with parshape^^J|== \space\@xp\@gobble\@parshape}%
+  \begingroup
+  \eq@trial@init
+  \def\eq@layout{#1}%
+  \setbox\z@\vbox{%
+    \hfuzz\maxdimen
+    \eq@trial@p % run the given parshape
+%    \ifnum\eq@lines>\@ne \@xp\eq@compact@test \fi
+    \if\@Not{\eq@badline}%
+      \eq@trial@save\EQ@trial
+      \if@eq@number
+        \if i\eq@layout
+        \else
+          \if A\eq@layout \let\eq@shiftnumber\@True
+          \else           \eq@retry@with@number
+          \fi
+          \if\eq@shiftnumber
+            \begingroup
+            \EQ@trial
+            \let\@parshape\eq@parshape \let\eq@shiftnumber\@True
+            \eq@trial@save\EQ@trial
+            \endgroup
+          \fi
+        \fi
+      \fi
+      \if L\eq@layout \eq@check@density
+      \else
+        \if\@Not{\eq@badline}%
+          \aftergroup\@gobbletwo
+          \global\EQ@continue{\eq@trial@done}%
+        \fi
+      \fi
+    \else
+      \eq@trial@save\EQ@last@trial
+    \fi
+  }% end of vbox
+  \EQ@fallback{#2}%
+  \endgroup
+}
+\def\eq@check@density{%
+  \if\@Or{\@Not\EQ@hasLHS}{\eq@shortLHS}%
+    \aftergroup\@gobbletwo % cancel the \EQ@fallback code
+    \global\EQ@continue{\eq@trial@done}%
+  \else
+    \if\eq@dense@enough
+      \aftergroup\@gobbletwo % cancel the \EQ@fallback code
+      \global\EQ@continue{\eq@trial@done}%
+    \fi
+  \fi
+}
+\def\eq@retry@with@number{%
+\debugwr{Retry-with-number: wdT=\the\eq@bodywidth, freewidth=\the\eq@freewidth}%
+\toks@\@xp{\EQ@trial}\debugwr{EQ@trial: \the\toks@}%
+  \ifdim\eq@bodywidth>\eq@freewidth \eq@retry@with@number@a \fi
+}
+\let\eq@shiftnumber\@False
+\def\eq@retry@with@number@a{%
+  \adjust@for@number % depends on number placement
+\debug\message{^^J}\gubed\debugwr{Retrying (to make room for the number) with parshape^^J|== \space\@xp\@gobble\@parshape}%
+  \nointerlineskip
+  \edef\eq@prev@lines{\the\eq@lines}%
+  \eq@trial@p
+  \int@b\eq@prev@lines \advance\int@b\@ne
+  \ifnum\eq@lines>\int@b
+    \let\eq@shiftnumber\@True
+  \else
+    \if\@Not{\eq@badline}%
+      \let\eq@shiftnumber\@False
+      \eq@trial@save\EQ@trial
+    \else
+      \let\eq@shiftnumber\@True
+    \fi
+  \fi
+}
+\def\adjust@for@number{%
+\debugwr{eq@freewidth=\the\eq@freewidth??}%
+  \dim@d\wd\EQ@numbox \advance\dim@d\eqnumsep
+\debugwr{Adjusting by +\the\dim@d}%
+  \@xp\let\@xp\adjust@for@number@b
+    \csname adjust@for@number@\eqnumside\eqnumplace\endcsname
+  \@xp\adjust@for@number@a\@parshape\relax
+}
+\def\adjust@for@number@a#1 #2\relax{%
+  \edef\@parshape{#1}%
+  \adjust@for@number@b#2 @ @ \relax
+}
+\def\adjust@for@number@LT#1 #2 {%
+  \ifx @#1\edef\@parshape{\@parshape\relax}%
+    \@xp\@gobble
+  \else
+    \dim@a#1\advance\dim@a\dim@d
+    \dim@b#2\advance\dim@b-\dim@d
+    \edef\@parshape{\@parshape\space\the\dim@a\space\the\dim@b}%
+  \fi
+  \adjust@for@number@LT
+}
+\def\adjust@for@number@LM{%
+  \ifnum\eq@lines>\tw@
+    \advance\dim@d\eq@bodywidth
+    \advance\dim@d-\eq@linewidth
+  \fi
+\debugwr{No, adjusting by +\the\dim@d\space instead}%
+  \adjust@for@number@LT
+}
+\def\adjust@for@number@RM#1 #2 {%
+  \ifx @#1\edef\@parshape{\@parshape\relax}%
+    \@xp\@gobble
+  \else
+    \dim@c#2\relax
+    \dim@b\eq@freewidth
+    \advance\dim@b-#1\advance\dim@b-\dim@c
+    \ifdim\dim@b<\z@ \advance\dim@c\dim@b
+      \ifdim\dim@c<\p@ \dim@c\p@\relax \fi
+    \fi
+    \edef\@parshape{\@parshape\space#1 \the\dim@c}%
+  \fi
+  \adjust@for@number@RM
+}
+\def\eq@trial@p{%
+  \@parshape %
+  \eq@dump@box\unhcopy\EQ@copy
+  {\@@par}% leave \parshape readable
+  \eq@lines\prevgraf
+\debugmsg{Number of lines: \number\eq@lines}%
+  \eq@fix@lastline
+  \let\eq@badline\@False
+  \if i\eq@layout \ifnum\eq@lines>\@ne \let\eq@badline\@True \fi\fi
+  \eq@curline\eq@lines % loop counter for eq@measure@lines
+  \let\eq@measurements\@empty
+  \eq@ml@record@indents
+  \eq@measure@lines
+  \eq@recalc
+}
+\let\adjust@rel@penalty\@empty
+\def\eq@shortLHS{0\ifdim\eq@wdL>.44\eq@bodywidth \@xp 1\else \@xp 0\fi}
+\def\eq@longLHS{0\ifdim\eq@wdL>6em \@xp 0\else \@xp 1\fi}
+\def\eq@nextlayout#1{%
+  \endgroup
+\debugwr{Nope ... that ain't gonna work.}%
+  \begingroup #1%
+}
+\def\eq@trial@d#1#2{\eq@trial@c{#1}{}}
+\let\EQ@fallback\@empty
+\def\eq@ml@record@indents{%
+  \int@a\z@
+  \def\@tempa{%
+    \advance\int@a\@ne
+    \@xp\edef\csname eq@i\number\int@a\endcsname{\the\dim@a}%
+    \ifnum\int@a<\int@b \afterassignment\@tempb \fi
+    \dim@a
+  }%
+  \def\@tempb{\afterassignment\@tempa \dim@a}%
+  \def\@tempc##1##2 {\int@b##2\afterassignment\@tempa\dim@a}%
+  \@xp\@tempc\@parshape
+}
+\chardef\eq@zek=`\!
+\chardef\eq@kez=`\?
+\def\eq@measurements{%
+  \eq@zek 4.5pt/5.0pt,66.0ptx6.8pt+2.4pt@27\eq@kez
+  ...
+}
+\def\eq@measure@lines{%
+  \let\eq@ml@continue\eq@measure@lines
+  \setbox\tw@\lastbox \dim@b\wd\tw@ % find target width of line
+  \setbox\z@\hbox to\dim@b{\unhbox\tw@}% check for overfull
+  \eq@badness\badness
+  \ifnum\eq@badness<\inf@bad \else \let\eq@badline\@True \fi
+  \eq@ml@a \eq@ml@continue
+}
+\def\eq@ml@a{%
+  \setbox\tw@\hbox{\unhbox\z@ \unskip}% find natural width
+\debug\ifnum\eq@badness<\inf@bad\else\debugmsg{!?! Overfull: \the\wd\tw@ >\the\dim@b}\fi\gubed
+  \ifdim\dim@b<\wd\tw@ \dim@a\dim@b  % shrunken line
+  \else                \dim@a\wd\tw@ % OK to use natural width
+  \fi
+  \skip@a\lastskip \unskip \unpenalty
+  \ifdim\skip@a=\z@
+    \let\eq@ml@continue\relax % end the recursion
+  \else
+    % Sum repeated vskips if present
+    \def\@tempa{%
+      \ifdim \lastskip=\z@
+      \else \advance\skip@a\lastskip \unskip\unpenalty \@xp\@tempa
+      \fi
+    }%
+  \fi
+  \edef\eq@measurements{\eq@zek
+    \the\skip@a\space^^J% extra space to facilitate extracting only the
+                        % dimen part later
+    \csname eq@i%
+      \ifnum\eq@curline<\parshape \number\eq@curline
+      \else\number\parshape
+      \fi
+    \endcsname,\the\dim@a x\the\ht\tw@+\the\dp\tw@ @\the\eq@badness\eq@kez
+    \eq@measurements
+  }%
+  \advance\eq@curline\m@ne
+  \ifnum\eq@curline=\z@ \let\eq@ml@continue\relax\fi
+}
+\def\eq@ml@vspace{%
+  \global\advance\eq@vspan\lastskip \unskip\unpenalty
+  \ifdim\lastskip=\z@ \else \@xp\eq@ml@vspace \fi
+}
+\def\eq@dense@enough{%
+  \ifnum\eq@lines<\thr@@ \@True
+  \else
+    \ifdim\eq@wdL >.7\eq@bodywidth \@False
+    \else \@xp\@xp\@xp\eq@dense@enough@a
+    \fi
+  \fi
+}
+\def\true@false@true{\fi\fi\iftrue\iffalse\iftrue}
+\def\false@false@false{\fi\fi\iffalse\iffalse\iffalse}
+\def\false@true@false{\fi\fi\iffalse\iftrue\iffalse}
+\def\eq@density@factor{.475}
+\def\eq@dense@enough@a{%
+  \@True \fi
+  \ifnum\eq@lines>\sixt@@n
+    \eq@dense@enough@b
+  \else
+    \dim@b\z@ \let\eq@zek\eq@delt \eq@measurements
+    \dim@c\eq@density@factor\eq@bodywidth \multiply\dim@c\eq@lines
+\debugwr{black \the\dim@b/\eq@density@factor total \the\dim@c}%
+    \ifdim\dim@b>\dim@c \true@false@true \else \false@false@false \fi
+  \fi
+}
+\def\eq@delt#1^^J#2,#3x#4+#5@#6\eq@kez{\advance\dim@b#3\relax}%
+\def\eq@dense@enough@b{%
+  \int@b\eq@bodywidth \divide\int@b\p@
+  \dim@b\eq@wdL \divide\dim@b\int@b
+  \dim@c\eq@lines\p@ \multiply\dim@c\f@ur
+  \int@b\eq@lines \multiply\int@b 9 \advance\int@b -10%
+  \divide\dim@c\int@b
+\debugwr{l/t \the\dim@b\space< \the\dim@c\space 4n/(9n-10)?}%
+  \ifdim\dim@b<\dim@c \true@true@true \else \false@true@false \fi
+}
+\def\adjust@parshape#1{%
+  \@xp\adj@psh@a \csname adjust@parshape@#1@\eq@layout\endcsname
+}
+\def\adj@psh@a#1{%
+  \ifx\@@undefined#1\relax
+\debugmsg{UNDEFINED: \string#1}%
+  \else \@xp#1\eq@parshape
+  \fi
+}
+\def\adj@psh@b#1{%
+\debugmsg{Adjusting parshape (\eqindent\if@eq@number\eqnumside\eqnumplace\fi @\eq@layout)}%
+  \edef\eq@parshape{\parshape \number\eq@lines}%
+  \let\eq@zek#1\eq@measurements \let\eq@zek\relax
+  \edef\eq@parshape{\eq@parshape\relax}%
+  \leftskip\z@skip
+}
+\def\adjust@parshape@C@L#1 #2 #3 #4 #5\relax{%
+  \dim@a\leftskip \advance\dim@a#4\relax
+  \edef\eq@parshape{#1 \the\leftskip\space#3 \the\dim@a\space#5\relax}%
+  \leftskip\z@skip
+}
+\def\adjust@parshape@C@D#1 #2 #3 #4 #5\relax{%
+  \dim@b\eq@linewidth \advance\dim@b-\eq@bodywidth
+\debugmsg{linewidth - wdT = \the\eq@linewidth\space- \the\eq@bodywidth\space=\the\dim@b}%
+  \advance\dim@b-\eqmargin
+\debugmsg{ - eqmargin (\the\eqmargin) = \the\dim@b}%
+  \advance\dim@b#4\relax
+\debugmsg{ + #4 = \the\dim@b}%
+  \dim@a\eqmargin
+  \adj@psh@b\C@Deq@zek
+}
+\def\C@Deq@zek#1^^J#2,#3x#4\eq@kez{%
+  \edef\eq@parshape{\eq@parshape\space \the\dim@a\space #3}%
+  \dim@a\dim@b % use dim@b for all remaining lines
+}
+\def\adjust@parshape@C@S#1 #2 #3 #4 #5\relax{%
+  \dim@b#4\relax % normally = \eqmargin
+  \dim@d\eq@linewidth \advance\dim@d-\eq@bodywidth
+  \ifdim\dim@d<2\dim@b
+    \dim@c\leftskip
+    \advance\dim@d-\dim@c
+  \else \advance\dim@d-2\dim@b
+    \dim@c\dim@b
+  \fi
+  \advance\dim@d-\dim@c \advance\dim@d\dim@b
+  \int@a\eq@lines \advance\int@a\m@ne
+  \ifnum\int@a>\@ne \divide\dim@d\int@a \fi
+\debugmsg{dim@d after dividing: \the\dim@d}%
+  \adj@psh@b\C@Seq@zek
+}
+\def\C@Seq@zek#1^^J#2,#3x#4+#5@#6\eq@kez{%
+  \edef\eq@parshape{\eq@parshape\space \the\dim@c\space #3}%
+  \advance\dim@c\dim@d
+}
+\def\adjust@parshape@CRM@D#1 #2 #3 #4 #5\relax{%
+  \dim@b\eq@linewidth \advance\dim@b-\eq@bodywidth
+\debugmsg{linewidth - wdT = \the\eq@linewidth\space- \the\eq@bodywidth\space=\the\dim@b}%
+  \advance\dim@b-\eqnumsep \advance\dim@b-\wd\EQ@numbox
+\debugmsg{ - numsep (\the\eqnumsep) - numwd (\the\wd\EQ@numbox) = \the\dim@b}%
+  \advance\dim@b#4\relax
+\debugmsg{ + #4 = \the\dim@b}%
+  \dim@a\eqmargin
+  \adj@psh@b\C@Deq@zek
+}
+\def\adjust@parshape@CRM@L{\adjust@parshape@C@L}
+\def\adjust@parshape@CRM@S#1 #2 #3 #4 #5\relax{%
+  \dim@b#4\relax % normally = \eqmargin
+  \dim@d\eq@linewidth \advance\dim@d-\eq@bodywidth
+  \advance\dim@d-\eqnumsep \advance\dim@d -\wd\EQ@numbox
+  \ifdim\dim@d<\dim@b \dim@c\leftskip
+  \else \dim@c\dim@b
+  \fi
+  \advance\dim@d-\dim@c \advance\dim@d\dim@b
+  \int@a\eq@lines \advance\int@a\m@ne
+  \ifnum\int@a>\@ne \divide\dim@d\int@a \fi
+\debugmsg{dim@d after dividing: \the\dim@d}%
+  \adj@psh@b\C@Seq@zek
+}
+\def\adjust@parshape@CRM@A#1\relax{\debugmsg{CRM@A: #1}}
+\def\adjust@parshape@CRM@l#1\relax{\debugmsg{CRM@l: #1}}
+\let\eq@parshape\@empty
+\def\eq@params{%
+  \baselineskip\eqlinespacing
+  \lineskip\eqlineskip \lineskiplimit\eqlineskiplimit
+  \clubpenalty\@M \widowpenalty\@M \interlinepenalty\eqinterlinepenalty
+  \linepenalty\eqlinepenalty \exhyphenpenalty9999
+  \rightskip\eqrightskip
+  \ifdim\hfuzz<\p@ \hfuzz\p@ \fi
+  \advance\rightskip \z@\@minus\hfuzz
+  \hfuzz\z@
+  \parfillskip\z@skip
+  \if\eq@centerlines
+    \advance\leftskip\rightskip \advance\leftskip -1\rightskip
+  \fi
+  \tolerance9999 \pretolerance\m@ne
+  \hbadness\tolerance
+}
+\def\eq@dump@box#1#2{%
+%\debug@box#1%
+\debugwr{Dumping with leftskip = \the\leftskip,
+  \ifx\@empty\eq@parshape \else eq\fi @parshape =}%
+\debugwr{\ifx\@empty\eq@parshape \@parshape \else\eq@parshape\fi}%
+  \noindent #1#2\setbox\f@ur\lastbox \setbox\tw@\lastbox
+  \if L\eq@layout \box\tw@ \else\unhbox\tw@\fi
+  \adjust@rel@penalty \unhbox\f@ur
+}
+\def\eq@C{%
+\debugmsg{\eq@sidespace\the\eq@sidespace, \eq@bodywidth\the\eq@bodywidth, \eq@linewidth\the\eq@linewidth}%
+  \eq@params
+  \leftskip\eq@sidespace
+  \adjust@parshape{C}%
+  \eq@parshape
+  \eq@topspace{\noindent}%
+  \ifx F\eq@frame
+  \else
+    \vbox to\eq@firstht{\hbox to\z@{\eq@addframe\hss}\vss}%
+  \fi
+  \eq@dump@box\unhbox\EQ@box \@@par
+}
+\def\eq@CRB{%
+  \if\eq@shiftnumber
+    \leftskip\eq@sidespace
+  \else
+    \ifnum\eq@lines=\@ne
+      \leftskip\eq@sidespace \advance\leftskip\eqnumsep
+      \ifdim\leftskip<3\wd\EQ@numbox
+        \multiply\leftskip\tw@ \divide\leftskip\thr@@
+        \ifdim\leftskip<2\eqnumsep
+          \leftskip\eq@sidespace \divide\leftskip\tw@
+        \fi
+\debugmsg{Shifting off-center: leftskip \the\leftskip}%
+      \else
+        \divide\leftskip\tw@
+\debugmsg{Plenty of room: leftskip \the\leftskip}%
+      \fi
+    \fi
+  \fi
+  \eq@CRBa
+}
+\def\eq@CRBa{%
+  \eq@topspace{\noindent}%
+  \ifx F\eq@frame
+  \else \vbox to\eq@firstht{\hbox to\z@{\eq@addframe\hss}\vss}%
+  \fi
+  \eq@params \eq@parshape
+  \add@grp@label
+  \eq@dump@box\unhbox\EQ@box \@@par
+  \penalty\@M
+  \if\eq@shiftnumber
+  \else
+    \lineskiplimit-\maxdimen \baselineskip\z@skip
+  \fi
+  \hbox to\eq@linewidth{\hfil\copy\EQ@numbox}%
+}
+\def\eq@CRM{%
+\debug
+  \dim@a\eq@bodywidth \advance\dim@a\eqnumsep \advance\dim@a\wd\EQ@numbox
+\debugmsg{\hsize\the\hsize, \eq@linewidth\the\eq@linewidth}%
+\debugmsg{T+S+N = \the\eq@bodywidth+\the\eqnumsep+\the\wd\EQ@numbox\space= \the\dim@a}%
+\debugmsg{sidespace: \the\eq@sidespace}%
+\gubed
+  \ifnum\eq@lines<\tw@
+    \ifdim\eq@bodywidth>\eq@freewidth \let\eq@shiftnumber\@True\fi
+  \fi
+  \debugmsg{\rightskip=\the\rightskip??}%
+  \parfillskip\z@skip
+  \if\eq@shiftnumber
+    \@xp\eq@CRB % shifted number
+  \else
+    \set@leftskip@for@centering
+    \@xp\eq@CRMa % nonshifted number
+  \fi
+}
+\def\set@leftskip@for@centering{%
+  \leftskip\eq@sidespace\relax
+  \ifdim\leftskip>\z@ % when not true?
+    % Skip quickly past the more complicated stuff if not needed (which
+    % is true most of the time)
+    \ifdim\leftskip<2\wd\EQ@numbox
+      \set@leftskip@fca
+    \else
+\debugwr{Plenty of room: leftskip \the\leftskip}%
+    \fi
+  \fi
+}
+\def\set@leftskip@fca{%
+  % Save free space = linewidth - bodywidth - numberwidth in \dim@a
+  \dim@a\eq@linewidth \advance\dim@a-\eq@bodywidth
+  \advance\dim@a-\wd\EQ@numbox
+  \ifdim\dim@a<\eqnumsep
+    \leftskip\z@skip
+\debugwr{Not enough room, wha happend?}%
+  \else
+    % Put two thirds of the free space on the side opposite to the number
+    \leftskip\dim@a \multiply\leftskip\tw@ \divide\leftskip\thr@@
+    \dim@b\dim@a \advance\dim@b-\leftskip
+    % But if that leaves less than eqnumsep for the other side, we need
+    % to do some more adjusting.
+    \ifdim\dim@b<\eqnumsep
+      \leftskip\dim@a \advance\leftskip-\eqnumsep
+\debugwr{Off-center: far side \the\leftskip, near side \the\eqnumsep
+(\string\eqnumsep)}%
+    \else
+\debugwr{Off-center: far side \the\leftskip\space (2/3 F), near side \the\dim@b\space (1/3 F)}%
+    \fi
+  \fi
+  \if L\eqnumside
+    % leftskip=.67F dim@a=.33F (e.g.)
+    % swap dim@a and leftskip, then add number width to leftskip
+    % and subtract it from rightskip
+    \dim@b\dim@a \advance\dim@b-\leftskip
+    \dim@a\leftskip \leftskip\dim@b
+    \advance\leftskip\wd\EQ@numbox
+    \edef\rightskip@shift{\advance\rightskip-\wd\EQ@numbox}%
+  \fi
+  \relax % watch it!
+}
+\let\rightskip@shift\@empty
+\def\eq@CRMa{%
+  \eq@topspace{\vskip\parskip}%
+  \vbox to\eq@firstht{%
+    \ifx F\eq@frame
+    \else
+      \moveright\leftskip\hbox to\z@{\eq@addframe\hss}%
+    \fi
+    \vss}%
+  \penalty\@M
+  \skip@c\eq@vspan
+  \advance\skip@c-\ht\EQ@numbox \advance\skip@c-\dp\EQ@numbox
+  \divide\skip@c\tw@
+  \parskip-\skip@c
+  \advance\parskip-\ht\EQ@numbox \advance\parskip-\dp\EQ@numbox
+  \advance\skip@c-\eq@firstht
+  \vskip\skip@c \nointerlineskip
+  \hbox to\hsize{\hfil\copy\EQ@numbox}%
+  \nobreak
+  \eq@params
+  \adjust@parshape{CRM}%
+  \eq@parshape
+  \nointerlineskip \noindent\add@grp@label \eq@dump@box\unhbox\EQ@box %
+%  \tracingparagraphs=2 \@@par \tracingparagraphs=0%
+  \@@par
+}
+\def\eq@CLM{%
+  \ifnum\eq@lines=\@ne
+    \ifdim\eq@freewidth<\wd\EQ@box
+      \let\eq@shiftnumber\@True
+    \fi
+  \fi
+  \if\eq@shiftnumber
+    \eq@CLT
+  \else
+    \set@leftskip@for@centering
+    \rightskip\eqrightskip % see also \eq@params
+    \parfillskip\z@skip
+    \ifnum\eq@lines>\@ne \eq@topspace{\vskip\parskip}%
+    \else \vskip\abovedisplayskip
+    \fi
+    \vbox to\eq@firstht{%
+      \ifx F\eq@frame
+      \else
+        \moveright\leftskip\hbox to\z@{\eq@addframe\hss}%
+      \fi
+      \vss}%
+    \nointerlineskip
+    \penalty\@M
+    \vskip@for@number % also sets parskip for the following material
+    \copy\EQ@numbox
+    \nobreak
+    \eq@params
+    \rightskip@shift % compensate for left-hand number
+\debugmsg{\rightskip=\the\rightskip}%
+    \eq@parshape
+%\debug@box\EQ@box\tracingparagraphs\@ne\debug@para
+    \nointerlineskip
+    \noindent\add@grp@label \eq@dump@box\unhbox\EQ@box \@@par
+  \fi
+}
+\def\vskip@for@number{%
+  \skip@c\eq@vspan \advance\skip@c-\ht\EQ@numbox
+  \advance\skip@c-\dp\EQ@numbox \divide\skip@c\tw@
+  \parskip-\skip@c
+  \advance\parskip-\ht\EQ@numbox \advance\parskip-\dp\EQ@numbox
+  \advance\skip@c-\eq@firstht
+  \vskip\skip@c
+}
+\def\eq@CLT{%
+  \if\eq@shiftnumber
+    \if A\eq@layout \eq@reindent@A
+    \else \leftskip\eq@sidespace \divide\leftskip\tw@
+    \fi
+  \else
+    \leftskip\eq@sidespace \advance\leftskip\eqnumsep
+    \ifnum\eq@lines=\@ne
+      \ifdim\eq@sidespace<2\wd\EQ@numbox
+        \multiply\leftskip\tw@ \divide\leftskip\thr@@
+%\debugmsg{Shifting off-center: leftskip \the\leftskip}%
+      \else
+        \divide\leftskip\tw@
+%\debugmsg{Plenty of room: leftskip \the\leftskip}%
+      \fi
+    \else
+      \divide\leftskip\tw@
+    \fi
+  \fi
+  \eq@CLTa
+}
+\def\eq@CLTa{%
+  \vskip\abovedisplayskip
+  \copy\EQ@numbox \penalty\@M
+  \if\eq@shiftnumber \else \kern-\eq@firstht \nointerlineskip \fi
+  \noindent
+  \ifx F\eq@frame
+  \else \vbox to\eq@firstht{\hbox to\z@{\eq@addframe\hss}\vss}%
+  \fi
+  \eq@params \eq@parshape
+  \add@grp@label \eq@dump@box\unhbox\EQ@box\@@par
+}
+\def\eq@IRM{\leftskip\mathindent \eq@CRMa}
+\def\eq@IRB{\leftskip\mathindent \eq@CRBa}
+\def\eq@I{%
+  \leftskip\mathindent
+  \eq@params
+  \eq@topspace{\noindent}%
+  \ifx F\eq@frame
+  \else
+    \vbox to\eq@firstht{\hbox to\z@{\eq@addframe\hss}\vss}%
+  \fi
+  \eq@dump@box\unhbox\EQ@box\@@par
+}
+\newcommand\eqframe[2]{\framebox{\z@rule\@height#2\kern#1}}
+\def\eq@addframe{%
+  \hbox to\z@{\dim@a\fboxsep \advance\dim@a\fboxrule
+    \kern-\dim@a
+    \vbox to\z@{\kern-\dim@a
+      \hbox{\eqframe{\eq@bodywidth}{\eq@vspan}}%
+      \vss
+    }%
+    \hss
+  }%
+}
+\@saveprimitive\left\@@left
+\@saveprimitive\right\@@right
+\newcount\lr@level
+\def\eq@left{%
+  \@ifnext .{\eq@nullleft}{\begingroup \let\delimiter\eq@left@a}%
+}
+\def\eq@right{%
+  \@ifnext .{\eq@nullright}{\begingroup \let\delimiter\eq@right@a}%
+}
+\def\eq@left@a#1 #2{\endgroup\@@left\delimiter#1 \after@open}
+\def\eq@right@a#1 #2{\endgroup
+  \@@right\delimiter#1 \after@close\ss@scan{#1}%
+}
+\def\eq@nullleft#1{\@@left#1\after@open}
+\def\eq@nullright#1{\@@right#1\after@close}
+\def\delim@reset{%
+  \let\after@open\relax \let\after@close\relax
+  \let\left\@@left \let\right\@@right
+}
+\@ifundefined{bBigg@}{% not defined
+  \let\big@size\p@
+  \def\big{\bBigg@{8.5}}\def\Big{\bBigg@{11.5}}%
+  \def\bigg{\bBigg@{14.5}}\def\Bigg{\bBigg@{17.5}}%
+  \def\biggg{\bBigg@{20.5}}\def\Biggg{\bBigg@{23.5}}%
+}{}
+\def\bBigg@#1#2{%
+  {\delim@reset
+   \left#2%
+   \vrule\@height#1\big@size\@width-\nulldelimiterspace
+   \right.
+  }%
+}
+\def\bigl#1{\mathopen\big{#1}\after@open}
+\def\Bigl#1{\mathopen\Big{#1}\after@open}
+\def\biggl#1{\mathopen\bigg{#1}\after@open}
+\def\Biggl#1{\mathopen\Bigg{#1}\after@open}
+\def\bigggl#1{\mathopen\biggg{#1}\after@open}
+\def\Bigggl#1{\mathopen\Biggg{#1}\after@open}
+
+\def\bigr#1{\mathclose\big{#1}\after@close}
+\def\Bigr#1{\mathclose\Big{#1}\after@close}
+\def\biggr#1{\mathclose\bigg{#1}\after@close}
+\def\Biggr#1{\mathclose\Bigg{#1}\after@close}
+\def\bigggr#1{\mathclose\biggg{#1}\after@close}
+\def\Bigggr#1{\mathclose\Biggg{#1}\after@close}
+
+%% No change needed, I think. [mjd,1998/12/04]
+%%\def\bigm{\mathrel\big}
+%%\def\Bigm{\mathrel\Big}
+%%\def\biggm{\mathrel\bigg}
+%%\def\Biggm{\mathrel\Bigg}
+%%\def\bigggm{\mathrel\biggg}
+%%\def\Bigggm{\mathrel\Biggg}
+\let\m@@DeL\m@DeL \let\m@@DeR\m@DeR \let\m@@DeB\m@DeB
+\def\d@@DeL#1#2#3{%
+  \delimiter"4\@xp\delim@a\csname sd@#1#2#3\endcsname #1#2#3 \after@open
+}
+\def\d@@DeR#1#2#3{%
+  \delimiter"5\@xp\delim@a\csname sd@#1#2#3\endcsname #1#2#3 \after@close
+}
+\def\d@@DeB#1#2#3{%
+  \delimiter"0\@xp\delim@a\csname sd@#1#2#3\endcsname #1#2#3 \after@bidir
+}
+\let\after@bidir\@empty
+\mathchardef\zero@bop=888 \relax
+\mathchardef\bop@incr=4444 \relax
+\def\after@open{%
+  \global\advance\lr@level\@ne
+  \prebinoppenalty\bop@incr \multiply\prebinoppenalty\lr@level
+  \advance\prebinoppenalty\zero@bop
+  \ifnum\eqbreakdepth<\lr@level
+    \let\m@Bin\m@@Bin
+  \else
+    \eq@binoffset=\eqbinoffset
+    \advance\eq@binoffset\lr@level\eqdelimoffset plus1fill\relax
+    \def\dt@fill@cancel{\hskip\z@ minus1fill\relax}%
+  \fi
+}
+\def\after@close{%
+  \global\advance\lr@level\m@ne
+  \ifnum\lr@level<\z@ \eq@lrbad \global\lr@level\z@ \fi
+  \prebinoppenalty\bop@incr \multiply\prebinoppenalty\lr@level
+  \advance\prebinoppenalty\zero@bop
+  \ifnum\eqbreakdepth<\lr@level
+  \else \let\m@Bin\d@@Bin
+  \fi
+  \ifnum\lr@level<\@ne \eq@binoffset=\eqbinoffset\relax \fi
+}
+\def\eq@lrbad{%
+  \PackageError{breqn}{Too many closing delimiters?}{%
+    The unmatched delimiter might be further back.\MessageBreak
+    \@ehc
+  }%
+}
+\let\subsup@flag=\count@
+\def\ss@delim@a#1#2#3#4{\xdef\right@delim@code{\number"#2#3#4}}
+\def\ss@scan#1{%
+  \begingroup
+    \let\delim@a\ss@delim@a \@tempcnta#1\relax
+  \endgroup
+  \subsup@flag\@M \afterassignment\ss@scan@a \let\@let@token=}
+\def\ss@scan@a{%
+  \ifx\@let@token\sb \advance\subsup@flag\@ne\else
+  \ifx\@let@token\sp \advance\subsup@flag\tw@\else
+    \ss@finish
+    \expandafter\@firstoftwo % gobble \ss@scan@b
+  \fi\fi
+  \ss@scan@b\@let@token
+}
+\def\ss@scan@b#1#2{#1{%
+% hack! coff!
+  \let\m@Bin\m@@Bin  \let\m@Rel\m@@Rel
+  #2}\afterassignment\ss@scan@a \let\@let@token=}%
+\def\ss@finish{%
+  \@@vadjust{\penalty\thr@@}%
+  \penalty\right@delim@code \penalty-\subsup@flag \keep@glue
+}
+\def\eq@lrunpack{\setbox\z@\lastbox
+  \unskip \nointerlineskip
+  \noindent\unhbox\z@ \unskip
+  \subsup@flag-\lastpenalty \unpenalty
+  \xdef\right@delim@code{\number\lastpenalty}%
+  \unpenalty
+  \ifnum\subsup@flag>\@M
+    \advance\subsup@flag-\@M
+    \setbox\tw@\lastbox
+  \else \setbox\tw@\box\voidb@x
+  \fi
+  \setbox\z@\lastbox
+  \ifvoid\tw@ \unhbox\z@
+  \else \lrss@reattach % uses \subsup@flag, box\z@, box\tw@
+  \fi
+  \penalty-\@Mi\z@rule\@@par
+  \setbox\z@\lastbox \unskip\unpenalty
+%%{\showboxbreadth\maxdimen\showboxdepth99\showlists}%
+}
+\dimendef\sub@depth=8 \dimendef\sup@base=6
+\dimendef\prelim@sub@depth=4 \dimendef\prelim@sup@base=2
+\def\sym@xheight{\fontdimen5\textfont\tw@}
+\def\sup@base@one{\fontdimen13\textfont\tw@}
+\def\sub@base@one{\fontdimen16\textfont\tw@}
+\def\sub@base@two{\fontdimen17\textfont\tw@}
+\def\sup@drop{\fontdimen18\scriptfont\tw@}
+\def\sub@drop{\fontdimen19\scriptfont\tw@}
+\providecommand{\mathaxis}{\fontdimen22\textfont\tw@}
+\def\lrss@reattach{%
+  \begingroup
+  % "The TeXbook" Appendix G step 18:
+  \prelim@sup@base\ht\z@ \advance\prelim@sup@base-\sup@drop
+  \prelim@sub@depth\dp\z@ \advance\prelim@sub@depth\sub@drop
+  \unhbox\z@
+  \ifcase\subsup@flag      % case 0: this can't happen
+  \or \lr@subscript   % case 1: subscript only
+  \or \lr@superscript % case 2: superscript only
+  \else \lr@subsup    % case 3: sub and superscript both
+  \fi
+  \endgroup
+}
+\def\lr@subscript{%
+  \sub@depth\sub@base@one
+  \ifdim\prelim@sub@depth>\sub@depth \sub@depth\prelim@sub@depth\fi
+  \dim@a\ht\tw@ \advance\dim@a -.8\sym@xheight
+  \ifdim\dim@a>\sub@depth \sub@depth\dim@a \fi
+  \twang@adjust\sub@depth
+  \lower\sub@depth\box\tw@
+}
+\def\lr@superscript{%
+  \sup@base\sup@base@one
+  \ifdim\prelim@sup@base>\sup@base \sup@base\prelim@sup@base\fi
+  \dim@a\dp\tw@ \advance\dim@a -.25\sym@xheight
+  \ifdim\dim@a>\sup@base \sup@base\dim@a \fi
+  \twang@adjust\sup@base
+  \raise\sup@base\box\tw@
+}
+\def\lr@subsup{%
+  \sub@depth\sub@base@two
+  \ifdim\prelim@sub@depth>\sub@depth \sub@depth\prelim@sub@depth \fi
+  \twang@adjust\sub@depth
+  \lower\sub@depth\box\tw@
+}
+\def\twang@adjust#1{%
+  \begingroup
+    \@ifundefined{twang@\right@delim@code}{}{%
+      \dim@d=#1\advance\dim@d-\mathaxis
+      % put an upper limit on the adjustment
+      \ifdim\dim@d>1em \dim@d 1em \fi
+      \kern\csname twang@\right@delim@code\endcsname\dim@d
+    }%
+  \endgroup
+}
+\newcommand{\DeclareTwang}[2]{%
+  \ifcat.\@nx#1\begingroup
+    \lccode`\~=`#1\lowercase{\endgroup \DeclareTwang{~}}{#2}%
+  \else
+    \@xp\decl@twang#1?\@nil{#2}%
+  \fi
+}
+\def\decl@twang#1#2#3#4#5#6#7\@nil#8{%
+  \@namedef{twang@\number"#4#5#6}{#8}%
+}
+\DeclareTwang{\rangle}{-.4}
+\DeclareTwang{)}{-.33}
+\DeclareTwang{\rbrace}{-.25}
+\newenvironment{dseries}{\@eq@numbertrue \@optarg\@dseries{}}{}%
+\def\enddseries#1{\check@punct@or@qed}
+\def\@dseries[#1]{%
+  \def\display@setup{\displaystyle}%
+  \let\eq@centerlines\@True
+  \@dmath[#1]%
+  \mathsurround\z@\@@math \penalty\@Mi
+  \let\endmath\ends@math
+  \def\premath{%
+    \ifdim\lastskip<.49em \unskip\fi
+    \ifnum\lastpenalty<\@M\dquad\fi
+  }%
+  \def\postmath{\eq@addpunct \penalty-99 \dquad \@ignoretrue }%
+}
+\def\end@dseries{%
+  \unskip\unpenalty
+  \@@endmath \mathsurround\z@ \end@dmath
+}
+\newenvironment{dseries*}{\@eq@numberfalse \@optarg\@dseries{}}{}
+\@namedef{enddseries*}#1{\check@punct@or@qed}
+\@namedef{end@dseries*}{\end@dseries}
+\renewenvironment{math}{%
+  \leavevmode \premath
+  \ifmmode\@badmath\else\@@math\fi
+}{%
+  \ifmmode\@@endmath\else\@badmath\fi
+}
+\def\ends@math#1{\check@punct@or@qed}
+\def\end@math{%
+  \ifmmode\@@endmath\else\@badmath\fi
+  \postmath
+}
+\newcommand\dquad{\hskip1em minus.25em }
+\newcommand\premath{}\newcommand\postmath{}
+\let\eq@group\@False
+\global\let\GRP@top\@True
+\newenvironment{dgroup}{%
+  \@eq@numbertrue \@optarg\@dgroup{}%
+}{%
+  \end@dgroup{\grp@resetnumber}%
+}
+\newtoks\GRP@queue
+\newenvironment{dgroup*}{%
+  \@eq@numberfalse \@optarg\@dgroup{}%
+}{
+  \end@dgroup{}%
+}
+\def\@dgroup[#1]{%
+  \let\eq@group\@True \global\let\GRP@top\@True
+  \global\GRP@queue\@emptytoks \global\setbox\GRP@box\box\voidb@x
+  \global\let\GRP@label\@empty
+  \gdef\GRP@info{\grp@wdL\z@ \grp@bodywidth\z@ \grp@linewidth\z@}%
+  \eq@prelim
+  \setkeys{breqn}{#1}%
+  \if@eq@number \grp@setnumber \fi
+}
+\def\end@dgroup#1{%
+  \EQ@displayinfo \grp@finish
+  #1% \grp@resetnumber
+}
+\@ifundefined{c@parentequation}{\newcounter{parentequation}}{}
+\global\let\GRP@label\@empty
+\def\add@grp@label{%
+  \ifx\@empty\GRP@label
+  \else \GRP@label \global\let\GRP@label\@empty
+  \fi
+}
+\def\grp@setnumber{%
+  \global\let\GRP@label\next@label \global\let\next@label\@empty
+  \eq@setnumber
+  \protected@edef\theparentequation{\theequation}%
+  \setcounter{parentequation}{\value{equation}}%
+  \setcounter{equation}{0}%
+  \def\theequation{\theparentequation\alph{equation}}%
+}
+\def\grp@resetnumber{%
+  \setcounter{equation}{\value{parentequation}}%
+}
+\gdef\GRP@info{\grp@wdL\z@ \grp@bodywidth\z@ \grp@linewidth\z@}
+\newbox\GRP@box
+\def\grp@push{%
+  \global\GRP@queue\@xp\@xp\@xp{\@xp\the\@xp\GRP@queue
+    \@xp\eq@zek\@xp{\EQ@trial}%
+  }%
+  \global\setbox\GRP@box\vbox{%
+    \hbox{\box\EQ@box\box\EQ@copy\penalty\@ne\copy\EQ@numbox}%
+    \unvbox\GRP@box
+  }%
+  \EQ@trial \GRP@info
+  \xdef\GRP@info{%
+    \grp@wdL=\ifdim\eq@wdL>\grp@wdL \the\eq@wdL \else \the\grp@wdL \fi
+    \grp@bodywidth=\ifdim\eq@bodywidth>\grp@bodywidth \the\eq@bodywidth \else \the\grp@bodywidth \fi
+    \grp@linewidth=%
+      \ifdim\eq@linewidth>\grp@linewidth \the\eq@linewidth
+      \else \the\grp@linewidth
+      \fi
+    \relax
+  }%
+}
+\def\grp@finish{%
+\debug@box\GRP@box
+%\debugmsg{\GRP@queue: \the\GRP@queue}%
+  \GRP@info
+  \grp@wdL\z@ \grp@bodywidth\z@
+  \let\eq@zek\eqgrp@prelim
+  \the\GRP@queue
+  \advance\grp@bodywidth\grp@wdL
+\debugmsg{grp@wdL \the\grp@wdL, grp@bodywidth \the\grp@bodywidth}%
+  \let\eq@zek\eqgrpeq@zek
+  \the\GRP@queue
+  \let\eq@zek\relax
+  \eq@botspace
+}
+\def\eqgrp@prelim#1{%
+  #1%
+  \ifdim\eq@wdL>\grp@wdL \grp@wdL\eq@wdL \fi
+  \dim@a\eq@bodywidth \advance\dim@a-\eq@wdL
+  \ifdim\dim@a>\grp@bodywidth \grp@bodywidth\dim@a \fi
+}
+\def\eqgrpeq@zek#1{%
+  \global\setbox\GRP@box\vbox{%
+    \unvbox\GRP@box
+    \setbox\z@\lastbox
+    \setbox\tw@\hbox{\unhbox\z@
+      \ifnum\lastpenalty=\@ne
+      \else
+        \global\setbox\EQ@numbox\lastbox
+      \fi
+      \unpenalty
+      \global\setbox\EQ@copy\lastbox
+      \global\setbox\EQ@box\lastbox
+    }%
+  }%
+  \begingroup \let\eq@botspace\relax
+  #1%
+  \eq@finish
+  \endgroup
+}
+\newskip\darraycolsep \darraycolsep 20pt plus1fil minus12pt
+\newcount\cur@row \newcount\cur@col
+\def\@tempa#1#2#3{%
+  \cur@col#1 \hfil
+  \setbox\z@\hbox{$\displaystyle####\m@th$}\@nx\col@box
+  \tabskip\z@skip
+  &\cur@col#2 \hfil
+  \setbox\z@\hbox{$\displaystyle\mathord{}####\mathord{}\m@th$}\@nx\col@box
+  \hfil
+  &\cur@col#3 \setbox\z@\hbox{$\displaystyle####\m@th$}\@nx\col@box
+  \hfil\tabskip\darraycolsep
+}
+\xdef\darray@preamble{%
+  \@tempa 123&\@tempa 456&\@tempa 789%
+  &\@tempa{10}{11}{12}&\@tempa{13}{14}{15}&\@tempa{16}{17}{18}%
+  \cr
+}
+\@ifundefined{Mathstrut@}{\let\Mathstrut@\strut}{}
+\def\darray@cr{\Mathstrut@\cr}
+\def\col@box{%
+%\debugmsg{Col \number\cur@row,\number\cur@col: \the\wd\z@\space x \the\ht\z@+\the\dp\z@}%
+  \unhbox\z@
+}
+\newenvironment{darray}{\@optarg\@darray{}}{}
+\def\@darray[#1]{%
+  \if\eq@group\else\eq@prelim\fi
+  \global\let\@preamble\@empty
+  \setkeys{breqn}{#1}%
+  \the\eqstyle \eq@setnumber
+  \ifx\@preamble\@empty \global\let\@preamble\darray@preamble \fi
+  \check@mathfonts
+  % \let\check@mathfonts\relax % tempting, but too risky
+  \@xp\let\csname\string\ \endcsname\darray@cr
+  \setbox\z@\vbox\bgroup
+  \everycr{\noalign{\global\advance\cur@row\@ne}}%
+  \tabskip\z@skip \cur@col\z@
+  \global\cur@row\z@
+  \penalty\@ne % flag for \dar@repack
+  \halign\@xp\bgroup\@preamble
+}
+\def\enddarray#1{\check@punct@or@qed}
+\def\end@darray{%
+  \ifvmode\else \eq@addpunct \Mathstrut@\fi\crcr \egroup
+  \dar@capture
+  \egroup
+}
+\def\dar@capture{%
+%% \showboxbreadth\maxdimen\showboxdepth99\showlists
+  \eq@wdL\z@ \eq@wdRmax\z@ \eq@sidespace\maxdimen
+  \dar@repack
+}
+\def\dar@repack{%
+  \unpenalty
+  \setbox\tw@\lastbox
+%\batchmode{\showboxbreadth\maxdimen\showboxdepth99\showbox\tw@}\errorstopmode
+  \global\setbox\EQ@box\hbox{%
+    \hbox{\unhcopy\tw@\unskip}\penalty-\@M \unhbox\EQ@box}%
+  \global\setbox\EQ@copy\hbox{%
+    \hbox{\unhbox\tw@\unskip}\penalty-\@M \unhbox\EQ@copy}%
+  \unskip
+  \ifcase\lastpenalty \else\@xp\@gobble\fi
+  \dar@repack
+}
+\newskip\conditionsep \conditionsep=10pt minus5pt%
+\newcommand{\conditionpunct}{,}
+\let\cond@gobble\@firstofone
+\newcommand\condition{%
+  \begingroup\@tempswatrue
+    \@ifstar{\@tempswafalse \condition@a}\condition@a
+}
+\newcommand\condition@a[2][\conditionpunct]{%
+  \hbox{#1}\hskip\conditionsep
+  \if@tempswa \@xp\hbox \else \@xp\condition@b\fi
+  {#2}%
+  \endgroup
+  \let\cond@gobble\@gobble
+}
+\newcommand\condition@b[1]{%
+  \cond@gobble{\hskip\conditionsep}%
+  \textmath@setup #1%
+}
+\newenvironment{dsuspend}{%
+  \global\setbox\EQ@box\vbox\bgroup \@parboxrestore
+    \parshape 1 \displayindent \displaywidth\relax
+    \hsize=\columnwidth \noindent\ignorespaces
+}{%
+  \par\egroup
+  \global\setbox\GRP@box\vbox{%
+    \vbox{\copy\EQ@box\vtop{\unvbox\EQ@box}}%
+    \unvbox\GRP@box
+  }%
+  \global\GRP@queue\@xp{\the\GRP@queue
+    \eq@zek{\gdef\EQ@trial{}}%
+  }%
+}
+\newcommand\breqn@intertext[1]{\dsuspend#1\enddsuspend}
+\renewcommand{\*}{%
+  \if@display
+    \setbox\z@\hbox{\mathsurround\z@$\mkern\eq@binoffset$}%
+    \discretionary{}{%
+      \kern\the\wd\z@ \textchar\discretionarytimes
+    }{}%
+    \thinspace
+  \else
+    \discretionary{\thinspace\textchar\discretionarytimes}{}{}%
+  \fi
+}
+\newcommand{\discretionarytimes}{\times}
+\def\nref#1{\@xp\@nref\csname r@#1\endcsname}
+\def\@nref#1#2{\ifx\relax#1??\else \@xp\@firstoftwo#1\fi}
+\breqnpopcats

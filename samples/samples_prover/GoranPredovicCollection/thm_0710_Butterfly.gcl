@@ -1,0 +1,91 @@
+% thmname  Leptir teorema
+% thmnamee Butterfly theorem
+
+% thmtext Date su \ch etiri ta\ch ke na krugu $k$
+% thmtext sa centrom $O$, to su $P_1$, $P_2$, $P_3$ i
+% thmtext $P_4$. Neka je $M$ presek pravih $P_1P_3$ i
+% thmtext $P_2P_4$. Neka je prava $l$ normala iz ta\ch ke $M$
+% thmtext na pravu $OM$ i neka su $X$ i $Y$ preseci prave
+% thmtext $l$ sa pravama $P_2P_3$ i $P_1P_4$ redom.
+% thmtext Dokazati da je $M$ sredi\sh te du\zh i $XY$.
+
+% thmtexte $P_1$, $P_2$, $P_3$ and $P_4$ are four points on
+% thmtexte circle $k$ with a center $O$. 
+% thmtexte $M$ is the intersection of $P_1P_3$ and
+% thmtexte $P_2P_4$. Through $M$ draw a line $l$ perpendicular
+% thmtexte to $OM$, meeting $P_2P_3$ at $X% and $P_1P_4$ at $Y$.
+% thmtexte Show that $MX \cong MY$.
+
+% thmnote Po\sh to su $X$, $Y$ i $M$ na istoj pravoj,
+% thmnote dovoljno je dokazati da je odnos paralelnih
+% thmnote du\zh i $\overline{XM}$ i $\overline{MY}$ jednak $1$.
+
+dim 100 100
+
+point P_1 32 40
+point O 62 40
+
+circle k O P_1
+
+oncircle P_2' O P_1
+oncircle P_3' O P_1
+oncircle P_4' O P_1
+
+% skip
+point P_2 35.80 25.50
+%point P_2 31.65 16.26
+% skip
+point P_3 62.80 69.90
+% skip
+point P_4 77.80 14.80 
+
+line p1p3' P_1 P_3'
+% skip
+line p1p3 P_1 P_3
+line p2p4' P_2' P_4'
+% skip
+line p2p4 P_2 P_4
+line p1p4' P_1 P_4'
+% skip
+line p1p4 P_1 P_4
+line p2p3' P_2' P_3'
+% skip
+line p2p3 P_2 P_3
+
+intersec M' p1p3' p2p4'
+% skip
+intersec M p1p3 p2p4
+line om' O M'
+% skip
+line om O M
+
+perp l' M' om'
+% skip
+perp l M om
+
+intersec X' l' p2p3'
+% skip
+intersec X l p2p3
+intersec Y' l' p1p4'
+% skip
+intersec Y l p1p4
+
+cmark_l P_1
+cmark_l P_2
+cmark_lt P_3
+cmark_b P_4
+cmark_b O
+cmark_lt M
+cmark_l X
+cmark_t Y
+
+drawcircle k
+
+drawdashline p1p3
+drawdashline p2p4
+drawdashline p1p4
+drawdashline p2p3
+
+drawsegment X Y
+
+% prove { equal { sratio X M M Y } { 1 } }

@@ -1,0 +1,51 @@
+point A 40 10
+point B 90 10 
+online C A B
+
+drawline A C
+ 
+cmark_t A
+cmark_t B
+cmark_t C
+
+point A_1 25 40
+point B_1 45 45
+online C_1 A_1 B_1
+
+line A_1B_1 A_1 B_1 
+
+drawline A_1 C_1
+cmark_t A_1
+cmark_t B_1
+cmark_t C_1
+
+line AB_1 A B_1
+line AC_1 A C_1
+line BA_1 B A_1
+line BC_1 B C_1
+line CA_1 C A_1
+line CB_1 C B_1
+
+drawsegment A B_1
+drawsegment A C_1
+drawsegment B A_1
+drawsegment B C_1
+drawsegment C A_1
+drawsegment C B_1
+
+
+intersec P AB_1 BA_1
+intersec Q AC_1 CA_1
+intersec S BC_1 CB_1
+cmark_t P
+cmark_t Q
+cmark_t S
+
+color 255 0 0
+drawline P S
+
+prove { collinear P Q S }
+% or
+% prove { equal { signed_area3 P Q S } 0 }
+% 
+

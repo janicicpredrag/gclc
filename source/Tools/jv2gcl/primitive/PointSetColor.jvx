@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE jvx-model SYSTEM "http://www.javaview.de/rsrc/jvx.dtd">
+<jvx-model>
+	<meta generator="JavaView v.2.49.016"/>
+	<meta date="Sun Feb 16 00:51:14 GMT+01:00 2003"/>
+	<version type="dump">0.10</version>
+	<title>Sample Point Set with Colors</title>
+	<geometries>
+		<geometry name="Sample Point Set with Colors">
+			<pointSet color="show" point="show" dim="2">
+				<points num="4">
+					<p>0.0 0.0</p>
+					<p>5.0 5.0</p>
+					<p tag="mark">5.0 0.0</p>
+					<p name="This point has a name">0.0 5.0</p>
+					<thickness>10.0</thickness>
+					<color type="rgb">9 255 18</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+					<labelAtt horAlign="head" visible="show" font="fixed" verAlign="bottom">
+						<xOffset>0</xOffset>
+						<yOffset>0</yOffset>
+					</labelAtt>
+				</points>
+				<colors type="rgb" num="4">
+					<c>0 0 255</c>
+					<c>255 255 0</c>
+					<c>255 0 0</c>
+					<c>0 255 0</c>
+				</colors>
+			</pointSet>
+		</geometry>
+	</geometries>
+</jvx-model>

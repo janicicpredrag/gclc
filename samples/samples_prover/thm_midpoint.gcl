@@ -1,0 +1,25 @@
+point A 20 10
+point B 70 10
+point C 35 40
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+midpoint B_1 B C
+midpoint A_1 A C
+
+drawsegment A_1 B_1
+
+cmark_b A
+cmark_b B
+cmark_t C
+
+cmark_lt A_1
+cmark_rt B_1
+
+prove { parallel A_1 B_1 A B }
+% or 
+% prove { equal { signed_area3 A_l B_l A } { signed_area3 A_l B_l B } }
+% 
+

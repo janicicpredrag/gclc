@@ -1,0 +1,67 @@
+% thmname Harmonijska spregnutost
+% thmnamee Projection Keeps Cross Ratio
+
+% thmtext Harmonijska spregnutost ta\ch aka ostaje
+% thmtext ista nakon projekcije.
+
+% thmtexte Cross ratio of four points $A$, $B$, $C$ and $D$
+% thmtexte is same after central projection from point $O$
+% thmtexte onto line $p$.
+
+dim 130 85
+
+point A 20 20
+point C 40 20
+
+line a A C
+
+% skip
+point D 55 20
+% skip
+point B 90 20
+
+online D' A C
+online B' A C
+
+point O 80 70
+
+line ao A O
+line bo B O
+line co C O
+line do D O
+
+online A_1' A O
+online B_1' B O
+line ab1' A_1' B_1'
+intersec C_1' ab1' co
+intersec D_1' ab1' do
+
+% skip
+point A_1 32 30
+% skip
+point B_1 84 50
+% skip
+line ab1 A_1 B_1
+% skip
+intersec C_1 ab1 co
+% skip
+intersec D_1 ab1 do
+
+cmark_b A
+cmark_b B
+cmark_b C
+cmark_b D
+cmark_r O
+cmark_rb A_1
+cmark_rb C_1
+cmark_rb D_1
+cmark_rb B_1
+
+drawsegment A B
+drawsegment A O
+drawsegment B O
+drawsegment C O
+drawsegment D O
+drawdashline ab1
+
+% prove { equal { mult { sratio C A C B } { sratio D B D A } } { mult { sratio C_1 A_1 C_1 B_1 } { sratio D_1 B_1 D_1 A_1 } } }

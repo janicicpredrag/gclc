@@ -1,0 +1,40 @@
+% thmname Primer 141 iz \cite{chou}
+% thmnamee Example 141 from \cite{chou}
+
+% thmtext Povr\sh ina trougla je jednaka koli\ch niku
+% thmtext proizvoda tri stranice i dvostrukog pre\ch nika
+% thmtext opisanog kruga, tj.
+% thmtext $P_{\triangle ABC} = \frac{abc}{2R}$
+
+% thmtexte The area of a triangle is equal to the product
+% thmtexte of its three sides divided by the double
+% thmtexte circumdiameter of the triangle.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 73 85
+
+line c A B
+
+med mc B C
+med mb A C
+
+intersec O mc mb
+
+circle k O A
+
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_t O
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment A O
+
+drawcircle k
+
+% prove { equal { mult { 16 } { mult { signed_area3 A B C } { mult { signed_area3 A B C } { segment A O } } } } { mult { segment A B } { mult { segment A C } { segment B C } } } }

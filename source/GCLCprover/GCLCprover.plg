@@ -1,0 +1,62 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: GCLCprover - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\PC\LOCALS~1\Temp\RSP31A.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"../../bin/GCLCprover/Debug/GCLCprover.pch" /YX /Fo"../../bin/GCLCprover/Debug/" /Fd"../../bin/GCLCprover/Debug/" /FD /GZ /c 
+"C:\MyStuff\GCLC\GCLC2008.1\source\GCLCprover\GCLCprover.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\PC\LOCALS~1\Temp\RSP31A.tmp" 
+Creating temporary file "C:\DOCUME~1\PC\LOCALS~1\Temp\RSP31B.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib winmm.lib /nologo /subsystem:console /incremental:yes /pdb:"../../bin/GCLCprover/DebugOutput/GCLCprover.pdb" /debug /machine:I386 /out:"../../bin/GCLCprover/DebugOutput/GCLCprover.exe" /pdbtype:sept 
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Groebner.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\ITimeOut.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Log.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Object.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\ObjectBank.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Polynomial.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\PolyReader.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Power.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Prover.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Reduce.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\StringBuilder.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Term.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\TermStorage.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\TermStorageAvl.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\TermStorageVector.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\UPolynomial.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\UPolynomialFraction.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\UTerm.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Wu.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\xpolynomial.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\XTerm.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Timer.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\Utils.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\AlgMethod.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\AlgMethodReducible.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\AreaMethod.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\GCLCprover.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\GroebnerMethod.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\ProverExpression.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\TheoremProver.obj
+\MyStuff\GCLC\GCLC2008.1\bin\GCLCprover\Debug\WuMethod.obj
+]
+Creating command line "link.exe @C:\DOCUME~1\PC\LOCALS~1\Temp\RSP31B.tmp"
+<h3>Output Window</h3>
+Compiling...
+GCLCprover.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+GCLCprover.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

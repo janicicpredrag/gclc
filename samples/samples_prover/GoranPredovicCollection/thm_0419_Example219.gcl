@@ -1,0 +1,56 @@
+% thmname Primer 219 iz \cite{chou}
+% thmnamee Example 219 from \cite{chou}
+
+% thmtext U trouglu $ABC$, $O$ je centar opisanog kruga, a
+% thmtext $U$ je presek simetrale ugla $\angle ACB$ i prave $AB$.
+% thmtext Dokazati da su prave $CO$, simetrala du\zh i $CU$
+% thmtext i normala iz $U$ na pravu $AB$ konkurentne.
+
+% thmtexte Show that the mediator of the bisector $CU$ of the
+% thmtexte triangle $ABC$, the perpendicular to $AB$ at $U$,
+% thmtexte and the circumdiameter of $ABC$ passing through $C$
+% thmtexte are concurrent.
+
+% thmnote Ekvivalentno tvr\dj enje je da ako je $P$ presek
+% thmnote prave $AO$ i simetrale du\zh i $CU$, onda je
+% thmnote prava $PU$ normalna sa pravom $AB$.
+
+dim 110 100
+
+point A 20 30
+point B 90 30
+point C 75 85
+
+med mc A B
+med mb A C
+intersec O mc mb
+
+circle k O A
+
+bis s_c A C B
+line c A B
+intersec U s_c c
+
+line p C O
+med m C U
+intersec P p m
+
+drawdashline m
+
+drawcircle k
+
+cmark_lt P
+cmark_b U
+cmark_l O
+cmark_lb A
+cmark_rb B
+cmark_t C
+
+drawdashsegment P U
+drawsegment C O
+drawsegment C U
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+% prove { perpendicular P U A B }

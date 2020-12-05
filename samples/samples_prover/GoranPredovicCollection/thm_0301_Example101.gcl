@@ -1,0 +1,82 @@
+% thmname Primer 101 iz \cite{chou}
+% thmnamee Example 101 from \cite{chou}
+
+% thmtext Nad hipotenuzom $AB$ pravouglog trougla
+% thmtext $ABC$ izdignut je kvadrat $ABFE$ sa
+% thmtext centrom $P$. Dokazati da je
+% thmtext $\angle A C P = \angle P C B$.
+
+% thmtexte On the hypotenuse $AB$ of right triangle
+% thmtexte $ABC$ a square $ABFE$ is erected.
+% thmtexte Let $P$ be the intersection of the diagonals
+% thmtexte $AF$ and $BE$ of $ABFE$. Show that:
+% thmtexte $\angle A C P = \angle P C B$.
+
+% thmnote Problem ima dve konfiguracije, kao
+% thmnote \sh to je prikazano na slici. Teorema
+% thmnote je ta\ch na za obe konfiguracije.
+
+dim 110 110
+
+point C 40 30
+point B 65 30
+% skip
+point A 40 65
+
+line bc B C
+perp pc C bc
+online A' pc
+
+line c A B
+perp f B c
+perp e A c
+
+circle k A B
+intersec2 E E_1 k e
+perp ef E e
+intersec F ef f
+
+line af A F
+line be B E
+intersec P af be
+
+% skip
+perp ef1 E_1 e
+% skip
+intersec F_1 ef1 f
+
+% skip
+line af1 A F_1
+% skip
+line be1 B E_1
+% skip
+intersec P_1 af1 be1
+
+cmark_lb C
+cmark_b B
+cmark_lt A
+cmark_t E
+cmark_rb F
+cmark_rb P
+cmark_t E_1
+cmark_rb F_1
+cmark_lb P_1
+
+
+drawsegment A B
+drawsegment C B
+drawsegment A C
+drawsegment A E
+drawsegment A F
+drawsegment B F
+drawsegment E F
+drawsegment B E
+drawsegment C P
+drawdashsegment A E_1
+drawdashsegment A F_1
+drawdashsegment B F_1
+drawdashsegment E_1 F_1
+drawdashsegment B E_1
+drawdashsegment C P_1
+
+% prove { equal { angle A C P } { angle P C B } }

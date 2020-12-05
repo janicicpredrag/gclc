@@ -1,0 +1,54 @@
+% thmname Tri kvadrata
+% thmnamee Three squares
+
+% thmtext Data su tri kvadrata: $ABB_1A_1$,
+% thmtext $BCC_1B_1$ i $CDD_1C_1$.
+% thmtext Dokazati da je
+% thmtext $\angle D_1AD + \angle D_1BD = \angle D_1CD$.
+
+% thmtexte Three equal squares are placed side by side,
+% thmtexte as it is shown on the picture. Show that:
+% thmtexte $\angle D_1AD + \angle D_1BD = \angle D_1CD$.
+ 
+dim 130 90
+
+point A 20 20
+point B 50 20
+towards C A B 2
+towards D A B 3
+
+line ab A B
+perp a A ab
+circle k A B
+intersec2 A_1 A_2 k a
+perp ab1 A_1 a
+% skip
+perp b B ab
+% skip
+perp c C ab
+perp d D ab
+% skip
+intersec B_1 ab1 b
+% skip
+intersec C_1 ab1 c
+intersec D_1 ab1 d
+
+
+cmark_t A_1
+cmark_b A
+cmark_b B
+cmark_b C
+cmark_b D
+cmark_t D_1
+
+drawsegment A D
+drawsegment A_1 D_1
+drawsegment A A_1
+drawsegment B B_1
+drawsegment C C_1
+drawsegment D D_1
+drawdashsegment D_1 A
+drawdashsegment D_1 B
+drawdashsegment D_1 C
+
+% prove { equal { angle D_1 C D } { sum { mult { angle D_1 A D } { mult { angle D_1 B D } { angle D_1 C D } } } { sum { angle D_1 A D } { angle D_1 B D } } } }

@@ -1,0 +1,70 @@
+% thmname Paposova teorema (druga verzija)
+% thmnamee Pappus' Theorem (second version)
+
+% thmtext Neka su $ABC$ i $A_1B_1C_1$ dve prave i neka je
+% thmtext $P = AB_1 \cap A_1B$, $Q = AC_1 \cap A_1C$ i
+% thmtext $S = BC_1 \cap B_1C$.
+% thmtext Dokazati da su $P$, $Q$ i $S$ kolinearne.
+
+% thmtexte Let $ABC$ and $A_1B_1C_1$ be two lines and
+% thmtexte $P = AB_1 \cap A_1B$, $Q = AC_1 \cap A_1C$,
+% thmtexte $S = BC_1 \cap B_1C$. Then $P$, $Q$ and $S$
+% thmtexte are collinear.
+
+dim 100 100
+
+point A 20 20
+point B 50 20
+
+% skip
+point C 77 20
+
+line ab A B
+online C' A B
+
+point A_1 25 50
+point B_1 52 60
+
+% skip
+point C_1 65.50 65.00
+online C_1' A_1 B_1
+
+line ab1 A B_1
+line ba1 B A_1
+intersec P ab1 ba1
+
+line ac1 A C_1
+line ca1 C A_1
+intersec Q ac1 ca1
+
+line bc1 B C_1
+line cb1 C B_1
+intersec S bc1 cb1
+
+line p A B
+line q A_1 B_1
+
+line r P Q   
+
+cmark_b A
+cmark_b B
+cmark_b C
+cmark_t A_1
+cmark_t B_1
+cmark_t C_1
+cmark_b P
+cmark_b Q
+cmark_r S
+
+drawline p
+drawline q
+drawdashline r
+
+drawsegment A B_1
+drawsegment A_1 B
+drawsegment A C_1
+drawsegment A_1 C
+drawsegment C B_1
+drawsegment C_1 B
+
+% prove { collinear P Q S }

@@ -1,0 +1,75 @@
+% thmname Uop\sh tena Menelajeva teorema
+% thmnamee General Menelaus's Theorem
+
+% thmtext Dati su \ch etvorougao $ABCD$, ta\ch ka $A_1$ na
+% thmtext pravoj $AB$ i ta\ch ka $B_1$ na pravoj $BC$.
+% thmtext Neka su $C_1$ i $D_1$ preseci prave $A_1B_1$
+% thmtext sa pravama $CD$ i $AD$ redom.
+% thmtext Dokazati da je
+% thmtext $\frac{\overline{AA_1}}{\overline{A_1B}} \cdot
+% thmtext \frac{\overline{BB_1}}{\overline{B_1C}} \cdot
+% thmtext \frac{\overline{CC_1}}{\overline{C_1D}} \cdot
+% thmtext \frac{\overline{DD_1}}{\overline{D_1A}} \cdot
+% thmtext = 1$
+
+% thmtexte Line $p$ intersects lines $AB$, $BC$, $CD$ and $DA$
+% thmtexte at points $A_1$, $B_1$, $C_1$ and $D_1$ respectively.
+% thmtexte Show that:
+% thmtexte $\frac{\overline{AA_1}}{\overline{A_1B}} \cdot
+% thmtexte \frac{\overline{BB_1}}{\overline{B_1C}} \cdot
+% thmtexte \frac{\overline{CC_1}}{\overline{C_1D}} \cdot
+% thmtexte \frac{\overline{DD_1}}{\overline{D_1A}} \cdot
+% thmtexte = 1$
+
+dim 100 100
+
+point A 20 20
+point B 80 20
+point C 70 60
+point D 37 74
+
+line ab A B
+line bc B C
+line da D A
+line cd C D
+
+online A_1' A B
+online B_1' B C
+
+% note: fixed points are chosen only for drawing!
+% skip
+point A_1 85 20
+% skip
+point B_1 77.5 32.5
+
+line a1b1' A_1' B_1'
+% skip
+line a1b1 A_1 B_1
+
+intersec C_1' a1b1' cd
+intersec D_1' a1b1' da
+% skip
+intersec C_1 a1b1 cd
+% skip
+intersec D_1 a1b1 da
+
+cmark_rb A
+cmark_b B
+cmark_r C
+cmark_l D
+cmark_rt A_1
+cmark_r B_1
+cmark_rt C_1
+cmark_r D_1
+
+
+drawsegment A B
+drawsegment C B
+drawsegment C D
+drawsegment A D
+
+drawdashline a1b1
+drawline da
+drawline ab
+
+% prove { equal { mult { mult { mult { sratio A A_1 A_1 B } { sratio B B_1 B_1 C } } { sratio C C_1 C_1 D } } { sratio D D_1 D_1 A } } 1 }

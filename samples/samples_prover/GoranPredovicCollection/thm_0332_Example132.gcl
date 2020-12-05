@@ -1,0 +1,61 @@
+% thmname Primer 132 iz \cite{chou}
+% thmnamee Example 132 from \cite{chou}
+
+% thmtext Neka je $M$ sredi\sh te tetive $AB$ kruga sa centrom $O$.
+% thmtext Nad $OM$ kao pre\ch nikom nacrtan je novi krug sa centrom $N$.
+% thmtext Neka je $T$ proizvoljna ta\ch ka na novom krugu i neka tangenta
+% thmtext iz $T$ drugog kruga se\ch e prvi krug u ta\ch ki $E$.
+% thmtext Dokazati da je:
+% thmtext $AE^2 + BE^2 = 4ET^2$.
+
+% thmtexte Let $M$ be the midpoint of chord $AB$ of a circle
+% thmtexte with center $O$. On $OM$ as diameter draw another
+% thmtexte circle, and at any point $T$ of this circle
+% thmtexte draw a tangent to it meeting the outer circle in $E$.
+% thmtexte Prove that:
+% thmtexte $AE^2 + BE^2 = 4ET^2$.
+
+dim 110 110
+
+point A 30 30
+point B 80 30
+
+med m A B
+point X 35 34
+
+line ax A X
+intersec O ax m
+line ab A B
+intersec M m ab
+
+circle k O A
+midpoint N O M
+circle k1 N M
+
+% skip
+point T 45.46 37.01
+oncircle T' N M
+
+line tn T N
+perp t T tn
+
+intersec2 E E1 t k
+
+cmark_lb A
+cmark_rb B
+cmark_lt O
+cmark_b M
+cmark_r N
+cmark_lb T
+cmark_lt E
+
+drawsegment A B
+drawsegment A E
+drawsegment E B
+drawsegment O M
+drawsegment T E
+drawsegment T N
+drawcircle k
+drawcircle k1
+
+% prove { equal { mult { 4 } { segment E T } } { sum { segment A E } { segment B E } } }

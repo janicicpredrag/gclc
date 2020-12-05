@@ -1,0 +1,36 @@
+dim 100 100
+
+point A 20 10
+point B 60 10
+point C 50 70 
+
+line a B C
+line b A C
+line c B A
+
+perp hA A a
+perp hB B b
+
+intersec H hA hB
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+drawline A H 
+drawline B H 
+
+cmark_lt A
+cmark_rt B
+cmark_lt C
+
+cmark_rt H
+
+drawdashline C H
+
+prove { perpendicular A B C H }
+% or
+% prove { equal { pythagoras_difference3 A C H  } { pythagoras_difference3 B C H } }
+%
+
+

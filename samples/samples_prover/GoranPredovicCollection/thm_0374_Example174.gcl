@@ -1,0 +1,58 @@
+% thmname Primer 174 iz \cite{chou}
+% thmnamee Example 174 from \cite{chou}
+
+% thmtext Visina $AD$ trougla $ABC$ je produ\zh ena i
+% thmtext se\ch e opisani krug trougla u ta\ch ki $K$.
+% thmtext Ako je $H$ ortocentar trougla $ABC$, dokazati
+% thmtext da ta\ch ka $D$ polovi du\zh \ $HK$.
+
+% thmtexte The segment of the altitude extended
+% thmtexte between the orthocenter and the second
+% thmtexte point of intersection with the circumcircle
+% thmtexte is bisected by the corresponding side of the triangle.
+
+dim 110 110
+
+point A 20 30
+point K 90 30
+% skip
+point D 70 30
+
+online D' A K
+
+line a A K
+perp c D a
+
+med o A K
+point X 24 33
+
+line x A X
+intersec O o x
+
+circle k O A
+
+intersec2 C B c k
+
+line b A B
+foot E C b
+
+line hc C E
+intersec H hc a
+
+cmark_lt H
+drawsegment C E
+cmark_b E
+cmark_rt C
+drawcircle k
+cmark_b O
+cmark_lb A
+cmark_b B
+cmark_rb D
+cmark_rb K
+
+drawsegment A K
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+% prove { equal { sratio H D D K } { 1 } }

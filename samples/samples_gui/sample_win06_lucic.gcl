@@ -1,0 +1,402 @@
+dim 140 136 
+
+%trougao skracenja T'T"Ts i x-osa
+point T' 20 20
+getx T'x T'
+gety T'y T'
+point T" T'x 40
+gety T"y T"
+number alpha 40
+number h 0.8
+rotate Ts' T' alpha T"
+towards Ts T' Ts' h
+getx Tsx Ts
+point Tx Tsx T"y
+line x T" Tx
+line t'ts T' Ts
+line t"ts T" Ts 
+
+%centar S kruga k i tacka A na krugu
+point S' 80 20
+getx S'x S' 
+gety S'y S'
+point A' 55 S'y
+foot A" A' x
+rotate As' A' alpha A"
+towards As A' As' h
+translate Ss A' As S'
+circle k S' A'
+line a's' A' S'
+intersec2 D' A' k a's'
+translate Ds A' As D'
+rotate B' S' 90 A'
+rotate C' S' -90 A'
+foot B" B' x
+foot C" C' x
+rotate Bs' B' alpha B"
+towards Bs B' Bs' h
+rotate Cs' C' alpha C"
+towards Cs C' Cs' h
+
+%oznaka za krug k
+rotate KK' S' 40 A'
+foot KK" KK' x 
+rotate KKs' KK' alpha KK"
+towards KKs KK' KKs' h
+
+%ose donje osnove
+med m1 S' Ss
+intersec M1 x m1
+circle l M1 S'
+intersec2 N1 N2 l x
+line n1s' N1 S'
+line n2s' N2 S'
+line n1ss N1 Ss
+line n2ss N2 Ss
+intersec2 K1 K2 k n1s'
+intersec2 L1 L2 k n2s'
+foot K1" K1 x
+foot K2" K2 x
+foot L1" L1 x
+foot L2" L2 x
+rotate K1s' K1 alpha K1"
+towards K1s K1 K1s' h
+rotate K2s' K2 alpha K2"
+towards K2s K2 K2s' h
+rotate L1s' L1 alpha L1"
+towards L1s L1 L1s' h
+rotate L2s' L2 alpha L2"
+towards L2s L2 L2s' h
+
+%veliki krug meteoroloske (hemi)sfere
+rotate Ess Ss 90 As
+towards Es Ss Ess 1.75
+rotate Fss Ss -90 As
+towards Fs Ss Fss 1.75
+line eb Es Bs
+midpoint EB Es Bs
+circle k1 EB Bs
+perp m1 EB eb
+intersec2 O' O m1 k1
+circle o O Bs
+med p O Ss
+intersec L eb p
+circle k2 L O
+intersec2 V U k2 eb
+line u O U
+line v O V
+line u' Ss U
+line v' Ss V
+line oss O Ss
+intersec2 U1 U2 o u
+intersec2 V1 V2 o v
+parallel u1 U1 oss
+parallel u2 U2 oss
+parallel v1 V1 oss
+parallel v2 V2 oss
+intersec V11 v' v1
+intersec V22 v' v2
+intersec U11 u' u1
+intersec U22 u' u2
+
+%elipsa za udvostrucenje
+circle k4 A' S'
+intersec2 B4' C4' k k4
+midpoint M4' B4' C4'
+foot B4" B4' x
+foot C4" C4' x
+foot M4" M4' x
+rotate B4s' B4' alpha B4"
+towards B4s B4' B4s' h
+rotate C4s' C4' alpha C4"
+towards C4s C4' C4s' h
+rotate M4s' M4' alpha M4"
+towards M4s M4' M4s' h
+getx M4sx M4s
+gety M4sy M4s
+distance r4' M4' B4'
+translate E4s M4' M4s B4'
+translate F4s M4' M4s C4'
+
+line e4b4 E4s B4s %e4b4 je osa afinosti
+midpoint E4B4 E4s B4s
+circle k4 E4B4 B4s
+perp m4 E4B4 e4b4
+intersec2 O4' O4 m4 k4 
+circle o4 O4 B4s %o4 je afina slika elipse
+med p4 O4 M4s
+intersec L4 e4b4 p4
+circle k5 L4 O4
+intersec2 V4 U4 k5 e4b4
+line u4 O4 U4 
+line v4 O4 V4
+line u4' M4s U4 %u4' sadrzi precnik elipse
+line v4' M4s V4 %v4' sadrzi drugi precnik
+line oss4 O4 M4s %zraci afinosti 014
+intersec2 U5 U6 o4 u4 %precnik kruga
+intersec2 V5 V6 o4 v4 %precnik kruga
+parallel u5 U5 oss4
+parallel u6 U6 oss4
+parallel v5 V5 oss4
+parallel v6 V6 oss4
+intersec V55 v4' v5 %teme elipse
+intersec V66 v4' v6 %teme elipse
+intersec U55 u4' u5 %teme elipse
+intersec U66 u4' u6 %teme elipse
+
+
+%****************************
+cmark B4s
+cmark C4s
+cmark M4s
+cmark E4s
+cmark F4s
+
+drawsegment B4s C4s
+drawsegment E4s F4s
+drawellipse M4s U55 V55
+
+%****************************
+
+
+%elipsa gornje osnove
+translate Sst Es Fs Ss
+translate K1st Es Fs K1s
+translate K2st Es Fs K2s
+translate At Es Fs As
+translate Dt Es Fs Ds
+
+midpoint II As At
+
+%obelezavanje
+cmark As
+%cmark Bs
+%cmark Cs
+cmark Ds
+
+printat_lt As {A}
+printat_rb Ds {D}
+printat_b KKs {k}
+printat_r II {i}
+
+drawellipse Ss K1s L1s
+%drawellipse Ss U11 V11
+drawsegment As Ds
+%drawsegment Bs Cs
+%drawsegment Es Fs
+drawsegment At Dt
+drawsegment As At
+
+linethickness 0.5
+drawellipse Sst K1st At
+drawsegment Ds Dt
+drawsegment K1s K1st
+drawsegment K2s K2st
+getx Dsx Ds
+gety Dsy Ds
+getx K1sx K1s
+gety K1sy K1s
+area 0 0  Dsx Dsy
+drawellipse Ss K1s L1s
+area Dsx Dsy 120 K1sy
+drawellipse Ss K1s L1s
+area 0 0 1000 1000
+normal 
+
+%*****************************************
+
+%animacija
+animation_frames 200 10
+
+point O 0 0 
+point Da 0 0.03 51 0 % 37.44
+distance d O Da 
+
+%point P 0.05 0.05 90 0  
+%getx ang1 P
+%rotate S1 O ang1 A'
+
+%rotirajuci trougao
+rotate D'' A' d D' %treba 37.44 
+foot Dx D'' x
+rotate Ds'' D'' alpha Dx
+towards Ds' D'' Ds'' h
+line ad' A' D''
+intersec2 I1' I2' ad' k
+foot I1" I1' x
+rotate I1s' I1' alpha I1"
+towards I1s I1' I1s' h
+
+%krug torusa
+% M je srediste elipse
+%AsDs i E7F7 su ose elipse
+midpoint M As Ds' 
+translate E7 S' M B'
+translate F7 S' M C'
+
+%od osa do precnika elipse (na torusu)
+line e7a E7 As %e7a je osa afinosti
+midpoint E7A E7 As
+circle k7 E7A As
+perp m7 E7A e7a
+intersec2 O7' O7 m7 k7 
+circle o7 O7 As %o7 je afina slika elipse
+med p7 O7 M
+intersec L7 e7a p7
+circle k8 L7 O7
+intersec2 V7 U7 k8 e7a
+line u7 O7 U7 
+line v7 O7 V7
+line u7' M U7 %u7' sadrzi precnik elipse
+line v7' M V7 %v7' sadrzi drugi precnik
+line oss7 O7 M %zraci afinosti 014
+intersec2 U8 U9 o7 u7 %precnik kruga
+intersec2 V8 V9 o7 v7 %precnik kruga
+parallel u8 U8 oss7
+parallel u9 U9 oss7
+parallel v8 V8 oss7
+parallel v9 V9 oss7
+intersec V88 v7' v8 %teme elipse
+intersec V99 v7' v9 %teme elipse
+intersec U88 u7' u8 %teme elipse
+intersec U99 u7' u9 %teme elipse
+
+%oznaka kruga l 
+rotate LL7 O7 30 As
+line o7ll7 O7 LL7
+intersec LL7o o7ll7 e7a
+line o7ll7s LL7o M
+parallel ll7 LL7 oss7
+intersec LL7s ll7 o7ll7s
+
+
+%teme K pravog ugla
+line ao7 As O7
+parallel i7 I1s oss7
+intersec I7 i7 ao7
+perp n7 I7 ao7
+intersec N7 n7 e7a
+line n7s N7 I1s
+intersec2 K8 K7 n7 o7
+parallel k7 K7 oss7
+line ad7 As Ds'
+intersec K k7 n7s
+
+%podnozje M iz I na AK
+line ak7 As K7
+foot M7 I7 ak7
+parallel m7s M7 oss7
+line aks As K
+intersec Ms m7s aks 
+
+%obelezavanje
+
+cmark Ds'
+cmark I1s
+
+printat_lb I1s {I}
+printat_r Ds' {D'}
+printat_lt Ms {M}
+printat_t LL7s {l}
+cmark_rt K
+cmark Ms
+
+drawsegment As Ds'
+drawsegment I1s K
+drawsegment Ds' K
+drawsegment K As
+drawsegment I1s Ms
+drawellipse M U88 V88
+%drawsegment As B4s 
+
+
+
+trace K 255 100 100 
+trace Ms 100 200 50  
+
+
+%animacija
+animation_frames 200 10
+
+point O 0 0 
+point Ba 0 0.03 135.42 0 
+distance d O Ba 
+
+rotate T' O4 d B4s  
+line l4t O4 T'
+intersec T" l4t e4b4
+line t"m4 T" M4s
+parallel tt T' oss4
+intersec J tt t"m4
+
+drawsegment As J 
+cmark_b J
+
+
+
+
+%********************************
+
+perp z J x
+line b4c4 B4s C4s
+intersec Js z b4c4
+cmark Js
+line asa' As A'
+line asa" As A"
+parallel jsj" Js asa"
+intersec J" jsj" x
+perp j"j' J" x
+parallel jsj' Js asa' 
+intersec J' j"j' jsj'
+line a'j' A' J'
+intersec2  P' Q' k a'j'
+
+foot Q" Q' x
+rotate Qs' Q' alpha Q"
+towards Qs Q' Qs' h
+
+cmark Qs 
+perp p Qs x
+line aj As J
+intersec Q p aj 
+%trace Q 100 200 50  
+drawsegment As Qs
+drawsegment J Q
+drawsegment Qs Q
+cmark Q
+
+foot P" P' x
+rotate Ps' P' alpha P"
+towards Ps P' Ps' h
+
+cmark Ps 
+perp p Ps x
+%line aj As J
+intersec P p aj 
+%trace Q 100 200 50  
+drawsegment As Ps
+drawsegment J P
+cmark P
+drawsegment Ps P
+
+%trace P 0 0 255 
+%trace Q 0 0 255 
+
+%cmark_t P
+%cmark_t Q
+
+getx xp P
+gety yp P
+getx xq Q
+gety yq Q
+
+expression x { ite(d<90,xq,xp) }
+expression y { ite(d<90,yq,yp) }
+
+point T x y
+cmark_t T
+
+trace T 0 0 255
+
+
+%end

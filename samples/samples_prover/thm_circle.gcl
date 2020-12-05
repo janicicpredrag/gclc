@@ -1,0 +1,28 @@
+point A 40 20
+point B 80 20
+point C 70 80 
+
+med a B C 
+med b A C 
+med c B A 
+
+intersec O_1 a b 
+intersec O_2 a c 
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+cmark_b A
+cmark_b B
+cmark_t C
+
+cmark_l O_1
+cmark_r O_2
+drawcircle O_1 A 
+
+prove { identical O_1 O_2 }
+
+
+
+  

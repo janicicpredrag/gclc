@@ -1,0 +1,36 @@
+dim 140 118 
+
+point X 0 0 
+point Y 140 0 
+
+number n 0
+
+linethickness 1.1
+
+while { n < 250 }
+{	
+	expression m { n/2 }
+	color 0 n 0  
+	point A 0 m 
+	point B 140 m 
+	drawsegment A B
+	expression n { n+1 }
+}
+
+color 180 0 0 
+linethickness 0.16
+
+point A 50 100
+point B 40 20
+point C 95 40
+
+cmark_lt A
+cmark_lb B
+cmark_rb C
+
+drawsegment A B
+drawsegment B C
+drawsegment C A
+
+
+

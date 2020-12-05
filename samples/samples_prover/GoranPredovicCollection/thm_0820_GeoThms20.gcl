@@ -1,0 +1,64 @@
+% thmname Primer 20 iz \cite{geothms}
+% thmnamee Example 20 from \cite{geothms}
+
+% thmtext U ravni je dat trougao $ABC$ sa te\zh i\sh tem $T$.
+% thmtext Kroz proizvoljnu ta\ch ku $X$ povu\ch ena je prava
+% thmtext $TX$. Dokazati da je zbir rastojanja dva temena od prave $TX$
+% thmtext jednak rastojanju tr\cj eg temena.
+
+% thmnote Obratiti pa\zh nju na sliku koja je izabrana
+% thmnote tako da se maksimalno pojednostavi proces dokazivanja.
+% thmnote Slika je konstruisana na na\ch in da najve\cj i
+% thmnote broj ta\ch aka le\zh i na pravoj koja je 
+% thmnote paralelna koordinatnoj osi. Pa\zh ljivom analizom
+% thmnote redosleda konstrukcija ta\ch aka, iskusniji \ch italac
+% thmnote mo\zh e rekonstruisati korake konstrukcije.
+
+% thmtexte Given a triangle $ABC$ and a point $X$, the sum
+% thmtexte of the distances of the line $XG$, where $G$ is the
+% thmtexte centroid of $ABC$, to the two vertices of the triangle
+% thmtexte situated on the same side of the line is equal to the
+% thmtexte distance of the line from the third vertex.
+
+dim 110 100
+
+point A 20 20
+point C 65 80
+point T 55 45
+
+towards A_1 A T 1.5
+towards C_1 C T 1.5
+
+line bc C A_1
+line ab A C_1
+intersec B ab bc
+
+point X 95 45
+line gx T X
+
+foot D A gx
+foot E B gx
+foot F C gx
+
+cmark_t D
+cmark_t E
+cmark_b F
+cmark_lt T
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t X
+
+drawline gx
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment A A_1
+drawsegment C C_1
+drawdashsegment A D
+drawdashsegment B E
+drawdashsegment C F
+
+% two different conjectures
+%% prove { alg_sum_zero3 { segment A D } { segment C F } { segment B E } }
+% prove { equal { sum { sum { sratio A D A D } { sratio B E A D } } { sratio C F A D } } { 0 } }

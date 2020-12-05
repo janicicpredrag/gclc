@@ -1,0 +1,31 @@
+dim 100 80
+    
+point A 30 20
+point B 60 20
+point C 40 50
+
+line a B C
+line b A C
+line c A B
+
+online D B C 
+online E A C 
+line p D E 
+intersec F c p
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+drawline D E 
+
+cmark_b A
+cmark_t B
+cmark_t C
+
+cmark_t D
+cmark_lt E
+cmark_rt F
+ 
+prove { equal { mult { mult { sratio A F F B } { sratio B D D C } } { sratio C E E A } } -1 }
+

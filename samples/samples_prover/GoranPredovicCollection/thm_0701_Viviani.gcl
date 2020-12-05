@@ -1,0 +1,59 @@
+% thmname Vivianijeva teorema
+% thmnamee Viviani's Theorem
+
+% thmtext Iz ta\ch ke $P$ unutar trougla jednakostrani\ch nog $ABC$
+% thmtext spu\sh tene su normale na stranice
+% thmtext trougla. Dokazati da je suma ove tri
+% thmtext normale jednaka visini trougla $ABC$.
+
+% thmnote Dovoljno je dokazati da je algebarska
+% thmnote suma du\zh i $CH$, $PF$ i $PG$ jednaka
+% thmnote nuli. Pogledati sliku.
+
+% thmtexte The sum of distances of a point inside
+% thmtexte an equilateral triangle or on 
+% thmtexte one of its sides to the three triangle segments, 
+% thmtexte equals the 
+% thmtexte length of its altitude.
+
+dim 110 100
+
+point A 20 20
+point B 90 20
+point P 65 40
+
+circle k A B
+med p A B
+intersec2 C C1 k p
+
+line ab A B
+intersec D ab p
+
+line bc B C
+line ac A C
+
+foot G P ac
+foot F P bc
+foot E P ab
+foot H P p
+
+cmark_b D
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t P
+cmark_l H
+cmark_lt G
+cmark_rt F
+cmark_b E
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C D
+drawsegment P H
+drawsegment P G
+drawsegment P F
+drawsegment P E
+
+% prove { alg_sum_zero3 { segment C H } { segment P F } { segment P G } }

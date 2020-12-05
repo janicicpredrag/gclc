@@ -1,0 +1,85 @@
+% thmname Primer 77 iz \cite{chou}
+% thmnamee Example 77 from \cite{chou}
+
+% thmtext Harmonijska spregnutost \ch etiri ta\ch ake
+% thmtext na krugu je jednaka u odnosu na svaku ta\ch ku kruga.
+
+% thmtexte The cross ratio of four points on a circles
+% thmtexte with respect to any points on the circle
+% thmtexte is constant.
+
+dim 130 100
+
+point A 30 30
+point B 100 30
+point C 90 80
+
+med m1 A B
+med m2 B C
+intersec O m1 m2
+
+circle k O A
+
+oncircle D' O A
+oncircle P' O A
+oncircle Q' O A
+% skip
+point D 41.60 81.20
+% skip
+point P 46.10 14.20
+% skip
+point Q 84.90 14.70
+
+line pd' P' D'
+line pc' P' C
+line qd' Q' D'
+line qc' Q' C
+line ab A B
+
+intersec F' pd' ab
+intersec G' pc' ab
+intersec F_1' qd' ab
+intersec G_1' qc' ab
+
+% skip
+line pd P D
+% skip
+line pc P C
+% skip
+line qd Q D
+% skip
+line qc Q C
+
+% skip
+intersec F pd ab
+% skip
+intersec G pc ab
+% skip
+intersec F_1 qd ab
+% skip
+intersec G_1 qc ab
+
+cmark_b A
+cmark_b B
+cmark_rt C
+cmark_lt D
+cmark_lb P
+cmark_rb Q
+cmark_r O
+cmark_lb F
+cmark_rb G
+cmark_lb F_1
+cmark_rb G_1
+
+drawsegment A B
+drawsegment A D
+drawsegment A C
+drawsegment B D
+drawsegment B C
+drawsegment P D
+drawsegment P C
+drawsegment Q D
+drawsegment Q C
+drawcircle k
+
+% prove { equal { mult { sratio G A G B } { sratio F B F A } } { mult { sratio G_1 A G_1 B } { sratio F_1 B F_1 A } } }

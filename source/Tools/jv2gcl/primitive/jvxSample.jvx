@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE jvx-model SYSTEM "http://www.javaview.de/rsrc/jvx.dtd">
+<jvx-model>
+	<meta generator="JavaView v.2.51"/>
+	<meta date="Thu Feb 20 23:36:03 GMT+01:00 2003"/>
+	<version type="final">2.00</version>
+	<title>deLoreon Surface</title>
+	<authors>
+		<author>
+			<firstname>Emmett</firstname>
+			<lastname>Brown</lastname>
+			<affiliation>
+				<organization>Time Travel Labs</organization>
+				<address>
+					<line>parking lot</line>
+					<line>12345 Twin Pines Mall</line>
+				</address>
+			</affiliation>
+			<email>Brown@TimeTravelLabs.org</email>
+			<url>http://www.TimeTravelLabs.org</url>
+		</author>
+	</authors>
+	<description>
+		<abstract>Very difficult 2.5 dimensional surface.</abstract>
+		<detail>
+			<p>
+			The following parameters were used for generating the surface:
+			x = (3-v^2)*(x^2+y^2+z^2-v^2)^2;
+			r = 1.414214;
+			v = 1.100000;
+			y = [-1.530000,1.540000];
+			</p>
+		</detail>
+		<msc2000>
+			<primary>14J99</primary>
+			<secondary>14J17</secondary>
+			<secondary>32S25</secondary>
+		</msc2000>
+		<keywords>
+			<keyword>Difficult Surface</keyword>
+			<keyword>Flux Flow</keyword>
+		</keywords>
+		<software>Flux Modeling Package, version 2.0</software>
+	</description>
+	<geometries>
+		<geometry name="flux">
+			<pointSet color="show" point="show" dim="3">
+				<points num="10">
+					<p>-0.7 0.0 1.4</p>
+					<p>-0.4 0.0 0.7</p>
+					<p>-0.1 0.0 0.0</p>
+					<p>-0.1 0.0 -0.7</p>
+					<p>-0.1 0.0 -1.4</p>
+					<p>0.1 0.0 -1.4</p>
+					<p>0.1 0.0 -0.7</p>
+					<p>0.1 0.0 0.0</p>
+					<p>0.4 0.0 0.7</p>
+					<p>0.7 0.0 1.4</p>
+					<thickness>5.0</thickness>
+					<color type="rgb">255 0 0</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+				</points>
+				<colors type="rgb" num="10">
+					<c>255 0 0</c>
+					<c>255 127 0</c>
+					<c>255 255 0</c>
+					<c>127 255 0</c>
+					<c>0 255 0</c>
+					<c>0 255 0</c>
+					<c>0 255 127</c>
+					<c>0 255 255</c>
+					<c>127 255 255</c>
+					<c>255 255 255</c>
+				</colors>
+			</pointSet>
+			<vectorField name="forward flux" arrow="show" base="vertex">
+				<vectors num="10">
+					<v>0.08 0.0 -0.18</v>
+					<v>0.08 0.0 -0.18</v>
+					<v>0.0 0.0 -0.2</v>
+					<v>0.0 0.0 -0.2</v>
+					<v>0.2 0.0 0.0</v>
+					<v>0.0 0.0 0.2</v>
+					<v>0.0 0.0 0.2</v>
+					<v>0.08 0.0 0.18</v>
+					<v>0.08 0.0 0.18</v>
+					<v>0.08 0.0 0.18</v>
+					<thickness>1.0</thickness>
+					<length>1.0</length>
+					<color type="rgb">255 255 0</color>
+				</vectors>
+			</vectorField>
+			<vectorField name="backward flux" arrow="show" base="vertex">
+				<vectors num="10">
+					<v>-0.08 0.0 0.18</v>
+					<v>-0.08 0.0 0.18</v>
+					<v>-0.08 0.0 0.18</v>
+					<v>0.0 0.0 0.2</v>
+					<v>0.0 0.0 0.2</v>
+					<v>-0.2 0.0 0.0</v>
+					<v>0.0 0.0 -0.2</v>
+					<v>0.0 0.0 -0.2</v>
+					<v>-0.08 0.0 -0.18</v>
+					<v>-0.08 0.0 -0.18</v>
+					<thickness>1.0</thickness>
+					<length>1.0</length>
+					<color type="rgb">255 0 255</color>
+				</vectors>
+			</vectorField>
+			<bndbox visible="hide">
+				<p>-0.7 0.0 -1.4</p>
+				<p>0.7 0.0 1.4</p>
+			</bndbox>
+			<center visible="hide">
+				<p>0.0 0.0 0.0</p>
+			</center>
+		</geometry>
+		<geometry name="case">
+			<pointSet point="hide" dim="3">
+				<points num="8">
+					<p>-0.8 -0.2 -2.0</p>
+					<p>0.8 -0.2 -2.0</p>
+					<p>0.8 0.2 -2.0</p>
+					<p>-0.8 0.2 -2.0</p>
+					<p>-1.0 -0.2 2.0</p>
+					<p>1.0 -0.2 2.0</p>
+					<p>1.0 0.2 2.0</p>
+					<p>-1.0 0.2 2.0</p>
+					<thickness>2.0</thickness>
+					<color type="rgb">255 0 0</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+				</points>
+			</pointSet>
+			<lineSet line="show">
+				<lines num="12">
+					<l>0 1</l>
+					<l>1 2</l>
+					<l>2 3</l>
+					<l>3 0</l>
+					<l>0 4</l>
+					<l>1 5</l>
+					<l>2 6</l>
+					<l>3 7</l>
+					<l>4 5</l>
+					<l>5 6</l>
+					<l>6 7</l>
+					<l>7 4</l>
+					<thickness>1.0</thickness>
+					<color type="rgb">255 255 0</color>
+					<colorTag type="rgb">255 0 0</colorTag>
+				</lines>
+			</lineSet>
+			<bndbox visible="hide">
+				<p>-1.0 -0.2 -2.0</p>
+				<p>1.0 0.2 2.0</p>
+			</bndbox>
+			<center visible="hide">
+				<p>0.0 0.0 0.0</p>
+			</center>
+		</geometry>
+		<geometry name="backplate">
+			<pointSet point="hide" dim="3">
+				<points num="8">
+					<p>-1.5 1.0 -2.5</p>
+					<p>1.5 1.0 -2.5</p>
+					<p>1.5 1.2 -2.5</p>
+					<p>-1.5 1.2 -2.5</p>
+					<p>-1.5 1.0 2.5</p>
+					<p>1.5 1.0 2.5</p>
+					<p>1.5 1.2 2.5</p>
+					<p>-1.5 1.2 2.5</p>
+					<thickness>2.0</thickness>
+					<color type="rgb">255 0 0</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+				</points>
+				<normals num="8">
+					<n>-0.5773502691896258 -0.5773502691896258 -0.5773502691896258</n>
+					<n>0.5773502691896258 -0.5773502691896258 -0.5773502691896258</n>
+					<n>0.5773502691896258 0.5773502691896258 -0.5773502691896258</n>
+					<n>-0.5773502691896258 0.5773502691896258 -0.5773502691896258</n>
+					<n>-0.5773502691896258 -0.5773502691896258 0.5773502691896258</n>
+					<n>0.5773502691896258 -0.5773502691896258 0.5773502691896258</n>
+					<n>0.5773502691896258 0.5773502691896258 0.5773502691896258</n>
+					<n>-0.5773502691896258 0.5773502691896258 0.5773502691896258</n>
+					<thickness>1.0</thickness>
+					<length>0.5</length>
+					<color type="rgb">255 255 0</color>
+				</normals>
+			</pointSet>
+			<faceSet face="show" edge="hide">
+				<faces num="6">
+					<f>3 2 1 0</f>
+					<f>4 5 6 7</f>
+					<f>0 1 5 4</f>
+					<f>2 3 7 6</f>
+					<f>0 4 7 3</f>
+					<f>1 2 6 5</f>
+					<color type="rgb">63 63 255</color>
+					<colorTag type="rgb">255 0 255</colorTag>
+				</faces>
+				<neighbours num="6">
+					<nb>-1 -1 -1 -1</nb>
+					<nb>-1 -1 -1 -1</nb>
+					<nb>-1 -1 -1 -1</nb>
+					<nb>-1 -1 -1 -1</nb>
+					<nb>-1 -1 -1 -1</nb>
+					<nb>-1 -1 -1 -1</nb>
+				</neighbours>
+				<edges>
+					<thickness>1.0</thickness>
+					<color type="rgb">0 0 0</color>
+					<colorTag type="rgb">255 0 0</colorTag>
+				</edges>
+				<normals num="6">
+					<n>0.0 0.0 -1.0</n>
+					<n>0.0 0.0 1.0</n>
+					<n>0.0 -1.0 0.0</n>
+					<n>0.0 1.0 0.0</n>
+					<n>-1.0 0.0 0.0</n>
+					<n>1.0 0.0 0.0</n>
+					<thickness>1.0</thickness>
+					<length>0.5</length>
+					<color type="rgb">255 255 0</color>
+				</normals>
+			</faceSet>
+			<bndbox visible="hide">
+				<p>-1.5 1.0 -2.5</p>
+				<p>1.5 1.2 2.5</p>
+			</bndbox>
+			<center visible="hide">
+				<p>0.0 0.0 0.0</p>
+			</center>
+		</geometry>
+	</geometries>
+</jvx-model>

@@ -1,0 +1,46 @@
+% thmname Vorinjonova teorema
+% thmnamee Varignon's Theorem
+
+% thmtext Dat je \ch etvorougap $ABCD$. Neka su
+% thmtext $P$, $Q$, $R$ i $S$ sredi\sh ta stranica
+% thmtext $AB$, $BC$, $CD$ i $DA$ redom. Dokazati
+% thmtext da je \ch etvorougao $PQRS$ paralelogram.
+
+% thmtexte If we draw line segments between the midpoints,
+% thmtexte in order, of any quadrilateral, we get a parallelogram 
+% thmtexte which has half the area of the original 
+% thmtexte quadrilateral.
+
+dim 100 100
+
+point A 20 20
+point B 80 20
+point C 70 70
+point D 30 50
+
+midpoint P A B
+midpoint Q B C
+midpoint R C D
+midpoint S D A
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+cmark_b P
+cmark_r Q
+cmark_t R
+cmark_l S
+
+drawsegment A B
+drawsegment C B
+drawsegment C D
+drawsegment A D
+
+drawdashsegment P Q
+drawdashsegment R Q
+drawdashsegment R S
+drawdashsegment P S
+
+% prove { parallel P Q R S }
+% prove { same_length P Q R S }

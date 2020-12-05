@@ -1,0 +1,17 @@
+point A 40 85
+point B 35 20
+point C 95 20
+
+cmark_lt A
+cmark_lb B
+cmark_rb C 
+
+drawsegment A B
+drawsegment B C
+drawsegment C A
+
+med a C B
+med b A C
+intersec O a b
+drawcircle O A
+

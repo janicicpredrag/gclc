@@ -1,0 +1,90 @@
+% thmname Krug osam ta\ch aka
+% thmnamee Eight Points Circle
+
+% thmtext U ravni je dat \ch etvorougao $ABCD$ gde su dijagonale
+% thmtext $AD$ i $BC$ pod pravim uglom. Neka
+% thmtext su $A_1$, $B_1$, $C_1$ i $D_1$ sredi\sh ta stranica
+% thmtext $AB$, $BC$, $CD$ i $DA$ redom. Neka su dalje
+% thmtext $A_2$, $B_2$, $C_2$ i $D_2$ normale spu\sh tene
+% thmtext iz $A_1$, $B_1$, $C_1$ i $D_1$ na naspramne 
+% thmtext stranice $CD$, $DA$, $AB$ i $BC$ redom.
+% thmtext Dokazati da su osam ta\ch aka $A_1$, $B_1$, $C_1$, $D_1$,
+% thmtext $A_2$, $B_2$, $C_2$ i $D_2$ sve nalaze na istom krugu.
+
+% thmnote Neka je krug $k$ sa pre\ch nikom $A_1C_1$.
+% thmnote Dovoljno je dokazati da ta\ch ke $B_1$, $D_1$ i $A_2$ 
+% thmnote pripadaju krugu $k$.
+
+% thmtexte Quadrilateral $ABCD$ is given such that diagonals
+% thmtexte $AC$ and $BD$ intersect at right angle. Let $A_1$,
+% thmtexte $B_1$, $C_1$ and $D_1$ be midpoints of quadrilateral
+% thmtexte sides $AB$, $BC$, $CD$ and $DA$ respectively.
+% thmtexte Let $A_2$, $B_2$, $C_2$ and $D_2$ be feet from points
+% thmtexte $A_1$, $B_1$, $C_1$ and $D_1$ upon lines $CD$, $DA$,
+% thmtexte $AB$ and $BC$ respectively. Show that eight points
+% thmtexte $A_1$, $B_1$, $C_1$, $D_1$, $A_2$, $B_2$, $C_2$ and $D_2$
+% thmtexte lie on a circle.
+
+dim 130 110
+
+point A 20 35
+point C 110 35
+point B 80 20
+% skip
+point D 80 75
+
+line ac A C
+perp bd B ac
+online D' bd
+
+midpoint A_1 A B
+midpoint B_1 B C
+midpoint C_1 C D
+midpoint D_1 D A
+
+line cd C D
+line da D A
+line ab A B
+line bc B C
+
+foot A_2 A_1 cd
+foot B_2 B_1 da
+foot C_2 C_1 ab
+foot D_2 D_1 bc
+
+midpoint O A_1 C_1
+circle k O A_1
+
+drawcircle k
+
+drawsegment A B
+drawsegment C B
+drawsegment A D
+drawsegment A C
+drawsegment D B
+drawsegment D C
+
+drawdashsegment A_1 A_2
+drawdashsegment B_1 B_2
+drawdashsegment C_1 C_2
+drawdashsegment D_1 D_2
+drawdashsegment B D_2
+drawdashsegment B C_2
+
+cmark_b A
+cmark_b B
+cmark_b C
+cmark_t D
+cmark_b A_1
+cmark_rb B_1
+cmark_rt C_1
+cmark_lt D_1
+cmark_rt A_2
+cmark_lt B_2
+cmark_b C_2
+cmark_b D_2
+
+%% prove { equal { segment O A_2 } { segment O A_1 } }
+% prove { perpendicular A_1 B_1 B_1 C_1 }
+% prove { perpendicular A_1 D_1 D_1 C_1 }
+% prove { perpendicular A_1 A_2 A_2 C_1 }

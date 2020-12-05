@@ -1,0 +1,63 @@
+% thmname Primer 56 iz \cite{chou}
+% thmnamee Example 56 from \cite{chou}
+
+% thmtext Dat je paralelogram $MNPQ$. Prava koja
+% thmtext prolazi kroz $M$ se\ch e prave $PQ$,
+% thmtext $NP$ i $NQ$ u ta\ch kama $S$, $R$ i $T$.
+% thmtext Dokazati da je
+% thmtext $\frac{1}{\overline{MR}} + 
+% thmtext \frac{1}{\overline{MS}} =
+% thmtext \frac{1}{\overline{MT}}$.
+
+% thmnote Po\sh to se ta\ch ke $M$, $R$, $S$ i $T$ 
+% thmnote nalaze na istoj pravoj, dovoljno je
+% thmnote dokazati da je
+% thmnote $\frac{\overline{MT}}{\overline{MR}} +
+% thmnote \frac{\overline{MT}}{\overline{MS}} = 1$.
+
+% thmtexte Let $l$ be a line passing through the vertex
+% thmtexte of $M$ of a parallelogram $MNPQ$ and intersecting
+% thmtexte the lines $NP$, $PQ$, $NQ$ in points $R$, $S$, $T$.
+% thmtexte Show that $1/MR + 1/MS = 1/MT$.
+
+
+dim 130 60
+
+point M 20 20
+point N 70 20
+point P 85 45
+
+line mn M N
+line np N P
+parallel pq P mn
+parallel mq M np
+intersec Q pq mq
+
+% skip
+point S 120 45
+
+online S' pq
+
+line ms M S
+line nq N Q
+
+intersec T ms nq
+intersec R np ms
+
+cmark_b M
+cmark_b N
+cmark_b S
+cmark_b Q
+cmark_b T
+cmark_b R
+cmark_b P
+
+drawsegment M N
+drawsegment Q S
+drawsegment M Q
+drawsegment N P
+drawsegment M S
+drawsegment M Q
+drawsegment N Q
+
+% prove { equal { sum { sratio M T M R } { sratio M T M S } } { 1 } } }

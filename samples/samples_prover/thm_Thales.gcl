@@ -1,0 +1,24 @@
+point O 40 30 
+point A 80 30      
+point C 60 50  
+
+online B O A
+
+line a A C
+line c O C 
+parallel b B a
+intersec D c b 
+
+drawline O A 
+drawline O C 
+drawline A C
+drawline B D
+
+cmark_t O
+cmark_t A
+cmark_t B
+cmark_t C   
+cmark_t D   
+
+prove { equal { sratio O A O B } { sratio O C O D  } }
+

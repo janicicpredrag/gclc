@@ -1,0 +1,59 @@
+% thmname Primer 110 iz \cite{chou}
+% thmnamee Example 110 from \cite{chou}
+
+% thmtext Na pravam $AC$ i $BD$ trougla $ABC$ date su
+% thmtext $D$ i $E$ takve da je $AD \cong BE$.
+% thmtext Neka je $F = DE \cap AB$. Dokazati da je:
+% thmtext $FD \cdot AC = EF \cdot BC$.
+
+% thmtexte Let $D$ and $E$ be two points on two
+% thmtexte sides $AC$ and $BC$ of triangle $ABC$ such
+% thmtexte that $AD \cong BE$. $F = DE \cap AB$. Show that:
+% thmtexte $FD \cdot AC = EF \cdot BC$.
+
+% thmnote Konstrukcija je izvedena tako \sh to su ta\ch ke
+% thmnote $A$, $B$, $C$ izabrane proizvoljno, $D$ izabrana
+% thmnote proizvoljno na pravoj $AC$. Zatim je konstruisan 
+% thmnote paralelogram $ADD_1B$ i ta\ch ka $E$ je odre\dj ena
+% thmnote kao presek kruga sa polupre\ch nikom $BD_1$
+% thmnote prave $BC$.
+
+dim 120 110
+
+point A 20 40
+point B 85 40
+point C 70 90
+
+online D' A C
+% skip
+point D 40.26 60.26
+
+line b A C
+parallel b1 B b
+line c A B
+parallel c1 D c
+intersec D1 b1 c1
+
+line a B C
+circle k B D1
+intersec2 E1 E k a
+
+line de D E
+intersec F de c
+
+% cmark_t D1
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_lt D
+cmark_b E
+cmark_lb F
+
+drawsegment A B
+drawsegment C E
+drawsegment A C
+drawdashsegment B D1
+drawdashsegment D D1
+drawsegment D E
+
+% prove { equal { mult { segment F D } { segment A C } } { mult { segment E F } { segment B C } } }

@@ -1,0 +1,88 @@
+% thmname Nobsova teorema
+% thmnamee Nobbs' Theorem
+
+% thmtext U trougao $ABC$ je upisan krug $k$ koji dodiruje
+% thmtext stranice trougla u ta\ch kama $S_1$, $S_2$ i $S_3$.
+% thmtext Neka su $P = BC \cap S_1S_3$,
+% thmtext $Q = AC \cap S_2S_3$ i
+% thmtext $R = AB \cap S_1S_2$.
+% thmtext Dokazati da su ta\ch ke $P$, $Q$ i $R$ kolinearne.
+
+% thmtexte Assume $S_1$, $S_2$, $S_3$ are the points of contact 
+% thmtexte of the incircle of $ABC$: $S_1$ on side $AC$, etc.
+% thmtexte Denote the intersection of $BC$ and $S_1S_3$ as $P$,
+% thmtexte that of $AC$ and $S_2S_3$ as $Q$, and let $R$ 
+% thmtexte be the intersection of $AB$ 
+% thmtexte and $S_1S_2$. Then points $P$, $Q$, and $R$ are collinear.
+
+dim 130 130
+
+point X 20 20
+point Y 25 20
+
+line ab X Y
+
+% skip
+point S_3 65 20
+online S_3' X Y
+
+% skip
+point O 65 32
+
+perp s3o S_3 ab
+online O' s3o
+
+circle k O S_3
+
+oncircle S_1' O S_3
+oncircle S_2' O S_3
+% skip
+point S_1 75.90 36.70
+% skip
+point S_2 60.10 42.90
+
+line os2 O S_2
+line os1 O S_1
+perp as1 S_1 os1
+perp bs2 S_2 os2
+
+intersec A ab as1
+intersec B ab bs2
+
+intersec C as1 bs2
+
+line s13 S_1 S_3
+intersec P s13 bs2
+
+line s23 S_2 S_3
+intersec Q s23 as1
+
+line s12 S_1 S_2
+intersec R s12 ab
+
+line pqr P Q
+
+drawcircle k
+
+drawline pqr
+drawdashline s23
+drawdashline s13
+drawdashline s12
+drawdashsegment C P
+drawdashsegment C Q
+drawdashsegment A R
+cmark_b R
+cmark_rt Q
+cmark_r P
+cmark_t C
+cmark_b A
+cmark_b B
+cmark_l S_1
+cmark_b S_2
+cmark_rb S_3
+
+drawsegment A C
+drawsegment A B
+drawsegment B C
+
+% prove { collinear P Q R }

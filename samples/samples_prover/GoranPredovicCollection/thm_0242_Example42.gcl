@@ -1,0 +1,52 @@
+% thmname Primer 42 iz \cite{chou}
+% thmnamee Example 42 from \cite{chou}
+
+% thmtext Dat je \ch etvorougao $ABCD$. Neka se prave $AB$ i $CD$
+% thmtext seku u ta\ch ki $W$ i neka su $X$ i $Y$ sredi\sh ta
+% thmtext dijagonala $AC$ i $BD$. Dokazati da je povr\sh ina
+% thmtext trougla $XYW$ \ch etiri puta manja od povr\sh ine
+% thmtext \ch etvorougla $ABCD$.
+
+% thmnote Teorema se dokazuje za orijentisane povr\sh ine. Posmatraju
+% thmnote se orijentisani trougao $XWY$ i orijentisani \ch etvorougao
+% thmnote $ABCD$.
+
+% thmtexte If a quadrangle $ABCD$ has its opposite sides $AD$
+% thmtexte and $BC$ (extended) meeting at $W$, while $X$ and $Y$
+% thmtexte are the midpoints of the diagonals $AC$ and $BD$,
+% thmtexte then $(WXY) = 1/4(ABCD)$.
+
+dim 110 90
+
+point A 20 20
+point B 60 20
+point C 50 50
+point D 35 65
+
+line ab A B
+line cd C D
+intersec W ab cd
+
+midpoint X A C
+midpoint Y B D
+
+cmark_b X
+cmark_b Y
+cmark_b W
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+
+drawsegment A W
+drawsegment C B
+drawsegment D W
+drawsegment A D
+drawdashsegment B D
+drawdashsegment C A
+drawsegment X Y
+drawsegment X W
+drawsegment Y W
+
+% prove { equal { mult { 4 } { signed_area3 X W Y } } { signed_area4 A B C D } }
+%% prove { equal { mult { 4 } { signed_area3 X W Y } } { sum { signed_area3 A C D } { signed_area3 A B C } } }

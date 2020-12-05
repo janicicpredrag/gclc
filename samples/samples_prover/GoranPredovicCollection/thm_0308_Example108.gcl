@@ -1,0 +1,51 @@
+% thmname Primer 108 iz \cite{chou}
+% thmnamee Example 108 from \cite{chou}
+
+% thmtext Oko jednakokrakog trougla $ABC$ ($AC \cong BC$)
+% thmtext je opisan krug sa centrom $O$. Neka je $D$ ta\ch ka
+% thmtext na krugu i neka je $E = AB \cap CD$. Dokazati da je:
+% thmtext $CA^2 = CE \cdot CD$.
+
+% thmtexte Let $C$ be the midpoint of the arc $AB$
+% thmtexte of circle $(O)$. $D$ is a point on the circle.
+% thmtexte $E = AB \cap CD$. Show that:
+% thmtexte $CA^2 = CE \cdot CD$.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+
+point X 25 34
+line ab A B
+line ax A X
+
+med c A B
+intersec O c ax
+intersec M c ab
+
+circle k O A
+intersec2 C C1 k c
+
+% skip
+point D 39.67 15.88
+oncircle D' O A
+line cd C D
+intersec E ab cd
+
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_r O
+cmark_b M
+cmark_lb D
+cmark_lt E
+
+drawcircle k
+drawsegment A B
+drawsegment C B
+drawsegment A C
+drawsegment C M
+drawsegment C D
+
+% prove { equal { mult { segment C A } { segment C A } } { mult { segment C E } { segment C D } } }

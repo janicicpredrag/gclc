@@ -1,0 +1,62 @@
+% thmname Primer 133 iz \cite{chou}
+% thmnamee Example 133 from \cite{chou}
+
+% thmtext Na stranicma $AC$ i $BC$ trougla $ABC$
+% thmtext date su ta\ch ke $M$ i $N$. Ako se prave
+% thmtext $BM$ i $AN$ seku na visini $AD$ trougla,
+% thmtext dokazati da je $CD$ simetrala ugla
+% thmtext $\angle MDN$.
+
+% thmtexte If $M$, $N$ are points on the sides $AC$,
+% thmtexte $BC$ of a triangle $ABC$ and the lines
+% thmtexte $AN$, $BM$ intersect on the altitude $CD$,
+% thmtexte show that $CD$ is the bisector of the 
+% thmtexte angle $\angle MDN$.
+
+% thmnote Konstrukcija je izvedena tako \sh to je 
+% thmnote izabrana proizvoljna ta\ch ka $J$ na visini
+% thmnote $CD$. Posledica ove teoreme ja da ako su
+% thmnote $H_a$, $H_b$ i $H_c$ podno\zh ja visina
+% thmnote trougla $ABC$, tada je ortocentar $H$
+% thmnote centar upisanog kruga trougla $H_aH_bH_c$.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+point C 70 80
+
+line c A B
+line a B C
+line b A C
+
+foot D C c
+
+% skip
+point J 70 50
+online J' C D
+
+line aj A J
+line bj B J
+
+intersec M bj b
+intersec N aj a
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_lt M
+cmark_rt N
+cmark_b D
+cmark_lb J
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C D
+drawsegment M B
+drawsegment A N
+drawsegment D M
+drawsegment D N
+
+% prove { equal { angle M D C } { angle C D N } }

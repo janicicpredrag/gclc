@@ -1,0 +1,45 @@
+% thmname Visine trougla
+% thmnamee Altitude Center Exists Theorem
+
+% thmtext Dokazati da se visine trougla seku
+% thmtext u jednoj ta\ch ki.
+
+% thmtexte Show that triangle altitudes are concurrent.
+ 
+dim 100 85
+
+point A 20 20
+point B 80 20
+point C 60 70
+
+line bc B C
+line ab A B
+line ac A C
+
+foot A_1 A bc
+foot B_1 B ac
+foot C_1 C ab
+
+line ha A A_1
+line hb B B_1
+line hc C C_1
+
+intersec H hc hb
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_rt A_1
+cmark_l B_1
+cmark_b C_1
+cmark_lb H
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+drawdashsegment B B_1
+drawdashsegment A A_1
+drawdashsegment C C_1
+
+% prove { collinear  A H A_1 }

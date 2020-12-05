@@ -1,0 +1,163 @@
+
+procedure circle3d { xc yc zc nx ny nz radius }
+{
+expression mag {pow((nx*nx+ny*ny+nz*nz),0.5)}
+expression nx {nx/mag}
+expression ny {ny/mag}
+expression nz {nz/mag}
+if_then_else {abs(nx) > abs(ny)}
+{
+expression ux {-nz}
+expression uy {0}
+expression uz {nx}
+expression mag {pow((ux*ux+uy*uy+uz*uz),0.5)}
+expression ux {ux/mag}
+expression uy {uy/mag}
+expression uz {uz/mag}
+expression vx {ny*uz - uy*nz}
+expression vy {-(nx*uz - ux*nz)}
+expression vz {nx*uy - ux*ny}
+}
+{
+expression ux {0}
+expression uy {nz}
+expression uz {-ny}
+expression mag {pow((ux*ux+uy*uy+uz*uz),0.5)}
+expression ux {ux/mag}
+expression uy {uy/mag}
+expression uz {uz/mag}
+expression vx {ny*uz - uy*nz}
+expression vy {-(nx*uz - ux*nz)}
+expression vz {nx*uy - ux*ny}
+}
+ang3d_draw_parametric_curve t
+   {0; t<=6.28+0.05; t+0.05}
+   {xc+radius*cos(t)*ux+radius*sin(t)*vx; yc+radius*cos(t)*uy+radius*sin(t)*vy; zc+radius*cos(t)*uz+radius*sin(t)*vz}
+}
+
+
+procedure arc3d { xc yc zc ux uy uz vx vy vz radius}
+{
+expression mag {pow((ux*ux+uy*uy+uz*uz),0.5)}
+expression ux {ux/mag}
+expression uy {uy/mag}
+expression uz {uz/mag}
+expression mag {pow((vx*vx+vy*vy+vz*vz),0.5)}
+expression vx {vx/mag}
+expression vy {vy/mag}
+expression vz {vz/mag}
+expression theta_stop {acos(ux*vx+uy*vy+uz*vz)}
+expression v_dot_u {vx*ux+vy*uy+vz*uz}
+expression v_perp_x {vx-(v_dot_u*ux)}
+expression v_perp_y {vy-(v_dot_u*uy)}
+expression v_perp_z {vz-(v_dot_u*uz)}
+expression vx {v_perp_x}
+expression vy {v_perp_y}
+expression vz {v_perp_z}
+expression mag {pow((vx*vx+vy*vy+vz*vz),0.5)}
+expression vx {vx/mag}
+expression vy {vy/mag}
+expression vz {vz/mag}
+ang3d_draw_parametric_curve t
+   {0; t<=theta_stop; t+0.05}
+   {xc+radius*cos(t)*ux+radius*sin(t)*vx; yc+radius*cos(t)*uy+radius*sin(t)*vy; zc+radius*cos(t)*uz+radius*sin(t)*vz}
+}
+
+dim 120 80
+
+% Setup the 3D Cartesian System & View
+ang3d_picture 0 0 100 79
+ang3d_origin 60 50 0.95 0.45
+ang3d_unit 5
+ang3d_scale 1 1 1
+ang3d_axes_drawing_range -12 12 -12 12 -12 12
+ang3d_drawsystem_p 2 5 5 5 1 2
+
+linethickness 0.5
+
+% Draw the 1st Circle
+number x0 5		% center of circle
+number y0 5
+number z0 0
+number n1 10	% normal to circle
+number n2 0
+number n3 0
+ang3d_point Center x0 y0 z0
+cmark_t Center 
+color 255 0 0
+call circle3d { x0 y0 z0 n1 n2 n3 5 }
+color 0 0 0
+
+% Draw the 2nd Circle
+number x0 5 	% center of circle
+number y0 5
+number z0 0
+number n1 0		% normal to circle
+number n2 10
+number n3 0
+color 0 255 0
+call circle3d { x0 y0 z0 n1 n2 n3 5 }
+color 0 0 0
+
+% Draw the 3rd Circle
+number x0 5		% center of circle 
+number y0 5
+number z0 0
+number n1 0		% normal to circle
+number n2 0
+number n3 10
+color 0 0 255
+call circle3d { x0 y0 z0 n1 n2 n3 5 }
+color 0 0 0
+
+% Draw the 1st Arc
+number x0 5		% center of arc 
+number y0 5
+number z0 0
+% Specify a vector u from the center towards the start of the arc
+number u1 0		
+number u2 -5
+number u3 0
+% Specify a vector v from the center towards the end of the arc
+% The magnitudes of u & v don't matter since the radius of the 
+% arc is explicitly prescribed in the call to the arc3d routine
+number v1 1
+number v2 -1
+number v3 0
+color 0 0 0
+double
+call arc3d { x0 y0 z0 u1 u2 u3 v1 v2 v3 5 }
+color 0 0 0
+normal
+
+% Draw the 2nd Arc
+number x0 5		% center of arc 
+number y0 5
+number z0 0
+number u1 0		% start of arc
+number u2 -5
+number u3 0
+number v1 0		% end of arc
+number v2 -1
+number v3 1
+color 0 0 0
+double
+call arc3d { x0 y0 z0 u1 u2 u3 v1 v2 v3 5 }
+color 0 0 0
+normal
+
+% Draw the 3rd Arc
+number x0 5		% center of arc 
+number y0 5
+number z0 0
+number u1 -1	% start of arc
+number u2 0
+number u3 0
+number v1 -1		% end of arc
+number v2 1
+number v3 0
+color 0 0 0
+double
+call arc3d { x0 y0 z0 u1 u2 u3 v1 v2 v3 5 }
+color 0 0 0
+normal 

@@ -1,0 +1,49 @@
+% thmname Primer 138 iz \cite{chou}
+% thmnamee Example 138 from \cite{chou}
+
+% thmtext Simetrala ugla $\angle C$ trougla $ABC$
+% thmtext polovi luk $AB$ opisanog kruga trougla $ABC$.
+
+% thmtexte The internal and external bisectors of an
+% thmtexte angle of a triangle pass through the ends
+% thmtexte of the circumdiameters which is a perpendicular
+% thmtexte to the side opposite the vertex considered.
+
+% thmnote Dokazano je ekvivalentno tvr\dj nje: ako je
+% thmnote $L$ sredi\sh te luka $AB$, onda je $CL$ simetrala
+% thmnote ugla $\angle ACB$. Na taj na\ch in je
+% thmnote izbegnut svodiv slu\ch aj preseka simetrale
+% thmnote ugla $\angle C$ i kruga opisanog oko trougla.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 73 85
+
+line c A B
+
+med mc B C
+med mb A C
+
+intersec O mc mb
+
+circle k O A
+perp l O c
+intersec2 L1 L l k
+
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_t O
+cmark_b L
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment O L
+drawsegment C L
+
+drawcircle k
+
+% prove { equal { angle A C L } { angle L C B } }

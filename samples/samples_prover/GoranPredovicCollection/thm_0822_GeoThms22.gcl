@@ -1,0 +1,60 @@
+% thmname Primer 22 iz \cite{geothms}
+% thmnamee Example 22 from \cite{geothms}
+
+% thmtext Dat je paralelogram $ABCD$. Ta\ch ka $N$ je konstruisana
+% thmtext kao presek prave povu\ch ene iz $C$ paralelne sa dijagonalom
+% thmtext $BD$ i prave povu\ch ene iz $A$ normalne na dijagonalu $BD$.
+% thmtext Prave $AN$ i $BN$ seku pravu $CD$ u ta\ch kama $P$ i $Q$.
+% thmtext Dokazati da je $Q$ sredi\sh te du\zh i $CP$.
+
+% thmtexte Given a parallelogram $ABCD$, a point $N$,
+% thmtexte obtained by the intersection of a line parallel
+% thmtexte to $BD$ passing through $C$, and a line perpendicular
+% thmtexte to $BD$ passing through $A$, then the point $Q$,
+% thmtexte which is given by the intersection of $BN$ and $CD$,
+% thmtexte is the midpoint of $PC$, where $P$ is the intersection
+% thmtexte of $CD$ and $AN$,
+
+dim 110 90
+
+point A 20 20
+point B 70 20
+point C 85 60
+
+line ab A B
+line bc B C
+parallel ad A bc
+parallel cd C ab
+intersec D ad cd
+
+line bd B D
+parallel cn C bd
+perp an A bd
+intersec N cn an
+
+line bn B N
+
+intersec P cd an
+intersec Q bn cd
+
+drawline cn
+drawline an
+
+drawsegment A N
+drawsegment B N
+drawsegment B D
+
+cmark_lt P
+cmark_lb Q
+cmark_t N
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_t D
+
+drawsegment A B
+drawsegment C B
+drawsegment C D
+drawsegment A D
+
+% prove { equal { sratio P Q Q C } { 1 } }

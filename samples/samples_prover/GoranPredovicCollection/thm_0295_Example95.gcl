@@ -1,0 +1,54 @@
+% thmname Primer 95 iz \cite{chou}
+% thmnamee Example 95 from \cite{chou}
+
+% thmtext Na krugu $k$ sa centrom $O$ data je tetiva
+% thmtext $AB$. Neka je $D$ sredi\sh te tetive $AB$
+% thmtext i neka je $M$ sredina luka $AB$ kruga $k$.
+% thmtext Neka je $E$ podno\zh je normale spu\sh tene
+% thmtext iz $M$ na pravu koja prolazi kroz $A$ i 
+% thmtext normalna je na polupre\ch nik $AO$.
+% thmtext Dokazati da je $ME \cong MD$.
+
+% thmtexte Let $M$ be the midpoint of the arc $AB$
+% thmtexte of circle $(O)$, $D$ be the midpoint of
+% thmtexte $AB$. he perpendicular through $M$ is drawn
+% thmtexte to the tangent of the circle at $A$
+% thmtexte meeting that tangent at $E$. Show $ME \cong MD$.
+
+dim 100 100
+
+point D 50 33
+point O 50 55
+
+line d O D
+
+% skip
+point M 50 90
+
+online M' O D
+
+circle k O M
+
+perp a D d
+intersec2 B A k a
+
+line p A O
+perp q A p
+parallel r M p
+intersec E r q
+
+cmark_t E
+cmark_lb A
+cmark_rb B
+cmark_r O
+cmark_b D
+cmark_t M
+
+drawcircle k
+drawsegment A B
+drawsegment A O
+drawsegment M D
+drawsegment E M
+drawsegment A E
+
+% prove { equal { segment M E } { segment M D } }

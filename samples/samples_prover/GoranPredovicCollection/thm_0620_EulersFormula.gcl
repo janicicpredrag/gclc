@@ -1,0 +1,62 @@
+% thmname Ojlerova formula
+% thmnamee Euler's Formula
+
+% thmtext Dokazati da je $d^2 = R(R - 2r)$
+% thmtext gde su $R$ i $r$ polupre\ch nici
+% thmtext opisanog i upisanog kruga trougla, a $d$
+% thmtext rastojanje izme\dj u njih.
+
+% thmtexte If $R$ and $r$ are half diameters of circumscribed
+% thmtexte and inscribed circles of a trougle and $d$ is a
+% thmtexte distance between them, show that:
+% thmtexte $d^2 = R(R - 2r)$.
+
+dim 105 90
+
+point A 20 33
+point B 85 33
+point C 68 75
+
+bis sc A C B
+bis sa B A C
+
+intersec I sa sc
+
+med mc A B
+med mb A C
+intersec O mc mb
+
+circle k O A
+
+line c A B
+foot D I c
+
+circle k1 I D
+
+drawcircle k1
+drawcircle k
+cmark_b O
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_rt I
+cmark_b D
+
+drawsegment A O
+drawsegment I D
+drawsegment A C
+drawsegment C B
+drawsegment A B
+drawdashsegment I O
+
+% skip
+point x 56.00 48.00
+printat x { d }
+% skip
+point y 38.90 41.50
+printat y { R }
+% skip
+point z 63.30 41.30
+printat z { r }
+
+% prove { equal { mult { sum { mult { -1 } { segment I O } } { segment A O } } { sum { mult { -1 } { segment I O } } { segment A O } } } { mult { 4 } { mult { segment A O } { segment I D } } } }

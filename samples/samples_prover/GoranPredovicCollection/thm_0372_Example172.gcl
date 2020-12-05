@@ -1,0 +1,52 @@
+% thmname Primer 172 iz \cite{chou}
+% thmnamee Example 172 from \cite{chou}
+
+% thmtext Dokazati da je povr\sh ina pravouglog trougla
+% thmtext jednaka proizvodu dva segmenta na koje je podeljena
+% thmtext hipotenuza ta\ch kom dodira sa upisanim krugom.
+
+% thmtexte Show that the area of a right triangle is equal
+% thmtexte to the product of the two segments into
+% thmtexte which the hypothenuse is divided by its point
+% thmtexte of contact with incircle.
+
+dim 90 90
+
+point A 20 20
+point B 70 20
+line c A B
+point X 30 65
+line x B X
+perp b A c
+
+intersec C x b
+
+bis sa B A C
+bis sb A B C
+intersec I sa sb
+
+line a B C
+foot D I a
+
+circle k I D
+
+drawcircle k
+cmark_rt D
+cmark_lt I
+cmark_b A
+cmark_b B
+cmark_t C
+
+drawsegment A C
+drawsegment C B
+drawsegment A B
+
+% skip
+foot E I c
+% skip
+foot F I b
+drawdashsegment I E
+drawdashsegment I F
+drawdashsegment I D
+
+% prove { equal { mult { segment C D } { segment B D } } { mult { signed_area3 A B C } { signed_area3 A B C } } }

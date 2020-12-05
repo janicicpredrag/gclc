@@ -1,0 +1,56 @@
+dim 100 100
+
+% thmname \v{C}evina teorema
+% thmnamee Ceva's theorem
+
+% thmtext Dat je trougao $ABC$ i ta\ch ka P unutar njega.
+% thmtext Neka su $D$, $E$ i $F$ redom preseci pravih $PA$, $PB$ i $PC$
+% thmtext sa stranicama trougla $BC$, $CA$ i $AB$. Dokazati da je
+% thmtext $\frac{\overline{AF}}{\overline{FB}} \cdot 
+% thmtext \frac{\overline{BD}}{\overline{DC}} \cdot 
+% thmtext \frac{\overline{CE}}{\overline{EA}} = 1$.
+
+% thmtexte There is a point $P$ inside of triangle $ABC$.
+% thmtexte Lines $PA$, $PB$ and $PC$ meet the triangle at three points
+% thmtexte $D$, $E$ and $F$. Show that:
+% thmtexte $\frac{\overline{AF}}{\overline{FB}} \cdot 
+% thmtexte \frac{\overline{BD}}{\overline{DC}} \cdot 
+% thmtexte \frac{\overline{CE}}{\overline{EA}} = 1$.
+
+point A 60 10
+point B 30 90
+point C 80 90
+point P 55 75
+
+line bc B C
+line pa P A
+line ac A C
+line pb P B
+line ab A B
+line pc P C
+intersec D bc pa
+intersec E ac pb
+intersec F ab pc
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+drawsegment A D
+drawsegment B E
+drawsegment C F
+
+cmark_b A
+cmark_t B
+cmark_t C
+cmark_t D
+cmark_l F
+cmark_r E
+cmark_rt P
+
+% prove { equal { mult { mult { sratio A F F B } { sratio B D D C } } { sratio C E E A } } 1 }
+
+
+
+
+

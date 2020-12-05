@@ -1,0 +1,111 @@
+% thmname Adamsov krug
+% thmnamee Adams' Circle
+
+% thmtext Upisani krug trougla $ABC$, sa centrom $I$, dodiruje stranice
+% thmtext trougla $BC$, $CA$ i $AB$ redom u
+% thmtext ta\ch kama $D$, $E$ i $F$. Prave $AD$, $BE$ i $CF$ 
+% thmtext konkuretne i seku se u Gergonovoj ta\ch ki. Iz
+% thmtext Gergonove ta\ch ke su povu\ch ene paralele sa stranicama
+% thmtext trougla $DEF$ koje seku stranice trougla $ABC$ u ta\ch kama
+% thmtext $P$, $Q$, $R$, $S$, $T$ i $U$. Dokazati da se ovih
+% thmtext \sh est ta\ch aka nalazi na krugu sa centrom $I$.
+
+% thmtexte Assume the incircle of $\triangle ABC$ touches the 
+% thmtexte sides $BC$, $AC$ and $AB$ in points 
+% thmtexte $D$, $E$ and $F$ respectively. 
+% thmtexte The lines $AD$, $BE$ and $CF$ meet at the Gergonne 
+% thmtexte point $G$ of the triangle. $DEF$ is known as
+% thmtexte Gergonne triangle (and also contact triangle) of
+% thmtexte $\triangle ABC$. Suppose three lines are drawn through
+% thmtexte $G$ parallel to the sides of the Gergonne triangle.
+% thmtexte These meet the sides of $\triangle ABC$ in six points
+% thmtexte $P$, $Q$, $R$, $S$, $T$ and $U$. Show that six points
+% thmtexte are concyclic. Moreover, the circle they lie on is
+% thmtexte centered at the incenter.
+
+% thmnote Zbog simetrije problema, dovoljno je pokazati za
+% thmnote ta\ch ke $S$, $T$ i $Q$ da se nalaze na krugu sa
+% thmnote centrom $I$.
+
+dim 130 130
+
+point A 20 20
+point B 110 20
+point C 95 105
+
+bis ba B A C
+bis bb C B A
+bis bc A C B
+
+line a B C
+line b A C
+line c A B
+
+intersec I ba bb
+foot D I a
+foot E I b
+foot F I c
+
+% skip
+circle k I F
+
+line ad A D
+line be B E
+line cf C F
+
+intersec G ad be
+
+line de D E
+line df D F
+line ef E F
+
+parallel gpq G de
+parallel grs G df
+parallel gtu G ef
+
+% skip
+intersec P gpq b
+intersec Q gpq a
+% skip
+intersec R grs a
+intersec S grs c
+intersec T gtu c
+% skip
+intersec U gtu b
+
+cmark_l I
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_b F
+cmark_lt E
+cmark_rt D
+cmark_rb G
+
+cmark_lt P
+cmark_r Q
+cmark_rt R
+cmark_b S
+cmark_b T
+cmark_lt U
+
+drawcircle k
+drawsegment A B
+drawsegment C B
+drawsegment C A
+drawsegment A D
+drawsegment B E
+drawsegment C F
+drawdashsegment P Q
+drawdashsegment R S
+drawdashsegment T U
+drawsegment D E
+drawsegment D F
+drawsegment F E
+
+% skip
+circle k1 I S
+drawdashcircle k1
+
+% prove { equal { segment I S } { segment I T } }
+% prove { equal { segment I S } { segment I Q } }

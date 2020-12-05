@@ -1,0 +1,52 @@
+% thmname Primer 82 iz \cite{chou}
+% thmnamee Example 82 from \cite{chou}
+
+% thmtext U ravni je dat trougao $ABC$. Neka
+% thmtext je $F$ sredi\sh te stranice $AB$ i 
+% thmtext neka su $P$ i $Q$ podno\zh ja visina
+% thmtext spu\sh tenih iz temena $A$ i $B$.
+% thmtext Neka je $G$ podno\zh je normale iz $F$
+% thmtext na pravu $PQ$. Dokazati da je
+% thmtext G sredi\sh te du\zh i $PQ$.
+
+% thmtexte In triangle $ABC$, let $F$ the midpoint of the
+% thmtexte side $BC$, $D$ and $E$ the feet of the
+% thmtexte altitudes on $AB$ and $BC$, respectively.
+% thmtexte $FG$ is perpendicular to $DE$ at $G$. Show that
+% thmtexte $G$ is the midpoint of $DE$.
+
+dim 110 100
+
+point A 20 20
+point B 90 20
+point C 70 70
+
+midpoint F A B
+
+line ab A B
+line ac A C
+line bc B C
+
+foot P A bc
+foot Q B ac
+
+line pq P Q
+foot G F pq
+
+cmark_b A
+cmark_b B
+cmark_b F
+cmark_t C
+cmark_r P
+cmark_l Q
+cmark_t G
+
+drawsegment A B
+drawsegment C B
+drawsegment A C
+drawsegment A P
+drawsegment Q B
+drawsegment P Q
+drawsegment F G
+
+% prove { equal { sratio Q G G P } { 1 } }

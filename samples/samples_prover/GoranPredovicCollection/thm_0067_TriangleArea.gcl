@@ -1,0 +1,31 @@
+% thmname Povr\sh ina trougla
+% thmnamee Triangle Area
+
+% thmtext Dat je trougao $ABC$. Neka je
+% thmtext $M$ sredi\sh te stranice $AB$. Dokazati
+% thmtext da trouglovi $AMC$ i $MBC$ imaju jednaku
+% thmtext povr\sh inu.
+
+% thmtexte Show that median $CM$ divides triangle
+% thmtexte $ABC$ into two triangles of the same
+% thmtexte area.
+
+dim 100 70
+
+point A 20 20
+point B 80 20
+point C 65 45
+
+midpoint M A B
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_b M
+
+drawsegment A B
+drawsegment B C
+drawsegment A C
+drawsegment C M
+
+% prove { equal { signed_area3 A M C } { signed_area3 M B C } }

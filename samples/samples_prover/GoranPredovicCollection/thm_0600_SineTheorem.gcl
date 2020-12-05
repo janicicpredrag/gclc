@@ -1,0 +1,66 @@
+% thmname Sinusna teorema
+% thmnamee Sine Theorem
+
+% thmtext Dokazati da je u  proizvoljnom trouglu
+% thmtext odnos stranice i pre\ch nika opisanog kruga
+% thmtext jednak sinusu naspramnog ugla, odnosno:
+% thmtext $\frac{a}{2R} = \sin \alpha$
+
+% thmtexte Show that in any given triangle the ratio
+% thmtexte between one triangle side and a diameter of
+% thmtexte circumscribed circle is equal to the sine
+% thmtexte of opposite angle, ie:
+% thmtexte $\frac{a}{2R} = \sin \alpha$
+
+% thmnote $\sin \alpha = \frac{AD}{AC}$
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 70 90
+
+med mc A B
+med mb A C
+intersec O mc mb
+circle k O A
+
+line c A B
+foot D C c
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_b O
+drawcircle k
+cmark_b D
+
+drawsegment O C
+drawsegment C D
+drawsegment A B
+drawsegment C B
+drawsegment A C
+
+% skip
+point a 83.00 58.40
+printat a { a }
+% skip
+point b 42.40 61.00
+printat b { b }
+% skip
+point c 57.90 28.20
+printat c { c }
+% skip
+point al 30.00 34.10
+printat al { \alpha }
+% skip
+point r 60.00 70.90
+printat r { R }
+% skip
+point x 40 30
+drawarc A x 50
+% skip
+point xx 41 30
+drawarc A xx 50
+
+% prove { equal { mult { 4 } { mult { segment A O } { segment C D } } } { mult { segment B C } { segment C A } } }

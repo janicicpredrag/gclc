@@ -1,0 +1,89 @@
+%% Created by stripbwr [2001-09-11T03:39:44]
+%% From /home/work/alnilam/mathstyle.bwr
+\ProvidesPackage{mathstyle}[2001/09/10 v0.8]
+\providecommand{\@saveprimitive}[2]{%
+  \begingroup
+  \edef\@tempa{\string#1}\edef\@tempb{\meaning#1}%
+  \ifx\@tempa\@tempb \global\let#2#1%
+  \else
+    \edef\@tempb{\meaning#2}%
+    \ifx\@tempa\@tempb
+    \else
+      \keyed@msg\@latex@error\@saveprimitive{{#2}{#1}}
+%      {Unable to properly define \string#2; primitive
+%      \noexpand#1no longer primitive}\@eha
+    \fi
+  \fi
+  \endgroup
+}
+\chardef\mathstyle=0
+\@saveprimitive\displaystyle\@@displaystyle
+\@saveprimitive\textstyle\@@textstyle
+\@saveprimitive\scriptstyle\@@scriptstyle
+\@saveprimitive\scriptscriptstyle\@@scriptscriptstyle
+\DeclareRobustCommand{\displaystyle}{%
+  \@@displaystyle \chardef\mathstyle\z@}
+\DeclareRobustCommand{\textstyle}{%
+  \@@textstyle \chardef\mathstyle\@ne}
+\DeclareRobustCommand{\scriptstyle}{%
+  \@@scriptstyle \chardef\mathstyle\tw@}
+\DeclareRobustCommand{\scriptscriptstyle}{%
+  \@@scriptscriptstyle \chardef\mathstyle\thr@@}
+\begingroup \catcode`\^=7 \catcode`\_=8 % just in case
+\lowercase{\endgroup
+\let\@@superscript=^ \let\@@subscript=_
+}%
+\def\subsupstyle{%
+  \ifnum\mathstyle<\tw@ \chardef\mathstyle\tw@
+  \else \chardef\mathstyle\thr@@   
+  \fi
+}
+\begingroup \catcode`\^=7 \catcode`\_=8
+\global\let\mathsup=^\global\let\mathsub=_\relax 
+\endgroup
+\def\sb#1{\mathsub{\protect\subsupstyle#1}}%
+\def\sp#1{\mathsup{\protect\subsupstyle#1}}%
+\def\mathchoice#1#2#3#4{%
+  \relax\ifcase\mathstyle#1\relax\or#2\relax\or#3\relax\else#4\relax\fi
+}
+\DeclareOption{activechars}{\catcode`\^=13 \catcode`\_=13 }
+\ProcessOptions\relax
+\ifnum\catcode`\^=13
+  \let^=\sp \let_=\sb
+\else
+  \mathcode`\^="8000 \mathcode`\_="8000
+  \begingroup \catcode`\^=\active \catcode`\_=\active
+  \global\let^=\sp \global\let_=\sb
+  \endgroup
+\fi
+\@saveprimitive\over\@@over
+\@saveprimitive\atop\@@atop
+\@saveprimitive\above\@@above
+\@saveprimitive\overwithdelims\@@overwithdelims
+\@saveprimitive\atopwithdelims\@@atopwithdelims
+\@saveprimitive\abovewithdelims\@@abovewithdelims
+\DeclareRobustCommand\genfrac[6]{%
+  {\fracstyle #1%
+    {\begingroup #5\endgroup
+      \csname @@\ifx\maxdimen#4\maxdimen over\else above\fi
+        \if @#2@\else withdelims\fi\endcsname #2#3#4\relax
+     #6}%
+  }%
+}
+\renewcommand{\frac}{\genfrac{}{}{}{}}
+\providecommand{\dfrac}{}
+\providecommand{\tfrac}{}
+\renewcommand{\dfrac}{\genfrac\displaystyle{}{}{}}
+\renewcommand{\tfrac}{\genfrac\textstyle{}{}{}}
+\providecommand{\binom}{}
+\providecommand{\tbinom}{}
+\providecommand{\dbinom}{}
+\renewcommand{\binom}{\genfrac{}(){0pt}}
+\renewcommand{\dbinom}{\genfrac\displaystyle(){0pt}}
+\renewcommand{\tbinom}{\genfrac\textstyle(){0pt}}
+\def\fracstyle{\ifcase\mathstyle
+    \chardef\mathstyle=\@ne
+  \or \chardef\mathstyle=\tw@
+  \else \chardef\mathstyle=\thr@@
+  \fi
+}

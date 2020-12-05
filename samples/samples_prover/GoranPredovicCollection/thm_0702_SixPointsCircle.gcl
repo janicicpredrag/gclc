@@ -1,0 +1,78 @@
+% thmname Krug \sh est ta\ch aka.
+% thmnamee  Six Points Circle
+
+% thmtext U ravni je dat trougao $ABC$. Neka su $A_1$,
+% thmtext $B_1$ i $C_1$ podno\zh ja visina trougla povu\ch ene iz
+% thmtext temena $A$, $B$ i $C$ redom. Neka su dalje
+% thmtext $A_2$ i $A_3$ podno\zh ja normala spu\sh tenih
+% thmtext iz ta\ch ke $A_1$ na prave $AC$ i $AB$.
+% thmtext Na sli\ch an na\ch in su konstruisane i
+% thmtext ta\ch ke $B_2$, $B_3$, $C_2$ i $C_3$.
+% thmtext Dokazati da se \sh est ta\ch aka $A_2$, $A_3$,
+% thmtext $B_2$, $B_3$, $C_2$ i $C_3$ nalaze na istom
+% thmtext krugu.
+
+% thmtexte Given triangle $ABC$, let $A_1$, $B_1$ and $C_1$
+% thmtexte endpoints of triangle altitudes. From each of
+% thmtexte points $A_1$, $B_1$ and $C_1$ feet are drawn upon
+% thmtexte triangle sides, those are: $A_2$, $A_3$, $B_2$,
+% thmtexte $B_3$, $C_2$ and $C_3$. Show that these six
+% thmtexte points lie on a circle.
+
+dim 130 100
+
+point A 20 20
+point B 90 20
+point C 70 70
+
+line ac A C
+line ab A B
+line bc B C
+
+foot A_1 A bc
+foot B_1 B ac
+foot C_1 C ab
+
+foot C_2 C_1 bc
+foot C_3 C_1 ac
+foot A_2 A_1 ac
+foot A_3 A_1 ab
+foot B_2 B_1 bc
+foot B_3 B_1 ab
+
+med p B_3 A_3
+med q B_3 C_3
+intersec O p q
+% skip
+circle k O B_3
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_r A_1
+cmark_l B_1
+cmark_b C_1
+cmark_b A_3
+cmark_b B_3
+cmark_l C_3
+cmark_lt A_2
+cmark_r C_2
+cmark_rt B_2
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawdashsegment A A_1
+drawdashsegment B B_1
+drawdashsegment C C_1
+
+drawdashsegment C_1 C_2
+drawdashsegment C_1 C_3
+drawdashsegment A_1 A_2
+drawdashsegment A_1 A_3
+drawdashsegment B_1 B_2
+drawdashsegment B_1 B_3
+drawcircle k
+
+% prove { equal { segment O C_2 } { segment O B_3 } }
+% prove { equal { segment O A_2 } { segment O B_3 } }

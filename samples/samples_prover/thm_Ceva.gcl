@@ -1,0 +1,38 @@
+point A 60 10
+point B 30 90
+point C 80 90
+point P 55 75
+
+line a B C
+line b A C
+line c A B
+
+line pa P A
+line pb P B
+line pc P C
+
+intersec D a pa
+intersec E b pb
+intersec F c pc
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+
+drawsegment A D
+drawsegment B E
+drawsegment C F
+
+cmark_b A
+cmark_t B
+cmark_t C
+cmark_t D
+cmark_lt F
+cmark_rt E
+cmark_t P
+
+prove { equal { mult { mult { sratio A F F B } { sratio B D D C } } { sratio C E E A } } 1 }
+
+
+
+

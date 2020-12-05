@@ -1,0 +1,33 @@
+// GCLCInput.cpp: implementation of the CGCLCInput class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#include "stdafx.h"
+#include "GCLCInput.h"
+
+#ifdef _DEBUG
+#undef THIS_FILE
+static char THIS_FILE[]=__FILE__;
+#define new DEBUG_NEW
+#endif
+
+//////////////////////////////////////////////////////////////////////
+// Construction/Destruction
+//////////////////////////////////////////////////////////////////////
+
+CGCLCInput::CGCLCInput()
+{
+	Reset();
+}
+
+
+CGCLCInput::~CGCLCInput()
+{
+
+}
+
+
+
+
+
+

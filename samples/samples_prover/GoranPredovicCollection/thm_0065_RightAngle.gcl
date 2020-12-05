@@ -1,0 +1,27 @@
+% thmname Konstrukcija pravog ugla
+% thmnamee Right Angle over Circle Diameter
+
+% thmtext Dokazati da je ugao nad pre\ch nikom prav
+% thmtexte Prove that the angle over circle diameter is right angle.
+
+dim 110 110
+
+point A 20 55
+point B 90 55
+midpoint O A B
+
+circle k O A
+
+% skip
+point C 76.49 82.62
+oncircle C' O A
+
+cmark_t C
+drawsegment A C
+drawsegment B C
+drawcircle k
+cmark_l A
+cmark_r B
+drawsegment A B
+
+% prove { equal { ratio 1 { angle A C B } } { 0 } }

@@ -1,0 +1,67 @@
+% thmname Problem u jednakonstrani\ch nom pravouglom trouglu
+% thmnamee Isosceles Right Triangle Problem
+
+% thmtext Dat je jednakostrani\ch ni pravougli trougao $ABC$
+% thmtext sa pravim uglom kod temena $C$. Na stranici $AC$
+% thmtext je izabrana proizvoljna ta\ch ka $E$. Ta\ch ka $D$
+% thmtext je odre\dj ena kao presek prave koja sadr\zh i 
+% thmtext ta\ch ku $E$ i paralelna je sa $AB$ i prave $BC$.
+% thmtext Normale na pravu $BE$ povu\ch ene iz $D$ i $C$ seku
+% thmtext pravu $AB$ u ta\ch kama $K$ i $L$. Dokazati da je
+% thmtext $L$ sredi\sh te du\zh i $KA$.
+
+% thmtexte Isosceles right triangle $ABC$ with right angle
+% thmtexte at point $C$ is given. Let $E$ be a point on side $AC$
+% thmtexte of a triangle. Let $D$ be the intersection of a line
+% thmtexte passing through $E$ parallel with line $AB$ and a line.
+% thmtexte $BC$. Let $p$ and $q$ be lines perpendicular with
+% thmtexte line $BE$ passing through points $D$ and $C$, and
+% thmtexte let $K$ and $L$ be intersections of lines $p$ and $q$
+% thmtexte with hypotenuse $AB$. Show that $L$ is a midpoint
+% thmtexte of a segment $KA$.
+
+dim 110 110
+
+point C 20 20
+point A 90 20
+
+circle k C A
+line ac A C
+perp bc C ac
+
+intersec2 B B1 bc k
+
+% skip
+point E 47 20
+online E' A C
+
+line ab A B
+
+line be B E
+
+parallel ed E ab
+intersec D ed bc
+
+perp cl C be
+perp dk D be
+
+intersec L cl ab
+intersec K dk ab
+
+cmark_rt K
+cmark_rt L
+cmark_b E
+cmark_l D
+cmark_t B
+cmark_b C
+cmark_b A
+
+drawdashsegment D E
+drawsegment E B
+drawsegment A C
+drawsegment A B
+drawsegment B C
+drawsegment D K
+drawsegment C L
+
+% prove { equal { sratio K L L A } { 1 } }

@@ -1,0 +1,62 @@
+% thmname Primer 152 iz \cite{chou}
+% thmnamee Example 152 from \cite{chou}
+
+% thmtext \Ch etiri podno\zh ja normala spu\sh tenih
+% thmtext iz jednog temena trougla na \ch etiri simetrale
+% thmtext ugla preostala dva temena (dva unutra\sh nja i dva
+% thmtext spolja\sh nja ugla) su kolinearna.
+
+% thmtexte The feet of the four perpendiculars
+% thmtexte dropped from a vertex of a triangle
+% thmtexte upon the four bisectors of the other
+% thmtexte two angles are collinear.
+
+% thmnote Tako\dj e, prava $PQRS$ je paralelna sa pravom $AB$.
+
+dim 120 110
+
+point A 30 30
+point B 100 30
+point C 50 88
+
+bis s1 B A C
+bis s2 A B C
+% skip
+perp s3 A s1
+% skip
+perp s4 B s2
+
+foot P C s1
+foot Q C s2
+% skip
+foot R C s3
+% skip
+foot S C s4
+
+cmark_b A
+cmark_rb B
+cmark_t C
+cmark_b P
+cmark_lb Q
+cmark_lb R
+cmark_rb S
+
+line p P Q
+drawline p
+
+drawdashline s1
+drawdashline s2
+drawdashline s3
+drawdashline s4
+
+% skip
+line a A B
+drawline a
+drawsegment A C
+drawsegment C B
+drawsegment C P
+drawsegment C Q
+drawsegment C R
+drawsegment C S
+
+% prove { parallel P Q A B }

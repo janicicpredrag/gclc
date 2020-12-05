@@ -1,0 +1,58 @@
+% thmname Primer 75 iz \cite{chou}
+% thmnamee Example 75 from \cite{chou}
+
+% thmtext Na tetivi $AB$ kruga $k$ sa centrom $O$, izabrana je ta\ch ka
+% thmtext $C$. Neka su $D$ i $E$ preseci normale iz ta\ch ke $C$ na
+% thmtext pravu $OC$ sa tangentama kruga $k$ iz ta\ch aka $A$ i $B$.
+% thmtext Dokazati da je $C$ sredi\sh te du\zh i $DE$.
+
+% thmtexte Let $C$ be a point on a chord $AB$ of circle $O$. Let $D$
+% thmtexte and $E$ be the intersections of perpendiculars of $OC$
+% thmtexte through $C$ with the two tangents of the circle at $A$
+% thmtexte and $B$, respectively. Show that $CE \cong CD$.
+
+% thmnote Dovoljno je pokazati da su projekcije du\zh i $CD$ i $CE$
+% thmnote na $x$ osu jednake.
+
+dim 100 80
+
+point A 20 40
+point O 50 40
+
+% skip
+point B 69.20 63.05
+oncircle B' O A
+circle k O A
+
+% skip
+point C 52.36 55.16
+online C' A B
+line oc O C
+perp p C oc
+
+line ob O B
+line oa O A
+
+perp q B ob
+perp r A oa
+
+intersec E p q
+intersec D p r
+
+cmark_t C
+cmark_lb A
+cmark_b O
+cmark_rt B
+cmark_r E
+cmark_lt D
+
+drawsegment A O
+drawsegment B O
+drawsegment A B
+drawsegment A D
+drawsegment B E
+drawsegment C O
+drawsegment D E
+drawcircle k
+
+% prove { equal { sratio D C C E } { 1 } }

@@ -1,0 +1,48 @@
+% thmname Primer 121 iz \cite{chou}
+% thmnamee Example 121 from \cite{chou}
+
+% thmtext Date su \ch etiri nekolinearne ta\ch ke $A$, $B$, $C$ i $D$.
+% thmtext Prava koja prolazi kroz ta\ch ku $A$ i paralelna
+% thmtext je sa pravom $BD$ se\ch e pravu $AD$ u ta\ch ki $E$.
+% thmtext Prava koja prolazi kroz ta\ch ku $E$ i paralelna je sa
+% thmtext pravom $BC$ se\ch e pravu $AB$ u ta\ch ki $F$. Dokazati
+% thmtext da je prava $AC$ paralelna sa pravom $DF$.
+
+% thmtexte Two parallel line $AE$, $BD$ through the vertices
+% thmtexte $A$, $B$ of the triangle $ABC$ meet a line through
+% thmtexte the vertex $C$ in the points $E$, $D$. If the
+% thmtexte parallel through $E$ to $BC$ meets $AB$ in $F$,
+% thmtexte show that $DF$ is parallel to $AC$.
+
+dim 110 110
+
+point A 20 35
+point B 90 35
+point C 70 90
+point D 50 20
+
+line bd B D
+parallel ae A bd
+line cd C D
+intersec E ae cd
+line bc B C
+parallel ef E bc
+line ab A B
+intersec F ab ef
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_b D
+cmark_r E
+cmark_rb F
+
+drawsegment A B
+drawsegment C D
+drawsegment C B
+drawsegment A E
+drawsegment E F
+drawdashsegment A C
+drawdashsegment D F
+
+% prove { parallel A C D F }

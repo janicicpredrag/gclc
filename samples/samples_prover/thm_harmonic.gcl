@@ -1,0 +1,45 @@
+point A 30 32
+point B 40 40
+point C 48 28
+point D 40 25
+
+cmark_lt A
+cmark_t B
+cmark_rt C
+cmark_rb D
+
+% point L
+line AB A B
+line CD C D
+intersec L AB CD
+cmark_b L
+
+% point K
+line AD A D
+line BC B C
+intersec K AD BC
+cmark_b K
+
+% point F
+line BD B D
+line KL K L
+intersec F BD KL
+cmark_b F
+
+% point G
+line AC A C
+intersec G AC KL
+cmark_b G
+
+drawsegment B L
+drawsegment C L
+drawsegment A K
+drawsegment B K
+drawsegment B F
+drawsegment A G
+drawsegment L G
+
+prove { harmonic L K F G }
+% or
+% prove { equal { sratio L F K F } { sratio L G G K }  }
+%

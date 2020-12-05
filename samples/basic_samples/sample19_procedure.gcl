@@ -1,0 +1,43 @@
+procedure draw_inscribed_circle { X Y Z O }
+{
+	bis x Y X Z
+	bis y X Y Z
+	intersec O x y 
+	line p X Y 
+	foot P O p
+	drawcircle O P	
+	drawsegment X Y 
+	drawsegment X Z 
+	drawsegment Z Y 
+} 
+
+
+point A 20 10 
+point B 120 20
+point C 40 90
+
+number n 0.4
+towards P A B n
+towards Q B C n
+towards R C A n
+
+cmark_b A
+cmark_b B
+cmark_t C
+
+point O_a 0 0
+call draw_inscribed_circle { A P R O_a }
+cmark_t O_a
+
+point O_b 0 0
+call draw_inscribed_circle { B P Q O_b }
+cmark_t O_b
+
+point O_c 0 0
+call draw_inscribed_circle { C Q R O_c }
+cmark_t O_c
+
+point O 0 0
+call draw_inscribed_circle { P Q R O }
+cmark_t O
+

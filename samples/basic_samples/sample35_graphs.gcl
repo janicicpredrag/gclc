@@ -1,0 +1,30 @@
+
+point P 30 50
+drawgraph_a P 40 0
+    { _a b c d e }
+    {
+      _a b
+      _a c
+      _a d
+      b  d
+      b  e
+    }
+
+point A 80 50
+point B 100 50
+point C 90 55
+drawgraph_b G
+    { _a A
+      b  B
+      c  C
+      d  _
+    }
+    {
+      _a b
+      _a c
+      _a d
+      b  d
+      b  c
+    }
+    
+    

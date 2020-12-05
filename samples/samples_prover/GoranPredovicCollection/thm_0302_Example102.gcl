@@ -1,0 +1,59 @@
+% thmname Primer 102 iz \cite{chou}
+% thmnamee Example 102 from \cite{chou}
+
+% thmtext Dve tangente povu\ch ene iz $A$ i $C$
+% thmtext na opisan kruga trougla $ABC$ seku
+% thmtext se u ta\ch ki $E$. Neka je $D$ presek
+% thmtext simetrale du\zh i $BC$ i prave $AB$.
+% thmtext Dokazati da je $DE \parallel BC$.
+
+% thmtexte The two tangents to the circumcircle
+% thmtexte of $ABC$ at $A$ and $C$ meet at $E$.
+% thmtexte The mediator of $BC$ meet $AB$
+% thmtexte at $D$. Show that $DE \parallel BC$.
+
+dim 110 85
+
+point A 35 25
+point B 90 25
+point C 58 68
+
+med ma B C
+med mc A B
+intersec O ma mc
+% skip
+circle k O A
+
+line a B C
+intersec H ma a
+
+
+line c A B
+intersec D ma c
+
+line ao A O
+line co C O
+perp pa A ao
+perp pc C co
+
+intersec E pa pc
+
+cmark_t E
+cmark_b D
+cmark_rb O
+drawcircle k
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_rt H
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment A O
+drawsegment C O
+drawsegment A E
+drawsegment C E
+drawsegment D H
+drawdashsegment D E
+
+% prove { parallel D E B C }

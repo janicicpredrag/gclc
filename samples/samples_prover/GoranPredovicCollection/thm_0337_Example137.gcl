@@ -1,0 +1,62 @@
+% thmname Primer 137 iz \cite{chou}
+% thmnamee Example 137 from \cite{chou}
+
+% thmtext Simetrala ugla kod temena $C$, trougla $ABC$,
+% thmtext je tako\dj e simetrala ugla $\angle OCD$ gde
+% thmtext je $O$ centar opisanog kruga trougla $ABC$,
+% thmtext a $CD$ je visina istog trougla.
+
+% thmtexte The angle between the circumdiameter and the
+% thmtexte altitude issued from the same vertex of a
+% thmtexte triangle is bisected by the bisector of angle
+% thmtexte of the triangle at the same vertex considered.
+
+% thmnote Teorema va\zh i i za simetralu unutra\sh njeg ugla,
+% thmnote kao i za simetralu spolja\sh njeg ugla.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 73 85
+
+line c A B
+
+med mc B C
+med mb A C
+
+intersec O mc mb
+bis s A C B
+
+intersec F s c
+foot D C c
+
+circle k O A
+
+% skip
+towards A_1 A C 2
+% skip
+bis s1 A_1 C B
+drawdashline s1
+% skip
+towards O_1 O C 2
+drawdashsegment C O_1
+
+
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_b F
+cmark_b D
+cmark_b O
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C D
+drawsegment C F
+drawsegment C O
+
+drawcircle k
+
+% prove { equal { angle O C F } { angle F C D } }

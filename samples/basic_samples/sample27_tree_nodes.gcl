@@ -1,0 +1,52 @@
+point P 40 90   
+
+fontsize 12     
+drawtree P 90 50 3 0                 
+{   
+    root 
+    { left
+        { }    
+        { a }
+     }
+    { right 
+        { _
+            { b }
+            { c }
+            { d }
+        }
+        { e }
+        { f 
+        	{ _ }        
+        }
+    }
+}
+
+
+color 200 0 0 
+point Q 100 90 
+drawtree Q 35 80 2 10
+{   
+    root 
+    { left
+        { }    
+        { a }
+     }
+    { right 
+        { _
+            { b }
+            { c }
+            { d }
+        }
+        { e }
+        { f 
+        	{ x }
+        }
+    }
+}
+
+color 0 200 0 
+drawbezier3 Pa Pright Qa
+drawvector Pb Qb
+drawvector Pc Qc
+drawvector Pd Qd
+

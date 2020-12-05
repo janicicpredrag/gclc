@@ -1,0 +1,79 @@
+% thmname Primer 46 iz \cite{chou}
+% thmnamee Example 46 from \cite{chou}
+
+% thmtext Dat je paralelogram $ABEFD$. Na dvema paralelnim
+% thmtext stranicama $AE$ i $BD$ date su ta\ch ke $C$ i $F$.
+% thmtext Neka je $M$ presek pravih $CD$ i $AF$ i neka je
+% thmtext $N$ presek pravih $BC$ i $EF$. Neka su dalje $P$
+% thmtext i $Q$ preseci prave $MN$ sa stranicama paralelograma
+% thmtext $AD$ i $BE$. Dokazati da su du\zh i $AP$ i
+% thmtext $BQ$ jednake.
+
+% thmnote Dovoljno je dokazati da su du\zh i
+% thmnote $AP$ i $BQ$ paralelne i istog odnosa.
+
+% thmtexte Let $C$ and $F$ be any points on the respective
+% thmtexte sides $AE$ and $BD$ of a parallelogram $ABCD$.
+% thmtexte Let $M$ and $N$ denote the points of intersection
+% thmtexte of $CD$ and $FA$ and of $EF$ and $BC$. Let the line
+% thmtexte $MN$ meet $DA$ at $P$ and $EB$ at $Q$. Then $AP \cong QB$.
+
+dim 130 100
+
+point A 20 20
+point E 80 20
+point B 95 70
+
+% skip
+point C 35 20
+% skip
+point F 65 70
+
+online C' A E
+line ae A E
+parallel bd B ae
+% online F' bd
+
+line be B E
+parallel ad A be
+
+intersec D bd ad
+online F' D B
+
+line cd C D
+line af A F
+intersec M cd af
+
+line ef E F
+line bc B C
+intersec N ef bc
+
+line mn M N
+intersec P mn ad
+intersec Q mn be
+line pq P Q
+
+cmark_b A
+cmark_b E
+cmark_t B
+cmark_t D
+cmark_b C
+cmark_t F
+cmark_rb M
+cmark_rb N
+cmark_lt P
+cmark_rb Q
+
+drawsegment A E
+drawsegment E B
+drawsegment B D
+drawsegment D A
+
+drawdashsegment D C
+drawdashsegment A F
+drawdashsegment E F
+drawdashsegment C B
+
+drawline pq
+
+% prove { equal { sratio A P Q B } { 1 } }

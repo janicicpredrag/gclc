@@ -1,0 +1,51 @@
+% thmname Primer 104 iz \cite{chou}
+% thmnamee Example 104 from \cite{chou}
+
+% thmtext Neka je $E$ ta\ch ka na krugu opisanom oko
+% thmtext jednakostrani\ch nog trougla $ABC$. Ako je $D$
+% thmtext presek pravih $BC$ i $AE$, dokazati da je
+% thmtext $BE \cdot CE = ED \cdot EA$.
+
+% thmtexte Let $E$ be a point on the circumcircle of
+% thmtexte equilateral triangle $ABC$. $D = BC \cap AE$.
+% thmtexte Show that $BE \cdot CE = ED \cdot EA$.
+
+dim 110 110
+
+point B 20 30
+point C 90 30
+
+circle kb B C
+med m B C
+
+intersec2 A A1 m kb
+
+med n B A
+intersec O m n
+
+circle k O B
+
+% skip
+point E 79.44 18.02
+oncircle E' O B
+
+line ae A E
+line bc B C
+intersec D bc ae
+
+cmark_lb D
+cmark_b E
+cmark_b O
+cmark_lb B
+cmark_rb C
+cmark_t A
+
+drawsegment A E
+drawsegment B E
+drawsegment C E
+drawcircle k
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+% prove { equal { mult { segment B E } { segment C E } } { mult { segment E D } { segment E A } } }

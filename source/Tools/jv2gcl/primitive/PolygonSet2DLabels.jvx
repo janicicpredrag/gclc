@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE jvx-model SYSTEM "http://www.javaview.de/rsrc/jvx.dtd">
+<jvx-model>
+	<meta generator="JavaView v.2.51"/>
+	<meta date="Thu Feb 20 23:26:28 GMT+01:00 2003"/>
+	<version type="dump">0.10</version>
+	<title>Sample Polygon Set in 2D with Default Labels</title>
+	<geometries>
+		<geometry name="Sample Polygon Set in 2D with Default Labels">
+			<pointSet point="show" dim="2">
+				<points num="10">
+					<p>0.0 0.0</p>
+					<p>2.0 0.0</p>
+					<p>2.0 2.0</p>
+					<p>0.0 2.0</p>
+					<p>-4.0 2.0</p>
+					<p>-2.0 2.0</p>
+					<p>-4.0 0.0</p>
+					<p>-2.0 0.0</p>
+					<p>-2.0 -2.0</p>
+					<p>-4.0 -2.0</p>
+					<thickness>2.0</thickness>
+					<color type="rgb">255 255 0</color>
+					<labelAtt visible="show"></labelAtt>
+				</points>
+			</pointSet>
+			<lineSet line="show">
+				<lines num="4">
+					<l>0 1 2 3 0</l>
+					<l>4 5</l>
+					<l>6 7 8</l>
+					<l>7 9</l>
+					<thickness>2.0</thickness>
+					<color type="rgb">25 20 200</color>
+					<labelAtt visible="show"></labelAtt>
+				</lines>
+			</lineSet>
+		</geometry>
+	</geometries>
+</jvx-model>

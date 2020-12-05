@@ -1,0 +1,44 @@
+dim 130 50
+number r 5
+number k 1.5
+
+point X 0 0 
+point Y 0 r
+
+point O1 10 30
+point O 10 30 120 30
+
+cmark O
+translate A Y X O
+line o O A
+perp t A o
+drawline t
+
+drawcircle O A 
+distance s O O1
+
+point P1 0 r  
+point P2 0 s
+point P3 -57.32  0
+line p P1 P3
+parallel p1 P2 p
+line p2 X P3
+intersec P4 p2 p1 
+getx phi P4
+
+rotate B O phi A
+cmark B
+sim C O B 
+towards D O B k
+cmark C
+cmark D
+color 150 150 0
+drawsegment C D
+
+
+animation_frames 200 20
+trace B 255 0 0 
+trace C 100 200 50  
+trace D 0 0 255
+ 
+

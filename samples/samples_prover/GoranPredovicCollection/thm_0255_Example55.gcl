@@ -1,0 +1,73 @@
+% thmname Primer 55 iz \cite{chou}
+% thmnamee Example 55 from \cite{chou}
+
+% thmtext Dat je trougao $ABC$ i ta\ch ke $M$, $N$ i $P$
+% thmtext na stranicama $AB$, $BC$ i $CA$ redom. 
+% thmtext Neka su $M_1$, $N_1$ i $P_1$ ta\ch ke na pravama
+% thmtext $CA$, $AB$ i $BC$ takve da je $MM_1 \parallel BC$,
+% thmtext $NN_1 \parallel AC$ i $PP_1 \parallel AB$.
+% thmtext Dokazati da su povr\sh ine trouglova $MNP$ i
+% thmtext $M_1N_1P_1$ jednake.
+
+% thmtexte Let $M$, $N$, $P$ be points on the sides $AB$, $BC$ and $AC$
+% thmtexte of a triangle $ABC$. Show that if $M_1$, $N_1$ and $P_1$
+% thmtexte are points on sides $AC$, $BA$ and $BC$ of a triangle
+% thmtexte $ABC$ such that $MM_1 \parallel BC$, $NN_1 \parallel CA$
+% thmtexte and $PP_1 \parallel AB$, then triangles $MNP$ and
+% thmtexte $M_1N_1P_1$ have equal areas.
+
+dim 130 110
+
+point A 20 20
+point B 110 20
+point C 80 90
+
+% skip
+point M 88 20
+
+line ab A B
+online M' A B
+
+line ac A C
+line bc B C
+
+online N' B C
+online P' A C
+
+% skip
+point N 97.62 48.88
+% skip
+point P 36.68 39.46
+
+parallel pp1 P ab
+parallel nn1 N ac
+parallel mm1 M bc
+
+intersec P_1 pp1 bc
+intersec M_1 mm1 ac
+intersec N_1 nn1 ab
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_rt N
+cmark_b M
+cmark_lt P
+cmark_rt P_1
+cmark_b N_1
+cmark_lt M_1
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment P P_1
+drawsegment M M_1
+drawsegment N N_1
+drawdashsegment M N
+drawdashsegment M P
+drawdashsegment P N
+drawdashsegment M_1 N_1
+drawdashsegment M_1 P_1
+drawdashsegment P_1 N_1
+
+% prove { equal { signed_area3 M N P } { signed_area3 M_1 N_1 P_1 } }

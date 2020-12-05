@@ -1,0 +1,69 @@
+% thmname Brahmaguptina teorema
+% thmnamee Brahmagupta's Theorem
+
+% thmtext \Ch etvorougao $ABCD$ \ch ije dijagonale grade prav
+% thmtext ugao je upisan u krug. Dokazati da prava koja prolazi
+% thmtext kroz presek dijagonala i normalna je na jednu stranicu
+% thmtext \ch etvorougla, polovi suprotnu stranicu.
+
+% thmnote Da bi se izbegao slu\ch aj svodivosti u koji bi
+% thmnote dokaziva\ch \ upao ukoliko bi poku\sh ao da odredi
+% thmnote prese\ch ne ta\ch ke prave i kruga (do svodivosti
+% thmnote dolazi zato \sh to presek nije jednozna\ch an),
+% thmnote polaze\cj i od ta\ch aka $B$, $T$ i $O$, ostala
+% thmnote temena \ch etvorougla su konstruisana malo du\zh im,
+% thmnote ali jednozna\ch nim putem.
+
+% thmtexte In a cyclic quadrilateral having perpendicular 
+% thmtexte diagonals, the perpendicular to a side from 
+% thmtexte the point of intersection of the diagonals 
+% thmtexte always bisects the opposite side.
+
+dim 110 110
+
+point B 20 40
+point T 43 40
+point O 55 60
+
+circle k O B
+
+line bd B T
+perp ac T bd
+
+perp ob O bd
+intersec X ob bd
+towards D B X 2
+
+intersec2 A C1 k ac
+perp oa O ac
+intersec Y oa ac
+towards C A Y 2
+
+line ad A D
+line bc B C
+
+perp tp T bc
+intersec P tp ad
+intersec Q tp bc
+
+cmark_rt P
+cmark_t Q
+cmark_l B
+cmark_r D
+cmark_t A
+cmark_b C
+cmark_b O
+cmark_rb T
+cmark_b X
+cmark_l Y
+
+drawdashsegment P Q
+drawsegment A B
+drawsegment C B
+drawsegment C D
+drawsegment A D
+drawsegment A C
+drawsegment D B
+drawcircle k
+
+% prove { equal { sratio A P P D } { 1 } }

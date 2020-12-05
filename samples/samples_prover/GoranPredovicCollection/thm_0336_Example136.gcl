@@ -1,0 +1,65 @@
+% thmname Primer 136 iz \cite{chou}
+% thmnamee Example 136 from \cite{chou}
+
+% thmtext Dat je trougao $ABC$ i neka je $CF$ simetrala ugla
+% thmtext $\angle ACB$ gde je $F$ ta\ch ka na pravoj $AB$.
+% thmtext Ako su $K$ i $J$ podno\zh ja normala iz temena
+% thmtext $B$ i $A$ na simetralu $CF$, pokazati da su
+% thmtext ta\ch ke $C$, $F$, $J$ i $K$ harmonijski spregnute.
+
+% thmtexte Show that the internal (or external) bisector of an
+% thmtexte angle of a triangle is divided harmonically by the
+% thmtexte feet of the perpendiculars dropped upon it from
+% thmtexte the two other vertices of the triangle.
+
+% thmnote Teorema va\zh i i za unutra\sh nju simetralu
+% thmnote ugla $\angle C$, kao i za spolja\sh nju simetralu.
+% thmnote Pogledati alternativnu sliku.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 70 80
+
+line c A B
+
+bis s A C B
+
+foot K B s
+foot J A s
+intersec F c s
+
+% skip
+towards A_1 A C 2
+% skip
+bis s_1 A_1 C B
+% skip
+foot K_1 B s_1
+% skip
+foot J_1 A s_1
+% skip
+intersec F_1 c s_1
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_rb F
+cmark_rb J
+cmark_l K
+cmark_rb F_1
+cmark_t J_1
+cmark_t K_1
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C J
+drawsegment B K
+drawsegment A J
+drawdashsegment F_1 J_1
+drawdashsegment B K_1
+drawdashsegment A J_1
+drawdashsegment C A_1
+
+% prove { harmonic C F J K }

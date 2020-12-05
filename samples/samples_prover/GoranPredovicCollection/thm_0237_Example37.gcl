@@ -1,0 +1,60 @@
+% thmname Primer 37 iz \cite{chou}
+% thmnamee Example 37 from \cite{chou}
+
+% thmtext Iz ta\ch ke $P$ su povu\ch ene tangente
+% thmtext $PT$ i $PB$ na krug $k$ sa centrom $O$.
+% thmtext Neka je $BA$ pre\ch nik kruga $k$ i neka
+% thmtext je $H$ normala spu\sh tena iz $T$ na pre\ch nik
+% thmtext $AB$. Dokazati da prava $AP$ polovi du\zh \ $TH$.
+
+% thmnote Konstrukcija u dokazu je izvedena na druga\cj ini
+% thmnote na\ch in, polaze\cj i od pre\ch nika $AB$ i odabirom
+% thmnote proizvoljne ta\ch ke $T$ na krugu (pogledati koordinate
+% thmnote ta\ch aka u konstrukciji).
+
+% thmtexte Let $PT$ and $PB$ be two tangents to a circle,
+% thmtexte $AB$ the diameter through $B$, and $TH$
+% thmtexte the perpendicular from $T$ to $AB$. Then
+% thmtexte $AP$ bisects $TH$.
+
+dim 130 110
+
+point A 30 50
+point B 90 50 
+midpoint O A B
+circle k O A
+
+% skip
+point T 69.10 78.59
+oncircle T' O A
+
+line ab A B
+perp bp B ab
+
+line ot O T
+perp tp T ot
+
+intersec P bp tp
+foot H T ab
+
+line th T H
+line ap A P
+intersec I th ap
+
+cmark_lb A
+cmark_b H
+cmark_b O
+cmark_rb B
+cmark_r P
+cmark_t T
+cmark_rb I
+
+drawsegment A B
+drawsegment A P
+drawsegment T H
+drawsegment T O
+drawsegment P B
+drawsegment P T
+drawcircle k
+
+% prove { equal { sratio T I I H } { 1 } }

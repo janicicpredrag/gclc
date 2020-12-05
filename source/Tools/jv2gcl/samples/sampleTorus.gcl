@@ -1,0 +1,595 @@
+
+color 0 255 127
+point P1_1 78.41 55.41
+color 255 221 0
+point P1_2 80.38 56.67
+color 255 0 0
+point P1_3 85.36 59.87
+color 255 76 0
+point P1_4 91.03 63.52
+color 97 255 0
+point P1_5 94.73 65.89
+color 0 161 255
+point P1_6 94.73 65.89
+color 255 106 0
+point P1_7 91.03 63.52
+color 255 187 0
+point P1_8 85.36 59.87
+color 29 0 255
+point P1_9 80.38 56.67
+color 0 255 127
+point P1_10 74.15 59.10
+color 255 221 0
+point P1_11 75.13 61.22
+color 255 0 0
+point P1_12 77.59 66.61
+color 255 76 0
+point P1_13 80.39 72.74
+color 97 255 0
+point P1_14 82.21 76.74
+color 0 161 255
+point P1_15 82.21 76.74
+color 255 106 0
+point P1_16 80.39 72.74
+color 255 187 0
+point P1_17 77.59 66.61
+color 29 0 255
+point P1_18 75.13 61.22
+color 0 255 127
+point P1_19 68.58 59.90
+color 255 221 0
+point P1_20 68.24 62.21
+color 255 0 0
+point P1_21 67.40 68.08
+color 255 76 0
+point P1_22 66.44 74.75
+color 97 255 0
+point P1_23 65.82 79.10
+color 0 161 255
+point P1_24 65.82 79.10
+color 255 106 0
+point P1_25 66.44 74.75
+color 255 187 0
+point P1_26 67.40 68.08
+color 29 0 255
+point P1_27 68.24 62.21
+color 0 255 127
+point P1_28 63.45 57.56
+color 255 221 0
+point P1_29 61.92 59.33
+color 255 0 0
+point P1_30 58.04 63.80
+color 255 76 0
+point P1_31 53.63 68.89
+color 97 255 0
+point P1_32 50.75 72.22
+color 0 161 255
+point P1_33 50.75 72.22
+color 255 106 0
+point P1_34 53.63 68.89
+color 255 187 0
+point P1_35 58.04 63.80
+color 29 0 255
+point P1_36 61.92 59.33
+color 0 255 127
+point P1_37 60.41 52.82
+color 255 221 0
+point P1_38 58.16 53.48
+color 255 0 0
+point P1_39 52.48 55.15
+color 255 76 0
+point P1_40 46.01 57.04
+color 97 255 0
+point P1_41 41.79 58.28
+color 0 161 255
+point P1_42 41.79 58.28
+color 255 106 0
+point P1_43 46.01 57.04
+color 255 187 0
+point P1_44 52.48 55.15
+color 29 0 255
+point P1_45 58.16 53.48
+color 0 255 127
+point P1_46 60.41 47.18
+color 255 221 0
+point P1_47 58.16 46.52
+color 255 0 0
+point P1_48 52.48 44.85
+color 255 76 0
+point P1_49 46.01 42.96
+color 97 255 0
+point P1_50 41.79 41.72
+color 0 161 255
+point P1_51 41.79 41.72
+color 255 106 0
+point P1_52 46.01 42.96
+color 255 187 0
+point P1_53 52.48 44.85
+color 29 0 255
+point P1_54 58.16 46.52
+color 0 255 127
+point P1_55 63.45 42.44
+color 255 221 0
+point P1_56 61.92 40.67
+color 255 0 0
+point P1_57 58.04 36.20
+color 255 76 0
+point P1_58 53.63 31.11
+color 97 255 0
+point P1_59 50.75 27.78
+color 0 161 255
+point P1_60 50.75 27.78
+color 255 106 0
+point P1_61 53.63 31.11
+color 255 187 0
+point P1_62 58.04 36.20
+color 29 0 255
+point P1_63 61.92 40.67
+color 0 255 127
+point P1_64 68.58 40.10
+color 255 221 0
+point P1_65 68.24 37.79
+color 255 0 0
+point P1_66 67.40 31.92
+color 255 76 0
+point P1_67 66.44 25.25
+color 97 255 0
+point P1_68 65.82 20.90
+color 0 161 255
+point P1_69 65.82 20.90
+color 255 106 0
+point P1_70 66.44 25.25
+color 255 187 0
+point P1_71 67.40 31.92
+color 29 0 255
+point P1_72 68.24 37.79
+color 0 255 127
+point P1_73 74.15 40.90
+color 255 221 0
+point P1_74 75.13 38.78
+color 255 0 0
+point P1_75 77.59 33.39
+color 255 76 0
+point P1_76 80.39 27.26
+color 97 255 0
+point P1_77 82.21 23.26
+color 0 161 255
+point P1_78 82.21 23.26
+color 255 106 0
+point P1_79 80.39 27.26
+color 255 187 0
+point P1_80 77.59 33.39
+color 29 0 255
+point P1_81 75.13 38.78
+color 0 255 127
+point P1_82 78.41 44.59
+color 255 221 0
+point P1_83 80.38 43.33
+color 255 0 0
+point P1_84 85.36 40.13
+color 255 76 0
+point P1_85 91.03 36.48
+color 97 255 0
+point P1_86 94.73 34.11
+color 0 161 255
+point P1_87 94.73 34.11
+color 255 106 0
+point P1_88 91.03 36.48
+color 255 187 0
+point P1_89 85.36 40.13
+color 29 0 255
+point P1_90 80.38 43.33
+color 0 255 127
+point P1_91 80.00 50.00
+color 255 221 0
+point P1_92 82.34 50.00
+color 255 0 0
+point P1_93 88.26 50.00
+color 255 76 0
+point P1_94 95.00 50.00
+color 97 255 0
+point P1_95 99.40 50.00
+color 0 161 255
+point P1_96 99.40 50.00
+color 255 106 0
+point P1_97 95.00 50.00
+color 255 187 0
+point P1_98 88.26 50.00
+color 29 0 255
+point P1_99 82.34 50.00
+drawsegment P1_91 P1_1
+drawsegment P1_1 P1_2
+drawsegment P1_2 P1_92
+drawsegment P1_92 P1_91
+drawsegment P1_92 P1_2
+drawsegment P1_2 P1_3
+drawsegment P1_3 P1_93
+drawsegment P1_93 P1_92
+drawsegment P1_93 P1_3
+drawsegment P1_3 P1_4
+drawsegment P1_4 P1_94
+drawsegment P1_94 P1_93
+drawsegment P1_94 P1_4
+drawsegment P1_4 P1_5
+drawsegment P1_5 P1_95
+drawsegment P1_95 P1_94
+drawsegment P1_95 P1_5
+drawsegment P1_5 P1_6
+drawsegment P1_6 P1_96
+drawsegment P1_96 P1_95
+drawsegment P1_96 P1_6
+drawsegment P1_6 P1_7
+drawsegment P1_7 P1_97
+drawsegment P1_97 P1_96
+drawsegment P1_97 P1_7
+drawsegment P1_7 P1_8
+drawsegment P1_8 P1_98
+drawsegment P1_98 P1_97
+drawsegment P1_98 P1_8
+drawsegment P1_8 P1_9
+drawsegment P1_9 P1_99
+drawsegment P1_99 P1_98
+drawsegment P1_99 P1_9
+drawsegment P1_9 P1_1
+drawsegment P1_1 P1_91
+drawsegment P1_91 P1_99
+drawsegment P1_1 P1_10
+drawsegment P1_10 P1_11
+drawsegment P1_11 P1_2
+drawsegment P1_2 P1_1
+drawsegment P1_2 P1_11
+drawsegment P1_11 P1_12
+drawsegment P1_12 P1_3
+drawsegment P1_3 P1_2
+drawsegment P1_3 P1_12
+drawsegment P1_12 P1_13
+drawsegment P1_13 P1_4
+drawsegment P1_4 P1_3
+drawsegment P1_4 P1_13
+drawsegment P1_13 P1_14
+drawsegment P1_14 P1_5
+drawsegment P1_5 P1_4
+drawsegment P1_5 P1_14
+drawsegment P1_14 P1_15
+drawsegment P1_15 P1_6
+drawsegment P1_6 P1_5
+drawsegment P1_6 P1_15
+drawsegment P1_15 P1_16
+drawsegment P1_16 P1_7
+drawsegment P1_7 P1_6
+drawsegment P1_7 P1_16
+drawsegment P1_16 P1_17
+drawsegment P1_17 P1_8
+drawsegment P1_8 P1_7
+drawsegment P1_8 P1_17
+drawsegment P1_17 P1_18
+drawsegment P1_18 P1_9
+drawsegment P1_9 P1_8
+drawsegment P1_9 P1_18
+drawsegment P1_18 P1_10
+drawsegment P1_10 P1_1
+drawsegment P1_1 P1_9
+drawsegment P1_10 P1_19
+drawsegment P1_19 P1_20
+drawsegment P1_20 P1_11
+drawsegment P1_11 P1_10
+drawsegment P1_11 P1_20
+drawsegment P1_20 P1_21
+drawsegment P1_21 P1_12
+drawsegment P1_12 P1_11
+drawsegment P1_12 P1_21
+drawsegment P1_21 P1_22
+drawsegment P1_22 P1_13
+drawsegment P1_13 P1_12
+drawsegment P1_13 P1_22
+drawsegment P1_22 P1_23
+drawsegment P1_23 P1_14
+drawsegment P1_14 P1_13
+drawsegment P1_14 P1_23
+drawsegment P1_23 P1_24
+drawsegment P1_24 P1_15
+drawsegment P1_15 P1_14
+drawsegment P1_15 P1_24
+drawsegment P1_24 P1_25
+drawsegment P1_25 P1_16
+drawsegment P1_16 P1_15
+drawsegment P1_16 P1_25
+drawsegment P1_25 P1_26
+drawsegment P1_26 P1_17
+drawsegment P1_17 P1_16
+drawsegment P1_17 P1_26
+drawsegment P1_26 P1_27
+drawsegment P1_27 P1_18
+drawsegment P1_18 P1_17
+drawsegment P1_18 P1_27
+drawsegment P1_27 P1_19
+drawsegment P1_19 P1_10
+drawsegment P1_10 P1_18
+drawsegment P1_19 P1_28
+drawsegment P1_28 P1_29
+drawsegment P1_29 P1_20
+drawsegment P1_20 P1_19
+drawsegment P1_20 P1_29
+drawsegment P1_29 P1_30
+drawsegment P1_30 P1_21
+drawsegment P1_21 P1_20
+drawsegment P1_21 P1_30
+drawsegment P1_30 P1_31
+drawsegment P1_31 P1_22
+drawsegment P1_22 P1_21
+drawsegment P1_22 P1_31
+drawsegment P1_31 P1_32
+drawsegment P1_32 P1_23
+drawsegment P1_23 P1_22
+drawsegment P1_23 P1_32
+drawsegment P1_32 P1_33
+drawsegment P1_33 P1_24
+drawsegment P1_24 P1_23
+drawsegment P1_24 P1_33
+drawsegment P1_33 P1_34
+drawsegment P1_34 P1_25
+drawsegment P1_25 P1_24
+drawsegment P1_25 P1_34
+drawsegment P1_34 P1_35
+drawsegment P1_35 P1_26
+drawsegment P1_26 P1_25
+drawsegment P1_26 P1_35
+drawsegment P1_35 P1_36
+drawsegment P1_36 P1_27
+drawsegment P1_27 P1_26
+drawsegment P1_27 P1_36
+drawsegment P1_36 P1_28
+drawsegment P1_28 P1_19
+drawsegment P1_19 P1_27
+drawsegment P1_28 P1_37
+drawsegment P1_37 P1_38
+drawsegment P1_38 P1_29
+drawsegment P1_29 P1_28
+drawsegment P1_29 P1_38
+drawsegment P1_38 P1_39
+drawsegment P1_39 P1_30
+drawsegment P1_30 P1_29
+drawsegment P1_30 P1_39
+drawsegment P1_39 P1_40
+drawsegment P1_40 P1_31
+drawsegment P1_31 P1_30
+drawsegment P1_31 P1_40
+drawsegment P1_40 P1_41
+drawsegment P1_41 P1_32
+drawsegment P1_32 P1_31
+drawsegment P1_32 P1_41
+drawsegment P1_41 P1_42
+drawsegment P1_42 P1_33
+drawsegment P1_33 P1_32
+drawsegment P1_33 P1_42
+drawsegment P1_42 P1_43
+drawsegment P1_43 P1_34
+drawsegment P1_34 P1_33
+drawsegment P1_34 P1_43
+drawsegment P1_43 P1_44
+drawsegment P1_44 P1_35
+drawsegment P1_35 P1_34
+drawsegment P1_35 P1_44
+drawsegment P1_44 P1_45
+drawsegment P1_45 P1_36
+drawsegment P1_36 P1_35
+drawsegment P1_36 P1_45
+drawsegment P1_45 P1_37
+drawsegment P1_37 P1_28
+drawsegment P1_28 P1_36
+drawsegment P1_37 P1_46
+drawsegment P1_46 P1_47
+drawsegment P1_47 P1_38
+drawsegment P1_38 P1_37
+drawsegment P1_38 P1_47
+drawsegment P1_47 P1_48
+drawsegment P1_48 P1_39
+drawsegment P1_39 P1_38
+drawsegment P1_39 P1_48
+drawsegment P1_48 P1_49
+drawsegment P1_49 P1_40
+drawsegment P1_40 P1_39
+drawsegment P1_40 P1_49
+drawsegment P1_49 P1_50
+drawsegment P1_50 P1_41
+drawsegment P1_41 P1_40
+drawsegment P1_41 P1_50
+drawsegment P1_50 P1_51
+drawsegment P1_51 P1_42
+drawsegment P1_42 P1_41
+drawsegment P1_42 P1_51
+drawsegment P1_51 P1_52
+drawsegment P1_52 P1_43
+drawsegment P1_43 P1_42
+drawsegment P1_43 P1_52
+drawsegment P1_52 P1_53
+drawsegment P1_53 P1_44
+drawsegment P1_44 P1_43
+drawsegment P1_44 P1_53
+drawsegment P1_53 P1_54
+drawsegment P1_54 P1_45
+drawsegment P1_45 P1_44
+drawsegment P1_45 P1_54
+drawsegment P1_54 P1_46
+drawsegment P1_46 P1_37
+drawsegment P1_37 P1_45
+drawsegment P1_46 P1_55
+drawsegment P1_55 P1_56
+drawsegment P1_56 P1_47
+drawsegment P1_47 P1_46
+drawsegment P1_47 P1_56
+drawsegment P1_56 P1_57
+drawsegment P1_57 P1_48
+drawsegment P1_48 P1_47
+drawsegment P1_48 P1_57
+drawsegment P1_57 P1_58
+drawsegment P1_58 P1_49
+drawsegment P1_49 P1_48
+drawsegment P1_49 P1_58
+drawsegment P1_58 P1_59
+drawsegment P1_59 P1_50
+drawsegment P1_50 P1_49
+drawsegment P1_50 P1_59
+drawsegment P1_59 P1_60
+drawsegment P1_60 P1_51
+drawsegment P1_51 P1_50
+drawsegment P1_51 P1_60
+drawsegment P1_60 P1_61
+drawsegment P1_61 P1_52
+drawsegment P1_52 P1_51
+drawsegment P1_52 P1_61
+drawsegment P1_61 P1_62
+drawsegment P1_62 P1_53
+drawsegment P1_53 P1_52
+drawsegment P1_53 P1_62
+drawsegment P1_62 P1_63
+drawsegment P1_63 P1_54
+drawsegment P1_54 P1_53
+drawsegment P1_54 P1_63
+drawsegment P1_63 P1_55
+drawsegment P1_55 P1_46
+drawsegment P1_46 P1_54
+drawsegment P1_55 P1_64
+drawsegment P1_64 P1_65
+drawsegment P1_65 P1_56
+drawsegment P1_56 P1_55
+drawsegment P1_56 P1_65
+drawsegment P1_65 P1_66
+drawsegment P1_66 P1_57
+drawsegment P1_57 P1_56
+drawsegment P1_57 P1_66
+drawsegment P1_66 P1_67
+drawsegment P1_67 P1_58
+drawsegment P1_58 P1_57
+drawsegment P1_58 P1_67
+drawsegment P1_67 P1_68
+drawsegment P1_68 P1_59
+drawsegment P1_59 P1_58
+drawsegment P1_59 P1_68
+drawsegment P1_68 P1_69
+drawsegment P1_69 P1_60
+drawsegment P1_60 P1_59
+drawsegment P1_60 P1_69
+drawsegment P1_69 P1_70
+drawsegment P1_70 P1_61
+drawsegment P1_61 P1_60
+drawsegment P1_61 P1_70
+drawsegment P1_70 P1_71
+drawsegment P1_71 P1_62
+drawsegment P1_62 P1_61
+drawsegment P1_62 P1_71
+drawsegment P1_71 P1_72
+drawsegment P1_72 P1_63
+drawsegment P1_63 P1_62
+drawsegment P1_63 P1_72
+drawsegment P1_72 P1_64
+drawsegment P1_64 P1_55
+drawsegment P1_55 P1_63
+drawsegment P1_64 P1_73
+drawsegment P1_73 P1_74
+drawsegment P1_74 P1_65
+drawsegment P1_65 P1_64
+drawsegment P1_65 P1_74
+drawsegment P1_74 P1_75
+drawsegment P1_75 P1_66
+drawsegment P1_66 P1_65
+drawsegment P1_66 P1_75
+drawsegment P1_75 P1_76
+drawsegment P1_76 P1_67
+drawsegment P1_67 P1_66
+drawsegment P1_67 P1_76
+drawsegment P1_76 P1_77
+drawsegment P1_77 P1_68
+drawsegment P1_68 P1_67
+drawsegment P1_68 P1_77
+drawsegment P1_77 P1_78
+drawsegment P1_78 P1_69
+drawsegment P1_69 P1_68
+drawsegment P1_69 P1_78
+drawsegment P1_78 P1_79
+drawsegment P1_79 P1_70
+drawsegment P1_70 P1_69
+drawsegment P1_70 P1_79
+drawsegment P1_79 P1_80
+drawsegment P1_80 P1_71
+drawsegment P1_71 P1_70
+drawsegment P1_71 P1_80
+drawsegment P1_80 P1_81
+drawsegment P1_81 P1_72
+drawsegment P1_72 P1_71
+drawsegment P1_72 P1_81
+drawsegment P1_81 P1_73
+drawsegment P1_73 P1_64
+drawsegment P1_64 P1_72
+drawsegment P1_73 P1_82
+drawsegment P1_82 P1_83
+drawsegment P1_83 P1_74
+drawsegment P1_74 P1_73
+drawsegment P1_74 P1_83
+drawsegment P1_83 P1_84
+drawsegment P1_84 P1_75
+drawsegment P1_75 P1_74
+drawsegment P1_75 P1_84
+drawsegment P1_84 P1_85
+drawsegment P1_85 P1_76
+drawsegment P1_76 P1_75
+drawsegment P1_76 P1_85
+drawsegment P1_85 P1_86
+drawsegment P1_86 P1_77
+drawsegment P1_77 P1_76
+drawsegment P1_77 P1_86
+drawsegment P1_86 P1_87
+drawsegment P1_87 P1_78
+drawsegment P1_78 P1_77
+drawsegment P1_78 P1_87
+drawsegment P1_87 P1_88
+drawsegment P1_88 P1_79
+drawsegment P1_79 P1_78
+drawsegment P1_79 P1_88
+drawsegment P1_88 P1_89
+drawsegment P1_89 P1_80
+drawsegment P1_80 P1_79
+drawsegment P1_80 P1_89
+drawsegment P1_89 P1_90
+drawsegment P1_90 P1_81
+drawsegment P1_81 P1_80
+drawsegment P1_81 P1_90
+drawsegment P1_90 P1_82
+drawsegment P1_82 P1_73
+drawsegment P1_73 P1_81
+drawsegment P1_82 P1_91
+drawsegment P1_91 P1_92
+drawsegment P1_92 P1_83
+drawsegment P1_83 P1_82
+drawsegment P1_83 P1_92
+drawsegment P1_92 P1_93
+drawsegment P1_93 P1_84
+drawsegment P1_84 P1_83
+drawsegment P1_84 P1_93
+drawsegment P1_93 P1_94
+drawsegment P1_94 P1_85
+drawsegment P1_85 P1_84
+drawsegment P1_85 P1_94
+drawsegment P1_94 P1_95
+drawsegment P1_95 P1_86
+drawsegment P1_86 P1_85
+drawsegment P1_86 P1_95
+drawsegment P1_95 P1_96
+drawsegment P1_96 P1_87
+drawsegment P1_87 P1_86
+drawsegment P1_87 P1_96
+drawsegment P1_96 P1_97
+drawsegment P1_97 P1_88
+drawsegment P1_88 P1_87
+drawsegment P1_88 P1_97
+drawsegment P1_97 P1_98
+drawsegment P1_98 P1_89
+drawsegment P1_89 P1_88
+drawsegment P1_89 P1_98
+drawsegment P1_98 P1_99
+drawsegment P1_99 P1_90
+drawsegment P1_90 P1_89
+drawsegment P1_90 P1_99
+drawsegment P1_99 P1_91
+drawsegment P1_91 P1_82
+drawsegment P1_82 P1_90

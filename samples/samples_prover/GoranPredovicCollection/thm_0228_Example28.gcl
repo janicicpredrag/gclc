@@ -1,0 +1,66 @@
+% thmname Primer 28 iz \cite{chou}
+% thmnamee Example 28 from \cite{chou}
+
+% thmtext Kod \sh estougla $AC_1BA_1CB_1$ trojka pravih
+% thmtext $BB_1$, $C_1A$ i $A_1C$ je konkurentna, kao i
+% thmtext trojka pravih $CC_1$, $A_1B$ i $B_1A$. Dokazati
+% thmtext da je i trojka pravih $AA_1$, $B_1C$ i $C_1B$
+% thmtext tako\dj e konkurentna.
+
+% thmnote Po\sh to dokazujemo teoreme konstruktivnog tipa,
+% thmnote a ne opisnog, ova opisna teorema mora biti iskazana
+% thmnote u konstruktivnom tipu. Prvo \cj e biti konstruisan
+% thmnote \sh estougao koji zadovoljava svojstva iz zadatka,
+% thmnote i potom \cj e na njemu biti dokazana teorema.
+
+% thmtexte In a hexagon $AC_1BA_1CB_1$, $BB_1$, $C_1A$,
+% thmtexte $A_1C$ are concurrent and $CC_1$, $A_1B$, $B_1A$
+% thmtexte are concurrent. Prove that $AA_1$, $B_1C$, $C_1B$
+% thmtexte are also concurrent.
+
+dim 110 90
+
+point A 30 20
+point C_1 58 20
+point B 20 37
+point A_1 37 50
+point C 60 35
+
+line ac1 A C_1
+line a1c A_1 C
+intersec O ac1 a1c
+
+line ba1 B A_1
+line cc1 C C_1
+intersec H ba1 cc1
+
+line ah A H
+line bo B O
+intersec B_1 bo ah
+
+line cb1 C B_1
+line bc1 B C_1
+intersec I cb1 bc1
+
+cmark_rb B_1
+cmark_t H
+cmark_rb A
+cmark_b C_1
+cmark_lb B
+cmark_lt A_1
+cmark_rt C
+cmark_b O
+
+drawsegment B H
+drawsegment A H
+drawsegment C_1 H
+drawsegment A O
+drawsegment B O
+drawsegment A_1 O
+drawsegment A B
+drawsegment B C
+drawdashline C B_1
+drawdashline B C_1
+drawdashline A A_1
+
+% prove { collinear A A_1 I }

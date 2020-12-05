@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE jv-disp SYSTEM "http://www.javaview.de/rsrc/jv-disp.dtd">
+<jv-disp>
+	<meta generator="JavaView v.2.51"/>
+	<meta date="Thu Feb 20 23:09:19 GMT+01:00 2003"/>
+	<version type="dump">0.99</version>
+	<title>DisplayAWT</title>
+	<description>
+		<abstract/>
+	</description>
+	<displays>
+		<display name="DisplayAWT">
+			<axes name="Axes" type="bndbox" visible="hide" dim="3" longHash="ffffff">
+				<ruler label="show" name="x" hashsNormal="show">
+					<color type="rgb">0 0 0</color>
+					<thickness>1.0</thickness>
+				</ruler>
+				<ruler label="show" name="y" hashsUp="show">
+					<color type="rgb">0 0 0</color>
+					<thickness>1.0</thickness>
+				</ruler>
+				<ruler label="show" name="z" hashsUp="show">
+					<color type="rgb">0 0 0</color>
+					<thickness>1.0</thickness>
+				</ruler>
+			</axes>
+			<bndbox>
+				<color type="rgb">0 0 255</color>
+				<thickness>1.0</thickness>
+			</bndbox>
+			<cameras select="Perspective">
+				<camera projection="Perspective">
+					<position>-1.686855243103214 -2.548547630208351 0.8948947551321058</position>
+					<interest>-0.0235956448145333 -0.05789284826950556 -0.19708616117205108</interest>
+					<fieldOfView>0.46</fieldOfView>
+					<roll>0.158082258936365</roll>
+					<clipping enable="hide">
+						<near>10.0</near>
+						<far>-10.0</far>
+					</clipping>
+				</camera>
+			</cameras>
+			<lights lightingModel="Material"/>
+			<transform mode="camera"/>
+			<background>
+				<color type="rgb">255 255 255</color>
+			</background>
+			<foreground>
+				<color type="rgb">0 0 0</color>
+			</foreground>
+			<window>
+				<x>375</x>
+				<y>5</y>
+				<width>640</width>
+				<height>493</height>
+			</window>
+		</display>
+	</displays>
+</jv-disp>
+

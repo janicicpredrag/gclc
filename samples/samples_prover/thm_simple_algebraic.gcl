@@ -1,0 +1,10 @@
+% use the prover to prove 
+% simple algebraic conjectures
+
+prooflevel  7 
+prove 
+{ equal 
+	{ mult { sum { a } { b } } { sum { c } { d } } } 
+	{ mult { sum { d } { c } } { sum { b } { a } } } 
+}
+

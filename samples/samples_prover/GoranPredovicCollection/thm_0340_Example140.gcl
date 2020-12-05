@@ -1,0 +1,43 @@
+% thmname Primer 140 iz \cite{chou}
+% thmnamee Example 140 from \cite{chou}
+
+% thmtext Proizvod dve stranice trougla je jednak
+% thmtext proizvodu visine povu\ch ene iz tre\cj eg temena
+% thmtext i pre\ch nika opisanog kruga.
+
+% thmtexte The product of two sides of a triangle
+% thmtexte is equal to the altitude to the third side
+% thmtexte multiplied by the circumdiameter.
+
+dim 110 110
+
+point A 20 30
+point B 90 30
+point C 73 85
+
+line c A B
+
+med mc B C
+med mb A C
+
+intersec O mc mb
+
+circle k O A
+
+foot F C c
+
+cmark_b F
+cmark_lb A
+cmark_rb B
+cmark_t C
+cmark_t O
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+drawsegment C F
+drawsegment A O
+
+drawcircle k
+
+% prove { equal { mult { segment A C } { segment B C } } { mult { 4 } { mult { segment O A } { segment C F } } } }

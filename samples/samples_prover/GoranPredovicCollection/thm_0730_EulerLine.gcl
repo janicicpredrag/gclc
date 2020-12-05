@@ -1,0 +1,67 @@
+% thmname Ojlerova prava
+% thmnamee Eualer Line Theorem
+
+% thmtext Dokazati da se ortocentar, te\zh i\sh te i centar
+% thmtext opisanog kruga trougla nalaze na istoj pravoj.
+
+% thmnote Bi\cj e dokazano op\sh tije tvr\dj enje. Ta\ch ke
+% thmnote se nalaze na istoj pravoj, te\zh i\sh te je izme\dj u
+% thmnote ortocentra i centra opisanog kruga i deli tu du\zh \ u
+% thmnote odnosu $2 : 1$.
+
+% thmtexte Show that in any triangle, the orthocenter,
+% thmtexte the centroid and the center of circumscribed
+% thmtexte circle are collinear.
+
+dim 110 110
+
+point A 20 20
+point B 90 20
+point C 70 80
+
+midpoint C_1 A B
+midpoint A_1 B C
+line at A A_1
+line ct C C_1
+intersec T at ct
+
+med a B C
+med c A B
+intersec O a c
+
+line ab A B
+line bc B C
+foot C_2 C ab
+foot A_2 A bc
+line ah A A_2
+line ch C C_2
+intersec H ah ch
+
+line oth O T
+drawline oth
+
+drawdashsegment A A_2
+drawdashsegment C C_2
+
+drawdashsegment O A_1
+drawdashsegment O C_1
+
+drawdashsegment A A_1
+drawdashsegment C C_1
+
+cmark_rb H
+cmark_t O
+cmark_rb T
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_b C_1
+cmark_b C_2
+cmark_rt A_1
+cmark_rt A_2
+
+drawsegment A B
+drawsegment A C
+drawsegment C B
+
+% prove { equal { sratio H T T O } { 2 } }

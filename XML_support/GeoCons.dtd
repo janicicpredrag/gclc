@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT figure (define|construct|draw|labels|conjecture)*>
+
+<!--**************introducing points**************-->
+<!ELEMENT define (fixed_point|fixed_number)*>
+<!ELEMENT fixed_point (#PCDATA)>
+<!ATTLIST fixed_point
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED>
+<!ELEMENT fixed_number (#PCDATA)>
+<!ATTLIST fixed_number
+		value CDATA #REQUIRED>
+
+<!--**************objects**************-->
+<!ELEMENT coefficient (#PCDATA)>
+<!ELEMENT angle (#PCDATA)>
+
+<!ELEMENT point (#PCDATA)>
+<!ELEMENT center (#PCDATA)>
+
+<!ELEMENT segment (point,point)>
+<!ELEMENT vector (point,point)>
+<!ELEMENT line (#PCDATA)>
+<!ELEMENT line_pp (point, point)>
+
+<!ELEMENT circle (#PCDATA)>
+<!ELEMENT circle_cp (center,point)>
+<!ELEMENT arc (center,point,angle)>
+
+
+<!--**************constructions**************-->
+<!ELEMENT construct (intersection|intersection_cc|intersection_cl|midpoint|
+		foot|random_point_on_line|translate|towards|rotate|half_turn|
+		line_reflection|inversion|ruler|parallel|perpendicular|
+		segment_bisector|angle_bisector|compass)*>
+
+<!ELEMENT new_point (#PCDATA)>
+<!ELEMENT intersection (new_point,line,line)>
+<!ELEMENT intersection_cc (new_point,new_point,circle,circle)>
+<!ELEMENT intersection_cl (new_point,new_point,circle,line)>
+<!ELEMENT midpoint (new_point,point,point)>
+<!ELEMENT foot (new_point,point,line)>
+<!ELEMENT random_point_on_line (new_point,point,point)>
+<!ELEMENT translate (new_point,vector,point)>
+<!ELEMENT towards (new_point,vector,coefficient)>
+<!ELEMENT rotate (new_point,center,angle,point)>
+<!ELEMENT half_turn (new_point,center,point)>
+<!ELEMENT line_reflection (new_point,line,point)>
+<!ELEMENT inversion (new_point,circle,point)>
+
+<!ELEMENT new_line (#PCDATA)>
+<!ELEMENT ruler (new_line,point,point)>
+<!ELEMENT parallel (new_line,point,line)>
+<!ELEMENT perpendicular (new_line,point,line)>
+<!ELEMENT segment_bisector (new_line,point,point)>
+<!ELEMENT angle_bisector (new_line,point,point,point)>
+
+<!ELEMENT new_circle (#PCDATA)>
+<!ELEMENT compass (new_circle,center,point)>
+
+<!--**************drawing**************-->
+<!ELEMENT dimensions EMPTY>
+<!ATTLIST dimensions 
+		width CDATA #REQUIRED 
+		height CDATA #REQUIRED>
+
+<!ELEMENT draw (dimensions|segment|line|line_pp|circle|circle_cp|arc|vector|area)*>
+<!ATTLIST draw 
+		dashed (yes | no) "no"
+		color CDATA "000000">
+<!ELEMENT area EMPTY>
+<!ATTLIST area
+		x1 CDATA #REQUIRED 
+		y1 CDATA #REQUIRED
+		x2 CDATA #REQUIRED
+		y2 CDATA #REQUIRED>
+
+
+<!--**************labeling**************-->
+<!ELEMENT labels (point_label|text_label)*>
+<!ATTLIST labels 
+		fontsize CDATA "10"
+		color CDATA "000000">
+
+<!ELEMENT point_label (point)>
+<!ATTLIST point_label
+		type (circle | none) "circle"
+		direction CDATA #REQUIRED
+		distance CDATA #IMPLIED>
+
+<!ELEMENT text_label (point, text)>
+<!ATTLIST text_label
+		direction CDATA #REQUIRED
+		distance CDATA #IMPLIED>
+<!ELEMENT text (#PCDATA)> 
+
+
+<!--**************conjectures***********-->
+<!ELEMENT conjecture (prove)*>
+
+<!ELEMENT prove (equality)>
+<!ATTLIST prove
+		proof_limit CDATA #REQUIRED 
+		proof_level CDATA #REQUIRED>
+
+<!ELEMENT equality (expression,expression)>
+<!ELEMENT expression (number|constant|sum|mult|fraction|segment_ratio|signed_area3|
+		signed_area4|pythagoras_difference3|pythagoras_difference4)>
+<!ELEMENT number (#PCDATA)>
+<!ELEMENT constant (#PCDATA)>
+<!ELEMENT sum (expression,expression)>
+<!ELEMENT mult (expression,expression)>
+<!ELEMENT fraction (expression,expression)>
+<!ELEMENT segment_ratio (segment,segment)>
+<!ELEMENT signed_area3 (point,point,point)>
+<!ELEMENT signed_area4 (point,point,point,point)>
+<!ELEMENT pythagoras_difference3 (point,point,point)>
+<!ELEMENT pythagoras_difference4 (point,point,point,point)>
+
