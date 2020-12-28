@@ -68,6 +68,7 @@ The executable (release version) 'gclc' will be created in the folder gclc/execu
 Go to the folder 'gclc/source', then:
 
 > qmake cGCLC.pro
+
 > make
 
 The executable (release version) 'gclc' will be created in the folder gclc/executable. 
@@ -78,6 +79,7 @@ The executable (release version) 'gclc' will be created in the folder gclc/execu
 Go to the folder 'gclc/source', then:
 
 > qmake gGCLC.pro 
+
 > make
 
 The executable (release version) 'gclc-gui' will be created in the folder gclc/executable. 
@@ -112,6 +114,7 @@ Makefile in the same directory ('gclc/source'). Each invokation of
 'qmake' will overwrite the existing Makefile, so if one 'Makefile' 
 is to be used afterwards, it should be renamed, for instance to 
 'Makefile-gui-release', and then make could be invoked as follows:
+
 > make -f Makefile-gui-release
 
 If you build different makefiles, then after using qmake, use 
