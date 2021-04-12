@@ -2682,7 +2682,7 @@ void CAlgMethod::_PrintConjecture(const CGCLCProverExpression &e, int level,
     Log::PrintLogF(level, "%s", e.GetName().c_str());
   if (e.GetType() == ep_number)
     Log::PrintLogF(level, "  [%lf]", e.GetNumber());
-  Log::PrintLogF(level, "\n", e);
+  Log::PrintLogF(level, "\n");
   // recursively print children
   for (ii = 0; ii < arity(e.GetType()); ii++)
     _PrintConjecture(e.GetArg(ii), level, space + 1);
@@ -2793,12 +2793,12 @@ string CAlgMethod::GetMethodSpecificOutput() {
 
 void CAlgMethod::PrintProofTitleXML(const string &theoremName) {
   // XML output
-  Print(m_hXMLOutputProof, "\n<proof_title>GCLC Prover Output for "
-                           "conjecture " +
-                                   !theoremName.empty()
-                               ? theoremName
-                               : (string) "[not named]" + " (" + GetName() +
-                                     " method used)</proof_title>\n\n");
+  Print(m_hXMLOutputProof,
+        "\n<proof_title>GCLC Prover Output for "
+        "conjecture " +
+            (!theoremName.empty() ? theoremName
+                                  : (string) "[not named]" + " (" + GetName() +
+                                        " method used)</proof_title>\n\n"));
 }
 
 // ----------------------------------------------------------------------------

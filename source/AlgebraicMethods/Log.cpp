@@ -176,7 +176,7 @@ void Log::CheckMemoryLeaks() {
 #endif
 
 double Log::ElapsedTime(double startTime) {
-#if defined(_PLATFORM_WIN_) || defined(_PLATFORM_LINUX_)
+#if (defined(_PLATFORM_WIN_) || defined(_PLATFORM_LINUX_))
   long int TimeElapsed, TimeCurrent;
   struct rusage usage;
   getrusage(RUSAGE_SELF, &usage);
@@ -187,7 +187,7 @@ double Log::ElapsedTime(double startTime) {
 #else
   time_t t1;
   time(&t1);
-  return (double)(t1 - m_t0);
+  return (double)(t1 - startTime);
 #endif
 }
 
@@ -414,7 +414,7 @@ void Log::OutputBegins() {
   _paragraphStarted = false;
 }
 
-void Log::OutputSubSectionBegin(const char *text, bool notNumber, ...) {
+void Log::OutputSubSectionBegin(const char *text, int notNumber, ...) {
   if (_subsectionStarted) {
     // close previous
     OutputSubSectionEnd();

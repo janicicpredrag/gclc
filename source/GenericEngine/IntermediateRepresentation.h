@@ -63,7 +63,6 @@ private:
   bool sensitive;
   GCLC_area area;
   int precision;
-  int layer;
   export_type export_format;
 };
 
@@ -117,7 +116,6 @@ private:
   list<CGCLCPrimitive> m_ListOfPrimitives, m_EmptyCircles;
 
   GCLC_area Default_Area;
-  unsigned int m_uLayer;
   bool m_aSkipLayer[NUMBER_OF_LAYERS];
 
   double m_dDashLen1, m_dDashLen2, m_dDashLen3, m_dDashLen4;

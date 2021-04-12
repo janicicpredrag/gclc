@@ -31,6 +31,8 @@ class Log {
 #endif
 
 public:
+  Log();
+
   static int StopAfterMaxT;
 
   static void PrintLogF1(int level, const char *format, const char *text);
@@ -58,7 +60,7 @@ public:
   static void OutputBegins();
   static void OutputSectionBegin(const char *text);
   static void OutputSectionEnd();
-  static void OutputSubSectionBegin(const char *text, bool notNumber, ...);
+  static void OutputSubSectionBegin(const char *text, int notNumber, ...);
   static void OutputSubSectionEnd();
   static void OutputBold(const char *text);
   static void OutputText(const char *text, ...);
