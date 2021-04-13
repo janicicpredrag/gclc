@@ -2,11 +2,6 @@
 #include "Input/GCLCInput.h"
 #include "ListOfFaces.h"
 #include <QTextEdit>
-#if defined(__MACH__)
-#include <stdlib.h>
-#else
-#include <malloc.h>
-#endif
 
 #if !defined(JAVAVIEW_H)
 #define JAVAVIEW_H

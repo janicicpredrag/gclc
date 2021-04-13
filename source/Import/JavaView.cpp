@@ -4,8 +4,12 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "JavaView.h"
-#include <malloc.h>
 #include <string.h>
+#if defined(__MACH__)
+#include <stdlib.h>
+#else
+#include <malloc.h>
+#endif
 
 #define X_OFF 70
 #define Y_OFF 50
