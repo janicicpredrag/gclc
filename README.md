@@ -73,6 +73,8 @@ Go to the folder 'gclc/source', then:
 
 The executable (release version) 'gclc' will be created in the folder gclc/executable. 
 
+[ Instead of the above call, you might need: > qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro ]
+
 
 ### Building gclc-gui (version with the graphical user interface) from the terminal 
 
@@ -83,6 +85,8 @@ Go to the folder 'gclc/source', then:
 > make
 
 The executable (release version) 'gclc-gui' will be created in the folder gclc/executable. 
+
+[ Instead of the above call, you might need: > qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro ]
 
 (For debug version:
 qmake: qmake gGCLC.pro CONFIG+=debug CONFIG+=qml_debug )
