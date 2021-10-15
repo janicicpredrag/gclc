@@ -191,3 +191,4 @@ MOC_DIR = $$DESTDIR/moc
 RCC_DIR = $$DESTDIR/qrc
 UI_DIR = $$DESTDIR/u
 
+QMAKE_CXXFLAGS += "-fno-sized-deallocation"

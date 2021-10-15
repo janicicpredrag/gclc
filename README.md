@@ -128,7 +128,7 @@ If you build different makefiles, then after using qmake, use
 ## Input
  
 GCLC accepts files in GCL language, but can also import JavaView 
-files coherent logic form.
+files.
 
 
 ## Output
