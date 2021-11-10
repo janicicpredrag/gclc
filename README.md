@@ -31,9 +31,9 @@ This software is licensed under the MIT Licence.
 
 Pre-built executables (both the command line version and the version
 with graphical user interface, both for Windows and for Linux) are 
-available in the folder "executable". Running these executables may
+available in the folder 'executable'. Running these executables may
 requires installing some libraries (for instance, by 
-"sudo apt-get install qt5-default" on linux).
+`sudo apt-get install qt5-default` on linux).
 
 Executables can also be built from the available source code.
 
@@ -43,7 +43,7 @@ Executables can also be built from the available source code.
 GCLC is written in the C++ programming language and uses Qt libraries. 
 GNU C++ g++ compiler is needed (or some other C++ compiler, but then
 Makefile and .pro files should be updated). Building GCLC with the
-graphical user interface requires Qt Library (https://www.qt.io/) 
+graphical user interface requires [Qt Library](https://www.qt.io/) 
 version 5.10 or higher.
 
 In the following, it is assumed that 'make' is available.
@@ -54,61 +54,66 @@ Under Windows, one can use 'mingw32-make' instead, for instance.
 
 Under Linux, go to the folder 'gclc', then:
 
-> make 
+```
+make 
+```
 
 Under Windows, go to the folder 'gclc', then:
 
-> mingw32-make -f Makefile.win
+```
+mingw32-make -f Makefile.win
+```
 
-The executable (release version) 'gclc' will be created in the folder gclc/executable. 
+The executable (release version) 'gclc' will be created in the folder 'gclc/executable'. 
 
 
 ### Building gclc (command line version) from the terminal using qmake:
 
 Go to the folder 'gclc/source', then:
 
-> qmake cGCLC.pro
+```
+qmake cGCLC.pro
+make
+```
 
-> make
+The executable (release version) 'gclc' will be created in the folder 'gclc/executable'. 
 
-The executable (release version) 'gclc' will be created in the folder gclc/executable. 
-
-[ Instead of the above call, you might need: > qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro ]
+[ Instead of the above call, you might need: `qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro` ]
 
 
 ### Building gclc-gui (version with the graphical user interface) from the terminal 
 
 Go to the folder 'gclc/source', then:
 
-> qmake gGCLC.pro 
+```
+qmake gGCLC.pro 
+make
+```
 
-> make
+The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'. 
 
-The executable (release version) 'gclc-gui' will be created in the folder gclc/executable. 
+[ Instead of the above call, you might need: `qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro` ]
 
-[ Instead of the above call, you might need: > qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro ]
-
-(For debug version:
-qmake: qmake gGCLC.pro CONFIG+=debug CONFIG+=qml_debug )
+(For debug version: `qmake: qmake gGCLC.pro CONFIG+=debug CONFIG+=qml_debug`)
 
 
 ### Building gclc (command line version) from Qt Creator
 
 Load the project cGCLC.pro from the folder 'gclc/source', 
-then run 'Build/Run qmake', then run 'Build/Build project cGCLC'.
+then run `Build/Run qmake`, then run `Build/Build project cGCLC`.
 Within the Qt Creator choose Release or Debug version.
-The executable 'gclc' will be  created in the folder gclc/executable. 
+The executable `gclc` will be  created in the folder 'gclc/executable'. 
 
-The executable (release version) 'gclc' will be created in the folder gclc/executable. 
+The executable (release version) `gclc` will be created in the folder 'gclc/executable'. 
 
 
 ### Building gclc-gui (version with the graphical user interface) from Qt Creator
 
 Load the project gGCLC.pro from the folder 'gclc/source', 
-then run 'Build/Run qmake', then run 'Build/Build project gGCLC'.
+then run `Build/Run qmake`, then run `Build/Build project gGCLC`.
 Within the Qt Creator choose Release or Debug version.
 
-The executable (release version) 'gclc-gui' will be created in the folder gclc/executable. 
+The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'. 
 
 
 ### Multiple makefiles
@@ -119,10 +124,12 @@ Makefile in the same directory ('gclc/source'). Each invokation of
 is to be used afterwards, it should be renamed, for instance to 
 'Makefile-gui-release', and then make could be invoked as follows:
 
-> make -f Makefile-gui-release
+```
+make -f Makefile-gui-release
+```
 
 If you build different makefiles, then after using qmake, use 
-'make clean' before 'make'.
+`make clean` before `make`.
 
 
 ## Input
@@ -142,22 +149,17 @@ Proofs by the automated theorem provers are generated in LaTeX form.
 
 ## Usage 
 
-`gclc filename -a|w|g -pic|tikz|pst|eps|svg|xml`
+```
+gclc filename -a|w|g -pic|tikz|pst|eps|svg|xml
+```
 
-   filename                    the name of the input file 
-
-   -a|w|g                      selects the theorem prover used: the one based 
-                               on the area method (a), the one based on Wu's 
-                               method (w), or the one based on the Groebner 
-                               bases method (g)
-
-   -pic|tikz|pst|eps|svg|xml   selects the format for the output: simple LaTeX 
-                               format (pic), LaTeX PStrics format (pst), LaTeX 
-                               TikZ format (tikz), EPS format (eps), SVG format 
-                               (svg), XML textual specification (xml) 
-                               (default value: -pic)
-
-
-
-
-
+ + `filename`                   the name of the input file 
+ + `-a|w|g`                     selects the theorem prover used: the one based 
+                                on the area method (`a`), the one based on Wu's 
+                                method (`w`), or the one based on the Groebner 
+                                bases method (`g`)
+ + `-pic|tikz|pst|eps|svg|xml`  selects the format for the output: simple LaTeX 
+                                format (`pic`), LaTeX PStrics format (`pst`), LaTeX 
+                                TikZ format (`tikz`), EPS format (`eps`), SVG format 
+                                (`svg`), XML textual specification (`xml`).
+                                Default value is `-pic`
