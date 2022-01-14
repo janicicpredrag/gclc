@@ -665,7 +665,11 @@ GCLCError CGCLC::get_onsegment() {
   x2 = o2.p[0];
   y2 = o2.p[1];
   k = ((double)rand() / RAND_MAX);
-
+    //-------- Support for the prover ----------
+    // onsegment sPointName o1 o2 ==> collinear sPointName o1 o2
+    if (ProvingTheorem())
+    AddProverCommand(online, sPointName, o1.name, o2.name, d2s(k, -1));
+    //-------- End of support for the prover ---
   return Let(sPointName, GCLC_POINT, x1 + k * (x2 - x1), y1 + k * (y2 - y1), 0.00,
              0.00, 0.00, 0.00);
 }

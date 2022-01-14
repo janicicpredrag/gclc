@@ -452,7 +452,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
     return AddProverCommandLowLevel(p_pratio, a1, a2, a2, a3, "0.5");
   }
 
-  if (type == online) {
+  if (type == online || type == onsegment) {
     string sConstantName;
     sConstantName = "r_{" + i2s(m_iPointCounter++) + "}";
 
