@@ -625,6 +625,7 @@ bool CTheoremProver::ExistsPoint(const string &A) {
        it != m_ProverCommands.end(); it++) {
     if (it->type == p_point || it->type == p_inter || it->type == p_pratio ||
         it->type == p_tratio || it->type == p_foot || it->type == midpoint ||
+        it->type == onsegment ||
         it->type == online || it->type == oncircle || // new
         it->type == p_interlc) {
       if (it->arg[0] == A) {
