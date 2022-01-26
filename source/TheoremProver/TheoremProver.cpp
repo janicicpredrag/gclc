@@ -452,7 +452,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
     return AddProverCommandLowLevel(p_pratio, a1, a2, a2, a3, "0.5");
   }
 
-  if (type == online || type == onsegment) {
+  if (type == online) {
     string sConstantName;
     sConstantName = "r_{" + i2s(m_iPointCounter++) + "}";
 
@@ -625,7 +625,6 @@ bool CTheoremProver::ExistsPoint(const string &A) {
        it != m_ProverCommands.end(); it++) {
     if (it->type == p_point || it->type == p_inter || it->type == p_pratio ||
         it->type == p_tratio || it->type == p_foot || it->type == midpoint ||
-        it->type == onsegment ||
         it->type == online || it->type == oncircle || // new
         it->type == p_interlc) {
       if (it->arg[0] == A) {

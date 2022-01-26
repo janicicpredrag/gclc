@@ -33,7 +33,6 @@ enum eGCLC_prover_command {
   p_tratio,
   p_foot,
   online,
-  onsegment,
   midpoint,
   med,
   perp,
