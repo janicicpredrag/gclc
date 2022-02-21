@@ -978,16 +978,15 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
   nPos = 0;
 
   InputString = conjecture;
-
   take_id(InputString, nInputPos, s);
   // InputString += nInputPos;
   InputString = InputString.substr(nInputPos, InputString.size() - nInputPos);
+
   nPos += nInputPos;
 
   if (s == "{") {
     bBracket = true;
     take_id(InputString, nInputPos, s);
-    // InputString += nInputPos;
     InputString = InputString.substr(nInputPos, InputString.size() - nInputPos);
     nPos += nInputPos;
   }
@@ -1049,7 +1048,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1068,7 +1066,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1090,7 +1087,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1125,7 +1121,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1140,7 +1135,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1157,7 +1151,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1182,7 +1175,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1200,7 +1192,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1216,7 +1207,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
       if (!GetExpression(InputString, nInputPos, arg))
         return false;
       exp.SetArg(i, arg);
-      // InputString += nInputPos;
       InputString =
           InputString.substr(nInputPos, InputString.size() - nInputPos);
       nPos += nInputPos;
@@ -1229,7 +1219,6 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
 
   if (bBracket) {
     take_text(InputString, nInputPos, s);
-    // InputString += nInputPos;
     InputString = InputString.substr(nInputPos, InputString.size() - nInputPos);
     nPos += nInputPos;
     if (!(s[0] == '}'))
@@ -1309,14 +1298,18 @@ void take_id(const string &sInput, int &nInputPos, string &sOutput) {
 
   sOutput = "";
 
+  bool skip;
   do {
-    c = sInput[nInputPos++];
-  } while ((c == ' ') || (c == '\n') || (c == '\r') || (c == '\t') ||
-           (c == 9) || (c == -96));
+    c = sInput[nInputPos];
+    skip = ((c == ' ') || (c == '\n') || (c == '\r') ||
+            (c == '\t') || (c == 9) || (c == -96));
+    if (skip)
+      nInputPos++;
+  } while (skip);
 
   do {
     sOutput += string(1, c);
-    c = sInput[nInputPos++];
+    c = sInput[++nInputPos];
 
     if (c == '{')
       brackets++;
