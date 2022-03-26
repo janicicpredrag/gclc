@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
     if (prover_output != e_idle) {
       Print(cout, C.GetMethodSpecificOutput());
       Print(cout, (string) "\n\nTime spent by the prover: " +
-                      d2s(prover_time, 3) + " seconds");
+                      d2s(prover_time, 3) + " seconds.");
 
       if (prover_output == e_proved)
         Print(cout, "\nThe conjecture successfully proved.");
@@ -194,6 +194,8 @@ int main(int argc, char *argv[]) {
         Print(cout, "\nThe conjecture disproved.");
       else if (prover_output == e_conjecture_out_of_scope)
         Print(cout, "\nThe conjecture out of scope of the prover.");
+      else if (prover_output == e_construction_out_of_scope)
+        Print(cout, "\nThe construction out of scope of the prover.");
       else if (prover_output == e_unknown)
         Print(cout, "\nThe conjecture not proved.");
       else if (prover_output == e_unknown_toomanysteps)
@@ -270,6 +272,11 @@ int main(int argc, char *argv[]) {
               "always hold.");
       else if (prover_output == e_unknown_timeout)
         Print(cout, "\nThe conjecture not proved (timeout).");
+      else if (prover_output == e_conjecture_out_of_scope)
+        Print(cout, "\nThe conjecture out of scope of the prover.");
+      else if (prover_output == e_construction_out_of_scope)
+        Print(cout, "\nThe construction out of scope of the prover.");
+
 
       if (ProverConfig.bLaTeX)
         Print(cout, "\nThe prover output is written in the file "

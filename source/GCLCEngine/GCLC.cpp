@@ -536,10 +536,10 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
         CleanUpProver();
         return rvG_CannotOpenOutputFile;
       }
-      if (prover_output != e_conjecture_out_of_scope) {
+      AddToLog("\n\nTime spent by the prover: " + d2s(prover_time, 3) +
+               " seconds.");
+      if (prover_output != e_conjecture_out_of_scope && prover_output != e_construction_out_of_scope) {
         AddToLog(GetMethodSpecificOutput());
-        AddToLog("\n\nTime spent by the prover: " + d2s(prover_time, 3) +
-                 " seconds");
       }
 
       switch (prover_output) {
@@ -553,7 +553,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
         AddToLog("\nThe conjecture out of scope of the prover.");
         break;
       case e_construction_out_of_scope:
-        AddToLog("\nThe conjecture out of scope of the prover.");
+        AddToLog("\nThe construction out of scope of the prover.");
         break;
       case e_unknown:
         AddToLog("\nThe conjecture not proved.");
