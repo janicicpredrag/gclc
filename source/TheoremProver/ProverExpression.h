@@ -204,9 +204,9 @@ public:
   bool AllSummandsHaveFactor(const CGCLCProverExpression &Factor);
 
   // Used (only) in proving subgoals
-  void Push(CGCLCProverExpression *&left, CGCLCProverExpression *&right,
+  void Push(CGCLCProverExpression &left, CGCLCProverExpression &right,
             const CGCLCProverExpression &a);
-  void Pop(CGCLCProverExpression *left, CGCLCProverExpression *right);
+  void Pop(CGCLCProverExpression &left, CGCLCProverExpression &right);
 
   bool GetParentIndex(CGCLCProverExpression &outer,
                       CGCLCProverExpression *&parent, int &index) const;
@@ -245,8 +245,7 @@ private:
 
   static Rules mRules;
 
-  // unsigned id;
-  // static unsigned idCounter;
+  unsigned id;
 };
 
 unsigned arity(enum GCLCexperssion_type type);

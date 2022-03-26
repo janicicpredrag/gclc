@@ -31,7 +31,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   if (m_Conjecture == Conj)
     bSameConj = true;
 
-  CGCLCProverExpression *OldConjecture_left, *OldConjecture_right;
+  CGCLCProverExpression OldConjecture_left, OldConjecture_right;
   if (!bSameConj)
     m_Conjecture.Push(OldConjecture_left, OldConjecture_right, Conj);
 
@@ -2027,9 +2027,6 @@ bool CAreaMethod::ApplyAssumptions(CGCLCProverExpression &exp) {
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
-  //    string ss = exp.sPrintLaTeX(true);
-  //    cout << ">>> " << ss << "\n" << flush;
-
   CGCLCProverExpression Left;
 
   if (exp.GetArg(0).GetType() != ep_number)
@@ -2070,6 +2067,7 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
         string sCond = Lemma.sPrintLaTeX();
         Lemma.SetType(ep_equality);
         eGCLC_conjecture_status r = ZeroByAssumption(LemmaLeft);
+
         if (r == e_unknown)
           r = ProveConjecture(Lemma);
 
@@ -2099,7 +2097,6 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
               exp.GetArg(1).CancelationMult(Factor)) {
             string sCond1 = "cancellation rule (assuming $" + sCond + "$)";
             OutputStep(m_Conjecture, sCond1, eps_algebraic);
-
             delete[] aMultiplicants;
             return true;
           }

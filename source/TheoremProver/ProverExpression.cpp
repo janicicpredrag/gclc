@@ -5,7 +5,7 @@
 
 #define EPSILON 0.00001
 
-#define id_seek 1740
+static unsigned idCounter=0;
 
 Rules CGCLCProverExpression::mRules;
 // unsigned CGCLCProverExpression::idCounter;
@@ -59,7 +59,7 @@ CGCLCProverExpression::CGCLCProverExpression() {
   sName = "";
   nNumber = 0;
   type = ep_unknown;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -73,10 +73,10 @@ CGCLCProverExpression::CGCLCProverExpression(const CGCLCProverExpression &r) {
   sName = r.sName;
   nNumber = r.nNumber;
   for (unsigned i = 0; i < arity(type); i++)
-    arg[i] = new CGCLCProverExpression(*(r.arg[i]));
+    arg[i] = new CGCLCProverExpression(r.GetArg(i));
   for (unsigned i = arity(type); i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -87,6 +87,7 @@ operator=(const CGCLCProverExpression &r) {
     return *this;
   CleanUp();
   type = r.type;
+
   sName = r.sName;
   nNumber = r.nNumber;
   for (unsigned i = 0; i < ExpressionArgCount; i++)
@@ -96,7 +97,7 @@ operator=(const CGCLCProverExpression &r) {
     arg[i] = new CGCLCProverExpression(r.GetArg(i));
   for (unsigned i = arity(type); i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
   return *this;
 }
 
@@ -111,7 +112,7 @@ CGCLCProverExpression &CGCLCProverExpression::operator=(const double n) {
     delete arg[i];
     arg[i] = NULL;
   }
-  // id = idCounter++;
+  id = idCounter++;
   return *this;
 }
 
@@ -125,7 +126,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
   nNumber = 0;
   for (unsigned i = 0; i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -140,7 +141,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
   arg[1] = new CGCLCProverExpression(ep_point, a1);
   arg[2] = NULL;
   arg[3] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -155,7 +156,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
   arg[1] = new CGCLCProverExpression(ep_point, a1);
   arg[2] = new CGCLCProverExpression(ep_point, a2);
   arg[3] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -171,7 +172,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
   arg[1] = new CGCLCProverExpression(ep_point, a1);
   arg[2] = new CGCLCProverExpression(ep_point, a2);
   arg[3] = new CGCLCProverExpression(ep_point, a3);
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -181,7 +182,7 @@ CGCLCProverExpression::CGCLCProverExpression(const double n) {
   nNumber = n;
   for (unsigned i = 0; i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -196,7 +197,7 @@ CGCLCProverExpression::CGCLCProverExpression(
   arg[1] = new CGCLCProverExpression(arg1);
   for (unsigned i = 2; i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  // id = idCounter++;
+  id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
@@ -287,7 +288,6 @@ void CGCLCProverExpression::CleanUp() {
   for (unsigned i = 0; i < ExpressionArgCount; i++) {
     if (arg[i])
       delete arg[i];
-    // arg[i]->CleanUp();
     arg[i] = NULL;
   }
   sName = "";
@@ -296,24 +296,32 @@ void CGCLCProverExpression::CleanUp() {
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::Push(CGCLCProverExpression *&left,
-                                 CGCLCProverExpression *&right,
+void CGCLCProverExpression::Push(CGCLCProverExpression &left,
+                                 CGCLCProverExpression &right,
                                  const CGCLCProverExpression &a) {
   assert(type == ep_equality);
-  left = arg[0];
-  right = arg[1];
-  for (unsigned i = 0; i < 2; i++)
-    arg[i] = a.GetArgP(i);
+  left = GetArg(0);
+  right = GetArg(1);
+  for (unsigned i = 0; i < 2; i++) {
+    if (arg[i])
+      delete arg[i];
+    arg[i] = new CGCLCProverExpression(a.GetArg(i));
+  }
 }
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::Pop(CGCLCProverExpression *left,
-                                CGCLCProverExpression *right) {
+void CGCLCProverExpression::Pop(CGCLCProverExpression &left,
+                                CGCLCProverExpression &right) {
   assert(type == ep_equality);
-  arg[0] = left;
-  arg[1] = right;
+  if (arg[0])
+    delete arg[0];
+  if (arg[1])
+    delete arg[1];
+  arg[0] = new CGCLCProverExpression(left);
+  arg[1] = new CGCLCProverExpression(right);
 }
+
 
 // --------------------------------------------------------------------------
 
@@ -336,7 +344,8 @@ void CGCLCProverExpression::Set(GCLCexperssion_type t,
 void CGCLCProverExpression::SetArg(unsigned i, CGCLCProverExpression *a) {
   if (arg[i])
     delete arg[i];
-  arg[i] = a;
+ arg[i] = a;
+// arg[i] = new CGCLCProverExpression(*a);
   // id = idCounter++;
 }
 
@@ -492,11 +501,12 @@ bool CGCLCProverExpression::ApplyAllAlgebraicRules(string &sRuleApplied,
 
 bool CGCLCProverExpression::ApplyAllSimpleAlgebraicRules(string &sRuleApplied,
                                                          int iExceptLast) {
-  for (unsigned i = 0; i < 14 && i < mRules.m_nNumberOfRules - iExceptLast; i++)
+  for (unsigned i = 0; i < 14 && i < mRules.m_nNumberOfRules - iExceptLast; i++) {
     if (ApplyOneAlgebraicRule(mRules.m_aiRule[i])) {
       sRuleApplied = mRules.m_asRuleName[mRules.m_aiRule[i]];
       return true;
     }
+  }
   return false;
 }
 
