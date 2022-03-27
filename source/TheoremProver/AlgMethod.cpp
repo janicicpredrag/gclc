@@ -467,11 +467,11 @@ void CAlgMethod::_PrintConic(Conic * /* c */) {}
 // Extract points from the commands
 // and assign free and dependent variables to them
 //
-void CAlgMethod::_FindPoints() {
+bool CAlgMethod::_FindPoints() {
   int freeCount = 0;
   Point *p = NULL;
   if (_pointsResolved)
-    return;
+    return 1;
 
   for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
@@ -517,10 +517,11 @@ void CAlgMethod::_FindPoints() {
       break;
     default:
       Log::PrintLogF(0, "_FindPoints: Unknown type %d!\n\n", it->type);
-      throw - 1;
+      return 0;
     }
   }
   _pointsResolved = true;
+  return 1;
 }
 
 // ----------------------------------------------------------------------------
@@ -770,7 +771,7 @@ Conic *CAlgMethod::_FindConic(const string &name) {
 // Find circles and resolve it
 // circle is resolved with center and one point
 //
-void CAlgMethod::_FindLinesCircles() {
+bool CAlgMethod::_FindLinesCircles() {
   Point *p = NULL, *q = NULL;
   Line *l = NULL, *l1 = NULL, *l2 = NULL;
   Circle *k = NULL;
@@ -934,7 +935,8 @@ void CAlgMethod::_FindLinesCircles() {
       break;
     default:
       Log::PrintLogF(0, "_FindLinesCircles: Unknown type %d!\n\n", it->type);
-      throw - 1;
+      return 0;
+      // throw -1;
     }
   }
 
@@ -1107,6 +1109,7 @@ void CAlgMethod::_FindLinesCircles() {
   Log::OutputEnumEnd("itemize");
 
   _linesResolved = true;
+  return 1;
 }
 
 // ----------------------------------------------------------------------------
@@ -2698,7 +2701,8 @@ bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
   // need to do it here because there may be implicit point needed by
   // expression!
   _FindPoints();
-  _FindLinesCircles();
+  if (!_FindLinesCircles())
+    return false;
 
   CGCLCProverExpression conjecture;
   if (!GetExpression(strConjecture, nInputPos, conjecture)) {

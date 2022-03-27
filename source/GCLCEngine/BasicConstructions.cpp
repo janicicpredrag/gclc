@@ -228,6 +228,14 @@ GCLCError CGCLC::get_intersec2() {
       m_CurrentXMLgroup = eXMLconstruct;
     }
     //-------- End of support for XML form ---------
+
+    //-------- Support for the prover ----------
+    // p_intercc is not supported, this call will be rejected by the prover
+    if (ProvingTheorem())
+      AddProverCommand(p_intercc, sPointName1, sPointName2, o1.name, o2.name);
+    //-------- End of support for the prover ---
+
+
   } else {
     if (o1.type == GCLC_LINE) {
       //-------- Support for input exported to XML form ---------

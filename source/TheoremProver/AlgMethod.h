@@ -184,7 +184,7 @@ private:
 
   void _PrintCommand(CGCLCProverCommand &Command);
 
-  void _FindPoints();
+  bool _FindPoints();
   bool _AddFreePoint(const string &name, bool addCommand, const string &xc,
                      const string &yc);
   bool _AddDependantPoint(const string &name, int *pLastDepIndex,
@@ -195,7 +195,7 @@ private:
   Line *_FindLine(Point *p1, Point *p2);
   Circle *_FindCircle(const string &name);
   Conic *_FindConic(const string &name);
-  void _FindLinesCircles();
+  bool _FindLinesCircles();
   bool _ExistsPoint(const string &name);
   void _PrintPoints();
   void _PrintPoint(Point *p);

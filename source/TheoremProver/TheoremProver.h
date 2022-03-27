@@ -41,6 +41,7 @@ enum eGCLC_prover_command {
   p_circle,
   oncircle,
   p_interlc,
+  p_intercc,
   p_bis
 };
 
