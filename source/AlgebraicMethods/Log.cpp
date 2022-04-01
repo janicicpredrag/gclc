@@ -180,10 +180,10 @@ double Log::ElapsedTime(double startTime) {
   long int TimeElapsed, TimeCurrent;
   struct rusage usage;
   getrusage(RUSAGE_SELF, &usage);
-  TimeCurrent = 1000000 * usage.ru_utime.tv_sec + usage.ru_utime.tv_usec +
-                1000000 * usage.ru_stime.tv_sec + usage.ru_stime.tv_usec;
+  TimeCurrent = (1000000 * usage.ru_utime.tv_sec + usage.ru_utime.tv_usec +
+                1000000 * usage.ru_stime.tv_sec + usage.ru_stime.tv_usec)/1000;
   TimeElapsed = TimeCurrent - (long int)startTime;
-  return ((double)TimeElapsed / (double)1000000);
+  return ((double)TimeElapsed);
 #else
   time_t t1;
   time(&t1);

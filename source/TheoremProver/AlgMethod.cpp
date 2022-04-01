@@ -326,6 +326,7 @@ CAlgMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
     Print(cerr, "prover failed, exception raised!");
   }
 
+  CleanUp();
   return retValue;
 }
 
@@ -2378,7 +2379,6 @@ CAlgMethod::_Prove(const CGCLCProverExpression & /* pConj */) {
         Log::PrintLogF(3, "Conjecture %d is True...\n\n", ii + 1);
       }
     } else if (ps == PROVER_STATUS_TIMEOUT) {
-      eRet = e_unknown;
       eRet = e_unknown_timeout;
     } else if (ps == PROVER_STATUS_NONE) {
       eRet = e_unknown;

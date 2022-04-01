@@ -33,10 +33,10 @@ int main(int argc, char *argv[]) {
   srand((unsigned)time(NULL));
 
   Print(cout, "\n");
-  Print(cout, "GCLC 2020 (GC language (R) -> LaTeX Converter)\n");
+  Print(cout, "GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
   Print(
       cout,
-      "Copyright (c) 1995-2020 by Predrag Janicic, University of Belgrade.\n");
+      "Copyright (c) 1995-2022 by Predrag Janicic, University of Belgrade.\n");
   Print(cout, "Licensed under the MIT Licence.\n");
   Print(cout, "\n");
 
