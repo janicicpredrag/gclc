@@ -440,8 +440,8 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   assert(!m_bWhileBlockOrProcedureCall);
   m_iErrorCode = rvGCLCNoError;
   ResetLog();
-  AddToLog("GCLC 2020 (GC language (R) -> LaTeX Converter)\n");
-  AddToLog("Copyright (c) 1995-2020 by Predrag Janicic, University of "
+  AddToLog("GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
+  AddToLog("Copyright (c) 1995-2022 by Predrag Janicic, University of "
            "Belgrade.\n");
   AddToLog("Licensed under the MIT Licence.\n");
   // AddToLog("\n");
@@ -482,7 +482,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
           /* GReturnValue r = */ Prove(sProofLaTeXOutput, sProofXMLOutput, Time,
                                        "Deduction check conjecture",
                                        prover_output);
-          AddToLog("\n\nTime spent by the prover: " + d2s(Time, 3) +
+          AddToLog("\n\nTime spent by the prover: " + d2s(Time/(double)1000, 3) +
                    " seconds");
           if (prover_output == e_proved)
             AddToLog("\nThe conjecture successfully proved - the critical "
@@ -536,7 +536,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
         CleanUpProver();
         return rvG_CannotOpenOutputFile;
       }
-      AddToLog("\n\nTime spent by the prover: " + d2s(prover_time, 3) +
+      AddToLog("\n\nTime spent by the prover: " + d2s(prover_time/(double)1000, 3) +
                " seconds.");
       if (prover_output != e_conjecture_out_of_scope && prover_output != e_construction_out_of_scope) {
         AddToLog(GetMethodSpecificOutput());

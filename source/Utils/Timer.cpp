@@ -15,6 +15,7 @@ void CTimer::StartMeasuringTime() {
 
 // ----------------------------------------------------------------------------
 
+// in milliseconds
 double CTimer::ElapsedTime() {
 #if defined(_PLATFORM_WIN_) || defined(_PLATFORM_LINUX_)
   long int TimeElapsed, TimeCurrent;
@@ -23,7 +24,7 @@ double CTimer::ElapsedTime() {
   TimeCurrent = 1000000 * usage.ru_utime.tv_sec + usage.ru_utime.tv_usec +
                 1000000 * usage.ru_stime.tv_sec + usage.ru_stime.tv_usec;
   TimeElapsed = TimeCurrent - m_tStartTime;
-  return ((double)TimeElapsed / (double)1000000);
+  return ((double)TimeElapsed / (double)1000);
 #else
   time_t t1;
   time(&t1);

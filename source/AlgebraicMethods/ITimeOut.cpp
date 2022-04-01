@@ -9,7 +9,7 @@ double ITimeout::_startTime = 0;
 // check timeout
 // raise exception if timeout is reached
 bool ITimeout::CheckTimeout() {
-  if (_session && _timeout >= 0 && Log::ElapsedTime(_startTime) > _timeout) {
+  if (_session && _timeout >= 0 && Log::ElapsedTime(_startTime) > _timeout/1000) {
     throw E_TIMEOUT;
   }
   return true;

@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
     if (prover_output != e_idle) {
       Print(cout, C.GetMethodSpecificOutput());
       Print(cout, (string) "\n\nTime spent by the prover: " +
-                      d2s(prover_time, 3) + " seconds.");
+                      d2s(prover_time/(double)1000, 3) + " seconds.");
 
       if (prover_output == e_proved)
         Print(cout, "\nThe conjecture successfully proved.");

@@ -2365,10 +2365,10 @@ CAlgMethod::_Prove(const CGCLCProverExpression & /* pConj */) {
        ii++) {
     // when prover is called second time, input system is
     // already triangular!
-    double timeout = m_iProverTimeout < 0
-                         ? -1
-                         : MAX2(0, (double)m_iProverTimeout -
-                                       1000000 * m_Timer.ElapsedTime());
+
+    double timeout = m_iProverTimeout < 0 ?
+                      -1 :
+                      MAX2(0, (double)m_iProverTimeout - m_Timer.ElapsedTime());
 
     // proof status
     PROVER_STATUS ps = _prover->Prove(vxps, vxpConjectures[ii], ii, timeout);
@@ -2400,7 +2400,7 @@ CAlgMethod::_Prove(const CGCLCProverExpression & /* pConj */) {
 // ----------------------------------------------------------------------------
 
 void CAlgMethod::PrintProofFooter(eGCLC_conjecture_status eRet) {
-  double sec = m_Timer.ElapsedTime();
+  double sec = m_Timer.ElapsedTime()/(double)1000;
 
   // is this needed?
   Log::OutputSectionBegin("Prover report");

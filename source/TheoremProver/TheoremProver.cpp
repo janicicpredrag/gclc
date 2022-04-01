@@ -203,7 +203,7 @@ void CTheoremProver::PrintProofTitleLatex(const string &theoremName) {
 // ----------------------------------------------------------------------------
 
 void CTheoremProver::PrintProofFooter(eGCLC_conjecture_status /* eRet */) {
-  double sec = m_Timer.ElapsedTime();
+  double sec = m_Timer.ElapsedTime()/(double)1000;
 
   PrintNDGConditions();
   PrintMethodSpecificOutput();
@@ -1241,7 +1241,7 @@ bool CTheoremProver::AddNewDef(string &sDef) {
 
 bool CTheoremProver::Timeout() {
   return (m_iProverTimeout < 0 ||
-          1000 * m_Timer.ElapsedTime() > m_iProverTimeout);
+          m_Timer.ElapsedTime() > m_iProverTimeout);
 }
 
 // ----------------------------------------------------------------------------

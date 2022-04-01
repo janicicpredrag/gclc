@@ -2542,7 +2542,7 @@ void CAreaMethod::PrintMethodSpecificOutput() {
                m_iNumberOfGeometricSteps) +
            "</"
            "total_number_of_steps><time>" +
-           d2s(m_Timer.ElapsedTime(), 3) + "</time></"
+           d2s(m_Timer.ElapsedTime()/1000, 3) + "</time></"
                                            "prover_report>");
 }
 

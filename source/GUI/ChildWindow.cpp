@@ -423,8 +423,8 @@ bool ChildWindow::Build(prover_config &Prover_params) {
   // nRet =
   //    m_pCompiler->Import(proofFileName.toStdString(), &Prover_params,
   //    NULL);
-  eGCLC_conjecture_status prover_output;
-  double prover_time;
+  eGCLC_conjecture_status prover_output = e_idle;
+  double prover_time = 0;
   nRet = m_pCompiler->Import(prover_output, prover_time);
   //  }
 
