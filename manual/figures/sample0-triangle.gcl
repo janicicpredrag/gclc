@@ -1,0 +1,19 @@
+dim 140 60
+
+point A 50 45
+point B 45 15
+point C 90 15
+
+cmark_lt A
+cmark_lb B
+cmark_rb C 
+
+drawsegment A B
+drawsegment B C
+drawsegment C A
+
+med a C B
+med b A C
+intersec O a b
+drawcircle O A
+

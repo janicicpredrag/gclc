@@ -1,0 +1,22 @@
+dim 120 50
+
+point A 20 10
+point B 70 10
+point C 35 40
+
+midpoint B_l B C
+midpoint A_l A C
+
+drawsegment A B
+drawsegment A C
+drawsegment B C
+drawsegment A_l B_l
+
+cmark_b A
+cmark_b B
+cmark_t C
+cmark_l A_l
+cmark_r B_l
+
+prove { equal { signed_area3 A_l B_l A } { signed_area3 A_l B_l B } }
+

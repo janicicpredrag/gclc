@@ -1,0 +1,39 @@
+\begin{tikzpicture}
+\clip (0,0) rectangle (12.000000,5.000000);
+{\footnotesize
+
+% Drawing segment A B
+\draw [line width=0.016cm] (2.040000,1.000000) -- (6.960000,1.000000);%
+
+% Drawing segment A C
+\draw [line width=0.016cm] (2.017889,1.035777) -- (2.732111,2.464223);%
+\draw [line width=0.016cm] (2.767889,2.535777) -- (3.482111,3.964223);%
+
+% Drawing segment B C
+\draw [line width=0.016cm] (6.969630,1.026032) -- (5.280370,2.473968);%
+\draw [line width=0.016cm] (5.219630,2.526032) -- (3.530370,3.973968);%
+
+% Drawing segment A_l B_l
+\draw [line width=0.016cm] (2.790000,2.500000) -- (5.210000,2.500000);%
+
+% Marking point A by circle
+\draw [line width=0.016cm] (2.000000,1.000000) circle (0.040000);%
+\draw (2.000000,1.000000) node [anchor=north] { $A$ };%
+
+% Marking point B by circle
+\draw [line width=0.016cm] (7.000000,1.000000) circle (0.040000);%
+\draw (7.000000,1.000000) node [anchor=north] { $B$ };%
+
+% Marking point C by circle
+\draw [line width=0.016cm] (3.500000,4.000000) circle (0.040000);%
+\draw (3.500000,4.000000) node [anchor=south] { $C$ };%
+
+% Marking point A_l by circle
+\draw [line width=0.016cm] (2.750000,2.500000) circle (0.040000);%
+\draw (2.750000,2.500000) node [anchor=east] { $A_l$ };%
+
+% Marking point B_l by circle
+\draw [line width=0.016cm] (5.250000,2.500000) circle (0.040000);%
+\draw (5.250000,2.500000) node [anchor=west] { $B_l$ };%
+}
+\end{tikzpicture}
