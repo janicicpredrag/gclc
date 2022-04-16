@@ -703,7 +703,7 @@ void MainWindow::displayAbout() {
   QMessageBox::about(this, tr("About"),
                      tr("This is GCLC 2022 \n Developed and copyright "
                         "(c) 1995-2022 by \n Predrag Janicic, University of "
-                        "Belgrade.\nLicensed under the MIT Licence."));
+                        "Belgrade.\nLicensed under the Creative Commons licence CC BY-ND."));
 }
 
 // --------------------------------------------------------------------------------------------

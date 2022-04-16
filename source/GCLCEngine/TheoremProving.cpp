@@ -20,7 +20,7 @@ GCLCError CGCLC::get_conjecture() {
                               "\" proof_limit=\"" + i2s(GetProofLimit()) +
                               "\">\n");
 
-      GetConjecture().PrintXML(m_hXMLOutput, 3);
+      GetConjecture()->PrintXML(m_hXMLOutput, 3);
       Print(m_hXMLOutput, "\t\t</prove>\n");
 
       m_CurrentXMLgroup = eXMLconjecture;

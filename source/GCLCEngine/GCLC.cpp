@@ -443,7 +443,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   AddToLog("GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
   AddToLog("Copyright (c) 1995-2022 by Predrag Janicic, University of "
            "Belgrade.\n");
-  AddToLog("Licensed under the MIT Licence.\n");
+  AddToLog("Licensed under the Creative Commons licence CC BY-ND.\n");
   // AddToLog("\n");
   // AddToLog("\n");
 

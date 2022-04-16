@@ -13,6 +13,7 @@ CAreaMethod::CAreaMethod() {
   m_iNumberOfEliminationSteps = 0;
   m_iNumberOfGeometricSteps = 0;
   m_iNumberOfAlgebraicSteps = 0;
+  m_ConjecturesCount = 0;
 }
 
 // ----------------------------------------------------------------------------
@@ -26,15 +27,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   int o1, o2;
 
   eGCLC_conjecture_status status;
-
-  bool bSameConj = false;
-  if (m_Conjecture == Conj)
-    bSameConj = true;
-
-  CGCLCProverExpression OldConjecture_left, OldConjecture_right;
-  if (!bSameConj)
-    m_Conjecture.Push(OldConjecture_left, OldConjecture_right, Conj);
-
+  Push(Conj);
   m_iProofDepth++;
 
   if (m_iProofDepth > 0) {
@@ -55,7 +48,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   }
 
   if ((m_iProofDepth == 0) || ((m_iProofDepth > 0) && (m_iProofLevel >= 3)))
-    OutputStep(m_Conjecture, "the statement", eps_statement);
+    OutputStep(*m_pConjecture, "the statement", eps_statement);
 
   for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.end();
        it != m_ProverCommands.begin();) {
@@ -64,30 +57,29 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
     //-Geometric simplifications ----------------------------------------
     bool bChanged_geo = false;
 
-    while (ZeroGeometryQuantity(m_Conjecture))
+    while (ZeroGeometryQuantity(*m_pConjecture))
       bChanged_geo = true;
-    while (Company(m_Conjecture, m_Conjecture))
+    while (Company(*m_pConjecture, *m_pConjecture))
       bChanged_geo = true;
 
     if ((it->type == p_inter) || (it->type == p_pratio) ||
         (it->type == p_tratio) || (it->type == p_foot))
-      while (Orient(it->arg[0], m_Conjecture))
+      while (Orient(it->arg[0], *m_pConjecture))
         bChanged_geo = true;
 
     if (bChanged_geo)
-      OutputStep(m_Conjecture, "geometric simplifications",
+      OutputStep(*m_pConjecture, "geometric simplifications",
                  eps_grouped_geometric);
 
     if (!AlgebraicSimplification(2, &status)) {
-      if (!bSameConj)
-        m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
+      Pop();
       return status;
     }
 
     //-Elimination stuff -----------------------------------------------
     bool bChanged = false;
 
-    o1 = PointOccurences(it->arg[0], m_Conjecture);
+    o1 = PointOccurences(it->arg[0], *m_pConjecture);
 
     bool bTimeOut = Timeout();
     if (Timeout() ||
@@ -115,9 +107,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       PrintXML(string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
-      if (!bSameConj)
-        m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
-
+      Pop();
       if (bTimeOut)
         return e_unknown_timeout;
       else
@@ -135,24 +125,23 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
 
     case p_inter:
       bChanged =
-          EliminatePoint(e_IntersectionPoint, it->arg[0], it, m_Conjecture);
+          EliminatePoint(e_IntersectionPoint, it->arg[0], it, *m_pConjecture);
       break;
 
     case p_pratio:
-      bChanged = EliminatePoint(e_PratioPoint, it->arg[0], it, m_Conjecture);
+      bChanged = EliminatePoint(e_PratioPoint, it->arg[0], it, *m_pConjecture);
       break;
 
     case p_tratio:
-      bChanged = EliminatePoint(e_TratioPoint, it->arg[0], it, m_Conjecture);
+      bChanged = EliminatePoint(e_TratioPoint, it->arg[0], it, *m_pConjecture);
       break;
 
     case p_foot:
-      bChanged = EliminatePoint(e_FootPoint, it->arg[0], it, m_Conjecture);
+      bChanged = EliminatePoint(e_FootPoint, it->arg[0], it, *m_pConjecture);
       break;
 
     default:
-      if (!bSameConj)
-        m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
+      Pop();
 
       PrintLaTeX("\\end{displayproof}\n\n");
       PrintLaTeX("\n\nThe conjecture out of scope of the prover.");
@@ -167,7 +156,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       return e_construction_out_of_scope;
     }
 
-    o2 = PointOccurences(it->arg[0], m_Conjecture);
+    o2 = PointOccurences(it->arg[0], *m_pConjecture);
     if (((it->type == p_inter) || (it->type == p_pratio) ||
          (it->type == p_tratio) || (it->type == p_foot))) {
       if (o2 != 0) {
@@ -186,8 +175,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
                    "conjecture (required elimination not "
                    "available).\n\n");
           PrintXML("</main_proof>\n\n");
-          if (!bSameConj)
-            m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
+          Pop();
           return e_unknown;
         } else
           it++;
@@ -196,57 +184,54 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   }
 
   if (!AlgebraicSimplification(2, &status)) {
-    if (!bSameConj)
-      m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
+    Pop();
     return status;
   }
 
   //-Geometric simplifications ----------------------------------------
   bool bChanged_geo = false;
 
-  if (S4_to_S3(m_Conjecture))
+  if (S4_to_S3(*m_pConjecture))
     bChanged_geo = true;
-  if (P4_to_P3(m_Conjecture))
+  if (P4_to_P3(*m_pConjecture))
     bChanged_geo = true;
-  while (H4points(m_Conjecture))
+  while (H4points(*m_pConjecture))
     bChanged_geo = true;
-  while (ZeroGeometryQuantity(m_Conjecture))
+  while (ZeroGeometryQuantity(*m_pConjecture))
     bChanged_geo = true;
-  while (Company(m_Conjecture, m_Conjecture))
+  while (Company(*m_pConjecture, *m_pConjecture))
     bChanged_geo = true;
 
   if (bChanged_geo)
-    OutputStep(m_Conjecture, "geometric simplifications",
+    OutputStep(*m_pConjecture, "geometric simplifications",
                eps_grouped_geometric);
 
   if (!AlgebraicSimplification(2, &status)) {
-    if (!bSameConj)
-      m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
+    Pop();
     return status;
   }
 
-  if (P3_to_segments(m_Conjecture))
+  if (P3_to_segments(*m_pConjecture))
     bChanged_geo = true;
-  while (Company(m_Conjecture, m_Conjecture))
+  while (Company(*m_pConjecture, *m_pConjecture))
     bChanged_geo = true;
 
   if (bChanged_geo)
-    OutputStep(m_Conjecture, "geometric simplifications",
+    OutputStep(*m_pConjecture, "geometric simplifications",
                eps_grouped_geometric);
 
   if (!AlgebraicSimplification(0, &status)) {
-    if (!bSameConj)
-      m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
+    Pop();
     return status;
   }
 
   eGCLC_conjecture_status s;
-  if (m_Conjecture.GetArg(0) == m_Conjecture.GetArg(1))
+  if (m_pConjecture->GetArg(0) == m_pConjecture->GetArg(1))
     s = e_proved;
-  else if ((m_Conjecture.GetArg(0).GetType() == ep_number &&
-            m_Conjecture.GetArg(1).GetType() == ep_number &&
-            m_Conjecture.GetArg(0).GetNumber() !=
-                m_Conjecture.GetArg(1).GetNumber()))
+  else if ((m_pConjecture->GetArg(0).GetType() == ep_number &&
+            m_pConjecture->GetArg(1).GetType() == ep_number &&
+            m_pConjecture->GetArg(0).GetNumber() !=
+                m_pConjecture->GetArg(1).GetNumber()))
     s = e_disproved;
   else
     s = e_unknown;
@@ -280,11 +265,29 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
     }
   }
 
-  if (!bSameConj)
-    m_Conjecture.Pop(OldConjecture_left, OldConjecture_right);
-
+  Pop();
   m_iProofDepth--;
   return s;
+}
+
+// ----------------------------------------------------------------------------
+
+void CAreaMethod::Push(const CGCLCProverExpression &Conj)
+{
+    m_ConjecturesStack[m_ConjecturesCount] = Conj;
+    m_pConjecture = &m_ConjecturesStack[m_ConjecturesCount];
+    m_ConjecturesCount++;
+}
+
+// ----------------------------------------------------------------------------
+
+void CAreaMethod::Pop()
+{
+    m_ConjecturesCount--;
+    if (m_ConjecturesCount == 0)
+      m_pConjecture = NULL;
+    else
+      m_pConjecture = &m_ConjecturesStack[m_ConjecturesCount-1];
 }
 
 // ----------------------------------------------------------------------------
@@ -301,23 +304,23 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
   while (bChanged_alg) {
     // int ExceptLast = exceptlast; // except OneSide
     bChanged_alg =
-        m_Conjecture.ApplyAllSimpleAlgebraicRules(sRuleApplied, exceptlast);
+        m_pConjecture->ApplyAllSimpleAlgebraicRules(sRuleApplied, exceptlast);
     if (bChanged_alg) {
-      OutputStep(m_Conjecture, sRuleApplied, eps_algebraic);
+      OutputStep(*m_pConjecture, sRuleApplied, eps_algebraic);
       bChanged_grouped = true;
     }
 
     if (!bChanged_alg)
-      if (CancelMult(m_Conjecture)) {
+      if (CancelMult(*m_pConjecture)) {
         bChanged_alg = true;
         bChanged_grouped = true;
       }
 
     if (!bChanged_alg) {
       bChanged_alg =
-          m_Conjecture.ApplyAllComplexAlgebraicRules(sRuleApplied, exceptlast);
+          m_pConjecture->ApplyAllComplexAlgebraicRules(sRuleApplied, exceptlast);
       if (bChanged_alg) {
-        OutputStep(m_Conjecture, sRuleApplied, eps_algebraic);
+        OutputStep(*m_pConjecture, sRuleApplied, eps_algebraic);
         bChanged_grouped = true;
       }
     }
@@ -360,7 +363,7 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
   }
 
   if (bChanged_grouped)
-    OutputStep(m_Conjecture, "algebraic simplifications",
+    OutputStep(*m_pConjecture, "algebraic simplifications",
                eps_grouped_algebraic);
 
   return true;
@@ -394,7 +397,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       exp = (n1 * n2);
 
       // Lemma 2.1-1
-      OutputStep(m_Conjecture, "Lemma 10", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 10", eps_geometric_simplification);
       return true;
     }
 
@@ -407,8 +410,8 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
                                         exp.GetArgName(3), exp.GetArgName(2));
       exp = (n1 * n2);
 
-      // OutputStep(m_Conjecture,"Lemma 2.1-1",eps_geometric_simplification);
-      OutputStep(m_Conjecture, "Lemma 10", eps_geometric_simplification);
+      // OutputStep(*m_pConjecture,"Lemma 2.1-1",eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 10", eps_geometric_simplification);
       return true;
     }
 
@@ -425,7 +428,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       exp.SetArgName(1, s);
 
       // Lemma 2.2-1
-      OutputStep(m_Conjecture, "Lemma 1", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 1", eps_geometric_simplification);
       return true;
     }
 
@@ -439,7 +442,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       exp.SetArgName(1, s);
 
       // Lemma 2.2-1
-      OutputStep(m_Conjecture, "Lemma 1", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 1", eps_geometric_simplification);
       return true;
     }
     return false;
@@ -454,7 +457,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       exp.SetArgName(2, s);
 
       // Lemma 2.2-1
-      OutputStep(m_Conjecture, "Lemma 18", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 18", eps_geometric_simplification);
       return true;
     }
     return false;
@@ -470,7 +473,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       CGCLCProverExpression n2 = CGCLCProverExpression::s3(
           exp.GetArgName(0), exp.GetArgName(2), exp.GetArgName(3));
       exp = (n1 + n2);
-      OutputStep(m_Conjecture, "Definition 4", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Definition 4", eps_geometric_simplification);
       return true;
     }
     return false;
@@ -486,7 +489,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       CGCLCProverExpression n3(-1.0);
       exp = (n1 + (n3 * n2));
 
-      OutputStep(m_Conjecture, "Definition 6", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Definition 6", eps_geometric_simplification);
       return true;
     }
     return false;
@@ -591,7 +594,7 @@ bool CAreaMethod::FindingCompany(CGCLCProverExpression &exp,
       exp.SetArgName(1, target_exp.GetArgName(1));
 
       // Lemma (AB = BA)
-      OutputStep(m_Conjecture, "equality of segments",
+      OutputStep(*m_pConjecture, "equality of segments",
                  eps_geometric_simplification);
       return true;
     }
@@ -619,8 +622,8 @@ bool CAreaMethod::FindingCompany(CGCLCProverExpression &exp,
       exp.SetArgName(1, target_exp.GetArgName(1));
       exp.SetArgName(2, target_exp.GetArgName(2));
 
-      // OutputStep(m_Conjecture,"Lemma 2.2-1",eps_geometric_simplification);
-      OutputStep(m_Conjecture, "Lemma 1", eps_geometric_simplification);
+      // OutputStep(*m_pConjecture,"Lemma 2.2-1",eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 1", eps_geometric_simplification);
       return true;
     }
 
@@ -642,7 +645,7 @@ bool CAreaMethod::FindingCompany(CGCLCProverExpression &exp,
                                target_exp.GetArgName(2));
       exp = (n1 * n2);
       // Lemma 2.2-1
-      OutputStep(m_Conjecture, "Lemma 1", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 1", eps_geometric_simplification);
       return true;
     }
     return false;
@@ -665,7 +668,7 @@ bool CAreaMethod::FindingCompany(CGCLCProverExpression &exp,
       exp.SetArgName(1, target_exp.GetArgName(1));
       exp.SetArgName(2, target_exp.GetArgName(2));
 
-      OutputStep(m_Conjecture, "Lemma 18", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 18", eps_geometric_simplification);
       return true;
     }
 
@@ -678,7 +681,7 @@ bool CAreaMethod::FindingCompany(CGCLCProverExpression &exp,
       exp.SetArgName(1, target_exp.GetArgName(1));
       exp.SetArgName(2, target_exp.GetArgName(0));
 
-      OutputStep(m_Conjecture, "Lemma 19 ($P_{ABA}=P_{BAB}$)",
+      OutputStep(*m_pConjecture, "Lemma 19 ($P_{ABA}=P_{BAB}$)",
                  eps_geometric_simplification);
       return true;
     }
@@ -719,7 +722,7 @@ bool CAreaMethod::ZeroGeometryQuantity(CGCLCProverExpression &exp) {
       // AA = 0
       exp = 0.0;
       // Lemma
-      OutputStep(m_Conjecture, "by zero segment", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "by zero segment", eps_geometric_simplification);
       return true;
     }
     break;
@@ -728,8 +731,8 @@ bool CAreaMethod::ZeroGeometryQuantity(CGCLCProverExpression &exp) {
     if (exp.GetArgName(0) == exp.GetArgName(1)) {
       // AA/BC -> 0
       exp = 0.0;
-      // OutputStep(m_Conjecture,"Lemma 2.1",eps_geometric_simplification);
-      OutputStep(m_Conjecture, "Lemma 11", eps_geometric_simplification);
+      // OutputStep(*m_pConjecture,"Lemma 2.1",eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 11", eps_geometric_simplification);
       return true;
     }
     break;
@@ -741,14 +744,14 @@ bool CAreaMethod::ZeroGeometryQuantity(CGCLCProverExpression &exp) {
       // S_AAB -> 0
       exp = 0.0;
       // Lemma 2.2-2
-      OutputStep(m_Conjecture, "Lemma 2 (equal)", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 2 (equal)", eps_geometric_simplification);
       return true;
     }
     if (Collinear(exp.GetArgName(0), exp.GetArgName(1), exp.GetArgName(2))) {
       // S_ABC -> 0
       exp = 0.0;
       // Lemma 2.2-2
-      OutputStep(m_Conjecture, "Lemma 2 (collinearity)",
+      OutputStep(*m_pConjecture, "Lemma 2 (collinearity)",
                  eps_geometric_simplification);
       return true;
     }
@@ -760,7 +763,7 @@ bool CAreaMethod::ZeroGeometryQuantity(CGCLCProverExpression &exp) {
       // P_AAB -> 0
       // P_BAA -> 0
       exp = 0.0;
-      OutputStep(m_Conjecture, "Lemma 17", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 17", eps_geometric_simplification);
       return true;
     }
     break;
@@ -830,7 +833,6 @@ bool CAreaMethod::EliminatePoint(GCLCpoint_type ptype, const string &sPoint,
   case ep_p4:
 
     r = false;
-
     if (ptype == e_IntersectionPoint)
       r = EliminateIntersectionPoint(sPoint, pCommand, exp);
 
@@ -872,7 +874,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       // Lemma 2.4
       string sExplanation = "Lemma 8 (point $" + sPoint + "$ eliminated)";
 
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -888,7 +890,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (n1 / n2);
 
       string sExplanation = "Lemma 8 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -944,7 +946,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       // Lemma 4.8
       string sExplanation =
           (string) "Lemma 37 " + sCond + " (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -999,7 +1001,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       string sExplanation = (string) "Lemma 37 (reciprocial " + sCond +
                             ") (point $" + sPoint + "$ eliminated)";
 
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1042,7 +1044,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
 
       // Lemma 4.2
       string sExplanation = "Lemma 30 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1077,7 +1079,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
 
       // Lemma 4.3 (II)
       string sExplanation = "Lemma 32 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1154,7 +1156,7 @@ bool CAreaMethod::EliminatePratioPoint(
 
       // Lemma 4.10
       string sExplanation = "Lemma 39 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1205,7 +1207,7 @@ bool CAreaMethod::EliminatePratioPoint(
       // Lemma 4.10 (reciprocial)
       string sExplanation =
           "Lemma 39 (reciprocial) (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1254,7 +1256,7 @@ bool CAreaMethod::EliminatePratioPoint(
       exp = (GW + (nR * (GV + (n * GU))));
       // Lemma 4.1
       string sExplanation = "Lemma 29 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1287,7 +1289,7 @@ bool CAreaMethod::EliminatePratioPoint(
 
       // Lemma 4.4
       string sExplanation = "Lemma 33 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1356,7 +1358,7 @@ bool CAreaMethod::EliminateFootPoint(
       // Lemma 4.9
       string sExplanation =
           (string) "Lemma 38 " + sCond + " (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1400,7 +1402,7 @@ bool CAreaMethod::EliminateFootPoint(
 
       // Lemma 4.3
       string sExplanation = "Lemma 31 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1434,7 +1436,7 @@ bool CAreaMethod::EliminateFootPoint(
 
       // Lemma 4.3
       string sExplanation = "Lemma 32 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1509,7 +1511,7 @@ bool CAreaMethod::EliminateTratioPoint(
 
       // Lemma 4.11
       string sExplanation = "Lemma 40 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1556,7 +1558,7 @@ bool CAreaMethod::EliminateTratioPoint(
 
       // Lemma 4.11
       string sExplanation = "Lemma 40 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
     return false;
@@ -1607,7 +1609,7 @@ bool CAreaMethod::EliminateTratioPoint(
 
       // Lemma 4.6
       string sExplanation = "Lemma 35 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1631,7 +1633,7 @@ bool CAreaMethod::EliminateTratioPoint(
 
       // Lemma 4.7
       string sExplanation = "Lemma 36 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
     return false;
@@ -1651,7 +1653,7 @@ bool CAreaMethod::EliminateTratioPoint(
 
       // Lemma 4.5
       string sExplanation = "Lemma 34 (point $" + sPoint + "$ eliminated)";
-      OutputStep(m_Conjecture, sExplanation, eps_geometric_elimination);
+      OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
 
@@ -1697,7 +1699,7 @@ bool CAreaMethod::S4_to_S3(CGCLCProverExpression &exp) {
                                     exp.GetArgName(2)) +
           CGCLCProverExpression::s3(exp.GetArgName(0), exp.GetArgName(2),
                                     exp.GetArgName(3));
-    OutputStep(m_Conjecture, "Definition 4", eps_geometric_simplification);
+    OutputStep(*m_pConjecture, "Definition 4", eps_geometric_simplification);
     return true;
 
   default:
@@ -1743,7 +1745,7 @@ bool CAreaMethod::P4_to_P3(CGCLCProverExpression &exp) {
                                                exp.GetArgName(1),
                                                exp.GetArgName(3)));
 
-    OutputStep(m_Conjecture, "Definition 6", eps_geometric_simplification);
+    OutputStep(*m_pConjecture, "Definition 6", eps_geometric_simplification);
     return true;
 
     break;
@@ -1788,7 +1790,7 @@ bool CAreaMethod::P3_to_segments(CGCLCProverExpression &exp) {
     if (exp.GetArgName(0) == exp.GetArgName(2)) {
       n1 = CGCLCProverExpression::segment(exp.GetArgName(0), exp.GetArgName(1));
       exp = nTwo * (n1 * n1);
-      OutputStep(m_Conjecture, "Lemma 19", eps_geometric_simplification);
+      OutputStep(*m_pConjecture, "Lemma 19", eps_geometric_simplification);
       return true;
     }
 
@@ -1797,7 +1799,7 @@ bool CAreaMethod::P3_to_segments(CGCLCProverExpression &exp) {
     n7 = CGCLCProverExpression::segment(exp.GetArgName(0), exp.GetArgName(2));
 
     exp = (((n1 * n1) + (n4 * n4)) + (nNegOne * (n7 * n7)));
-    OutputStep(m_Conjecture, "Definition 5", eps_geometric_simplification);
+    OutputStep(*m_pConjecture, "Definition 5", eps_geometric_simplification);
     return true;
 
   default:
@@ -1828,11 +1830,11 @@ bool CAreaMethod::H4points(CGCLCProverExpression &exp) {
       if ((it->type == p_point) && (it->arg[0] != A) && (it->arg[0] != B) &&
           (it->arg[0] != C)) {
         D = it->arg[0];
-        if (ExistsS3similar(m_Conjecture, A, B,
+        if (ExistsS3similar(*m_pConjecture, A, B,
                             D) && // was ExistsS3 20.07.2008.
-            ExistsS3similar(m_Conjecture, A, D,
+            ExistsS3similar(*m_pConjecture, A, D,
                             C) && // was ExistsS3 20.07.2008.
-            ExistsS3similar(m_Conjecture, D, B,
+            ExistsS3similar(*m_pConjecture, D, B,
                             C) && // was ExistsS3 20.07.2008.
             A != D &&
             B != D && C != D) {
@@ -1842,12 +1844,12 @@ bool CAreaMethod::H4points(CGCLCProverExpression &exp) {
 
           CGCLCProverExpression e3(n1 + (n2 + n3));
           CGCLCProverExpression copy_exp(exp);
-          FindingCompany(m_Conjecture, copy_exp);
-          m_Conjecture.Replace(copy_exp, e3);
+          FindingCompany(*m_pConjecture, copy_exp);
+          m_pConjecture->Replace(copy_exp, e3);
 
           // Lemma 2.2-3
           string sExplanation = "Lemma 4";
-          OutputStep(m_Conjecture, sExplanation, eps_geometric_simplification);
+          OutputStep(*m_pConjecture, sExplanation, eps_geometric_simplification);
           return true;
         }
       }
@@ -2001,7 +2003,7 @@ bool CAreaMethod::ApplyAssumptions(CGCLCProverExpression &exp) {
           (it->m_Right.GetType() == ep_number)) {
         exp = it->m_Right.GetNumber();
 
-        OutputStep(m_Conjecture, "applying assumption", eps_algebraic);
+        OutputStep(*m_pConjecture, "applying assumption", eps_algebraic);
         return true;
       }
     }
@@ -2074,15 +2076,15 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
         if (r == e_proved) {
           CGCLCProverExpression LHS(*(aMultiplicants[i]));
           CGCLCProverExpression zero(0.0);
-          m_Conjecture.Replace(LHS, zero);
-          OutputStep(m_Conjecture, "by the above proved lemma.", eps_algebraic);
+          m_pConjecture->Replace(LHS, zero);
+          OutputStep(*m_pConjecture, "by the above proved lemma.", eps_algebraic);
           delete[] aMultiplicants;
           return true;
         } else if (r == e_disproved) {
           CGCLCProverExpression Factor(*aMultiplicants[i]);
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
-            OutputStep(m_Conjecture, "cancellation rule", eps_algebraic);
+            OutputStep(*m_pConjecture, "cancellation rule", eps_algebraic);
             delete[] aMultiplicants;
             return true;
           }
@@ -2096,7 +2098,7 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
             string sCond1 = "cancellation rule (assuming $" + sCond + "$)";
-            OutputStep(m_Conjecture, sCond1, eps_algebraic);
+            OutputStep(*m_pConjecture, sCond1, eps_algebraic);
             delete[] aMultiplicants;
             return true;
           }
@@ -2108,7 +2110,7 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
           CGCLCProverExpression Factor(*aMultiplicants[i]);
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
-            OutputStep(m_Conjecture, "cancellation rule", eps_algebraic);
+            OutputStep(*m_pConjecture, "cancellation rule", eps_algebraic);
 
             delete[] aMultiplicants;
             return true;

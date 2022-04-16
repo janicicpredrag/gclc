@@ -127,7 +127,7 @@ public:
   int GetProverTimeout() { return m_iProverTimeout; } // n miliseconds timeout
 
   bool ValidConjecture() { return (m_bValidConjecture); }
-  CGCLCProverExpression GetConjecture() { return m_Conjecture; }
+  const CGCLCProverExpression* GetConjecture() { return m_pConjecture; }
 
   bool Timeout();
 
@@ -163,7 +163,8 @@ protected:
   bool GetExpression(const string &conjecture, int &nPos,
                      CGCLCProverExpression &exp);
 
-  CGCLCProverExpression m_Conjecture;
+  CGCLCProverExpression m_InitialConjecture;
+  CGCLCProverExpression* m_pConjecture;
   bool m_bValidConjecture;
   list<CNewDef> m_NewDefs;
 

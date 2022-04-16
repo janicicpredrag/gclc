@@ -8,7 +8,6 @@
 static unsigned idCounter=0;
 
 Rules CGCLCProverExpression::mRules;
-// unsigned CGCLCProverExpression::idCounter;
 
 unsigned arity(enum GCLCexperssion_type type) {
   switch (type) {
@@ -97,7 +96,6 @@ operator=(const CGCLCProverExpression &r) {
     arg[i] = new CGCLCProverExpression(r.GetArg(i));
   for (unsigned i = arity(type); i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  id = idCounter++;
   return *this;
 }
 
@@ -112,7 +110,6 @@ CGCLCProverExpression &CGCLCProverExpression::operator=(const double n) {
     delete arg[i];
     arg[i] = NULL;
   }
-  id = idCounter++;
   return *this;
 }
 
@@ -307,6 +304,7 @@ void CGCLCProverExpression::Push(CGCLCProverExpression &left,
       delete arg[i];
     arg[i] = new CGCLCProverExpression(a.GetArg(i));
   }
+  SetType(ep_equality);
 }
 
 // --------------------------------------------------------------------------
@@ -320,6 +318,7 @@ void CGCLCProverExpression::Pop(CGCLCProverExpression &left,
     delete arg[1];
   arg[0] = new CGCLCProverExpression(left);
   arg[1] = new CGCLCProverExpression(right);
+  SetType(ep_equality);
 }
 
 
@@ -406,7 +405,7 @@ bool CGCLCProverExpression::Equal(const CGCLCProverExpression &r) const {
   if (type == ep_number)
     return (nNumber == r.nNumber);
   for (unsigned i = 0; i < arity(type); i++)
-    if (!(*arg[i] == *(r.arg[i])))
+    if (!(arg[i]->Equal(*r.arg[i])))
       return false;
   return true;
 }

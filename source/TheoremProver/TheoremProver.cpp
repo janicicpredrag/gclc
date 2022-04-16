@@ -137,7 +137,7 @@ bool CTheoremProver::Prove(const string &sLaTeXProof, const string &sXMLProof,
   PrintProofTitleXML(theorem);
   PrintProofTitleLatex(theorem);
 
-  Status = ProveConjecture(m_Conjecture);
+  Status = ProveConjecture(*m_pConjecture);
 
   Time = m_Timer.ElapsedTime();
   PrintProofFooter(Status);
@@ -904,7 +904,7 @@ bool CTheoremProver::CalculateCoordinates(CGCLCProverCommand &Command) const {
 // ----------------------------------------------------------------------------
 
 bool CTheoremProver::PrintList() {
-  m_Conjecture.PrettyPrint();
+  m_pConjecture->PrettyPrint();
 
   string s;
   for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
@@ -950,13 +950,14 @@ bool CTheoremProver::PrintList() {
 
 bool CTheoremProver::SetProverConjecture(const string &conjecture) {
   int nInputPos;
-  if (!GetExpression(conjecture, nInputPos, m_Conjecture))
+  if (!GetExpression(conjecture, nInputPos, m_InitialConjecture))
     return false;
 
+  m_pConjecture = &m_InitialConjecture;
   // 13.07. conjectures in natural form added
-  m_Conjecture.ToGeometricQuantities();
+  m_pConjecture->ToGeometricQuantities();
 
-  if (m_Conjecture.GetType() != ep_equality)
+  if (m_pConjecture->GetType() != ep_equality)
     return false;
 
   m_bValidConjecture = true;
@@ -979,6 +980,7 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
 
   InputString = conjecture;
   take_id(InputString, nInputPos, s);
+
   // InputString += nInputPos;
   InputString = InputString.substr(nInputPos, InputString.size() - nInputPos);
 

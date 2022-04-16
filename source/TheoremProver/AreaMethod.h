@@ -5,12 +5,15 @@
 #if !defined(AREAMETHOD_H)
 #define AREAMETHOD_H
 
+#include <vector>
 #include "TheoremProver.h"
 
 enum GCLCgeometric_rule {
   er_Orient,
   er_GeometricRuleMax,
 };
+
+const int MAX_CONJECTURES=100;
 
 enum eGCLC_proof_step {
   eps_statement,
@@ -37,6 +40,8 @@ public:
 private:
   enum eGCLC_conjecture_status
   ProveConjecture(const CGCLCProverExpression &Conj);
+  void Push(const CGCLCProverExpression &Conj);
+  void Pop();
 
   void OutputStep(const CGCLCProverExpression &exp, const string &explanation,
                   eGCLC_proof_step type);
@@ -106,6 +111,9 @@ private:
   int m_iNumberOfEliminationSteps;
   int m_iNumberOfGeometricSteps;
   int m_iNumberOfAlgebraicSteps;
+
+  unsigned m_ConjecturesCount;
+  CGCLCProverExpression m_ConjecturesStack[MAX_CONJECTURES];
 };
 
 #endif // !defined(AREAMETHOD_H)

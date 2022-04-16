@@ -2704,14 +2704,15 @@ bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
   if (!_FindLinesCircles())
     return false;
 
-  CGCLCProverExpression conjecture;
-  if (!GetExpression(strConjecture, nInputPos, conjecture)) {
+  if (!GetExpression(strConjecture, nInputPos, m_InitialConjecture)) {
     Log::PrintLogF(1, "Failed to Get Expression from input string!\n");
     return false;
   }
-  CGCLCProverExpression orig_conjecture = conjecture;
+  m_InitialConjecture.ToGeometricQuantities();
 
-  switch (conjecture.GetType()) {
+  CGCLCProverExpression orig_conjecture = m_InitialConjecture;
+
+  switch (m_InitialConjecture.GetType()) {
   case ep_equality:
   case ep_identical:
   case ep_collinear:
@@ -2726,24 +2727,24 @@ bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
     m_bValidConjecture = true;
     break;
   default:
-    Log::PrintLogF(0, "Wrong conjecture type %d!\n\n", conjecture.GetType());
+    Log::PrintLogF(0, "Wrong conjecture type %d!\n\n", m_InitialConjecture.GetType());
     break;
   }
 
   // harmonic conjecture in a form of a sratio
-  if (conjecture.GetType() == ep_harmonic) {
+  if (m_InitialConjecture.GetType() == ep_harmonic) {
     // remember original conjecture
-    vpOrigConjectures.push_back(conjecture);
-    string A = conjecture.GetArgName(0);
-    string B = conjecture.GetArgName(1);
-    string C = conjecture.GetArgName(2);
-    string D = conjecture.GetArgName(3);
-    conjecture = CGCLCProverExpression(
+    vpOrigConjectures.push_back(m_InitialConjecture);
+    string A = m_InitialConjecture.GetArgName(0);
+    string B = m_InitialConjecture.GetArgName(1);
+    string C = m_InitialConjecture.GetArgName(2);
+    string D = m_InitialConjecture.GetArgName(3);
+    m_InitialConjecture = CGCLCProverExpression(
         ep_equality, CGCLCProverExpression::sratio(A, C, C, B),
         CGCLCProverExpression::sratio(D, A, D, B));
 
-    _RationalizeConjecture(&conjecture);
-    vpConjectures.push_back(conjecture);
+    _RationalizeConjecture(&m_InitialConjecture);
+    vpConjectures.push_back(m_InitialConjecture);
     vsConjectures.push_back(strConjecture);
   } else {
 
@@ -2752,9 +2753,9 @@ bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
     // at the same time, add more conjectures if needed
     // (eg sratio implicitly implies parallel lines)
     bool rationalized = false;
-    rationalized = _RationalizeConjecture(&conjecture);
+    rationalized = _RationalizeConjecture(&m_InitialConjecture);
     // add it to the system
-    vpConjectures.push_back(conjecture);
+    vpConjectures.push_back(m_InitialConjecture);
     vsConjectures.push_back(strConjecture);
 
     if (rationalized)
@@ -2763,7 +2764,7 @@ bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
       vpOrigConjectures.push_back(0.0);
   }
 
-  m_Conjecture = conjecture;
+  m_pConjecture = &m_InitialConjecture;
   return m_bValidConjecture;
 }
 

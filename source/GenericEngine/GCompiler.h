@@ -173,7 +173,7 @@ public:
   bool ValidConjecture() {
     return m_pTheoremProver && m_pTheoremProver->ValidConjecture();
   }
-  CGCLCProverExpression GetConjecture() {
+  const CGCLCProverExpression* GetConjecture() {
     return m_pTheoremProver->GetConjecture();
   }
   string GetMethodSpecificOutput();

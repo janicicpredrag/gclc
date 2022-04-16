@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
   Print(
       cout,
       "Copyright (c) 1995-2022 by Predrag Janicic, University of Belgrade.\n");
-  Print(cout, "Licensed under the MIT Licence.\n");
+  Print(cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
   Print(cout, "\n");
 
   if (argc < 2) {
