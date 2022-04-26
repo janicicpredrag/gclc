@@ -1311,6 +1311,7 @@ void take_id(const string &sInput, int &nInputPos, string &sOutput) {
 
   do {
     sOutput += string(1, c);
+    i++;
     c = sInput[++nInputPos];
 
     if (c == '{')

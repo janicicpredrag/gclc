@@ -1698,7 +1698,7 @@ XPolynomial *CAlgMethod::_DiffRatioCondition(Point *p1, Point *p2, Point *p3,
   }
 
   Log::OutputEnumItem("Ratio of projections of the segments ($%s$, $%s$) and "
-                      "(%s, %s) on axis $%c$ equal to %.3lf",
+                      "($%s$, $%s$) on axis $%c$ equal to %.3lf",
                       p1->Name.c_str(), p2->Name.c_str(), p3->Name.c_str(),
                       p4->Name.c_str(), diffy ? 'y' : 'x', r);
   if (xp) {
