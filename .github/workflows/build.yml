@@ -46,7 +46,7 @@ jobs:
   buildWindows:
     runs-on: windows-latest
     steps:
-    - uses: ilammy/msvc-dev-cmd@v1
+    - uses: egor-tensin/setup-mingw@v2
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install QT
