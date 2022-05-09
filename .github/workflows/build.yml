@@ -61,7 +61,7 @@ jobs:
     - name: Make GUI version
       run: |
         cd source/ 
-        qmake.exe gGCLC.pro QMAKE_CXXFLAGS+=-std=gnu++11 -spec win32-g++ 
+        qmake.exe gGCLC.pro QMAKE_CXXFLAGS+=-std=gnu++11 
         mingw32-make
     - name: Rename
       run: |
