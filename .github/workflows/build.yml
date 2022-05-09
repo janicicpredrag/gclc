@@ -53,6 +53,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with:
           version: '5.10.0'
+          host: 'windows'
           target: 'desktop'
           cached: 'false'
     - name: Make CLI version
