@@ -1,0 +1,105 @@
+name: CLI Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  buildManual:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - uses: xu-cheng/latex-action@v2
+      with:
+        working_directory: manual
+        root_file: gclc_man.tex
+    - name: Upload manual
+      uses: actions/upload-artifact@master
+      with:
+        name: manual-build-artifact
+        path: manual/gclc_man.pdf
+
+  buildLinux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Install QT
+      run: |
+        sudo apt-get install qt5-default qt5-qmake -y
+    - name: Make CLI version
+      run: make
+    - name: Make GUI version
+      run: |
+        cd source/ 
+        qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro
+        make
+    - name: Upload executables
+      uses: actions/upload-artifact@master
+      with:
+        name: linux-build-artifact
+        path: |
+          executable/gclc-gui
+          executable/gclc
+  buildWindows:
+    runs-on: windows-latest
+    steps:
+    - uses: ilammy/msvc-dev-cmd@v1
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Install QT
+      uses: jurplel/install-qt-action@v2
+      with:
+          version: '5.10.0'
+          target: 'desktop'
+          cached: 'false'
+    - name: Make CLI version
+      run: make
+    - name: Make GUI version
+      run: |
+        cd source/ 
+        qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro
+        make
+    - name: Rename
+      run: |
+        cd executable/
+        ls
+        mv gclc-gui gclc-gui.exe
+    - name: Upload executables
+      uses: actions/upload-artifact@master
+      with:
+        name: windows-build-artifact
+        path: |
+          executable/gclc-gui.exe
+          executable/gclc.exe
+          
+  release:
+    runs-on: ubuntu-latest
+    needs: [buildManual, buildLinux, buildWindows]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - uses: actions/download-artifact@v3
+      with:
+        name: manual-build-artifact
+    - uses: actions/download-artifact@v3
+      with:
+        name: linux-build-artifact
+    - uses: actions/download-artifact@v3
+      with:
+        name: windows-build-artifact
+    - name: Zip Linux package
+      run: zip -r linux.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
+    - name: Zip Windows package
+      run: zip -r windows.zip gclc-gui.exe gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          files: |
+            linux.zip
+            windows.zip
+          tag_name: v0.4
+    
+    
