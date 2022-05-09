@@ -61,7 +61,7 @@ jobs:
       run: |
         cd source/ 
         qmake -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro
-        mingw32-make
+        mingw64-make
     - name: Rename
       run: |
         cd executable/
