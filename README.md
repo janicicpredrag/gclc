@@ -16,7 +16,8 @@ first version.
 GCLC has a command-line version and a version with graphical user interface.
 
 The source code and executables for Windows and Linux are available from 
-the GCLC web page.
+the [GCLC web page](http://www.matf.bg.ac.rs/~janicic/gclc/)
+or from the [Github Release page](https://github.com/janicicpredrag/gclc/releases).
 
 GCLC web page: 
     http://www.matf.bg.ac.rs/~janicic/gclc/
