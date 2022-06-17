@@ -19,13 +19,10 @@ The source code and executables for Windows and Linux are available from
 the [GCLC web page](http://www.matf.bg.ac.rs/~janicic/gclc/)
 or from the [Github Release page](https://github.com/janicicpredrag/gclc/releases).
 
-GCLC web page: 
-    http://www.matf.bg.ac.rs/~janicic/gclc/
-
 
 ## Licence
 
-This software is licensed under the MIT Licence. 
+This software is licensed under the [MIT Licence](LICENSE.md). 
 
 
 ## Executables
@@ -36,8 +33,12 @@ available in the folder 'executable'. Running these executables may
 requires installing some libraries (for instance, by 
 `sudo apt-get install qt5-default` on linux).
 
-Executables can also be built from the available source code.
+You can download latest executables (without code) from
+[Github Release page](https://github.com/janicicpredrag/gclc/releases).
+Package `windows.zip` contains Qt DLLs that can help you
+with running GUI version of GCLC.
 
+Executables can also be built from the available source code.
 
 ## Building from source code
 
@@ -135,14 +136,14 @@ If you build different makefiles, then after using qmake, use
 
 ## Input
  
-GCLC accepts files in GCL language, but can also import JavaView 
-files.
+GCLC accepts files in GCL language, but can also import
+[JavaView](http://www.javaview.de/) files.
 
 
 ## Output
 
 GCLC processes GCL files and can export generated illustrations in several 
-formats: simple LaTeX, LaTeX TikZ, LaTeX PSTricks, EPS, XML (textual 
+formats: simple LaTeX, LaTeX TikZ, LaTeX PSTricks, EPS, SVG and XML (textual 
 specification).
 
 Proofs by the automated theorem provers are generated in LaTeX form.
@@ -164,3 +165,6 @@ gclc filename -a|w|g -pic|tikz|pst|eps|svg|xml
                                 TikZ format (`tikz`), EPS format (`eps`), SVG format 
                                 (`svg`), XML textual specification (`xml`).
                                 Default value is `-pic`
+
+
+For more information see [manual](manual/gclc_man.pdf).

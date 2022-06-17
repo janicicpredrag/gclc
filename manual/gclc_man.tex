@@ -27,9 +27,13 @@
 \parbox{10em}{#4} (\theproofstepnum) \\ \\}
 
 
+\newcommand{\todayMonth}{\ifcase \month \or January\or February\or March\or %
+April\or May \or June\or July\or August\or September\or October\or November\or %
+December\fi} 
 
-\title{\gclc 2022 \\ {\it (Geometry Constructions $\rightarrow$ \LaTeX{} Converter)} \\ 
-{\bf Manua}l}
+
+\title{\gclc \number \year{} \\ {\it (Geometry Constructions $\rightarrow$ \LaTeX{} Converter)} \\ 
+{\bf Manual}}
 \author{Predrag Jani\v{c}i\'c \\
 Faculty of Mathematics \\
 Studentski trg 16 \\
@@ -38,9 +42,9 @@ Serbia \\ \\ \\
 {\sc url}:  \url{www.matf.bg.ac.rs/~janicic} \\
 e-mail:  {\tt janicic@matf.bg.ac.rs} \\ \\
 \gclc page:  \url{www.matf.bg.ac.rs/~janicic/gclc}}
-\date{April 2022 \\ \vspace*{7cm}
+\date{\todayMonth{} \number \year \\ \vspace*{7cm}
 \includegraphics[width=0.15\textwidth]{figures/CC-BY-ND.png} \\ 
-\copyright{} 1995-2022 Predrag Jani\v{c}i\'c}
+\copyright{} 1995-\number \year {} Predrag Jani\v{c}i\'c}
 \makeindex
 
 \begin{document}
