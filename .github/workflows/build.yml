@@ -59,7 +59,9 @@ jobs:
       with:
         name: manual-build-artifact
     - name: Move manual
-      run: mv gclc_man.pdf manual/gclc_man.pdf
+      run: |
+        rm manual/gclc_man.pdf
+        mv gclc_man.pdf manual/gclc_man.pdf
     - name: Install QT
       uses: jurplel/install-qt-action@v2
       with:
