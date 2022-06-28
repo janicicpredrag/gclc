@@ -1221,6 +1221,7 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
 
   if (bBracket) {
     take_text(InputString, nInputPos, s);
+
     InputString = InputString.substr(nInputPos, InputString.size() - nInputPos);
     nPos += nInputPos;
     if (!(s[0] == '}'))
@@ -1266,27 +1267,22 @@ void CTheoremProver::PrintXML(const string &s) {
 
 void take_text(const string &sInput, int &nInputPos, string &sOutput) {
   char c;
-  int i = 0;
 
   nInputPos = 0;
-
-  sOutput[0] = 0;
+  sOutput.erase();
 
   do {
     c = sInput[nInputPos++];
-  } while ((c == ' ') || (c == '\n') || (c == '\r') || (c == '\t') ||
-           (c == 9) || (c == -96));
+  } while ((c == ' ') || (c == '\n') || (c == '\r') || (c == '\t'));
 
   do {
-    sOutput[i++] = c;
+    sOutput.push_back(c);
     c = sInput[nInputPos++];
   } while (!((c == ' ') || (c == '\n') || (c == '\r') || (c == '\t') ||
-             (c == 9) || (c == 0) || (c == '}') || (c == '{')));
+             (c == 0) || (c == '}') || (c == '{')));
 
-  if ((c == '}') || (c == '{'))
+  if ((c == 0) || (c == '}') || (c == '{'))
     nInputPos--;
-
-  sOutput[i] = 0;
 }
 
 // ----------------------------------------------------------------------------
