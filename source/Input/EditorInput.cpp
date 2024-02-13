@@ -3,6 +3,7 @@
 
 #include "EditorInput.h"
 #include <QTextEdit>
+#include <QRegularExpression>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -48,8 +49,8 @@ GReturnValue QEditorInput::ReadChar(unsigned char &c) {
   return rvG_OK;
 }
 
-bool QEditorInput::EndOfInputData() { return (string_pos >= text.count()); }
+bool QEditorInput::EndOfInputData() { return (string_pos >= text.size()); }
 
-void QEditorInput::Replace(QRegExp before, QString after) {
+void QEditorInput::Replace(QRegularExpression before, QString after) {
   text.replace(before, after);
 }

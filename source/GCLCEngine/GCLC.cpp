@@ -440,8 +440,8 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   assert(!m_bWhileBlockOrProcedureCall);
   m_iErrorCode = rvGCLCNoError;
   ResetLog();
-  AddToLog("GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
-  AddToLog("Copyright (c) 1995-2022 by Predrag Janicic, University of "
+  AddToLog("GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
+  AddToLog("Copyright (c) 1995-2024 by Predrag Janicic, University of "
            "Belgrade.\n");
   AddToLog("Licensed under the Creative Commons licence CC BY-ND.\n");
   // AddToLog("\n");

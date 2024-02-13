@@ -1,4 +1,6 @@
 #include "FreePointItem.h"
+#include "qregularexpression.h"
+#include <string>
 
 // --------------------------------------------------------------------------------------------
 
@@ -39,15 +41,20 @@ void FreePointItem::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     if(m_bAnimationPoint)  {
         QString point_decl;
         double x0, y0, x1, y1;
-        QRegExp rx("\\b(point)(\\s+)" + m_Name + coordinate + coordinate + coordinate + coordinate);
+        QRegularExpression rx("\\b(point)(\\s+)" + m_Name + coordinate + coordinate + coordinate + coordinate);
 
-        while ((pos = rx.indexIn(input,pos)) != -1) {
-           point_decl = rx.cap(0);
+  //      while ((pos = rx.indexIn(input,pos)) != -1) {
+        QRegularExpressionMatchIterator i = rx.globalMatch(input);
+        while (i.hasNext()) {
+           QRegularExpressionMatch match = i.next();
+           // point_decl = rx.cap(0);
+           point_decl = match.captured();
            QTextStream myteststream(&point_decl);
            QString point, name;
            myteststream >> point >> name >> x0 >> y0 >> x1 >> y1;
+
            c.setPosition(pos);
-           pos += rx.matchedLength();
+           pos += match.capturedLength();
            c.setPosition(pos, QTextCursor::KeepAnchor);
            m_Editor->setTextCursor(c);
            m_Editor->textCursor().removeSelectedText();
@@ -60,10 +67,13 @@ void FreePointItem::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) {
         }
     }
     else  {
-        QRegExp rx("\\b(point)(\\s+)" + m_Name + coordinate + coordinate);
-        while ((pos = rx.indexIn(input,pos)) != -1) {
+        QRegularExpression rx("\\b(point)(\\s+)" + m_Name + coordinate + coordinate);
+        QRegularExpressionMatchIterator i = rx.globalMatch(input);
+        while (i.hasNext()) {
+           QRegularExpressionMatch match = i.next();
+           pos = match.capturedStart();
            c.setPosition(pos);
-           pos += rx.matchedLength();
+           pos += match.capturedLength();
            c.setPosition(pos, QTextCursor::KeepAnchor);
            m_Editor->setTextCursor(c);
            m_Editor->textCursor().removeSelectedText();

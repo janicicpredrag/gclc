@@ -10,8 +10,10 @@ linethickness 1
 drawcircle O A
 normal
 
+fontsize 20
+
 color 0 0 150 
-point S1 50 87
+point S1 50 85
 rotate S1 O 0 S1
 printat S1 {12}
 rotate S1 O -30 S1
@@ -37,13 +39,16 @@ printat S1 {10}
 rotate S1 O -30 S1
 printat S1 {11}
 
-point S1 50 85
+point S1 50 80
 point X1 0 0 -360 0  
 getx ang1 X1
 rotate S1 O ang1 S1
+linethickness -3
 drawvector O S1
+normal
 
-animation_frames 60 1
+animation_frames 61 1
+
 
 
 
