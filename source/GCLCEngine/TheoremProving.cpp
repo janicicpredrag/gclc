@@ -4,7 +4,7 @@
 
 GCLCError CGCLC::get_conjecture() {
   GCLCError iRv;
-  string text;
+  std::string text;
 
   if ((iRv = take_text(text)) != rvGCLCOK)
     return iRv;
@@ -80,7 +80,7 @@ GCLCError CGCLC::get_prover_timeout() {
 
 GCLCError CGCLC::get_prover_theorem_name() {
   GCLCError iRv;
-  string s;
+  std::string s;
   if ((iRv = take_text(s)) != rvGCLCOK)
     return iRv;
   m_ProverConfig.m_sTheoremName = s;

@@ -8,7 +8,7 @@
 
 // ----------------------------------------------------------------------------
 
-CTikZOutput::CTikZOutput(ofstream &h) : OUTPUT(h) {
+CTikZOutput::CTikZOutput(std::ofstream &h) : OUTPUT(h) {
   OUTPUT_LINE = 0;
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;
@@ -104,7 +104,7 @@ GReturnValue CTikZOutput::DrawArc(double x1, double y1, double x2, double y2,
   while (angle1 < 0.0)
     angle1 += 360;
 
-  string sPath;
+  std::string sPath;
   MakeArcPath(x1, y1, r, r, angle1, angle1 + phi, sPath);
 
   PrintToOutput("\\draw [line width=" + d2s(m_dCurrentLineWidth / 10, 3) +
@@ -117,7 +117,7 @@ GReturnValue CTikZOutput::DrawArc(double x1, double y1, double x2, double y2,
 
 GReturnValue CTikZOutput::SetColor(unsigned char r, unsigned char g,
                                    unsigned char b) {
-  string sColorName = "r" + i2s((unsigned int)r) + "g" +
+  std::string sColorName = "r" + i2s((unsigned int)r) + "g" +
                       i2s((unsigned int)g) + "b" + i2s((unsigned int)b);
   PrintToOutput("\\definecolor{" + sColorName + "}{rgb}{" +
                 d2s(r / 255.0, 6) + "," + d2s(g / 255.0, 6) + "," +
@@ -133,7 +133,7 @@ GReturnValue CTikZOutput::SetColor(unsigned char r, unsigned char g,
 
 GReturnValue CTikZOutput::SetBackgroundColor(unsigned char r, unsigned char g,
                                              unsigned char b) {
-  string sColorName = "r" + i2s((unsigned int)r) + "g" +
+  std::string sColorName = "r" + i2s((unsigned int)r) + "g" +
                       i2s((unsigned int)g) + "b" + i2s((unsigned int)b);
   PrintToOutput("\\definecolor{" + sColorName + "}{rgb}{" +
                 d2s(r / 255.0, 6) + "," + d2s(g / 255.0, 6) + "," +
@@ -186,9 +186,9 @@ GReturnValue CTikZOutput::SetThickness(double uThickness) {
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CTikZOutput::PrintText(double x, double y, const string &sPosition,
-                                    const string &sText) {
-  string position;
+GReturnValue CTikZOutput::PrintText(double x, double y, const std::string &sPosition,
+                                    const std::string &sText) {
+  std::string position;
   if (sPosition == "[rb]") {
     position = "[anchor=south east]";
     x += 1;
@@ -231,7 +231,7 @@ GReturnValue CTikZOutput::PrintText(double x, double y, const string &sPosition,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CTikZOutput::PrintComment(const string &sText) {
+GReturnValue CTikZOutput::PrintComment(const std::string &sText) {
   PrintToOutput("\n% " + sText + "\n");
   OUTPUT_LINE++;
   OUTPUT_LINE++;
@@ -240,7 +240,7 @@ GReturnValue CTikZOutput::PrintComment(const string &sText) {
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CTikZOutput::Export(const string &sText, export_type format) {
+GReturnValue CTikZOutput::Export(const std::string &sText, export_type format) {
   if (format == eTikZoutput || format == eGenericLaTeXoutput) {
     PrintToOutput("\n% Directly exported");
     PrintToOutput("\n" + sText + "\n");
@@ -302,7 +302,7 @@ GReturnValue CTikZOutput::FillEllipseArc(double x1, double y1, double a,
     }
   }
 
-  string sPath;
+  std::string sPath;
   MakeArcPath(x1, y1, a, b, phi1, phi2, sPath);
 
   if (bFillTriangle)
@@ -317,6 +317,6 @@ GReturnValue CTikZOutput::FillEllipseArc(double x1, double y1, double a,
 
 // ----------------------------------------------------------------------------
 
-void CTikZOutput::PrintToOutput(const string &s) { Print(OUTPUT, s); }
+void CTikZOutput::PrintToOutput(const std::string &s) { Print(OUTPUT, s); }
 
 // ----------------------------------------------------------------------------

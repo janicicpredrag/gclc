@@ -27,7 +27,7 @@ class Term : public Object
 {
 protected:
 	// list of powers
-	vector<Power*> _powers;
+	std::vector<Power*> _powers;
 
 public:
 	Term();

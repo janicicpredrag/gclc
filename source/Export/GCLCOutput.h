@@ -10,8 +10,6 @@
 #include <ostream>
 #include <string>
 
-using namespace std;
-
 /* ********************************************************
 The class CGCLCOutput provides an abstract interface
 common for all export formats. A support for a new
@@ -45,16 +43,16 @@ public:
   virtual GReturnValue SetBackgroundColor(unsigned char r, unsigned char g,
                                           unsigned char b) = 0;
   virtual GReturnValue SetThickness(double uThickness) = 0;
-  virtual GReturnValue PrintText(double x1, double y1, const string &sPosition,
-                                 const string &sText) = 0;
-  virtual GReturnValue PrintComment(const string &sText) = 0;
-  virtual GReturnValue Export(const string &sText, export_type format) = 0;
+  virtual GReturnValue PrintText(double x1, double y1, const std::string &sPosition,
+                                 const std::string &sText) = 0;
+  virtual GReturnValue PrintComment(const std::string &sText) = 0;
+  virtual GReturnValue Export(const std::string &sText, export_type format) = 0;
   virtual GReturnValue SetFontSize(unsigned char size) = 0;
   virtual void SetPointCounter(int /*counter*/) {}
   virtual int GetPointCounter() { return 0; }
 
 private:
-  virtual void PrintToOutput(const string &s) = 0;
+  virtual void PrintToOutput(const std::string &s) = 0;
 };
 
 #endif // !defined(GCLCOUTPUT_H)

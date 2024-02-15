@@ -4,6 +4,8 @@
 
 #include "GroebnerMethod.h"
 
+using namespace std;
+
 CGroebnerMethod::CGroebnerMethod() {
   _prover = &gb_prover; /* _prover = new Groebner(); */
 }
@@ -11,5 +13,5 @@ CGroebnerMethod::CGroebnerMethod() {
 CGroebnerMethod::~CGroebnerMethod() { /* delete _prover; */
 }
 
-const string _grName = "Groebner bases";
-const string &CGroebnerMethod::GetName() const { return _grName; }
+const std::string _grName = "Groebner bases";
+const std::string &CGroebnerMethod::GetName() const { return _grName; }

@@ -343,7 +343,7 @@ char PolyReader::_GotoNextChar(char *stream, int s) {
   return stream[s];
 }
 
-void PolyReader::PrintPolynomials(vector<XPolynomial *> &vpols, int level,
+void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
                                   int size) {
   Log::PrintLogF(1, "\\begin{eqnarray*}\n");
   Log::PrintLogF(2, "<polynomial_system>\n");

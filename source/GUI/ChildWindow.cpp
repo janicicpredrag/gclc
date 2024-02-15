@@ -142,7 +142,7 @@ bool ChildWindow::Export(enum exportFormat format, QString fileName) {
     return false;
   }
 
-  ofstream file(fileName.toStdString());
+  std::ofstream file(fileName.toStdString());
   if (!file.is_open())
     return false;
 
@@ -375,7 +375,7 @@ void ChildWindow::pickColor() {
 bool ChildWindow::ExportToXML(QString fileName) {
   QEditorInput Input(getEditor());
   QOutputLog Log(getTextOutput());
-  ofstream ho(fileName.toStdString());
+  std::ofstream ho(fileName.toStdString());
   if (!ho.is_open())
     return false;
   Log.AddText("\nExporting to XML...\n");
@@ -411,7 +411,7 @@ bool ChildWindow::Build(prover_config &Prover_params) {
     delete m_pCompiler;
   QFileInfo fileInfo(getFileName());
   Prover_params.sTheoremFileName = fileInfo.baseName().toStdString();
-  ofstream XMLoutput;
+  std::ofstream XMLoutput;
   CGCLC *pc = new CGCLC(Input, Log, Prover_params, false, XMLoutput);
   m_pCompiler = pc;
 
@@ -432,7 +432,7 @@ bool ChildWindow::Build(prover_config &Prover_params) {
 
   if (nRet != rvG_OK) {
     int nErr, nLine, nPos;
-    string sErr;
+    std::string sErr;
     m_pCompiler->GetError(nErr, sErr, nLine, nPos);
     annotateLineInEditor(nLine, QColor(255, 0, 0)); // locate error in editor
     setFileCompiled(false);
@@ -542,7 +542,7 @@ void ChildWindow::showAnimationFrame(int i) {
 
   prover_config ProverConfig;
   ProverConfig.TheoremProvingMethod = tpNone;
-  ofstream ho;
+  std::ofstream ho;
   eGCLC_conjecture_status prover_output = e_idle;
   double prover_time = 0;
   CGCLC C(Input, Log, ProverConfig, false, ho);
@@ -562,7 +562,7 @@ void ChildWindow::showAnimationFrame(int i) {
     QRegularExpressionMatchIterator i = rx_traced.globalMatch(input);
     while (i.hasNext()) {
       QRegularExpressionMatch match = i.next();
-      string v;
+      std::string v;
       point_decl = match.captured();
       QTextStream myteststream(&point_decl);
       QString trace, name;
@@ -575,10 +575,10 @@ void ChildWindow::showAnimationFrame(int i) {
 
           size_t pos1 = v.find('(', 0) + 1;
           size_t pos2 = v.find(',', 0) + 2;
-          bool b1 = (pos1 == string::npos
+          bool b1 = (pos1 == std::string::npos
                          ? false
                          : convert(v.substr(pos1, pos2 - pos1 - 2), x1));
-          bool b2 = (pos1 == string::npos
+          bool b2 = (pos1 == std::string::npos
                          ? false
                          : convert(v.substr(pos2, v.size() - pos2 - 1), y1));
 
@@ -771,7 +771,7 @@ void ChildWindow::updateWatchWindow(CGCompiler *pc) {
     return;
 
   QString name;
-  string v;
+  std::string v;
 
   for (int row = 0; row < 10; row++) {
     name = m_Watch->getObjectName(row, 0);
@@ -790,7 +790,7 @@ void ChildWindow::updateWatchWindow(CGCompiler *pc) {
 void ChildWindow::updateWatchCell(int row, int column) {
   GReturnValue rv;
   QString name;
-  string v;
+  std::string v;
   if (column != 0)
     return;
   name = m_Watch->getObjectName(row, 0);

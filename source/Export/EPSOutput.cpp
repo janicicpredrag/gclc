@@ -12,7 +12,7 @@
 
 // ----------------------------------------------------------------------------
 
-CEPSOutput::CEPSOutput(ofstream &h) : OUTPUT(h) {
+CEPSOutput::CEPSOutput(std::ofstream &h) : OUTPUT(h) {
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;
   m_iCurrentFontSize = 8;
@@ -83,8 +83,8 @@ GReturnValue CEPSOutput::SetBackgroundColor(unsigned char r, unsigned char g,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CEPSOutput::PrintText(double x, double y, const string &sPosition,
-                                   const string &sText) {
+GReturnValue CEPSOutput::PrintText(double x, double y, const std::string &sPosition,
+                                   const std::string &sText) {
   PrintToOutput(d2s((X_OFFSET + x) * SCALE, 2) + " " +
                 d2s((Y_OFFSET + y) * SCALE, 2) + " moveto\n");
   if (sPosition == "[rb]") {
@@ -126,14 +126,14 @@ GReturnValue CEPSOutput::PrintText(double x, double y, const string &sPosition,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CEPSOutput::PrintComment(const string &sText) {
+GReturnValue CEPSOutput::PrintComment(const std::string &sText) {
   PrintToOutput("\n% " + sText + "\n");
   return rvG_OK;
 }
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CEPSOutput::Export(const string &sText, export_type format) {
+GReturnValue CEPSOutput::Export(const std::string &sText, export_type format) {
   if (format == eEPSoutput) {
     PrintToOutput("\n% Directly exported");
     PrintToOutput("\n" + sText + "\n");
@@ -299,6 +299,6 @@ GReturnValue CEPSOutput::FillEllipseArc(double x1, double y1, double a,
 
 // ----------------------------------------------------------------------------
 
-void CEPSOutput::PrintToOutput(const string &s) { Print(OUTPUT, s); }
+void CEPSOutput::PrintToOutput(const std::string &s) { Print(OUTPUT, s); }
 
 // ----------------------------------------------------------------------------

@@ -35,7 +35,7 @@ class CAreaMethod : public CTheoremProver {
 public:
   CAreaMethod();
   virtual ~CAreaMethod();
-  const string &GetName() const;
+  const std::string &GetName() const;
 
 private:
   enum eGCLC_conjecture_status
@@ -43,29 +43,29 @@ private:
   void Push(const CGCLCProverExpression &Conj);
   void Pop();
 
-  void OutputStep(const CGCLCProverExpression &exp, const string &explanation,
+  void OutputStep(const CGCLCProverExpression &exp, const std::string &explanation,
                   eGCLC_proof_step type);
   void OutputLaTeXStep(const CGCLCProverExpression &exp,
-                       const string &explanation, eGCLC_proof_step type);
+                       const std::string &explanation, eGCLC_proof_step type);
   void OutputXMLStep(const CGCLCProverExpression &exp,
-                     const string &explanation, eGCLC_proof_step type);
+                     const std::string &explanation, eGCLC_proof_step type);
   void PrintMethodSpecificOutput();
-  string GetMethodSpecificOutput();
+  std::string GetMethodSpecificOutput();
 
-  bool EliminatePoint(GCLCpoint_type ptype, const string &sPoint,
-                      list<CGCLCProverCommand>::iterator pCommand,
+  bool EliminatePoint(GCLCpoint_type ptype, const std::string &sPoint,
+                      std::list<CGCLCProverCommand>::iterator pCommand,
                       CGCLCProverExpression &exp);
-  bool EliminateIntersectionPoint(const string &sPoint,
-                                  list<CGCLCProverCommand>::iterator pCommand,
+  bool EliminateIntersectionPoint(const std::string &sPoint,
+                                  std::list<CGCLCProverCommand>::iterator pCommand,
                                   CGCLCProverExpression &Conjecture);
-  bool EliminatePratioPoint(const string &sPoint,
-                            list<CGCLCProverCommand>::iterator pCommand,
+  bool EliminatePratioPoint(const std::string &sPoint,
+                            std::list<CGCLCProverCommand>::iterator pCommand,
                             CGCLCProverExpression &Conjecture);
-  bool EliminateTratioPoint(const string &sPoint,
-                            list<CGCLCProverCommand>::iterator pCommand,
+  bool EliminateTratioPoint(const std::string &sPoint,
+                            std::list<CGCLCProverCommand>::iterator pCommand,
                             CGCLCProverExpression &exp);
-  bool EliminateFootPoint(const string &sPoint,
-                          list<CGCLCProverCommand>::iterator pCommand,
+  bool EliminateFootPoint(const std::string &sPoint,
+                          std::list<CGCLCProverCommand>::iterator pCommand,
                           CGCLCProverExpression &exp);
 
   bool ApplyOneGeometricRule(CGCLCProverExpression &exp,
@@ -73,7 +73,7 @@ private:
 
   bool AlgebraicSimplification(int exceptlast, eGCLC_conjecture_status *status);
 
-  bool Orient(const string &sPoint, CGCLCProverExpression &exp);
+  bool Orient(const std::string &sPoint, CGCLCProverExpression &exp);
   bool Company(const CGCLCProverExpression &exp,
                CGCLCProverExpression &top_exp);
   bool FindingCompany(CGCLCProverExpression &exp,
@@ -81,19 +81,19 @@ private:
   bool ZeroGeometryQuantity(CGCLCProverExpression &exp);
   bool ApplyAssumptions(CGCLCProverExpression &exp);
 
-  bool PointOccurs(const CGCLCProverExpression &exp, const string &A) const;
-  int PointOccurences(const string &A, const CGCLCProverExpression &exp) const;
-  eGCLC_conjecture_status ProveCollinear(const string &A, const string &B,
-                                         const string &C);
+  bool PointOccurs(const CGCLCProverExpression &exp, const std::string &A) const;
+  int PointOccurences(const std::string &A, const CGCLCProverExpression &exp) const;
+  eGCLC_conjecture_status ProveCollinear(const std::string &A, const std::string &B,
+                                         const std::string &C);
 
-  bool ExistsS3(const CGCLCProverExpression &exp, const string &A,
-                const string &B, const string &C) const;
-  bool ExistsS3similar(const CGCLCProverExpression &exp, const string &A,
-                       const string &B, const string &C) const;
-  bool ExistsP3similar(const CGCLCProverExpression &exp, const string &A,
-                       const string &B, const string &C) const;
-  bool ExistsSegmentsimilar(const CGCLCProverExpression &exp, const string &A,
-                            const string &B) const;
+  bool ExistsS3(const CGCLCProverExpression &exp, const std::string &A,
+                const std::string &B, const std::string &C) const;
+  bool ExistsS3similar(const CGCLCProverExpression &exp, const std::string &A,
+                       const std::string &B, const std::string &C) const;
+  bool ExistsP3similar(const CGCLCProverExpression &exp, const std::string &A,
+                       const std::string &B, const std::string &C) const;
+  bool ExistsSegmentsimilar(const CGCLCProverExpression &exp, const std::string &A,
+                            const std::string &B) const;
 
   bool CancelMult(CGCLCProverExpression &exp);
 
@@ -101,7 +101,7 @@ private:
   ZeroByAssumption(const CGCLCProverExpression &exp) const;
 
   double EvaluateExpression(const CGCLCProverExpression &exp) const;
-  bool GetConstant(const string &sConstant, double &r) const;
+  bool GetConstant(const std::string &sConstant, double &r) const;
 
   bool S4_to_S3(CGCLCProverExpression &exp);
   bool P4_to_P3(CGCLCProverExpression &exp);

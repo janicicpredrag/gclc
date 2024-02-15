@@ -7,6 +7,8 @@
 
 static unsigned idCounter=0;
 
+using namespace std;
+
 Rules CGCLCProverExpression::mRules;
 
 unsigned arity(enum GCLCexperssion_type type) {
@@ -116,7 +118,7 @@ CGCLCProverExpression &CGCLCProverExpression::operator=(const double n) {
 // --------------------------------------------------------------------------
 
 CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
-                                             const string &a) {
+                                             const std::string &a) {
   assert(t == ep_point || t == ep_constant);
   type = t;
   sName = a;
@@ -129,8 +131,8 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
 // --------------------------------------------------------------------------
 
 CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
-                                             const string &a0,
-                                             const string &a1) {
+                                             const std::string &a0,
+                                             const std::string &a1) {
   assert(t == ep_segment || t == ep_diffx || t == ep_diffy);
   type = t;
   nNumber = 0;
@@ -144,8 +146,8 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
 // --------------------------------------------------------------------------
 
 CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
-                                             const string &a0, const string &a1,
-                                             const string &a2) {
+                                             const std::string &a0, const std::string &a1,
+                                             const std::string &a2) {
   assert(t == ep_s3 || t == ep_p3);
   type = t;
   nNumber = 0;
@@ -159,9 +161,9 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
 // --------------------------------------------------------------------------
 
 CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
-                                             const string &a0, const string &a1,
-                                             const string &a2,
-                                             const string &a3) {
+                                             const std::string &a0, const std::string &a1,
+                                             const std::string &a2,
+                                             const std::string &a3) {
   assert(t == ep_s4 || t == ep_p4 || t == ep_segment_ratio || t == ep_parallel);
   type = t;
   nNumber = 0;
@@ -199,56 +201,56 @@ CGCLCProverExpression::CGCLCProverExpression(
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression CGCLCProverExpression::s3(const string &a0,
-                                                const string &a1,
-                                                const string &a2) {
+CGCLCProverExpression CGCLCProverExpression::s3(const std::string &a0,
+                                                const std::string &a1,
+                                                const std::string &a2) {
   CGCLCProverExpression n(ep_s3, a0, a1, a2);
   return n;
 }
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression CGCLCProverExpression::p3(const string &a0,
-                                                const string &a1,
-                                                const string &a2) {
+CGCLCProverExpression CGCLCProverExpression::p3(const std::string &a0,
+                                                const std::string &a1,
+                                                const std::string &a2) {
   CGCLCProverExpression n(ep_p3, a0, a1, a2);
   return n;
 }
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression CGCLCProverExpression::s4(const string &a0,
-                                                const string &a1,
-                                                const string &a2,
-                                                const string &a3) {
+CGCLCProverExpression CGCLCProverExpression::s4(const std::string &a0,
+                                                const std::string &a1,
+                                                const std::string &a2,
+                                                const std::string &a3) {
   CGCLCProverExpression n(ep_s4, a0, a1, a2, a3);
   return n;
 }
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression CGCLCProverExpression::p4(const string &a0,
-                                                const string &a1,
-                                                const string &a2,
-                                                const string &a3) {
+CGCLCProverExpression CGCLCProverExpression::p4(const std::string &a0,
+                                                const std::string &a1,
+                                                const std::string &a2,
+                                                const std::string &a3) {
   CGCLCProverExpression n(ep_p4, a0, a1, a2, a3);
   return n;
 }
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression CGCLCProverExpression::sratio(const string &a0,
-                                                    const string &a1,
-                                                    const string &a2,
-                                                    const string &a3) {
+CGCLCProverExpression CGCLCProverExpression::sratio(const std::string &a0,
+                                                    const std::string &a1,
+                                                    const std::string &a2,
+                                                    const std::string &a3) {
   CGCLCProverExpression n(ep_segment_ratio, a0, a1, a2, a3);
   return n;
 }
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression CGCLCProverExpression::segment(const string &a0,
-                                                     const string &a1) {
+CGCLCProverExpression CGCLCProverExpression::segment(const std::string &a0,
+                                                     const std::string &a1) {
   CGCLCProverExpression n(ep_segment, a0, a1);
   return n;
 }
@@ -359,7 +361,7 @@ void CGCLCProverExpression::SetArg(unsigned i, const CGCLCProverExpression &a) {
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::SetArgName(unsigned i, const string &s) {
+void CGCLCProverExpression::SetArgName(unsigned i, const std::string &s) {
   assert(type == ep_s3 || type == ep_p3 || type == ep_s4 || type == ep_p4 ||
          type == ep_segment_ratio || type == ep_segment ||
          type == ep_parallel || type == ep_collinear ||
@@ -374,7 +376,7 @@ void CGCLCProverExpression::SetArgName(unsigned i, const string &s) {
 
 // --------------------------------------------------------------------------
 
-string CGCLCProverExpression::GetArgName(unsigned i) const {
+std::string CGCLCProverExpression::GetArgName(unsigned i) const {
   assert(type == ep_s3 || type == ep_p3 || type == ep_s4 || type == ep_p4 ||
          type == ep_segment_ratio || type == ep_segment ||
          type == ep_parallel || type == ep_collinear ||
@@ -486,7 +488,7 @@ bool CGCLCProverExpression::Replace(const CGCLCProverExpression &LHS,
 
 // --------------------------------------------------------------------------
 
-bool CGCLCProverExpression::ApplyAllAlgebraicRules(string &sRuleApplied,
+bool CGCLCProverExpression::ApplyAllAlgebraicRules(std::string &sRuleApplied,
                                                    int iExceptLast) {
   for (unsigned i = 0; i < mRules.m_nNumberOfRules - iExceptLast; i++)
     if (ApplyOneAlgebraicRule(mRules.m_aiRule[i])) {
@@ -498,7 +500,7 @@ bool CGCLCProverExpression::ApplyAllAlgebraicRules(string &sRuleApplied,
 
 // --------------------------------------------------------------------------
 
-bool CGCLCProverExpression::ApplyAllSimpleAlgebraicRules(string &sRuleApplied,
+bool CGCLCProverExpression::ApplyAllSimpleAlgebraicRules(std::string &sRuleApplied,
                                                          int iExceptLast) {
   for (unsigned i = 0; i < 14 && i < mRules.m_nNumberOfRules - iExceptLast; i++) {
     if (ApplyOneAlgebraicRule(mRules.m_aiRule[i])) {
@@ -511,7 +513,7 @@ bool CGCLCProverExpression::ApplyAllSimpleAlgebraicRules(string &sRuleApplied,
 
 // --------------------------------------------------------------------------
 
-bool CGCLCProverExpression::ApplyAllComplexAlgebraicRules(string &sRuleApplied,
+bool CGCLCProverExpression::ApplyAllComplexAlgebraicRules(std::string &sRuleApplied,
                                                           int iExceptLast) {
   for (unsigned i = 14; i < mRules.m_nNumberOfRules - iExceptLast; i++) {
     if (ApplyOneAlgebraicRule(mRules.m_aiRule[i])) {
@@ -1477,9 +1479,9 @@ bool CGCLCProverExpression::ToGeometricQuantities() {
 
 // --------------------------------------------------------------------------
 
-bool CTheoremProver::GetPointCoordinates(const string &sPoint, double &x,
+bool CTheoremProver::GetPointCoordinates(const std::string &sPoint, double &x,
                                          double &y) const {
-  for (list<CGCLCProverCommand>::const_iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::const_iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     if ((it->type == p_point) || (it->type == p_inter) ||
         (it->type == p_pratio) || (it->type == p_tratio) ||
@@ -1648,8 +1650,8 @@ void CGCLCProverExpression::PrintLaTeX(ofstream &h) const {
 
 // --------------------------------------------------------------------------
 
-string CGCLCProverExpression::sPrintLaTeX(bool hasFractions) const {
-  string s;
+std::string CGCLCProverExpression::sPrintLaTeX(bool hasFractions) const {
+  std::string s;
   switch (type) {
   case ep_point:
     s = sName;
@@ -1844,8 +1846,8 @@ void CGCLCProverExpression::PrintXML(ofstream &h, int indent) const {
 
 // --------------------------------------------------------------------------
 
-string CGCLCProverExpression::sPrintXML(int indent) const {
-  string s;
+std::string CGCLCProverExpression::sPrintXML(int indent) const {
+  std::string s;
 
   switch (type) {
   case ep_point:

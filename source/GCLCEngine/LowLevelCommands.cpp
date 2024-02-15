@@ -89,17 +89,17 @@ GCLCError CGCLC::get_color() {
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good())
     m_sXMLNewColor =
-        string(1, (char)(((int)r) / 16 > 9 ? ((int)r) / 16 - 10 + 'A'
+        std::string(1, (char)(((int)r) / 16 > 9 ? ((int)r) / 16 - 10 + 'A'
                                            : ((int)r) / 16 + '0')) +
-        string(1, (char)((int)r) % 16 > 9 ? ((int)r) % 16 - 10 + 'A'
+        std::string(1, (char)((int)r) % 16 > 9 ? ((int)r) % 16 - 10 + 'A'
                                           : ((int)r) % 16 + '0') +
-        string(1, (char)((int)g) / 16 > 9 ? ((int)g) / 16 - 10 + 'A'
+        std::string(1, (char)((int)g) / 16 > 9 ? ((int)g) / 16 - 10 + 'A'
                                           : ((int)g) / 16 + '0') +
-        string(1, (char)((int)g) % 16 > 9 ? ((int)g) % 16 - 10 + 'A'
+        std::string(1, (char)((int)g) % 16 > 9 ? ((int)g) % 16 - 10 + 'A'
                                           : ((int)g) % 16 + '0') +
-        string(1, (char)((int)b) / 16 > 9 ? ((int)b) / 16 - 10 + 'A'
+        std::string(1, (char)((int)b) / 16 > 9 ? ((int)b) / 16 - 10 + 'A'
                                           : ((int)b) / 16 + '0') +
-        string(1, (char)((int)b) % 16 > 9 ? ((int)b) % 16 - 10 + 'A'
+        std::string(1, (char)((int)b) % 16 > 9 ? ((int)b) % 16 - 10 + 'A'
                                           : ((int)b) % 16 + '0');
   //-------- End of support for XML form ---------
 
@@ -294,7 +294,7 @@ GCLCError CGCLC::get_mcp() {
 
 GCLCError CGCLC::get_export(export_type format) {
   GCLCError iRv;
-  string text;
+  std::string text;
 
   if ((iRv = take_text(text)) != rvGCLCOK)
     return iRv;

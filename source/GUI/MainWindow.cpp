@@ -478,7 +478,7 @@ void MainWindow::ImportJavaView() {
 
   setCursor(Qt::WaitCursor);
 
-  ifstream hi(inputFileName.toStdString());
+  std::ifstream hi(inputFileName.toStdString());
   if (!hi.is_open())
     return; // printf("File error. Cannot open input file.\n");
 

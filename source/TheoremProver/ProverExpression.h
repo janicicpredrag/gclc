@@ -4,8 +4,6 @@
 #include <sstream>
 #include <string>
 
-using namespace std;
-
 enum GCLCexperssion_type {
   ep_point,
   ep_number,
@@ -64,7 +62,7 @@ enum GCLCalgebraic_rule {
 
 class Rules {
 public:
-  string m_asRuleName[er_RuleMax];
+  std::string m_asRuleName[er_RuleMax];
   GCLCalgebraic_rule m_aiRule[er_RuleMax];
   unsigned m_nNumberOfRules;
 
@@ -124,13 +122,13 @@ class CGCLCProverExpression {
 public:
   CGCLCProverExpression();
   CGCLCProverExpression(const CGCLCProverExpression &r);
-  CGCLCProverExpression(GCLCexperssion_type t, const string &arg);
-  CGCLCProverExpression(GCLCexperssion_type t, const string &a0,
-                        const string &a1);
-  CGCLCProverExpression(GCLCexperssion_type t, const string &a0,
-                        const string &a1, const string &a2);
-  CGCLCProverExpression(GCLCexperssion_type t, const string &a0,
-                        const string &a1, const string &a2, const string &a3);
+  CGCLCProverExpression(GCLCexperssion_type t, const std::string &arg);
+  CGCLCProverExpression(GCLCexperssion_type t, const std::string &a0,
+                        const std::string &a1);
+  CGCLCProverExpression(GCLCexperssion_type t, const std::string &a0,
+                        const std::string &a1, const std::string &a2);
+  CGCLCProverExpression(GCLCexperssion_type t, const std::string &a0,
+                        const std::string &a1, const std::string &a2, const std::string &a3);
   CGCLCProverExpression(const double n);
 
   virtual ~CGCLCProverExpression();
@@ -142,17 +140,17 @@ public:
                         const CGCLCProverExpression &arg0,
                         const CGCLCProverExpression &arg1);
 
-  static CGCLCProverExpression s3(const string &a0, const string &a1,
-                                  const string &a2);
-  static CGCLCProverExpression p3(const string &a0, const string &a1,
-                                  const string &a2);
-  static CGCLCProverExpression s4(const string &a0, const string &a1,
-                                  const string &a2, const string &a3);
-  static CGCLCProverExpression p4(const string &a0, const string &a1,
-                                  const string &a2, const string &a3);
-  static CGCLCProverExpression sratio(const string &a0, const string &a1,
-                                      const string &a2, const string &a3);
-  static CGCLCProverExpression segment(const string &a0, const string &a1);
+  static CGCLCProverExpression s3(const std::string &a0, const std::string &a1,
+                                  const std::string &a2);
+  static CGCLCProverExpression p3(const std::string &a0, const std::string &a1,
+                                  const std::string &a2);
+  static CGCLCProverExpression s4(const std::string &a0, const std::string &a1,
+                                  const std::string &a2, const std::string &a3);
+  static CGCLCProverExpression p4(const std::string &a0, const std::string &a1,
+                                  const std::string &a2, const std::string &a3);
+  static CGCLCProverExpression sratio(const std::string &a0, const std::string &a1,
+                                      const std::string &a2, const std::string &a3);
+  static CGCLCProverExpression segment(const std::string &a0, const std::string &a1);
 
   CGCLCProverExpression operator*(const CGCLCProverExpression &a);
   CGCLCProverExpression operator+(const CGCLCProverExpression &a);
@@ -165,31 +163,31 @@ public:
 
   double GetNumber() const { return nNumber; }
 
-  void SetName(string s) { sName = s; }
-  const string GetName() const { return sName; }
+  void SetName(std::string s) { sName = s; }
+  const std::string GetName() const { return sName; }
 
   void SetArg(unsigned i, CGCLCProverExpression *a);
   void SetArg(unsigned i, const CGCLCProverExpression &a);
-  void SetArgName(unsigned i, const string &s);
+  void SetArgName(unsigned i, const std::string &s);
   CGCLCProverExpression &GetArg(int i) const { return *arg[i]; }
   CGCLCProverExpression *GetArgP(int i) const { return arg[i]; }
-  string GetArgName(unsigned i) const;
+  std::string GetArgName(unsigned i) const;
 
   bool operator==(const CGCLCProverExpression &r) const;
   bool Equal(const CGCLCProverExpression &r) const;
 
   bool ToGeometricQuantities();
 
-  bool ApplyAllAlgebraicRules(string &sRuleApplied, int iExceptLast = 0);
-  bool ApplyAllSimpleAlgebraicRules(string &sRuleApplied, int iExceptLast = 0);
-  bool ApplyAllComplexAlgebraicRules(string &sRuleApplied, int iExceptLast = 0);
+  bool ApplyAllAlgebraicRules(std::string &sRuleApplied, int iExceptLast = 0);
+  bool ApplyAllSimpleAlgebraicRules(std::string &sRuleApplied, int iExceptLast = 0);
+  bool ApplyAllComplexAlgebraicRules(std::string &sRuleApplied, int iExceptLast = 0);
   bool ApplyOneAlgebraicRule(GCLCalgebraic_rule rule);
 
   void PrettyPrint() const;
-  void PrintLaTeX(ofstream &h) const;
-  string sPrintLaTeX(bool hasFractions = true) const;
-  void PrintXML(ofstream &h, int indent) const;
-  string sPrintXML(int indent) const;
+  void PrintLaTeX(std::ofstream &h) const;
+  std::string sPrintLaTeX(bool hasFractions = true) const;
+  void PrintXML(std::ofstream &h, int indent) const;
+  std::string sPrintXML(int indent) const;
 
   int Size();
 
@@ -215,7 +213,7 @@ private:
   GCLCexperssion_type type;
   CGCLCProverExpression *arg[ExpressionArgCount];
 
-  string sName;
+  std::string sName;
   double nNumber;
 
   bool MultiplicationOfConstants();

@@ -6,7 +6,7 @@
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_intersec() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2, o3, o4;
   double dDet;
   GCLCError iRv;
@@ -23,7 +23,7 @@ GCLCError CGCLC::get_intersec() {
     if ((fabs(o1.p[0] - o2.p[0]) <= EPS) && (fabs(o1.p[1] - o2.p[1]) <= EPS)) {
       if (ProvingTheorem()) {
         // run-time deduction check
-        string P1, P2, P3, P4;
+        std::string P1, P2, P3, P4;
         if (GetPointsOnLine(o1.name, P1, P2) &&
             GetPointsOnLine(o2.name, P3, P4))
           SetProverConjecture("parallel " + P1 + " " + P2 + " " + P3 + " " +
@@ -36,7 +36,7 @@ GCLCError CGCLC::get_intersec() {
     if (fabs(dDet) <= EPS) {
       if (ProvingTheorem()) {
         // run-time deduction check
-        string P1, P2, P3, P4;
+        std::string P1, P2, P3, P4;
         if (GetPointsOnLine(o1.name, P1, P2) &&
             GetPointsOnLine(o2.name, P3, P4))
           SetProverConjecture("parallel " + P1 + " " + P2 + " " + P3 + " " +
@@ -146,7 +146,7 @@ GCLCError CGCLC::get_intersec() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_intersec2() {
-  string sPointName1, sPointName2;
+  std::string sPointName1, sPointName2;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, y1, x2, y2, x, y, r, r1, r2, a, b, c, d, e, f;
@@ -317,7 +317,7 @@ GCLCError CGCLC::get_intersec2() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_midpoint() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
 
@@ -350,7 +350,7 @@ GCLCError CGCLC::get_midpoint() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_med() {
-  string sLineName;
+  std::string sLineName;
   GCLC_object o1, o2;
   double x1, y1, x2, y2;
   GCLCError iRv;
@@ -408,7 +408,7 @@ GCLCError CGCLC::get_med() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_bis() {
-  string sLineName;
+  std::string sLineName;
   GCLC_object o1, o2, o3;
   GCLCError iRv;
   double x, y, k, d1, d2, a, b;
@@ -513,7 +513,7 @@ GCLCError CGCLC::get_bis() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_perp() {
-  string sLineName;
+  std::string sLineName;
   GCLC_object o1, o2;
   GCLCError iRv;
 
@@ -558,7 +558,7 @@ GCLCError CGCLC::get_perp() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_foot() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double a1, a2, b1, b2, c1, c2, dDet;
@@ -608,7 +608,7 @@ GCLCError CGCLC::get_foot() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_parallel() {
-  string sLineName;
+  std::string sLineName;
   GCLC_object o1, o2;
   GCLCError iRv;
 
@@ -641,7 +641,7 @@ GCLCError CGCLC::get_parallel() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_getcenter() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o;
   GCLCError iRv;
 
@@ -656,7 +656,7 @@ GCLCError CGCLC::get_getcenter() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_onsegment() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, x2, y1, y2, k;
@@ -681,7 +681,7 @@ GCLCError CGCLC::get_onsegment() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_online() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, x2, y1, y2, k;
@@ -723,7 +723,7 @@ GCLCError CGCLC::get_online() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_oncircle() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, x2, y1, y2, k, x, y;

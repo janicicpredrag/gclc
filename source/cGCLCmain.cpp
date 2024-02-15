@@ -16,11 +16,9 @@
 #include <fstream>
 #include <iostream>
 
-using namespace std;
-
-GReturnValue BatchProcess(export_type eOutputType, ifstream &hi, ofstream &hl,
-                          ofstream &ho, int iCounter);
-bool TakeNextGCLCBlock(CGCLCInput &Input, ofstream &ho, string &block_text,
+GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstream &hl,
+                          std::ofstream &ho, int iCounter);
+bool TakeNextGCLCBlock(CGCLCInput &Input, std::ofstream &ho, std::string &block_text,
                        int &new_lines, int &start_new_lines);
 
 // ----------------------------------------------------------------------------
@@ -28,20 +26,20 @@ bool TakeNextGCLCBlock(CGCLCInput &Input, ofstream &ho, string &block_text,
 int main(int argc, char *argv[]) {
   int iErrorCode, iLine, iPos, iCounter, i;
   bool bBatchMode = false;
-  string sInputFileName, sOutputFileName, sErrorMessage;
+  std::string sInputFileName, sOutputFileName, sErrorMessage;
   setlocale(LC_ALL, "en_GB");
   srand((unsigned)time(NULL));
 
-  Print(cout, "\n");
-  Print(cout, "GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
+  Print(std::cout, "\n");
+  Print(std::cout, "GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
   Print(
-      cout,
+      std::cout,
       "Copyright (c) 1995-2022 by Predrag Janicic, University of Belgrade.\n");
-  Print(cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
-  Print(cout, "\n");
+  Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
+  Print(std::cout, "\n");
 
   if (argc < 2) {
-    Print(cout, "Error in command line. Input file not specified.\n");
+    Print(std::cout, "Error in command line. Input file not specified.\n");
     return -1;
   }
 
@@ -51,18 +49,18 @@ int main(int argc, char *argv[]) {
                          // inserting figures)
 
   sInputFileName.assign(argv[1]);
-  ifstream hi(sInputFileName.c_str());
+  std::ifstream hi(sInputFileName.c_str());
   if (!hi.is_open()) {
     sInputFileName += bBatchMode ? ".tex" : ".gcl";
     hi.open(sInputFileName.c_str());
     if (!hi.is_open()) {
-      Print(cout, "File error. Cannot open input file.\n");
+      Print(std::cout, "File error. Cannot open input file.\n");
       return -1;
     }
   }
 
   export_type eOutputType = eLaTeXoutput; // default (pic format)
-  string Ext = ".pic";
+  std::string Ext = ".pic";
   for (i = 1; i < argc; i++) {
     if (!strcmp(argv[i], "-xml")) { // Support for XML output
       eOutputType = eXMLoutput;
@@ -85,13 +83,13 @@ int main(int argc, char *argv[]) {
       Ext = ".pst";
     }
   }
-  ofstream ho;
+  std::ofstream ho;
   for (i = 2; i < argc; i++) {
     if (argv[i][0] != '-' && !convert_int(argv[i], iCounter)) {
       sOutputFileName.assign(argv[i]);
       ho.open(sOutputFileName.c_str());
       if (!ho.is_open()) {
-        Print(cout, "File error. Cannot open output file.\n");
+        Print(std::cout, "File error. Cannot open output file.\n");
         hi.close();
         return -1;
       }
@@ -106,7 +104,7 @@ int main(int argc, char *argv[]) {
       sOutputFileName += Ext;
     ho.open(sOutputFileName.c_str());
     if (!ho.is_open()) {
-      Print(cout,
+      Print(std::cout,
             "File error. Cannot open output file (" + sOutputFileName + ").\n");
       hi.close();
       return -1;
@@ -121,20 +119,20 @@ int main(int argc, char *argv[]) {
         iCounter = c;
   }
 
-  ofstream hl("gclc.log");
+  std::ofstream hl("gclc.log");
   if (!hl.is_open()) {
-    Print(cout, "File error. Cannot open log file.\n");
+    Print(std::cout, "File error. Cannot open log file.\n");
     hi.close();
     ho.close();
     return -1;
   }
 
-  Print(cout, "Input file: " + sInputFileName + "\n");
-  Print(cout, "Output file: " + sOutputFileName + "\n");
-  Print(cout, "Log file: gclc.log\n\n");
+  Print(std::cout, "Input file: " + sInputFileName + "\n");
+  Print(std::cout, "Output file: " + sOutputFileName + "\n");
+  Print(std::cout, "Log file: gclc.log\n\n");
 
   if (eOutputType == eLaTeXoutput)
-    Print(cout, "Starting point number: " + i2s(iCounter) + "\n");
+    Print(std::cout, "Starting point number: " + i2s(iCounter) + "\n");
 
   // support for batch mode
   if (bBatchMode) {
@@ -184,33 +182,33 @@ int main(int argc, char *argv[]) {
 
   if (r == rvG_OK) {
     if (prover_output != e_idle) {
-      Print(cout, C.GetMethodSpecificOutput());
-      Print(cout, (string) "\n\nTime spent by the prover: " +
+      Print(std::cout, C.GetMethodSpecificOutput());
+      Print(std::cout, (std::string) "\n\nTime spent by the prover: " +
                       d2s(prover_time/(double)1000, 3) + " seconds.");
 
       if (prover_output == e_proved)
-        Print(cout, "\nThe conjecture successfully proved.");
+        Print(std::cout, "\nThe conjecture successfully proved.");
       else if (prover_output == e_disproved)
-        Print(cout, "\nThe conjecture disproved.");
+        Print(std::cout, "\nThe conjecture disproved.");
       else if (prover_output == e_conjecture_out_of_scope)
-        Print(cout, "\nThe conjecture out of scope of the prover.");
+        Print(std::cout, "\nThe conjecture out of scope of the prover.");
       else if (prover_output == e_construction_out_of_scope)
-        Print(cout, "\nThe construction out of scope of the prover.");
+        Print(std::cout, "\nThe construction out of scope of the prover.");
       else if (prover_output == e_unknown)
-        Print(cout, "\nThe conjecture not proved.");
+        Print(std::cout, "\nThe conjecture not proved.");
       else if (prover_output == e_unknown_toomanysteps)
-        Print(cout,
+        Print(std::cout,
               "\nThe conjecture not proved - maximal number of proof steps "
               "reached.");
       else if (prover_output == e_unknown_timeout)
-        Print(cout, "\nThe conjecture not proved - timeout.");
+        Print(std::cout, "\nThe conjecture not proved - timeout.");
 
       if (prover_output != e_conjecture_out_of_scope) {
         if (ProverConfig.bLaTeX)
-          Print(cout, "\nThe prover output is written in the file " +
+          Print(std::cout, "\nThe prover output is written in the file " +
                           ProverConfig.sTheoremFileName + "_proof.tex.\n");
         if (ProverConfig.bXML)
-          Print(cout, "\nThe prover output is written in the file " +
+          Print(std::cout, "\nThe prover output is written in the file " +
                           ProverConfig.sTheoremFileName + "_proof.xml.\n");
       }
     }
@@ -230,7 +228,7 @@ int main(int argc, char *argv[]) {
     if (eOutputType == eXMLoutput) {
       r = rvG_OK; // The input is exported to XML during Import
     } else if (pO == NULL) {
-      Print(cout, "Out of memory!\n ");
+      Print(std::cout, "Out of memory!\n ");
       return -1;
     } else {
       if (eOutputType == eLaTeXoutput) {
@@ -242,47 +240,47 @@ int main(int argc, char *argv[]) {
     }
 
     if (r == rvG_OK) {
-      Print(cout, "\nFile '" + sInputFileName + "' successfully processed.");
+      Print(std::cout, "\nFile '" + sInputFileName + "' successfully processed.");
       if (eOutputType == eLaTeXoutput)
-        Print(cout, "\nEnding point number: " + i2s(iCounter) + "\n");
+        Print(std::cout, "\nEnding point number: " + i2s(iCounter) + "\n");
     } else
-      Print(cout, "\nExport failed.");
-    Print(cout, "\nTranscript written on gclc.log.\n\n");
+      Print(std::cout, "\nExport failed.");
+    Print(std::cout, "\nTranscript written on gclc.log.\n\n");
   } else { // import failed
     if (C.GetError(iErrorCode, sErrorMessage, iLine, iPos) == rvG_OK) {
-      Print(cout, "\n" + sErrorMessage);
-      Print(cout,
+      Print(std::cout, "\n" + sErrorMessage);
+      Print(std::cout,
             " (Line: " + i2s(iLine) + ", position: " + i2s(iPos) + ")\n\n");
     }
     if (prover_output != e_idle && prover_output != e_unknown &&
         ProverConfig.bDeductionControl) {
-      Print(cout,
+      Print(std::cout,
             "\nDeduction check invoked: the property that led to the error "
             "will be tested for validity.\n");
       if (prover_output == e_proved)
-        Print(cout,
+        Print(std::cout,
               "\nThe conjecture successfully proved - the critical property "
               "always holds.");
       else if (prover_output == e_disproved)
-        Print(cout, "\nThe conjecture disproved - the critical property never "
+        Print(std::cout, "\nThe conjecture disproved - the critical property never "
                     "holds.");
       else if (prover_output == e_unknown)
-        Print(cout,
+        Print(std::cout,
               "\nThe conjecture not proved - the critical property does not "
               "always hold.");
       else if (prover_output == e_unknown_timeout)
-        Print(cout, "\nThe conjecture not proved (timeout).");
+        Print(std::cout, "\nThe conjecture not proved (timeout).");
       else if (prover_output == e_conjecture_out_of_scope)
-        Print(cout, "\nThe conjecture out of scope of the prover.");
+        Print(std::cout, "\nThe conjecture out of scope of the prover.");
       else if (prover_output == e_construction_out_of_scope)
-        Print(cout, "\nThe construction out of scope of the prover.");
+        Print(std::cout, "\nThe construction out of scope of the prover.");
 
 
       if (ProverConfig.bLaTeX)
-        Print(cout, "\nThe prover output is written in the file "
+        Print(std::cout, "\nThe prover output is written in the file "
                     "error-proof.tex.\n\n");
       if (ProverConfig.bXML)
-        Print(cout, "\nThe prover output is written in the file "
+        Print(std::cout, "\nThe prover output is written in the file "
                     "error-proof.xml.\n\n");
     }
   }
@@ -295,10 +293,10 @@ int main(int argc, char *argv[]) {
 
 // ----------------------------------------------------------------------------
 
-GReturnValue BatchProcess(export_type eOutputType, ifstream &hi, ofstream &hl,
-                          ofstream &ho, int iCounter) {
+GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstream &hl,
+                          std::ofstream &ho, int iCounter) {
   CGCLCOutput *pO = NULL;
-  string block_text;
+  std::string block_text;
   CFileInput Input(hi);
   CFileLog L(hl);
 
@@ -309,23 +307,23 @@ GReturnValue BatchProcess(export_type eOutputType, ifstream &hi, ofstream &hl,
   else
     pO = new CLaTeXOutput(ho);
   if (pO == NULL) {
-    Print(cout, "Out of memory!\n ");
+    Print(std::cout, "Out of memory!\n ");
     return rvG_OutOfMemory;
   }
 
   if (eOutputType == eLaTeXoutput)
-    Print(cout, "Starting point number: " + i2s(iCounter) + "\n");
+    Print(std::cout, "Starting point number: " + i2s(iCounter) + "\n");
 
   int new_lines = 0;
   int start_new_lines = 0;
   while (TakeNextGCLCBlock(Input, ho, block_text, new_lines, start_new_lines)) {
-    Print(cout, "\nProcessing GCLC block beginning in line " +
+    Print(std::cout, "\nProcessing GCLC block beginning in line " +
                     i2s(start_new_lines) + "...");
     CStringInput Input(block_text);
 
     prover_config ProverConfig;
     ProverConfig.TheoremProvingMethod = tpNone;
-    ofstream XMLoutput;
+    std::ofstream XMLoutput;
     CGCLC C(Input, L, ProverConfig, false, XMLoutput);
     eGCLC_conjecture_status prover_output;
     double prover_time;
@@ -335,22 +333,22 @@ GReturnValue BatchProcess(export_type eOutputType, ifstream &hi, ofstream &hl,
       pO->SetPointCounter(iCounter);
       r = C.Export(*pO);
       if (r == rvG_OK)
-        Print(cout, "\nBlock successfully processed.");
+        Print(std::cout, "\nBlock successfully processed.");
       else
-        Print(cout, "\nExport failed.");
+        Print(std::cout, "\nExport failed.");
 
-      Print(cout, "\nTranscript written on gclc.log.\n\n");
+      Print(std::cout, "\nTranscript written on gclc.log.\n\n");
       L.AddText("\n------------------------------------------------ \n");
 
       iCounter = pO->GetPointCounter();
     } else {
-      string sErrorMessage;
+      std::string sErrorMessage;
       int iErrorCode, line, pos;
 
       if (C.GetError(iErrorCode, sErrorMessage, line, pos) == rvG_OK) {
-        Print(cout, "\n");
-        Print(cout, sErrorMessage);
-        Print(cout, " (Line: " + i2s(start_new_lines + line) + ", position: " +
+        Print(std::cout, "\n");
+        Print(std::cout, sErrorMessage);
+        Print(std::cout, " (Line: " + i2s(start_new_lines + line) + ", position: " +
                         i2s(pos) + ")\n\n");
       }
       delete pO;
@@ -358,7 +356,7 @@ GReturnValue BatchProcess(export_type eOutputType, ifstream &hi, ofstream &hl,
     }
   }
   if (eOutputType == eLaTeXoutput)
-    Print(cout, "Ending point number: " + i2s(iCounter) + "\n\n");
+    Print(std::cout, "Ending point number: " + i2s(iCounter) + "\n\n");
 
   delete pO;
   return rvG_OK;
@@ -366,13 +364,13 @@ GReturnValue BatchProcess(export_type eOutputType, ifstream &hi, ofstream &hl,
 
 // ----------------------------------------------------------------------------
 
-bool TakeNextGCLCBlock(CGCLCInput &Input, ofstream &ho, string &block_text,
+bool TakeNextGCLCBlock(CGCLCInput &Input, std::ofstream &ho, std::string &block_text,
                        int &new_lines, int &start_new_lines) {
   unsigned char c;
   unsigned int i;
-  const string sStartBlockKeyword = "\\begin{gclc}";
-  const string sEndBlockKeyword = "\\end{gclc}";
-  string tmp_text;
+  const std::string sStartBlockKeyword = "\\begin{gclc}";
+  const std::string sEndBlockKeyword = "\\end{gclc}";
+  std::string tmp_text;
 
   bool bFoundKeyword = false;
   while (!Input.EndOfInputData() && !bFoundKeyword) {

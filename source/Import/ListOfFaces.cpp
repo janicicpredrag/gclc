@@ -77,7 +77,7 @@ CFace *CListOfFaces::GetNextFace() {
     return NULL;
 }
 
-void CListOfFaces::SetLastFaceName(const string &sName) {
+void CListOfFaces::SetLastFaceName(const std::string &sName) {
   m_pLastFace->name = sName;
 }
 
@@ -210,6 +210,6 @@ void CListOfPoints::GetCurrentPoint(double &x, double &y) {
   y = m_pCurrentPoint->y;
 }
 
-void CListOfPoints::SetLastPointName(const string &sName) {
+void CListOfPoints::SetLastPointName(const std::string &sName) {
   m_pLastPoint->name = sName;
 }

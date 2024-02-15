@@ -11,10 +11,10 @@
 
 // is this point used in any other expression than commandSkip
 bool CAlgMethod::_UsedPoint(Point *p,
-                            list<CGCLCProverCommand>::iterator commandSkip) {
+                            std::list<CGCLCProverCommand>::iterator commandSkip) {
   bool checkArg0, checkArg1, checkArg2, checkArg3;
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     if (it != commandSkip) {
       checkArg0 = checkArg1 = checkArg2 = checkArg3 = false;
@@ -90,7 +90,7 @@ bool CAlgMethod::_UsedPointInConjecture(Point *p) {
   // separator may be: {}' ''\t\n
   int ii, size, index, jj;
   for (ii = 0, size = vsConjectures.size(); ii < size; ii++) {
-    string str = vsConjectures[ii];
+    std::string str = vsConjectures[ii];
     index = 0;
     // searching pattern [%s] in string [%s]\n", p->Name, str);
     while (str[index]) {
@@ -153,8 +153,8 @@ void CAlgMethod::_ReducibilityLineCircleIntersection(Point *p1, Point *p2,
 
   // call Reduce method for solving reducibility of this type
   // create polynomials for point coordinates
-  vector<bool> vecPointsFree;
-  vector<unsigned int> vecPointsIndex;
+  std::vector<bool> vecPointsFree;
+  std::vector<unsigned int> vecPointsIndex;
   vecPointsFree.push_back(p1->X.Free);
   vecPointsIndex.push_back(p1->X.Index);
   vecPointsFree.push_back(p1->Y.Free);

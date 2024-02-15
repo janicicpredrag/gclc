@@ -9,5 +9,5 @@ CWuMethod::CWuMethod() { _prover = &wu_prover; /* new Wu(); */ }
 CWuMethod::~CWuMethod() { /* delete _prover; */
 }
 
-const string _wuName = "Wu's";
-const string &CWuMethod::GetName() const { return _wuName; }
+const std::string _wuName = "Wu's";
+const std::string &CWuMethod::GetName() const { return _wuName; }

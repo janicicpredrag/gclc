@@ -55,7 +55,7 @@ int CGCLC::m_nAnimationFrames = 0;
 int CGCLC::m_nAnimationSpeed = 0;
 */
 
-static map<string, enum GCLCcommands> KeyWords = {
+static std::map<std::string, enum GCLCcommands> KeyWords = {
     {"point", gclc_point},
     {"line", gclc_line},
     {"circle", gclc_circle},
@@ -257,13 +257,13 @@ static map<string, enum GCLCcommands> KeyWords = {
 // ----------------------------------------------------------------------------////
 
 CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
-             bool bXMLoutput, ofstream &hXML)
+             bool bXMLoutput, std::ofstream &hXML)
     : m_Input(&input), m_Log(Log), m_bXMLOutput(bXMLoutput), m_hXMLOutput(hXML),
       m_ProverConfig(ProverConfig) {
   m_bWhileBlockOrProcedureCall = false;
   m_bProcedureCall = false;
-  m_pSymbolTable = new map<string, GCLC_object>;
-  m_pProcedures = new map<string, GCLCprocedure>;
+  m_pSymbolTable = new std::map<std::string, GCLC_object>;
+  m_pProcedures = new std::map<std::string, GCLCprocedure>;
   m_bSupressWarnings = false;
   Init();
   InitTheoremProver(ProverConfig.TheoremProvingMethod);
@@ -274,15 +274,15 @@ CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
 //----------------------------------------------------------------------------
 
 CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
-             map<string, GCLCprocedure> *procedures,
-             map<string, GCLC_object> *pTable, bool bXMLoutput,
-             ofstream &hXMLOutput)
+             std::map<std::string, GCLCprocedure> *procedures,
+             std::map<std::string, GCLC_object> *pTable, bool bXMLoutput,
+             std::ofstream &hXMLOutput)
     : CGCompiler(pL), m_Input(&input), m_Log(Log), m_pProcedures(procedures),
       m_bXMLOutput(bXMLoutput), m_hXMLOutput(hXMLOutput) {
   m_bWhileBlockOrProcedureCall = true;
   m_bSupressWarnings = true;
   m_bProcedureCall = (pTable == NULL);
-  m_pSymbolTable = (m_bProcedureCall ? new map<string, GCLC_object> : pTable);
+  m_pSymbolTable = (m_bProcedureCall ? new std::map<std::string, GCLC_object> : pTable);
   Init();
   InitXML();
 }
@@ -459,7 +459,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   if (!m_bWhileBlockOrProcedureCall)
     view();
 
-  string sErrorMessage;
+  std::string sErrorMessage;
   int line, pos, i;
   if ((iErrorCode != rvGCLCOK) &&
       GetError(i, sErrorMessage, line, pos) == rvG_OK) {
@@ -473,7 +473,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
         if (ValidConjecture()) {
           AddToLog("\nDeduction check invoked: the property that led to the "
                    "error will be tested for validity.\n");
-          string sProofLaTeXOutput, sProofXMLOutput;
+          std::string sProofLaTeXOutput, sProofXMLOutput;
           if (m_ProverConfig.bLaTeX)
             sProofLaTeXOutput = "error-proof.tex";
           if (m_ProverConfig.bXML)
@@ -519,7 +519,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   // support for the automated theorem prover
   if (m_ProverConfig.TheoremProvingMethod != tpNone) {
     if (ValidConjecture()) {
-      string sLaTeXFile, sXMLFile;
+      std::string sLaTeXFile, sXMLFile;
       if (m_ProverConfig.bLaTeX)
         sLaTeXFile = m_ProverConfig.sTheoremFileName + "_proof.tex";
       if (m_ProverConfig.bXML)
@@ -604,7 +604,7 @@ GReturnValue CGCLC::Import() {
     Print(m_hXMLOutput, "<figure>\n");
   }
   if (Execute() != rvGCLCOK) {
-    string sErrorMessage;
+    std::string sErrorMessage;
     int line, pos, i;
     if (GetError(i, sErrorMessage, line, pos) == rvG_OK)
       return rvG_ErrorInInput;
@@ -619,7 +619,7 @@ GReturnValue CGCLC::Import() {
 
 // ----------------------------------------------------------------------------////
 
-GReturnValue CGCLC::GetError(int &iErrorCode, string &sErrMessage, int &line,
+GReturnValue CGCLC::GetError(int &iErrorCode, std::string &sErrMessage, int &line,
                              int &pos) {
   if ((m_iErrorCode == rvGCLCNoError) || (m_iErrorCode == rvGCLCOK)) {
     pos = m_iWarnPos;
@@ -782,7 +782,7 @@ int CGCLC::warning(int w) {
 
 // ----------------------------------------------------------------------------////
 
-GCLCError CGCLC::take_text(string &v) {
+GCLCError CGCLC::take_text(std::string &v) {
   unsigned char c;
   GReturnValue iRv;
   int brackets;
@@ -1435,7 +1435,7 @@ enum GCLCError CGCLC::Execute() {
 
 // ///////////////////////////////////////////////////////////////
 
-enum GCLCcommands CGCLC::choose_command(const string &word) {
+enum GCLCcommands CGCLC::choose_command(const std::string &word) {
   auto c = KeyWords.find(word);
   if (c == KeyWords.end())
     return gclc_unknowncommand;
@@ -1446,10 +1446,10 @@ enum GCLCcommands CGCLC::choose_command(const string &word) {
 // ----------------------------------------------------------------------------////
 
 int CGCLC::view() {
-  string sLogText;
+  std::string sLogText;
 
   AddToLog("\nObjects:");
-  for (map<string, GCLC_object>::iterator it = m_pSymbolTable->begin();
+  for (std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->begin();
        it != m_pSymbolTable->end(); it++) {
     AddToLog("\n" + it->first + ":");
 
@@ -1492,12 +1492,12 @@ int CGCLC::view() {
 
 // ----------------------------------------------------------------------------////
 
-GCLCError CGCLC::Let(const string &sVarName, int type, double p1, double p2,
+GCLCError CGCLC::Let(const std::string &sVarName, int type, double p1, double p2,
                      double p3, double p4, double p5, double p6)
 /* returns rvGCLCOK if variable already exist, warning otherwise */
 {
   GCLC_object s;
-  map<string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
   if (it == m_pSymbolTable->end()) // wasn't there already
   {
     s.name = sVarName;
@@ -1508,7 +1508,7 @@ GCLCError CGCLC::Let(const string &sVarName, int type, double p1, double p2,
     s.p[3] = p4;
     s.p[4] = p5;
     s.p[5] = p6;
-    m_pSymbolTable->insert(pair<string, GCLC_object>(s.name, s));
+    m_pSymbolTable->insert(std::pair<std::string, GCLC_object>(s.name, s));
     return rvGCLCOK;
   }
   if (it->second.type == type)
@@ -1531,8 +1531,8 @@ GCLCError CGCLC::Let(const string &sVarName, int type, double p1, double p2,
 /* returns rvGCLCOK if variable exist;
    rvGCLCUndefinedVariable otherwise
    (variable name is not copied to o.name) */
-GCLCError CGCLC::Value(const string &sVarName, GCLC_object &o) {
-  map<string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+GCLCError CGCLC::Value(const std::string &sVarName, GCLC_object &o) {
+  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
   if (it != m_pSymbolTable->end()) {
     o = (it->second);
     return rvGCLCOK;
@@ -1542,8 +1542,8 @@ GCLCError CGCLC::Value(const string &sVarName, GCLC_object &o) {
 
 // ----------------------------------------------------------------------------////
 
-GReturnValue CGCLC::GetValue(const string &sVarName, string &sValue) {
-  map<string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+GReturnValue CGCLC::GetValue(const std::string &sVarName, std::string &sValue) {
+  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
   if (it == m_pSymbolTable->end())
     return rvG_InvalidInput;
 
@@ -1576,9 +1576,9 @@ GReturnValue CGCLC::GetValue(const string &sVarName, string &sValue) {
 
 // ----------------------------------------------------------------------------////
 
-GReturnValue CGCLC::GetPointValue(const string &sVarName, double &x,
+GReturnValue CGCLC::GetPointValue(const std::string &sVarName, double &x,
                                   double &y) {
-  map<string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
   if (it != m_pSymbolTable->end() && it->second.type == GCLC_POINT) {
     x = it->second.p[0];
     y = it->second.p[1];
@@ -1593,7 +1593,7 @@ bool CGCLC::EndOfInputData() { return m_Input->EndOfInputData(); }
 
 // ----------------------------------------------------------------------------////
 
-GCLCError CGCLC::ReadToken(CGCLCInput &Input, string &sToken) {
+GCLCError CGCLC::ReadToken(CGCLCInput &Input, std::string &sToken) {
   GReturnValue iRv;
   unsigned char c;
 
@@ -1654,7 +1654,7 @@ GCLCError CGCLC::ReadToken(CGCLCInput &Input, string &sToken) {
 
 // ----------------------------------------------------------------------------////
 
-GCLCError CGCLC::ReadToken(string &sToken) {
+GCLCError CGCLC::ReadToken(std::string &sToken) {
   GReturnValue iRv;
   unsigned char c;
   sToken = "";
@@ -1731,7 +1731,7 @@ GCLCError CGCLC::ReadToken() { return ReadToken(m_sToken); }
 
 // ----------------------------------------------------------------------------////
 
-const string &CGCLC::LastToken() { return m_sToken; }
+const std::string &CGCLC::LastToken() { return m_sToken; }
 
 // ----------------------------------------------------------------------------////
 
@@ -1887,7 +1887,7 @@ void CGCLC::ChangeCurrentXMLGroup(XML_group eXMLgroup) {
 
 // ----------------------------------------------------------------------------
 
-void CGCLC::AddToLog(const string &pText) { m_Log.AddText(pText); }
+void CGCLC::AddToLog(const std::string &pText) { m_Log.AddText(pText); }
 
 // ----------------------------------------------------------------------------
 

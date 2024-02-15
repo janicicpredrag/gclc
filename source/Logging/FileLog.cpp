@@ -7,7 +7,7 @@
 
 // ----------------------------------------------------------------------------
 
-CFileLog::CFileLog(ofstream &f) : m_f(f) {}
+CFileLog::CFileLog(std::ofstream &f) : m_f(f) {}
 
 // ----------------------------------------------------------------------------
 
@@ -19,6 +19,6 @@ void CFileLog::Reset() {}
 
 // ----------------------------------------------------------------------------
 
-void CFileLog::AddText(const string &sText) { Print(m_f, sText); }
+void CFileLog::AddText(const std::string &sText) { Print(m_f, sText); }
 
 // ----------------------------------------------------------------------------

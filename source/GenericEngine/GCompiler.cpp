@@ -140,20 +140,20 @@ GReturnValue CGCompiler::SetDashLen(double d1, double d2, double d3,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CGCompiler::PrintText(double x, double y, const string &position,
-                                   const string &text, GCLC_area &area) {
+GReturnValue CGCompiler::PrintText(double x, double y, const std::string &position,
+                                   const std::string &text, GCLC_area &area) {
   return m_pPrim->PrintText(x, y, position, text, area);
 }
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CGCompiler::PrintComment(const string &text) {
+GReturnValue CGCompiler::PrintComment(const std::string &text) {
   return m_pPrim->PrintComment(text);
 }
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CGCompiler::DirectExport(const string &text, export_type format) {
+GReturnValue CGCompiler::DirectExport(const std::string &text, export_type format) {
   return m_pPrim->DirectExport(text, format);
 }
 
@@ -202,18 +202,18 @@ GReturnValue CGCompiler::DrawLineSensitive(double x1, double y1, double x2,
 
 // ----------------------------------------------------------------------------
 
-bool CGCompiler::FixedPointExists(const string &sName) {
+bool CGCompiler::FixedPointExists(const std::string &sName) {
   return (m_FixedPoints.find(sName) != m_FixedPoints.end());
 }
 
 // ----------------------------------------------------------------------------
 
 GReturnValue CGCompiler::AddFixedPoint(double x, double y, double x1, double y1,
-                                       const string &sName, int iStartLine,
+                                       const std::string &sName, int iStartLine,
                                        int iStartPosition, int iEndLine,
                                        int iEndPosition, int iEndDestLine,
                                        int iEndDestPos) {
-  m_FixedPoints.insert(pair<string, CFixedPoint>(
+  m_FixedPoints.insert(std::pair<std::string, CFixedPoint>(
       sName, CFixedPoint(x, y, x1, y1, sName, iStartLine, iStartPosition,
                          iEndLine, iEndPosition, iEndDestLine, iEndDestPos)));
   return rvG_OK;
@@ -222,9 +222,9 @@ GReturnValue CGCompiler::AddFixedPoint(double x, double y, double x1, double y1,
 // ----------------------------------------------------------------------------
 
 GReturnValue CGCompiler::AddTracePoint(unsigned char r, unsigned char g,
-                                       unsigned char b, const string &sName) {
+                                       unsigned char b, const std::string &sName) {
   m_TracePoints.insert(
-      pair<string, CTracePoint>(sName, CTracePoint(r, g, b, sName)));
+      std::pair<std::string, CTracePoint>(sName, CTracePoint(r, g, b, sName)));
   return rvG_OK;
 }
 
@@ -246,9 +246,9 @@ void CGCompiler::InitTheoremProver(eTheoremProvingMethod &method) {
 // ----------------------------------------------------------------------------
 
 GReturnValue
-CGCompiler::AddProverCommand(eGCLC_prover_command type, const string &arg1,
-                             const string &arg2, const string &arg3,
-                             const string &arg4, const string &arg5) {
+CGCompiler::AddProverCommand(eGCLC_prover_command type, const std::string &arg1,
+                             const std::string &arg2, const std::string &arg3,
+                             const std::string &arg4, const std::string &arg5) {
   if (m_pTheoremProver->AddProverCommand(type, arg1, arg2, arg3, arg4, arg5))
     return rvG_OK;
   else
@@ -257,7 +257,7 @@ CGCompiler::AddProverCommand(eGCLC_prover_command type, const string &arg1,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CGCompiler::SetProverConjecture(const string &conjecture) {
+GReturnValue CGCompiler::SetProverConjecture(const std::string &conjecture) {
   if (m_pTheoremProver->SetProverConjecture(conjecture))
     return rvG_OK;
   else
@@ -292,16 +292,16 @@ void CGCompiler::SetProverTimeout(int timeout) {
 
 // ----------------------------------------------------------------------------
 
-bool CGCompiler::GetPointsOnLine(const string &sLineName, string &P1,
-                                 string &P2) {
+bool CGCompiler::GetPointsOnLine(const std::string &sLineName, std::string &P1,
+                                 std::string &P2) {
   return m_pTheoremProver->GetPointsOnLine(sLineName, P1, P2);
 }
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CGCompiler::Prove(const string &sLaTeXProof,
-                               const string &sXMLProof, double &Time,
-                               const string &sTheoremName,
+GReturnValue CGCompiler::Prove(const std::string &sLaTeXProof,
+                               const std::string &sXMLProof, double &Time,
+                               const std::string &sTheoremName,
                                eGCLC_conjecture_status &Status) {
   if (!m_pTheoremProver->Prove(sLaTeXProof, sXMLProof, Time, sTheoremName,
                                Status))
@@ -313,7 +313,7 @@ GReturnValue CGCompiler::Prove(const string &sLaTeXProof,
 
 // ----------------------------------------------------------------------------
 
-string CGCompiler::GetMethodSpecificOutput() {
+std::string CGCompiler::GetMethodSpecificOutput() {
   return m_pTheoremProver->GetMethodSpecificOutput();
 }
 

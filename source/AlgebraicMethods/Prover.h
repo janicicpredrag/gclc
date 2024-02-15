@@ -5,7 +5,6 @@
 #include "stdinc.h"
 #include <string>
 
-using namespace std;
 
 /*************************************************************
 *
@@ -47,6 +46,6 @@ public:
   //
   virtual PROVER_STATUS Prove(vxp &vxps, XPolynomial *xpConclusion,
                               int conjectureIndex, double timeout) = 0;
-  virtual const string Description() = 0;
+  virtual const std::string Description() = 0;
   uint GetMaxTerms() const;
 };

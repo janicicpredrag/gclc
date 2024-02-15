@@ -6,17 +6,17 @@
 class BarycenterDrawing:public Drawing
 {
  private:
-  map<int, struct Point> fixedVertices; // fixed vertices
+  std::map<int, struct Point> fixedVertices; // fixed vertices
   //! Set fixed coordinates
   /*! \param map<int, bool>& reference to x updating variable
    * \param map<int, bool>& reference to y updating variable
    */
-  void setFixedCoordinates(map<int, bool>&, map<int, bool>&);
+  void setFixedCoordinates(std::map<int, bool>&, std::map<int, bool>&);
   //! Sets all vertices in state where every vertes needs x and y updating
   /*! \param map<int, bool>& reference to x updating variable
    * \param map<int, bool>& reference to y updating variable
    */
-  void resetXYUpdating(map<int, bool>&, map<int, bool>&);
+  void resetXYUpdating(std::map<int, bool>&, std::map<int, bool>&);
   //! Gets value indicating if all vertices are updated
   /*! If all values are converging then stop working, otherwise keep working.
    * To continue working it is enough that there is at least one value
@@ -28,18 +28,18 @@ class BarycenterDrawing:public Drawing
    * \return bool boolean value indicating if there are still some values
    * that needs evaluating
    */
-  bool continueWorking(map<int, bool>, map<int, bool>, int);
+  bool continueWorking(std::map<int, bool>, std::map<int, bool>, int);
   //! Starts converging to solution
   /*! Finds all nodes coordinates.
    * \param map<int, bool>& reference to x updating variable
    * \param map<int, bool>& reference to y updating variable
    */
-  int convergeToSolution(map<int, bool>&, map<int, bool>&);
+  int convergeToSolution(std::map<int, bool>&, std::map<int, bool>&);
   //! Connects nodes in GCLC
   /*!\param ofstream& reference to file
    * \param Graph labeled graph
    */
-  void makeConnectionsGCLC(ofstream&, Graph);
+  void makeConnectionsGCLC(std::ofstream&, Graph);
   /*! Computes coordinates using this method
    */
   void computeCoordinates();
@@ -59,7 +59,7 @@ class BarycenterDrawing:public Drawing
   /*! \param map<int, int> dummy map
    * \param map<int, struct Point> dummy vertices map
    */
-  void addDummyForSameNeighbour(map<int, int> dummyMap, map<int, struct Point>);
+  void addDummyForSameNeighbour(std::map<int, int> dummyMap, std::map<int, struct Point>);
   //! Removes dummy coordinates
   void removeDummyCoordinates();
  public:
@@ -70,7 +70,7 @@ class BarycenterDrawing:public Drawing
    * \param map<int, struct Point> fixed vertices
    * \param string file name
    */
-  BarycenterDrawing(Graph, Settings, map<int, struct Point>, string="");
+  BarycenterDrawing(Graph, Settings, std::map<int, struct Point>, std::string="");
   //! Returns boolean value indicating if this edge should be drawn as arc.
   /*!
    * \param int first nodes node number

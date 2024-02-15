@@ -9,7 +9,7 @@
 
 class CSVGOutput : public CGCLCOutput {
 public:
-  CSVGOutput(ofstream &h);
+  CSVGOutput(std::ofstream &h);
   virtual ~CSVGOutput();
 
   void Reset();
@@ -29,19 +29,19 @@ public:
   GReturnValue SetBackgroundColor(unsigned char r, unsigned char g,
                                   unsigned char b);
   GReturnValue SetThickness(double uThickness);
-  GReturnValue PrintText(double x1, double y1, const string &sPosition,
-                         const string &sText);
-  GReturnValue PrintComment(const string &sText);
-  GReturnValue Export(const string &sText, export_type format);
+  GReturnValue PrintText(double x1, double y1, const std::string &sPosition,
+                         const std::string &sText);
+  GReturnValue PrintComment(const std::string &sText);
+  GReturnValue Export(const std::string &sText, export_type format);
   GReturnValue SetFontSize(unsigned char size);
 
 private:
-  void PrintToOutput(const string &s);
+  void PrintToOutput(const std::string &s);
   double LINE_WIDTH;
-  ofstream &OUTPUT;
+  std::ofstream &OUTPUT;
   double m_dCurrentLineWidth;
   int m_iCurrentFontSize;
-  string m_sCurrentColor;
+  std::string m_sCurrentColor;
   int m_nX; // width
   int m_nY; // height
 };
