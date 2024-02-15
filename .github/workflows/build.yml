@@ -93,7 +93,7 @@ jobs:
       - name: Make GUI version
         run: |
           cd source/ 
-          qmake.exe -r QMAKE_CXXFLAGS+=-std=gnu++11 gGCLC.pro CONFIG+=debug
+          qmake.exe -r QMAKE_CXXFLAGS+=-std=gnu++17 gGCLC.pro CONFIG+=debug
           make
 
       - name: Move DLLs
