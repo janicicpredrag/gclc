@@ -7,12 +7,12 @@
 static char __log_msg[1000];
 
 int Log::_maxLevel = 3;
-ofstream *Log::_outFileLatex = NULL;
-ofstream *Log::_outFileXML = NULL;
+std::ofstream *Log::_outFileLatex = NULL;
+std::ofstream *Log::_outFileXML = NULL;
 bool Log::_standardOutput = false;
 int Log::StopAfterMaxT = -1;
 bool Log::_lockOutputFiles = false;
-ofstream *Log::_outFiles[5];
+std::ofstream *Log::_outFiles[5];
 
 bool Log::_sectionStarted = false;
 bool Log::_subsectionStarted = false;
@@ -39,7 +39,7 @@ void Log::SetStandardOutput(bool standardOutput) {
   _standardOutput = standardOutput;
 }
 
-void Log::SetOutputFile(ofstream *outFile, int index) {
+void Log::SetOutputFile(std::ofstream *outFile, int index) {
   if (_outFiles[index] && _outFiles[index] != outFile) {
     _outFiles[index]->close();
   }
@@ -59,13 +59,13 @@ void Log::PrintLogF(int level, const char *msg, ...) {
 
     if (_outFileLatex && level == 1) {
       vsprintf(buffer, msg, ap);
-      string s(buffer);
+      std::string s(buffer);
       Print(*_outFileLatex, s);
     }
 
     if (_outFileXML && level == 2) {
       vsprintf(buffer, msg, ap);
-      string s(buffer);
+      std::string s(buffer);
       Print(*_outFileXML, s);
     }
 
@@ -96,7 +96,7 @@ void Log::InitOutputFile(char *path) {
   }
 }
 
-void Log::SetLatexOutputFile(ofstream *outFileLatex) {
+void Log::SetLatexOutputFile(std::ofstream *outFileLatex) {
   if (_lockOutputFiles) {
     return;
   }
@@ -107,7 +107,7 @@ void Log::SetLatexOutputFile(ofstream *outFileLatex) {
   _outFileLatex = outFileLatex;
 }
 
-void Log::SetXMLOutputFile(ofstream *outFileXML) {
+void Log::SetXMLOutputFile(std::ofstream *outFileXML) {
   if (_lockOutputFiles) {
     return;
   }

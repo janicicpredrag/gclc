@@ -4,50 +4,48 @@
 #include "graph_util.h"
 #include "settings.h"
 
-using namespace std;
-
 //! Abstract drawing class that's used for graph drawing
 class Drawing
 {
  protected:
-  string file_name;                    // file name
+  std::string file_name;                    // file name
   Graph graph;                         // graph 
-  map<int, struct Point> coordinates;  // coordinates of the nodes in the final drawing
+  std::map<int, struct Point> coordinates;  // coordinates of the nodes in the final drawing
   Settings settings;                   // drawing settings
   bool isValid;                        // indicating if graph can be drawn
   //! Opens a file
   /*! \param ofstream& file stream (output argument)
    * \return boolean value indicating if file was sucessfully opened
    */
-  bool openFile(ofstream&);
+  bool openFile(std::ofstream&);
   //! Defines nodes in GCLC
   /*! After this method is applied, beside defining nodes in GCLC, coordinates
    * are scaled and offseted.
    * \param ofstream& reference to file
    * \param Graph labeled graph
    */
-  void defineNodesGCLC(ofstream&, Graph);
+  void defineNodesGCLC(std::ofstream&, Graph);
   //! Draws line in GCLC
   /*!\param ofstream& reference to file 
    * \param int source graph node number
    * \param int destination graph node number
    */
-  void drawLineGCLC(ofstream&, int, int);
+  void drawLineGCLC(std::ofstream&, int, int);
   //! Draws arc in GCLC
   /*!\param ofstream& reference to file 
    * \param int source graph node number
    * \param int destination graph node number
    */
-  void drawArcGCLC(ofstream&, int, int);
+  void drawArcGCLC(std::ofstream&, int, int);
   //! Writes obtained drawing to the file
   /*! \param ofstream& reference to the file
    */
-  void writeDrawingToFileGCLC(ofstream&);
+  void writeDrawingToFileGCLC(std::ofstream&);
   //! Connects nodes in GCLC
   /*!\param ofstream& reference to file
    * \param Graph labeled graph
    */
-  virtual void makeConnectionsGCLC(ofstream&, Graph)=0;
+  virtual void makeConnectionsGCLC(std::ofstream&, Graph)=0;
   //! Scales and offsets coordinates
   void scaleAndOffsetCoordinates();
   //! Computes coordinates
@@ -60,12 +58,12 @@ class Drawing
    * \param Settings drawing settings
    * drawing should be largest possible to fit the canvas)
    */
-  Drawing(string, Graph, Settings);
+  Drawing(std::string, Graph, Settings);
   //! Virtual destructor
   virtual ~Drawing(){}
   //! Gets file name
   /*! \return filename */
-  string getFileName() const;
+  std::string getFileName() const;
   //! Gets the graph that should be drawn
   /*!\return graph */  
   Graph getGraph();
@@ -74,7 +72,7 @@ class Drawing
   float getScalingFactor() const;
   //! Sets filename
   /*! \param string new filename */
-  void setFileName(string _filename);
+  void setFileName(std::string _filename);
   //! Sets scaling factor
   /*! \param float new scaling factor */
   void setScalingFactor(float _scalingFactor);
@@ -93,7 +91,7 @@ class Drawing
    * is used for the specific drawing of the graph.
    */
   bool draw();
-  map<int, struct Point> getCoordinates();
+  std::map<int, struct Point> getCoordinates();
 };
 
 #endif

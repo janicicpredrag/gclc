@@ -9,14 +9,14 @@
 
 class CFileLog : public CGCLCLog {
 public:
-  CFileLog(ofstream &f);
+  CFileLog(std::ofstream &f);
   virtual ~CFileLog();
 
   virtual void Reset();
-  virtual void AddText(const string &sText);
+  virtual void AddText(const std::string &sText);
 
 private:
-  ofstream &m_f;
+  std::ofstream &m_f;
 };
 
 #endif // !defined(FILELOG_H)

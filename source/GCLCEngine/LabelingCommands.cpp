@@ -4,7 +4,7 @@
 
 GCLCError CGCLC::cmark(int dir) {
   GCLC_object o;
-  string pos;
+  std::string pos;
   GCLCError iRv;
   double x, y;
 
@@ -73,7 +73,7 @@ GCLCError CGCLC::cmark(int dir) {
 
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good()) {
-    string sdir;
+    std::string sdir;
     switch (dir) {
     case 0:
       sdir = "0\" distance=\"0";
@@ -120,7 +120,7 @@ GCLCError CGCLC::cmark(int dir) {
 
 GCLCError CGCLC::mark(int dir) {
   GCLC_object o;
-  string pos;
+  std::string pos;
   GCLCError iRv;
   double x, y;
 
@@ -184,7 +184,7 @@ GCLCError CGCLC::mark(int dir) {
 
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good()) {
-    string sdir;
+    std::string sdir;
     switch (dir) {
     case 0:
       sdir = "0\" distance=\"0";
@@ -233,8 +233,8 @@ GCLCError CGCLC::mark(int dir) {
 
 GCLCError CGCLC::printat(int dir) {
   GCLC_object o;
-  string pos;
-  string text;
+  std::string pos;
+  std::string text;
   GCLCError iRv;
   double x, y;
 
@@ -302,7 +302,7 @@ GCLCError CGCLC::printat(int dir) {
 
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good()) {
-    string sdir;
+    std::string sdir;
     switch (dir) {
     case 0:
       sdir = "0 distance=\"0\"";
@@ -353,9 +353,9 @@ GCLCError CGCLC::printat(int dir) {
 
 GCLCError CGCLC::printvalueat(int dir) {
   GCLC_object o, o1;
-  string pos;
-  string text;
-  string sObjectName;
+  std::string pos;
+  std::string text;
+  std::string sObjectName;
   GCLCError iRv;
   double x, y;
 
@@ -452,7 +452,7 @@ GCLCError CGCLC::printvalueat(int dir) {
 
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good()) {
-    string sdir;
+    std::string sdir;
     switch (dir) {
     case 0:
       sdir = "0 distance=\"0\"";

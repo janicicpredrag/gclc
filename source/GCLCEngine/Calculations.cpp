@@ -10,7 +10,7 @@
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_x() {
-  string sNumberName;
+  std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -25,7 +25,7 @@ GCLCError CGCLC::get_x() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_y() {
-  string sNumberName;
+  std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -40,7 +40,7 @@ GCLCError CGCLC::get_y() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_distance() {
-  string sNumberName;
+  std::string sNumberName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double d;
@@ -62,7 +62,7 @@ GCLCError CGCLC::get_distance() {
 GCLCError CGCLC::get_angle(bool orientation) {
   GCLC_object o1, o2, o3;
   double a, b, c, angle;
-  string sNumberName;
+  std::string sNumberName;
   GCLCError iRv;
 
   if (ReadToken(sNumberName) != rvGCLCOK)
@@ -113,7 +113,7 @@ GCLCError CGCLC::get_angle(bool orientation) {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_random() {
-  string sNumberName;
+  std::string sNumberName;
 
   if (ReadToken(sNumberName) != rvGCLCOK)
     return rvGCLCIdExpected;
@@ -125,10 +125,10 @@ GCLCError CGCLC::get_random() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_expression() {
-  string sNumberName;
+  std::string sNumberName;
   double dNumber;
   GCLCError iRv;
-  string text;
+  std::string text;
 
   if (ReadToken(sNumberName) != rvGCLCOK)
     return rvGCLCIdExpected;
@@ -151,9 +151,9 @@ GCLCError CGCLC::get_expression() {
 
 // ----------------------------------------------------------------------------
 
-GCLCError CGCLC::calc_expression(const string &text, double &dNumber) {
+GCLCError CGCLC::calc_expression(const std::string &text, double &dNumber) {
   // in order to enable arrays EvaluateIndex(identifier);
-  string inputLine = text;
+  std::string inputLine = text;
   EvaluateIndex(inputLine);
 
   try {
@@ -174,11 +174,11 @@ GCLCError CGCLC::calc_expression(const string &text, double &dNumber) {
   } // end of try block
 
   // catch parse and runtime errors
-  catch (exception &e) {
+  catch (std::exception &e) {
     return rvGCLCInvalidExpression;
   }
 
-  if (isnan(dNumber))
+  if (std::isnan(dNumber))
     return rvGCLCInvalidExpression;
 
   return rvGCLCOK;
@@ -187,7 +187,7 @@ GCLCError CGCLC::calc_expression(const string &text, double &dNumber) {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_array() {
-  string sArrayName;
+  std::string sArrayName;
   double dNumber;
   int iDim[10];
   unsigned char c;
@@ -235,7 +235,7 @@ GCLCError CGCLC::get_array() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::generate_array_elements(int iDim[], int current_index,
-                                         int max_index, const string &sName) {
+                                         int max_index, const std::string &sName) {
   GCLCError iRv;
   if (current_index > max_index) {
     if ((iRv = Let(sName, GCLC_NUMBER, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)) !=
@@ -251,14 +251,14 @@ GCLCError CGCLC::generate_array_elements(int iDim[], int current_index,
 
 // ----------------------------------------------------------------------------
 
-GCLCError CGCLC::EvaluateIndex(string &sObjectName) {
+GCLCError CGCLC::EvaluateIndex(std::string &sObjectName) {
   GCLCError iRv;
-  string expression;
+  std::string expression;
   double dNumber;
   size_t found1 = -1, found2;
 
   while (1) {
-    if ((found1 = sObjectName.find_first_of('[', found1 + 1)) == string::npos)
+    if ((found1 = sObjectName.find_first_of('[', found1 + 1)) == std::string::npos)
       break;
 
     int iBrackets = 1;
@@ -286,8 +286,8 @@ GCLCError CGCLC::EvaluateIndex(string &sObjectName) {
 GCLCError CGCLC::get_while() {
   GCLCError iRv;
   double dNumber;
-  string block_text;
-  string cond_text;
+  std::string block_text;
+  std::string cond_text;
 
   if ((iRv = take_text(cond_text)) != rvGCLCOK)
     return iRv;
@@ -332,9 +332,9 @@ GCLCError CGCLC::get_while() {
 GCLCError CGCLC::get_if_then_else() {
   GCLCError iRv;
   double dNumber;
-  string then_block_text;
-  string else_block_text;
-  string cond_text;
+  std::string then_block_text;
+  std::string else_block_text;
+  std::string cond_text;
 
   if ((iRv = take_text(cond_text)) != rvGCLCOK)
     return iRv;
@@ -373,9 +373,9 @@ GCLCError CGCLC::get_procedure() {
     return rvGCLCNoProceduresInBlocks;
 
   GCLCError iRv;
-  string sProcedureName;
-  string params_text;
-  string block_text;
+  std::string sProcedureName;
+  std::string params_text;
+  std::string block_text;
 
   if ((iRv = ReadToken(sProcedureName)) != rvGCLCOK)
     return rvGCLCIdExpected;
@@ -390,12 +390,12 @@ GCLCError CGCLC::get_procedure() {
 
 // ----------------------------------------------------------------------------
 
-GCLCError CGCLC::AddNewProcedure(string name, string params, string block) {
+GCLCError CGCLC::AddNewProcedure(std::string name, std::string params, std::string block) {
   GCLCprocedure proc;
   proc.sName = name;
   proc.sParameters = params;
   proc.sBlock = block;
-  m_pProcedures->insert(pair<string, GCLCprocedure>(name, proc));
+  m_pProcedures->insert(std::pair<std::string, GCLCprocedure>(name, proc));
   return rvGCLCOK;
 }
 
@@ -403,10 +403,10 @@ GCLCError CGCLC::AddNewProcedure(string name, string params, string block) {
 
 GCLCError CGCLC::get_call_procedure() {
   GCLCError iRv;
-  string sProcedureName;
-  string params_text;
-  string sArgName;
-  string sFormalArgName;
+  std::string sProcedureName;
+  std::string params_text;
+  std::string sArgName;
+  std::string sFormalArgName;
   GCLC_object o;
 
   if (ReadToken(sProcedureName) != rvGCLCOK)
@@ -414,7 +414,7 @@ GCLCError CGCLC::get_call_procedure() {
   if ((iRv = take_text(params_text)) != rvGCLCOK)
     return iRv;
 
-  map<string, GCLCprocedure>::iterator it = m_pProcedures->find(sProcedureName);
+  std::map<std::string, GCLCprocedure>::iterator it = m_pProcedures->find(sProcedureName);
   if (it == m_pProcedures->end())
     return rvGCLCUnknownprocedure;
 
@@ -424,8 +424,8 @@ GCLCError CGCLC::get_call_procedure() {
   CGCLC C(input, this->m_Log, this->m_pPrim, m_pProcedures, NULL,
           this->m_bXMLOutput, this->m_hXMLOutput);
 
-  string &formal_params = it->second.sParameters;
-  string &actual_params = params_text;
+  std::string &formal_params = it->second.sParameters;
+  std::string &actual_params = params_text;
   bool bSupressWarnings = m_bSupressWarnings;
   m_bSupressWarnings = true;
 
@@ -553,11 +553,11 @@ GCLCError CGCLC::get_include() {
   if (ReadToken() != rvGCLCOK)
     return rvGCLCIdExpected;
 
-  ifstream Input(LastToken().c_str());
+  std::ifstream Input(LastToken().c_str());
   if (!Input.is_open())
     return rvGCLCInvalidIncludeFile;
-  string sIncludeFile((istreambuf_iterator<char>(Input)),
-                      istreambuf_iterator<char>());
+  std::string sIncludeFile((std::istreambuf_iterator<char>(Input)),
+                      std::istreambuf_iterator<char>());
 
   CStringInput input(sIncludeFile);
 

@@ -215,7 +215,7 @@ CAlgMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   Log::OutputSubSectionBegin("Construction commands:", true);
   Log::OutputEnumBegin("itemize");
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     Log::OutputEnumItemBegin();
     _PrintCommand(*it);
@@ -232,7 +232,7 @@ CAlgMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
 
   Log::OutputEnumBegin("enumerate");
   // char sCond[COND_LENGHT];
-  string sCond;
+  std::string sCond;
 
   for (unsigned ii = 0, size = vpConjectures.size(); ii < size; ii++) {
     // Log::OutputEnumItem("");
@@ -323,7 +323,7 @@ CAlgMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
     Log::PrintLogF(0, "Prover failed!\n\n");
     Log::PrintLogF(1, "\\textbf{Prover failed, exception raised!}\n\n");
     Log::PrintLogF(2, "<prove_failed>Exception raised!</prove_failed>\n\n");
-    Print(cerr, "prover failed, exception raised!");
+    Print(std::cerr, "prover failed, exception raised!");
   }
 
   CleanUp();
@@ -332,9 +332,9 @@ CAlgMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
 
 // ----------------------------------------------------------------------------
 
-bool CAlgMethod::AddProverCommand(eGCLC_prover_command type, const string &a1,
-                                  const string &a2, const string &a3,
-                                  const string &a4, const string &a5) {
+bool CAlgMethod::AddProverCommand(eGCLC_prover_command type, const std::string &a1,
+                                  const std::string &a2, const std::string &a3,
+                                  const std::string &a4, const std::string &a5) {
   CGCLCProverCommand Command;
   Command.type = type;
   Command.arg[0] = a1;
@@ -351,7 +351,7 @@ bool CAlgMethod::AddProverCommand(eGCLC_prover_command type, const string &a1,
 //
 // Is point with given name already created
 //
-bool CAlgMethod::_ExistsPoint(const string &name) {
+bool CAlgMethod::_ExistsPoint(const std::string &name) {
   bool retValue = false;
   for (int ii = 0, size = _points.size(); ii < size && retValue == false;
        ii++) {
@@ -474,7 +474,7 @@ bool CAlgMethod::_FindPoints() {
   if (_pointsResolved)
     return 1;
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     switch (it->type) {
     case p_point:
@@ -527,7 +527,7 @@ bool CAlgMethod::_FindPoints() {
 
 // ----------------------------------------------------------------------------
 
-bool CAlgMethod::_AddDependantPoint(const string &name, int *pLastDepIndex,
+bool CAlgMethod::_AddDependantPoint(const std::string &name, int *pLastDepIndex,
                                     bool addCommand) {
   if (_ExistsPoint(name) == false) {
     Point *p = new Point(false, false, name);
@@ -549,9 +549,9 @@ bool CAlgMethod::_AddDependantPoint(const string &name, int *pLastDepIndex,
 
 // ----------------------------------------------------------------------------
 
-bool CAlgMethod::_AddFreePoint(const string &name, bool addCommand,
-                               const string & /* xc */,
-                               const string & /* yc */) {
+bool CAlgMethod::_AddFreePoint(const std::string &name, bool addCommand,
+                               const std::string & /* xc */,
+                               const std::string & /* yc */) {
   if (_ExistsPoint(name) == false) {
     Point *p = new Point(true, true, name);
     _points.push_back(p);
@@ -632,7 +632,7 @@ bool CAlgMethod::_AddFreePoint(const string &name, bool addCommand,
 //
 // Find constant with given name
 //
-Constant *CAlgMethod::_FindConstant(const string &name) {
+Constant *CAlgMethod::_FindConstant(const std::string &name) {
   Constant *c = NULL;
   if (name.empty()) {
     return c;
@@ -653,7 +653,7 @@ Constant *CAlgMethod::_FindConstant(const string &name) {
 // Find point with given name.
 // Returns NULL if point does not exists.
 //
-Point *CAlgMethod::_FindPoint(const string &name) {
+Point *CAlgMethod::_FindPoint(const std::string &name) {
   Point *p = NULL;
   if (name.empty()) {
     return p;
@@ -671,7 +671,7 @@ Point *CAlgMethod::_FindPoint(const string &name) {
 //
 // Never returns NULL.
 //
-Point *CAlgMethod::_FindOrAddPoint(const string &name) {
+Point *CAlgMethod::_FindOrAddPoint(const std::string &name) {
   Point *p = _FindPoint(name);
 
   if (p == NULL) {
@@ -688,7 +688,7 @@ Point *CAlgMethod::_FindOrAddPoint(const string &name) {
 //
 // Find line with given name
 //
-Line *CAlgMethod::_FindLine(const string &name) {
+Line *CAlgMethod::_FindLine(const std::string &name) {
   Line *l = NULL;
   for (int ii = 0, size = _lines.size(); ii < size && l == NULL; ii++) {
     if (_lines[ii]->Name == name)
@@ -732,7 +732,7 @@ Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
 //
 // Find circle with given name
 //
-Circle *CAlgMethod::_FindCircle(const string &name) {
+Circle *CAlgMethod::_FindCircle(const std::string &name) {
   Circle *c = NULL;
 
   for (int ii = 0, size = _circles.size(); ii < size && c == NULL; ii++) {
@@ -749,7 +749,7 @@ Circle *CAlgMethod::_FindCircle(const string &name) {
 //
 // Find conic with given name
 //
-Conic *CAlgMethod::_FindConic(const string &name) {
+Conic *CAlgMethod::_FindConic(const std::string &name) {
   Conic *c = NULL;
 
   for (int ii = 0, size = _conics.size(); ii < size && c == NULL; ii++) {
@@ -778,7 +778,7 @@ bool CAlgMethod::_FindLinesCircles() {
   Circle *k = NULL;
   bool anglePerp;
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end() && !_linesResolved; it++) {
     l = NULL;
     p = NULL;
@@ -949,7 +949,7 @@ bool CAlgMethod::_FindLinesCircles() {
   while (lineAngleResolved) {
     lineAngleResolved = false;
 
-    for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+    for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
          it != m_ProverCommands.end() && !_linesResolved; it++) {
       switch (it->type) {
       case p_line:
@@ -1175,7 +1175,7 @@ bool CAlgMethod::_HalfPointsEquals(Point *p1, Point *p2, bool xAxis) {
 // Create line with two given points
 //
 Line *CAlgMethod::_CreateLine(Point *p1, Point *p2) {
-  string lName = p1->Name + p2->Name;
+  std::string lName = p1->Name + p2->Name;
   Line *l = new Line(lName);
   _lines.push_back(l);
   l->AddPoint(p1);
@@ -1192,7 +1192,7 @@ Line *CAlgMethod::_CreateLine(Point *p1, Point *p2) {
 // second point is on the circle
 //
 Circle *CAlgMethod::_CreateCircle(Point *p1, Point *p2) {
-  string lName = p1->Name + p2->Name;
+  std::string lName = p1->Name + p2->Name;
   Circle *k = new Circle(lName, p1, p2);
   _circles.push_back(k);
 
@@ -1221,7 +1221,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
   Point *p1, *p2, *p3, *p4;
   bool b1, b2;
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     // Log::OutputEnumItem("");
     Log::OutputEnumItemBegin();
@@ -1672,7 +1672,7 @@ XPolynomial *CAlgMethod::_TangensDen(Point *b, Point *a, Point *c) {
 //
 XPolynomial *CAlgMethod::_DiffRatioCondition(Point *p1, Point *p2, Point *p3,
                                              Point *p4, Line *l,
-                                             const string &sr) {
+                                             const std::string &sr) {
   XPolynomial *xp = NULL;
 
   // get real number
@@ -2524,7 +2524,7 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
         C = _FindPoint(eC->GetName());
         D = _FindPoint(eD->GetName());
         if (A == NULL || B == NULL || C == NULL || D == NULL) {
-          Print(cout, "ep_segment_ratio: some of the points is NULL!\n");
+          Print(std::cout, "ep_segment_ratio: some of the points is NULL!\n");
           throw - 1;
         }
 
@@ -2693,7 +2693,7 @@ void CAlgMethod::_PrintConjecture(const CGCLCProverExpression &e, int level,
 
 // ----------------------------------------------------------------------------
 
-bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
+bool CAlgMethod::SetProverConjecture(const std::string &strConjecture) {
   int nInputPos = 0;
   m_bValidConjecture = false;
 
@@ -2735,10 +2735,10 @@ bool CAlgMethod::SetProverConjecture(const string &strConjecture) {
   if (m_InitialConjecture.GetType() == ep_harmonic) {
     // remember original conjecture
     vpOrigConjectures.push_back(m_InitialConjecture);
-    string A = m_InitialConjecture.GetArgName(0);
-    string B = m_InitialConjecture.GetArgName(1);
-    string C = m_InitialConjecture.GetArgName(2);
-    string D = m_InitialConjecture.GetArgName(3);
+    std::string A = m_InitialConjecture.GetArgName(0);
+    std::string B = m_InitialConjecture.GetArgName(1);
+    std::string C = m_InitialConjecture.GetArgName(2);
+    std::string D = m_InitialConjecture.GetArgName(3);
     m_InitialConjecture = CGCLCProverExpression(
         ep_equality, CGCLCProverExpression::sratio(A, C, C, B),
         CGCLCProverExpression::sratio(D, A, D, B));
@@ -2787,7 +2787,7 @@ void CAlgMethod::PrintMethodSpecificOutput() {
 
 // ----------------------------------------------------------------------------
 
-string CAlgMethod::GetMethodSpecificOutput() {
+std::string CAlgMethod::GetMethodSpecificOutput() {
   return "\nThe theorem prover based on the " + GetName() +
          " method used.\nThe largest "
          "polynomial obtained during the proof process contains " +
@@ -2796,13 +2796,13 @@ string CAlgMethod::GetMethodSpecificOutput() {
 
 // ----------------------------------------------------------------------------
 
-void CAlgMethod::PrintProofTitleXML(const string &theoremName) {
+void CAlgMethod::PrintProofTitleXML(const std::string &theoremName) {
   // XML output
   Print(m_hXMLOutputProof,
         "\n<proof_title>GCLC Prover Output for "
         "conjecture " +
             (!theoremName.empty() ? theoremName
-                                  : (string) "[not named]" + " (" + GetName() +
+                                  : (std::string) "[not named]" + " (" + GetName() +
                                         " method used)</proof_title>\n\n"));
 }
 

@@ -7,7 +7,6 @@
 
 #include <string>
 
-using namespace std;
 
 class CGCLCLog {
 public:
@@ -15,7 +14,7 @@ public:
   virtual ~CGCLCLog();
 
   virtual void Reset() = 0;
-  virtual void AddText(const string &sText) = 0;
+  virtual void AddText(const std::string &sText) = 0;
 };
 
 #endif // !defined(GCLCLOG_H)

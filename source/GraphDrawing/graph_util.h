@@ -4,7 +4,6 @@
 #include "graph.h"
 #include "settings.h"
 
-using namespace std;
 
 /*! \brief This structure is used for representing points for drawing.
  *
@@ -85,7 +84,7 @@ public:
    * \param int element to look for
    * \return boolean value indicating if element is in vector
    */
-  static bool isElementInVector(vector<int>, int);
+  static bool isElementInVector(std::vector<int>, int);
   /*! \brief Returns any vertex x such that mark(x)=false, out(x)=true,
    * chords(x)!=0 and
    * x!=v1, x!=v2
@@ -174,49 +173,49 @@ public:
    * \param map<int, struct Point> fixed vertices
    * \return struct Point dummy vertex
    */
-  static struct Point getDummy1(map<int, struct Point>);
+  static struct Point getDummy1(std::map<int, struct Point>);
   //! Gets dummy2 vertex
   /*! Dummy1 vertex is vertex that is barycenter of all vertices except for
    * the last.
    * \param map<int, struct Point> fixed vertices
    * \return struct Point dummy vertex
    */
-  static struct Point getDummy2(map<int, struct Point>);
+  static struct Point getDummy2(std::map<int, struct Point>);
   //! Checks if two vectors are equal
   /*!\param vector<int> first vector
    * \param vector<int> second vector
    * \return boolean value indicating if vectors are equal
    */
-  static bool areVectorsEqual(vector<int>, vector<int>);
+  static bool areVectorsEqual(std::vector<int>, std::vector<int>);
   //! Cheks if vertex is fixed vertex
   /*! \param int vertex
    * \param map<int, struct Point> map of fixed vertices
    */
-  static bool isVertexFixed(int, map<int, struct Point>);
+  static bool isVertexFixed(int, std::map<int, struct Point>);
   //! Gets vector of fixed vertices
   /*! Gets vector of fixed vertices based on the map of fixed vertices.
    * \param map<int, struct Point> map of fixed vertices
    * \return vector<int> vector of fixed vertices
    */
-  static vector<int> makeFixedVerticesVector(map<int, struct Point>);
+  static std::vector<int> makeFixedVerticesVector(std::map<int, struct Point>);
   //! Gets map of neighbours for every free vertex
   /*! \param Graph graph
    * \param map<int, struct Point> fixed vertices
    * \return map<int, vector<int> > map of neighbours of free vertices
    */
-  static map<int, vector<int> > getNeighbourMap(Graph, map<int, struct Point>);
+  static std::map<int, std::vector<int> > getNeighbourMap(Graph, std::map<int, struct Point>);
   //! Gets highest number of vertices that have same neighbours
   /*! \param map<int, vector<int> > neighbourMap
    * \return int highest number of vertices with same neighbours
    */
-  static int getMostSameNeighbours(map<int, vector<int> >);
+  static int getMostSameNeighbours(std::map<int, std::vector<int> >);
   //! Gets bouding box
   /*! Gets bouding box of fixed vertices
    * \param map<int, struct Point> fixed vertices
    * \param struct Point& left bottom (this is out argument)
    * \param struct Point& right top (this is out argument)
    */
-  static void getBoundingBox(map<int, struct Point> fixedVertices,
+  static void getBoundingBox(std::map<int, struct Point> fixedVertices,
                              struct Point &, struct Point &);
   //! Gets dummy vertices
   /*! Gets dummy vertices. Dummy vertices is map of new vertices with their
@@ -226,7 +225,7 @@ public:
    * \param Graph graph
    * \return map<int, struct Point> map of dummy vertices
    */
-  static map<int, struct Point> getDummyVerticesMap(map<int, struct Point>, int,
+  static std::map<int, struct Point> getDummyVerticesMap(std::map<int, struct Point>, int,
                                                     Graph);
   //! Gets dummy map
   /*! Gets dummy map. Dummy map is a map of free vertices, and dummy vertices
@@ -238,14 +237,14 @@ public:
    * \param Graph graph
    * \return map<int, int> dummy map
    */
-  static map<int, int> getDummyMap(map<int, vector<int> >, Graph);
+  static std::map<int, int> getDummyMap(std::map<int, std::vector<int> >, Graph);
   //! Prints "TRUE" or "FALSE" depending on the argument
   /*! This functions is used to ease debugging process. It prints TRUE or FALSE
    * depending on the argument.
    * \param bool boolean value that should be printed out
    * \return string "TRUE" or "FALSE"
    */
-  static string printbool(bool);
+  static std::string printbool(bool);
   //! Formats and prints all nodes of the given graph
   /*!\param Graph& graph that should be printed
    */
@@ -287,24 +286,24 @@ public:
   /*!
    * \param vector<int> vector to be printed out
    */
-  static void printVector(vector<int>);
+  static void printVector(std::vector<int>);
   //! Prints map of coordinates of the drawing
   /*! \param map<int, struct Point> straightline map
    */
-  static void printCoordinates(map<int, struct Point>);
+  static void printCoordinates(std::map<int, struct Point>);
   //! Prints elements of set L
   /*! Prints all of the elements for every set L
    * \param map<int, vector<int> > vector of sets L
    */
-  static void printSetL(map<int, vector<int> >);
+  static void printSetL(std::map<int, std::vector<int> >);
   //! Prints error message and stops execution of the program
   /*! \param string error message to be printed out
    */
-  static void Error(const string &message);
+  static void Error(const std::string &message);
   //! Prints layers used for Arc-Layered drawing
   /*! \param vector<vector<int> > layers to be printed out
    */
-  static void writeLayers(vector<vector<int> >);
+  static void writeLayers(std::vector<std::vector<int> >);
   //! Prints all settings values
   /*! \param Settings settings object
    */
@@ -319,11 +318,11 @@ public:
  */
 struct CanonicalOrder {
   //! Canonical ordering
-  vector<int> canonicalOrdering;
+  std::vector<int> canonicalOrdering;
   //! Map of outer cycles of Gk
-  map<int, vector<int> > c0Gk;
+  std::map<int, std::vector<int> > c0Gk;
   //! Map of neighbours of vertex vk
-  map<int, vector<int> > vk_neighbours;
+  std::map<int, std::vector<int> > vk_neighbours;
 };
 
 #endif

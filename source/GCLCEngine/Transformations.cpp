@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_translate() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2, o3;
   GCLCError iRv;
 
@@ -42,7 +42,7 @@ GCLCError CGCLC::get_translate() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_rotate() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o3;
   GCLCError iRv;
   double x1, x3, y1, y3, sinn, cosn, angle;
@@ -83,7 +83,7 @@ GCLCError CGCLC::get_rotate() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_rotateonellipse() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2, o3, o4;
   GCLCError iRv;
   double phi, phi1, angle, a, b, pom, x, y, x1, y1, x2, y2, x3, y3, x4, y4,
@@ -144,7 +144,7 @@ GCLCError CGCLC::get_rotateonellipse() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_sim() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x, y, x0, y0, a, b, c, r, k;
@@ -228,7 +228,7 @@ GCLCError CGCLC::get_sim() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_turtle() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, x2, y1, y2, sinn, cosn, angle, d, d0;
@@ -263,7 +263,7 @@ GCLCError CGCLC::get_turtle() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_towards() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, x2, y1, y2, k;

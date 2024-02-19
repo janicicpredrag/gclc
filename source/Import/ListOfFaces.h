@@ -6,7 +6,6 @@
 #define LISTOFFACES_H
 
 #include <string>
-using namespace std;
 
 struct javaviewface {
   int geometry;
@@ -23,7 +22,7 @@ struct vertex {
 struct point {
   double x, y;
   unsigned char r, g, b;
-  string name;
+  std::string name;
   struct point *pnext;
 };
 
@@ -45,7 +44,7 @@ public:
     b = b0;
     g = g0;
   }
-  string name;
+  std::string name;
 
 private:
   unsigned char r, g, b;
@@ -68,7 +67,7 @@ public:
   int GetGeometry() { return m_iGeometry; }
   void AttachColorsToCurrentFace(unsigned char r, unsigned char g,
                                  unsigned char b);
-  void SetLastFaceName(const string &sName);
+  void SetLastFaceName(const std::string &sName);
 
 private:
   int m_iGeometry;
@@ -89,7 +88,7 @@ public:
   void AttachColorsToCurrentPoint(unsigned char r, unsigned char g,
                                   unsigned char b);
   void GetCurrentPoint(double &x, double &y);
-  void SetLastPointName(const string &sName);
+  void SetLastPointName(const std::string &sName);
 
 private:
   int m_iGeometry;

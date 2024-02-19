@@ -51,7 +51,7 @@ class CGCLC;
 
 // make a string on-the-fly
 #define MAKE_STRING(msg)                                                       \
-  (((ostringstream &)(ostringstream() << boolalpha << msg)).str())
+  (((std::ostringstream &)(std::ostringstream() << std::boolalpha << msg)).str())
 
 class Parser {
 
@@ -91,13 +91,13 @@ public:
   };
 
 private:
-  string program_;
+  std::string program_;
 
   const char *pWord_;
   const char *pWordStart_;
   // last token parsed
   TokenType type_;
-  string word_;
+  std::string word_;
   double value_;
 
 private:
@@ -111,7 +111,7 @@ private:
 
   inline void CheckToken(const TokenType wanted) {
     if (type_ != wanted)
-      throw runtime_error(
+      throw std::runtime_error(
           MAKE_STRING("'" << static_cast<char>(wanted) << "' expected."));
   }
 
@@ -119,7 +119,7 @@ private:
 
 public:
   // ctor
-  Parser(const string &program)
+  Parser(const std::string &program)
       : program_(program), pWord_(program_.c_str()), type_(NONE) {
     // insert pre-defined names:
     /*      symbols_ ["pi"] = 3.1415926535897932385;
@@ -127,7 +127,7 @@ public:
   }
 
   double Evaluate();                     // get result
-  double Evaluate(const string program); // get result*/
+  double Evaluate(const std::string program); // get result*/
 
   void SetGCLC(CGCLC *pGclc) { m_pGclc = pGclc; }
 

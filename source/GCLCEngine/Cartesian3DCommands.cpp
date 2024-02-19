@@ -342,7 +342,7 @@ GCLCError CGCLC::ang3d_draw_system(int mark_integers, int x_step, int y_step,
           (y >= m_3D_Area.y_lb) && (y <= m_3D_Area.y_rt) && !bReachedMax) {
         if (((ANG3D_LOG == 1) && !(i % z_step)) ||
             ((ANG3D_LOG == 2) && !(log_div(i, z_step)))) {
-          string name;
+           std::string name;
           if (ANG3D_LOG == 1)
             name = i2s(-i);
           else {
@@ -520,7 +520,7 @@ GCLCError CGCLC::ang3d_draw_system(int mark_integers, int x_step, int y_step,
           (y >= m_3D_Area.y_lb) && (y <= m_3D_Area.y_rt)) {
         if (((ANG3D_LOG == 1) && !(i % z_step)) ||
             ((ANG3D_LOG == 2) && !(log_div(i, z_step)))) {
-          string name;
+           std::string name;
           if (ANG3D_LOG == 1)
             name = i2s(-i);
           else {
@@ -823,7 +823,7 @@ GCLCError CGCLC::ang3d_draw_system(int mark_integers, int x_step, int y_step,
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_point() {
-  string sPointName;
+   std::string sPointName;
   double x, y, z, x2d, y2d;
   GCLCError iRv;
 
@@ -846,7 +846,7 @@ GCLCError CGCLC::ang3d_point() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_getx() {
-  string sNumberName;
+   std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -861,7 +861,7 @@ GCLCError CGCLC::ang3d_getx() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_gety() {
-  string sNumberName;
+   std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -876,7 +876,7 @@ GCLCError CGCLC::ang3d_gety() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_getz() {
-  string sNumberName;
+   std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -908,21 +908,21 @@ GCLCError CGCLC::ang3d_draw_line_p() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_draw_parametric_surface() {
-  string sNumberName1, sNumberName2;
+   std::string sNumberName1, sNumberName2;
   GCLCError iRv;
   double dNumber1, dNumber2;
-  // string text;
-  string init_text1;
-  string cond_text1;
-  string iter_text1;
+  //  std::string text;
+   std::string init_text1;
+   std::string cond_text1;
+   std::string iter_text1;
 
-  string init_text2;
-  string cond_text2;
-  string iter_text2;
+   std::string init_text2;
+   std::string cond_text2;
+   std::string iter_text2;
 
-  string x_text;
-  string y_text;
-  string z_text;
+   std::string x_text;
+   std::string y_text;
+   std::string z_text;
 
   double x2d_prev[1024], y2d_prev[1024];
   bool bDefined_prev[1024];
@@ -949,20 +949,20 @@ GCLCError CGCLC::ang3d_draw_parametric_surface() {
     return iRv;
   }
 
-  string sText;
+  std::string sText;
   if ((iRv = take_text(sText)) != rvGCLCOK) {
     m_bSupressWarnings = bSupressWarnings;
     return iRv;
   }
 
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     init_text1 = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
     m_bSupressWarnings = bSupressWarnings;
     return rvGCLCSeparatorExpected;
   }
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     cond_text1 = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
@@ -977,14 +977,14 @@ GCLCError CGCLC::ang3d_draw_parametric_surface() {
     return iRv;
   }
 
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     init_text2 = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
     m_bSupressWarnings = bSupressWarnings;
     return rvGCLCSeparatorExpected;
   }
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     cond_text2 = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
@@ -998,14 +998,14 @@ GCLCError CGCLC::ang3d_draw_parametric_surface() {
     return iRv;
   }
 
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     x_text = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
     m_bSupressWarnings = bSupressWarnings;
     return rvGCLCSeparatorExpected;
   }
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     y_text = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
@@ -1148,16 +1148,16 @@ GCLCError CGCLC::ang3d_draw_parametric_surface() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_draw_parametric_curve() {
-  string sNumberName;
+   std::string sNumberName;
   GCLCError iRv;
   double dNumber;
-  string init_text;
-  string cond_text;
-  string iter_text;
+   std::string init_text;
+   std::string cond_text;
+   std::string iter_text;
 
-  string x_text;
-  string y_text;
-  string z_text;
+   std::string x_text;
+   std::string y_text;
+   std::string z_text;
 
   double x, y, z;
   double x2d, y2d, x2d_old = 0, y2d_old = 0;
@@ -1181,20 +1181,20 @@ GCLCError CGCLC::ang3d_draw_parametric_curve() {
     return iRv;
   }
 
-  string sText;
+   std::string sText;
   if ((iRv = take_text(sText)) != rvGCLCOK) {
     m_bSupressWarnings = bSupressWarnings;
     return iRv;
   }
 
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     init_text = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
     m_bSupressWarnings = bSupressWarnings;
     return rvGCLCSeparatorExpected;
   }
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     cond_text = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
@@ -1208,7 +1208,7 @@ GCLCError CGCLC::ang3d_draw_parametric_curve() {
     return iRv;
   }
 
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     x_text = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
@@ -1216,7 +1216,7 @@ GCLCError CGCLC::ang3d_draw_parametric_curve() {
     return rvGCLCSeparatorExpected;
   }
 
-  if (sText.find(';') != string::npos) {
+  if (sText.find(';') != std::string::npos) {
     y_text = sText.substr(0, sText.find(';'));
     sText = sText.substr(sText.find(';') + 1);
   } else {
@@ -1355,14 +1355,14 @@ bool CGCLC::ang3d_clip_z_axis(double &x1, double &y1, double &x2, double &y2) {
 
 // ----------------------------------------------------------------------------
 
-GCLCError CGCLC::ang3d_mark(double x0, double y0, int dir, const string &name) {
+GCLCError CGCLC::ang3d_mark(double x0, double y0, int dir, const  std::string &name) {
   return ang_2D_3D_mark(x0, y0, dir, name, m_3D_Area);
 }
 
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang3d_cmark(double x0, double y0, int dir,
-                             const string &name) {
+                             const  std::string &name) {
   return ang_2D_3D_cmark(x0, y0, dir, name, m_3D_Area);
 }
 

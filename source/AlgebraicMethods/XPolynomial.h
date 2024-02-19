@@ -40,4 +40,4 @@ public:
 	char* PrintLatex() const;
 };
 
-typedef vector<XPolynomial*> vxp;
+typedef std::vector<XPolynomial*> vxp;

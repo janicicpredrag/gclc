@@ -10,7 +10,7 @@
 
 // ----------------------------------------------------------------------------
 
-CSVGOutput::CSVGOutput(ofstream &h) : OUTPUT(h) {
+CSVGOutput::CSVGOutput(std::ofstream &h) : OUTPUT(h) {
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;
   m_iCurrentFontSize = 8;
@@ -60,7 +60,7 @@ GReturnValue CSVGOutput::SetColor(unsigned char r, unsigned char g,
 
 GReturnValue CSVGOutput::SetBackgroundColor(unsigned char r, unsigned char g,
                                             unsigned char b) {
-  string sCurrentColor = "#" + toHexString((unsigned int)(r)) +
+  std::string sCurrentColor = "#" + toHexString((unsigned int)(r)) +
                          toHexString((unsigned int)(g)) +
                          toHexString((unsigned int)(b));
   PrintToOutput("<rect fill=\"" + sCurrentColor +
@@ -73,9 +73,9 @@ GReturnValue CSVGOutput::SetBackgroundColor(unsigned char r, unsigned char g,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CSVGOutput::PrintText(double x, double y, const string &sPosition,
-                                   const string &sText) {
-  string pos;
+GReturnValue CSVGOutput::PrintText(double x, double y, const std::string &sPosition,
+                                   const std::string &sText) {
+  std::string pos;
   if (sPosition == "[rb]")
     pos = "text-anchor=\"end\"";
   else if (sPosition == "[r]")
@@ -112,14 +112,14 @@ GReturnValue CSVGOutput::PrintText(double x, double y, const string &sPosition,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CSVGOutput::PrintComment(const string &sText) {
+GReturnValue CSVGOutput::PrintComment(const std::string &sText) {
   PrintToOutput("\n<!-- " + sText + " -->\n");
   return rvG_OK;
 }
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CSVGOutput::Export(const string &sText, export_type format) {
+GReturnValue CSVGOutput::Export(const std::string &sText, export_type format) {
   if (format == eSVGoutput) {
     PrintToOutput("\n<!-- Directly exported -->");
     PrintToOutput("\n" + sText + "\n");
@@ -342,6 +342,6 @@ GReturnValue CSVGOutput::FillEllipseArc(double x1, double y1, double a,
 
 // ----------------------------------------------------------------------------
 
-void CSVGOutput::PrintToOutput(const string &s) { Print(OUTPUT, s); }
+void CSVGOutput::PrintToOutput(const std::string &s) { Print(OUTPUT, s); }
 
 // ----------------------------------------------------------------------------

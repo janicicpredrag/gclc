@@ -12,6 +12,9 @@ QT += widgets
 TARGET = ../../../executable/gclc-gui
 TEMPLATE = app
 
+CONFIG += c++17
+
+DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x050F00
 
 SOURCES += gGCLCmain.cpp\
     Export/TikZOutput.cpp \

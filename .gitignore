@@ -1,0 +1,6 @@
+build/**/*.o
+build/**/*.cpp
+build/**/*.h
+
+executable/gclc
+executable/gclc-gui

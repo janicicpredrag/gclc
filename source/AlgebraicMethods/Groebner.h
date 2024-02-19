@@ -25,5 +25,5 @@ private:
 public:
   PROVER_STATUS Prove(vxp &vxps, XPolynomial *xpConclusion, int conjectureIndex,
                       double timeout);
-  const string Description();
+  const std::string Description();
 };

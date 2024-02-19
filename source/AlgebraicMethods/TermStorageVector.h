@@ -10,7 +10,7 @@
 class TermStorageVector : public TermStorage
 {
 private:
-	vector<Term*> _terms;
+	std::vector<Term*> _terms;
 	int _enumIndex;
 
 public:

@@ -6,8 +6,8 @@
 // 2,3 : second point on circle
 // 4,5 : center of the circle 
 bool Reduce::ReduceLineCircleIntersection(
-        vector<bool>& vecPointsFree,
-        vector<uint>& vecPointsIndex,
+        std::vector<bool>& vecPointsFree,
+        std::vector<uint>& vecPointsIndex,
         vxp& polySystem)
 {
     return false;
@@ -231,7 +231,7 @@ XPolynomial* Reduce::_FindIndex(uint index,
 //
 // Triangulate polynomial system
 //
-bool Reduce::Triangulate(vxp& vxps, vector<int>& vars, int level, uint* pMaxt)
+bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMaxt)
 {
 	// if system is already triangular, skip procedure
 	if (_IsTriangular(vxps, vars, level))
@@ -543,7 +543,7 @@ bool Reduce::Triangulate(vxp& vxps, vector<int>& vars, int level, uint* pMaxt)
 // system is triangular iff each new polynomial introduces
 // only one new variable
 //
-bool Reduce::_IsTriangular(vxp& vxps, vector<int>& vars, int /* level */)
+bool Reduce::_IsTriangular(vxp& vxps, std::vector<int>& vars, int /* level */)
 {
 	// find variable with greatest index
 	int ii, jj, kk, size = (int)vxps.size(), size1;

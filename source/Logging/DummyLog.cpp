@@ -18,6 +18,6 @@ void CDummyLog::Reset() { return; }
 
 // ----------------------------------------------------------------------------
 
-void CDummyLog::AddText(const string & /* pText */) { return; }
+void CDummyLog::AddText(const std::string & /* pText */) { return; }
 
 // ----------------------------------------------------------------------------

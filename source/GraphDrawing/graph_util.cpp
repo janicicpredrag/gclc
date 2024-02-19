@@ -2,7 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 
-bool GraphUtil::isElementInVector(vector<int> vec, int el) {
+bool GraphUtil::isElementInVector(std::vector<int> vec, int el) {
   for (unsigned int i = 0; i < vec.size(); i++)
     if (el == vec[i])
       return true;
@@ -14,11 +14,11 @@ bool GraphUtil::areCollinear(float x1, float y1, float x2, float y2, float x3,
   return (fabs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) < epsilon);
 }
 
-struct Point GraphUtil::getDummy1(map<int, struct Point> fixedVertices) {
+struct Point GraphUtil::getDummy1(std::map<int, struct Point> fixedVertices) {
   struct Point dummy1;
   dummy1.x = 0;
   dummy1.y = 0;
-  for (map<int, struct Point>::const_iterator it = fixedVertices.begin();
+  for (std::map<int, struct Point>::const_iterator it = fixedVertices.begin();
        it != fixedVertices.end(); it++) {
     dummy1.x += it->second.x;
     dummy1.y += it->second.y;
@@ -28,12 +28,12 @@ struct Point GraphUtil::getDummy1(map<int, struct Point> fixedVertices) {
   return dummy1;
 }
 
-struct Point GraphUtil::getDummy2(map<int, struct Point> fixedVertices) {
+struct Point GraphUtil::getDummy2(std::map<int, struct Point> fixedVertices) {
   struct Point dummy2;
   dummy2.x = 0;
   dummy2.y = 0;
   unsigned int count = 1;
-  for (map<int, struct Point>::const_iterator it = fixedVertices.begin();
+  for (std::map<int, struct Point>::const_iterator it = fixedVertices.begin();
        it != fixedVertices.end(); it++) {
     if (count == fixedVertices.size())
       break;
@@ -46,7 +46,7 @@ struct Point GraphUtil::getDummy2(map<int, struct Point> fixedVertices) {
   return dummy2;
 }
 
-bool GraphUtil::areVectorsEqual(vector<int> v1, vector<int> v2) {
+bool GraphUtil::areVectorsEqual(std::vector<int> v1, std::vector<int> v2) {
   unsigned int i;
   // check if v1\in v2
   for (i = 0; i < v1.size(); i++)
@@ -59,8 +59,8 @@ bool GraphUtil::areVectorsEqual(vector<int> v1, vector<int> v2) {
   return true;
 }
 
-bool GraphUtil::isVertexFixed(int v, map<int, struct Point> fixedVertices) {
-  for (map<int, struct Point>::const_iterator it = fixedVertices.begin();
+bool GraphUtil::isVertexFixed(int v, std::map<int, struct Point> fixedVertices) {
+  for (std::map<int, struct Point>::const_iterator it = fixedVertices.begin();
        it != fixedVertices.end(); it++) {
     if (it->first == v)
       return true;
@@ -68,35 +68,35 @@ bool GraphUtil::isVertexFixed(int v, map<int, struct Point> fixedVertices) {
   return false;
 }
 
-vector<int>
-GraphUtil::makeFixedVerticesVector(map<int, struct Point> fixedVertices) {
-  vector<int> fixedVerticesVector;
-  for (map<int, struct Point>::const_iterator it = fixedVertices.begin();
+std::vector<int>
+GraphUtil::makeFixedVerticesVector(std::map<int, struct Point> fixedVertices) {
+  std::vector<int> fixedVerticesVector;
+  for (std::map<int, struct Point>::const_iterator it = fixedVertices.begin();
        it != fixedVertices.end(); it++)
     fixedVerticesVector.push_back(it->first);
   return fixedVerticesVector;
 }
 
-map<int, vector<int> >
-GraphUtil::getNeighbourMap(Graph graph, map<int, struct Point> fixedVertices) {
-  map<int, vector<int> > neighbourMap;
-  vector<GraphNode> nodes = graph.getNodes();
+std::map<int, std::vector<int> >
+GraphUtil::getNeighbourMap(Graph graph, std::map<int, struct Point> fixedVertices) {
+  std::map<int, std::vector<int> > neighbourMap;
+  std::vector<GraphNode> nodes = graph.getNodes();
   for (unsigned int i = 0; i < nodes.size(); i++) {
     int currentNodeNumber = nodes[i].getNodeNumber();
     // if it is not fixed add to map
     if (!GraphUtil::isVertexFixed(currentNodeNumber, fixedVertices)) {
-      vector<int> neighbours = graph.getNeighbours(currentNodeNumber);
+      std::vector<int> neighbours = graph.getNeighbours(currentNodeNumber);
       neighbourMap[currentNodeNumber] = neighbours;
     }
   }
   return neighbourMap;
 }
 
-int GraphUtil::getMostSameNeighbours(map<int, vector<int> > neighbourMap) {
+int GraphUtil::getMostSameNeighbours(std::map<int, std::vector<int> > neighbourMap) {
   int max = 1, current = 1;
-  for (map<int, vector<int> >::const_iterator n1 = neighbourMap.begin();
+  for (std::map<int, std::vector<int> >::const_iterator n1 = neighbourMap.begin();
        n1 != neighbourMap.end(); n1++) {
-    for (map<int, vector<int> >::const_iterator n2 = neighbourMap.begin();
+    for (std::map<int, std::vector<int> >::const_iterator n2 = neighbourMap.begin();
          n2 != neighbourMap.end(); n2++) {
       if (n1->first != n2->first) {
         if (GraphUtil::areVectorsEqual(n1->second, n2->second))
@@ -110,11 +110,11 @@ int GraphUtil::getMostSameNeighbours(map<int, vector<int> > neighbourMap) {
   return max;
 }
 
-void GraphUtil::getBoundingBox(map<int, struct Point> fixedVertices,
+void GraphUtil::getBoundingBox(std::map<int, struct Point> fixedVertices,
                                struct Point &leftBottom,
                                struct Point &rightTop) {
   float minX, minY, maxX, maxY;
-  map<int, struct Point>::const_iterator it = fixedVertices.begin();
+  std::map<int, struct Point>::const_iterator it = fixedVertices.begin();
   minX = maxX = it->second.x;
   minY = maxY = it->second.y;
   for (it = fixedVertices.begin(); it != fixedVertices.end(); it++) {
@@ -133,10 +133,10 @@ void GraphUtil::getBoundingBox(map<int, struct Point> fixedVertices,
   rightTop.y = maxY;
 }
 
-map<int, struct Point>
-GraphUtil::getDummyVerticesMap(map<int, struct Point> fixedVertices,
+std::map<int, struct Point>
+GraphUtil::getDummyVerticesMap(std::map<int, struct Point> fixedVertices,
                                int mostSameNeighbours, Graph graph) {
-  map<int, struct Point> dummyVerticesMap;
+  std::map<int, struct Point> dummyVerticesMap;
   struct Point lb, rt;
   // get bounding box
   GraphUtil::getBoundingBox(fixedVertices, lb, rt);
@@ -160,23 +160,23 @@ GraphUtil::getDummyVerticesMap(map<int, struct Point> fixedVertices,
   return dummyVerticesMap;
 }
 
-map<int, int> GraphUtil::getDummyMap(map<int, vector<int> > neighbourMap,
+std::map<int, int> GraphUtil::getDummyMap(std::map<int, std::vector<int> > neighbourMap,
                                      Graph graph) {
-  map<int, int> dummyMap;
-  map<int, bool> markedMap;
+  std::map<int, int> dummyMap;
+  std::map<int, bool> markedMap;
   // create marked map and setup initial values for dummy map (0)
-  for (map<int, vector<int> >::const_iterator it = neighbourMap.begin();
+  for (std::map<int, std::vector<int> >::const_iterator it = neighbourMap.begin();
        it != neighbourMap.end(); it++) {
     dummyMap[it->first] = 0;
     markedMap[it->first] = false;
   }
   int counter = 0;
   int highestNodeNumber = graph.getHighestNodeNumber() + 1;
-  for (map<int, vector<int> >::const_iterator it1 = neighbourMap.begin();
+  for (std::map<int, std::vector<int> >::const_iterator it1 = neighbourMap.begin();
        it1 != neighbourMap.end(); it1++) {
     if (!markedMap[it1->first]) {
       markedMap[it1->first] = true;
-      for (map<int, vector<int> >::const_iterator it2 = neighbourMap.begin();
+      for (std::map<int, std::vector<int> >::const_iterator it2 = neighbourMap.begin();
            it2 != neighbourMap.end(); it2++) {
         if (!markedMap[it2->first] && it1->first != it2->first &&
             GraphUtil::areVectorsEqual(it1->second, it2->second)) {
@@ -190,7 +190,7 @@ map<int, int> GraphUtil::getDummyMap(map<int, vector<int> > neighbourMap,
   return dummyMap;
 }
 
-string GraphUtil::printbool(bool argument) {
+std::string GraphUtil::printbool(bool argument) {
   return ((argument == true) ? "TRUE" : "FALSE");
 }
 
@@ -212,24 +212,24 @@ void GraphUtil::printAdjacencyMatrix(bool **adjacencyMatrix, int size) {
   // print adjacency matrix
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++)
-      cout << adjacencyMatrix[i][j] << " ";
-    cout << endl;
+      std::cout << adjacencyMatrix[i][j] << " ";
+    std::cout << std::endl;
   }
 }
 
 void GraphUtil::printCanonicalOrderStructure(struct CanonicalOrder costruct) {
-  cout << "Canonical ordering:\n";
+  std::cout << "Canonical ordering:\n";
   GraphUtil::printVector(costruct.canonicalOrdering);
-  cout << "outer cycles:\n";
-  map<int, vector<int> >::const_iterator it;
+  std::cout << "outer cycles:\n";
+  std::map<int, std::vector<int> >::const_iterator it;
   for (it = costruct.c0Gk.begin(); it != costruct.c0Gk.end(); it++) {
-    cout << it->first << ":\t";
+    std::cout << it->first << ":\t";
     GraphUtil::printVector(it->second);
   }
-  cout << "vk neighbours:\n";
+  std::cout << "vk neighbours:\n";
   for (it = costruct.vk_neighbours.begin(); it != costruct.vk_neighbours.end();
        it++) {
-    cout << it->first << ":\t";
+    std::cout << it->first << ":\t";
     GraphUtil::printVector(it->second);
   }
 }
@@ -240,45 +240,45 @@ void GraphUtil::deleteCanonicalOrderStructure(struct CanonicalOrder &costruct) {
   costruct.vk_neighbours.clear();
 }
 
-void GraphUtil::printVector(vector<int> vec) {
+void GraphUtil::printVector(std::vector<int> vec) {
   for (unsigned int i = 0; i < vec.size(); i++)
-    cout << vec[i] << " ";
-  cout << endl;
+    std::cout << vec[i] << " ";
+  std::cout << std::endl;
 }
 
-void GraphUtil::printCoordinates(map<int, struct Point> straightLineMap) {
-  for (map<int, struct Point>::const_iterator it = straightLineMap.begin();
+void GraphUtil::printCoordinates(std::map<int, struct Point> straightLineMap) {
+  for (std::map<int, struct Point>::const_iterator it = straightLineMap.begin();
        it != straightLineMap.end(); it++)
-    cout << it->first << "\t(" << it->second.x << "," << it->second.y << ")\n";
+    std::cout << it->first << "\t(" << it->second.x << "," << it->second.y << ")\n";
 }
 
-void GraphUtil::printSetL(map<int, vector<int> > L) {
-  for (map<int, vector<int> >::const_iterator it = L.begin(); it != L.end();
+void GraphUtil::printSetL(std::map<int, std::vector<int> > L) {
+  for (std::map<int, std::vector<int> >::const_iterator it = L.begin(); it != L.end();
        it++) {
-    cout << it->first << ": ";
+    std::cout << it->first << ": ";
     for (unsigned int i = 0; i < it->second.size(); i++)
-      cout << it->second[i] << " ";
-    cout << endl;
+      std::cout << it->second[i] << " ";
+    std::cout << std::endl;
   }
 }
 
-void GraphUtil::Error(const string &message) {
-  cout << endl << message << endl;
+void GraphUtil::Error(const std::string &message) {
+  std::cout << std::endl << message << std::endl;
   exit(-1);
 }
 
-void GraphUtil::writeLayers(vector<vector<int> > layers) {
-  cout << "number of layers: " << layers.size() << endl;
+void GraphUtil::writeLayers(std::vector<std::vector<int> > layers) {
+  std::cout << "number of layers: " << layers.size() << std::endl;
   for (unsigned int i = 0; i < layers.size(); i++) {
-    cout << "layer " << i << ":\t";
+    std::cout << "layer " << i << ":\t";
     for (unsigned int j = 0; j < layers[i].size(); j++)
-      cout << layers[i][j] << " ";
-    cout << endl;
+      std::cout << layers[i][j] << " ";
+    std::cout << std::endl;
   }
 }
 
 void GraphUtil::writeSettings(Settings settings) {
-  cout << "drawing type:\t\t\t" << settings.getDrawingType() << '\n'
+  std::cout << "drawing type:\t\t\t" << settings.getDrawingType() << '\n'
        << "drawing direction:\t\t" << settings.getDrawingDirection() << '\n'
        << "drawing format:\t\t\t" << settings.getDrawingFormat() << '\n'
        << "scaling factor:\t\t\t" << settings.getScalingFactor() << '\n'

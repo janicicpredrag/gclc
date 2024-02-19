@@ -174,7 +174,7 @@ private:
   int m_nCurrentFrame;
   bool m_bPlayingAnimation;
   int m_nTotalTracedPoints;
-  vector<traced_point> m_TracedPoints;
+  std::vector<traced_point> m_TracedPoints;
 
   bool m_bWatchWindowShown;
   WatchWindow *m_Watch;

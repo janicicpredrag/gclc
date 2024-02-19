@@ -292,9 +292,9 @@ enum XML_group {
 };
 
 typedef struct procedure_tag {
-  string sName;
-  string sParameters;
-  string sBlock;
+  std::string sName;
+  std::string sParameters;
+  std::string sBlock;
 } GCLCprocedure;
 
 typedef struct {
@@ -348,11 +348,11 @@ class CGCLC : public CGCompiler {
 
 public:
   CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
-        bool bXMLoutput, ofstream &hXML);
+        bool bXMLoutput, std::ofstream &hXML);
   CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
-        map<string, GCLCprocedure> *procedures,
-        map<string, GCLC_object> *pTable, bool bXMLOutput,
-        ofstream &hXMLOutput);
+        std::map<std::string, GCLCprocedure> *procedures,
+        std::map<std::string, GCLC_object> *pTable, bool bXMLOutput,
+        std::ofstream &hXMLOutput);
   virtual ~CGCLC();
   void Init();
   void CleanUp();
@@ -363,10 +363,10 @@ public:
                       double &prover_time);
   GReturnValue Import();
 
-  GReturnValue GetError(int &iErrorCode, string &sErrMessage, int &line,
+  GReturnValue GetError(int &iErrorCode, std::string &sErrMessage, int &line,
                         int &pos);
-  GReturnValue GetValue(const string &sVarName, string &sValue);
-  GReturnValue GetPointValue(const string &sVarName, double &x, double &y);
+  GReturnValue GetValue(const std::string &sVarName, std::string &sValue);
+  GReturnValue GetPointValue(const std::string &sVarName, double &x, double &y);
 
   bool GetAnimationFrames(int &iFrames, int &iSpeed);
 
@@ -377,13 +377,13 @@ public:
 private:
   GCLCError Execute();
 
-  GCLCError take_text(string &v);
-  GCLCcommands choose_command(const string &word);
+  GCLCError take_text(std::string &v);
+  GCLCcommands choose_command(const std::string &word);
 
-  GCLCError ReadToken(CGCLCInput &Input, string &sToken);
-  GCLCError ReadToken(string &sToken);
+  GCLCError ReadToken(CGCLCInput &Input, std::string &sToken);
+  GCLCError ReadToken(std::string &sToken);
   GCLCError ReadToken();
-  const string &LastToken();
+  const std::string &LastToken();
   void RecordPositionForWarning() {
     m_iWarnLine = m_iLineBeforeLastToken;
     m_iWarnPos = m_iPositionBeforeLastToken;
@@ -393,15 +393,15 @@ private:
   GCLCError ReadObject(int type, GCLC_object &o);
   GCLCError ReadNextObject(GCLC_object &o);
 
-  GCLCError Let(const string &sVarName, int type, double p1, double p2,
+  GCLCError Let(const std::string &sVarName, int type, double p1, double p2,
                 double p3, double p4, double p5, double p6);
-  GCLCError Value(const string &sVarName, GCLC_object &o);
+  GCLCError Value(const std::string &sVarName, GCLC_object &o);
   int warning(int w);
 
   bool EndOfInputData();
   CGCLCInput *m_Input;
 
-  string m_sToken;
+  std::string m_sToken;
   int m_iLineBeforeLastToken;
   int m_iPositionBeforeLastToken;
   int m_iLastReadLine;
@@ -415,16 +415,16 @@ private:
 
   CGCLCLog &m_Log;
   void ResetLog();
-  void AddToLog(const string &pText);
+  void AddToLog(const std::string &pText);
 
-  map<string, GCLC_object> *m_pSymbolTable;
-  map<string, GCLCprocedure> *m_pProcedures;
+  std::map<std::string, GCLC_object> *m_pSymbolTable;
+  std::map<std::string, GCLCprocedure> *m_pProcedures;
 
   bool m_bXMLOutput;
-  ofstream &m_hXMLOutput;
+  std::ofstream &m_hXMLOutput;
   XML_group m_CurrentXMLgroup;
-  string m_sXMLCurrentColor;
-  string m_sXMLNewColor;
+  std::string m_sXMLCurrentColor;
+  std::string m_sXMLNewColor;
   int m_iXMLCurrentFontSize, m_iXMLNewFontSize;
   void ChangeCurrentXMLGroup(XML_group eXMLgroup);
 
@@ -473,17 +473,17 @@ private:
   GCLCError get_random();
   GCLCError get_expression();
   GCLCError get_array();
-  GCLCError EvaluateIndex(string &sObjectName);
+  GCLCError EvaluateIndex(std::string &sObjectName);
   GCLCError generate_array_elements(int Dim[], int current_index, int max_index,
-                                    const string &sName);
+                                    const std::string &sName);
   GCLCError get_while();
   GCLCError get_if_then_else();
   GCLCError get_procedure();
   GCLCError get_call_procedure();
-  GCLCError AddNewProcedure(string name, string params, string block);
+  GCLCError AddNewProcedure(std::string name, std::string params, std::string block);
   GCLCError get_include();
 
-  GCLCError calc_expression(const string &text, double &dNumber);
+  GCLCError calc_expression(const std::string &text, double &dNumber);
 
   // ----------------------------------------------------------
 
@@ -501,14 +501,14 @@ private:
   GCLCError draw_bezier4(bool dashed);
   GCLCError draw_polygon();
   GCLCError draw_tree();
-  int check_tree(const string &sTree, int iLevel, int iMaxNodesAtLevel[],
+  int check_tree(const std::string &sTree, int iLevel, int iMaxNodesAtLevel[],
                  int &iMaxHeight);
   int draw_all_nodes(double dFigureWidth, double dLevelHeight,
-                     const string &sTree, int iMaxNodesAtLevel[], int iLevel,
+                     const std::string &sTree, int iMaxNodesAtLevel[], int iLevel,
                      int iNumberOfSiblings, int iCurrentNode, double dParentX,
                      double dParentY, bool bParentNoName, double dRootX,
                      double dRootY, int iStyle, double dRotationAngle,
-                     const string &sRefPointName);
+                     const std::string &sRefPointName);
   GCLCError draw_graph_a();
   GCLCError draw_graph_b();
   GCLCError fill_triangle();
@@ -586,17 +586,17 @@ private:
   GCLCError get_conicprecision();
   GCLCError ang_plot_data();
 
-  GCLCError ang_mark(double x0, double y0, int dir, const string &name);
-  GCLCError ang_cmark(double x0, double y0, int dir, const string &name);
+  GCLCError ang_mark(double x0, double y0, int dir, const std::string &name);
+  GCLCError ang_cmark(double x0, double y0, int dir, const std::string &name);
   GCLCError ang_arrow(double x1, double y1, double x2, double y2);
   double ang_y(double y);
   double ang_y_inv(double y);
   GCLCError ang_fline(double x1, double y1, double x2, double y2);
   GCLCError ang_fsegment(double x1, double y1, double x2, double y2);
 
-  GCLCError ang_2D_3D_mark(double x0, double y0, int dir, const string &name,
+  GCLCError ang_2D_3D_mark(double x0, double y0, int dir, const std::string &name,
                            GCLC_area &area);
-  GCLCError ang_2D_3D_cmark(double x0, double y0, int dir, const string &name,
+  GCLCError ang_2D_3D_cmark(double x0, double y0, int dir, const std::string &name,
                             GCLC_area &area);
   GCLCError ang_2D_3D_arrow(double x1, double y1, double x2, double y2,
                             GCLC_area &area);
@@ -628,8 +628,8 @@ private:
   GCLCError ang3d_draw_parametric_surface();
   GCLCError ang3d_draw_parametric_curve();
 
-  GCLCError ang3d_mark(double x0, double y0, int dir, const string &name);
-  GCLCError ang3d_cmark(double x0, double y0, int dir, const string &name);
+  GCLCError ang3d_mark(double x0, double y0, int dir, const std::string &name);
+  GCLCError ang3d_cmark(double x0, double y0, int dir, const std::string &name);
   GCLCError ang3d_arrow(double x1, double y1, double x2, double y2);
   GCLCError ang3d_fsegment(double x1, double y1, double x2, double y2);
   GCLCError ang3d_fline(double x1, double y1, double x2, double y2);

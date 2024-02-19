@@ -2,7 +2,7 @@
 #include "PolyReader.h"
 #include "Reduce.h"
 
-const string Wu::Description() { return "Wu's method"; }
+const std::string Wu::Description() { return "Wu's method"; }
 
 //
 // Prove geometric theorem using Wu's method
@@ -16,7 +16,7 @@ PROVER_STATUS Wu::Prove(vxp &vxps, XPolynomial *xpConclusion,
   try {
     bool bLinearSystem = _IsLinearSystem(vxps);
 
-    vector<int> vars;
+    std::vector<int> vars;
     // if (retValue && Wu::_Triangulate(vxps, vars) == false)
     if (retValue == PROVER_STATUS_INPROGRESS &&
         Reduce::Triangulate(vxps, vars, 1, &_maxt) == false) {
@@ -364,7 +364,7 @@ bool Wu::_IsTriangular(vxp& vxps, vector<int>& vars)
 // Calculate final remainder of triangular system
 // with polynomial conclusion
 //
-bool Wu::_FinalRemainder(vxp &vxps, vector<int> &vars,
+bool Wu::_FinalRemainder(vxp &vxps, std::vector<int> &vars,
                          XPolynomial *xpConclusion, int conjectureIndex) {
   if (conjectureIndex == 0) {
     Log::OutputSectionBegin("Final remainder");

@@ -57,8 +57,8 @@ public:
 private:
   GCLCprimitivecommands type;
   double arg[6];
-  string pos;
-  string text;
+  std::string pos;
+  std::string text;
   bool dashed;
   bool sensitive;
   GCLC_area area;
@@ -90,10 +90,10 @@ public:
                               double phi1, double phi2, GCLC_area &area,
                               bool bFillTriangle);
 
-  GReturnValue PrintText(double x, double y, const string &position,
-                         const string &text, GCLC_area &area);
-  GReturnValue PrintComment(const string &text);
-  GReturnValue DirectExport(const string &text, export_type format);
+  GReturnValue PrintText(double x, double y, const std::string &position,
+                         const std::string &text, GCLC_area &area);
+  GReturnValue PrintComment(const std::string &text);
+  GReturnValue DirectExport(const std::string &text, export_type format);
 
   GReturnValue SetLayer(unsigned int l);
   GReturnValue HideLayer(unsigned int l);
@@ -113,7 +113,7 @@ public:
   bool SkipLayer(unsigned int l);
 
 private:
-  list<CGCLCPrimitive> m_ListOfPrimitives, m_EmptyCircles;
+  std::list<CGCLCPrimitive> m_ListOfPrimitives, m_EmptyCircles;
 
   GCLC_area Default_Area;
   bool m_aSkipLayer[NUMBER_OF_LAYERS];
@@ -122,13 +122,13 @@ private:
 
   GReturnValue AddPrimitiveCommand(CGCLCPrimitive &C);
   GReturnValue ClipPixelByEmptyCircles(double x1, double y1, CGCLCOutput &Out,
-                                       list<CGCLCPrimitive>::iterator it);
+                                       std::list<CGCLCPrimitive>::iterator it);
   GReturnValue ClipSegmentByEmptyCircles(double x1, double y1, double x2,
                                          double y2, CGCLCOutput &Out,
-                                         list<CGCLCPrimitive>::iterator it);
+                                         std::list<CGCLCPrimitive>::iterator it);
   GReturnValue ClipArcByEmptyCircles(double x1, double y1, double x2, double y2,
                                      double angle, CGCLCOutput &Out,
-                                     list<CGCLCPrimitive>::iterator it,
+                                     std::list<CGCLCPrimitive>::iterator it,
                                      int precision);
   GReturnValue ClipSegmentByArea(double &x1, double &y1, double &x2, double &y2,
                                  GCLC_area &area);

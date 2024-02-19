@@ -8,18 +8,16 @@
 #include "GCLCInput.h"
 #include <fstream>
 
-using namespace std;
-
 class CFileInput : public CGCLCInput {
 public:
-  CFileInput(ifstream &h);
+  CFileInput(std::ifstream &h);
   virtual ~CFileInput();
 
   GReturnValue ReadChar(unsigned char &c);
   bool EndOfInputData();
 
 private:
-  ifstream &m_h;
+  std::ifstream &m_h;
 };
 
 #endif // !defined(FILEINPUT_H)
