@@ -30,7 +30,7 @@ bool CGCLC::GetAnimationFrames(int &iFrames, int &iSpeed) {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_animation_trace_point() {
-  string sPointName;
+  std::string sPointName;
   GCLC_object o1;
   double r, g, b;
   GCLCError iRv;

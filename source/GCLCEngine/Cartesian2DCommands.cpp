@@ -147,7 +147,7 @@ GCLCError CGCLC::ang_draw_system(int mark_integers, int x_step, int y_step,
   double dash_halflen = 0.75;
 
   GCLCError iRv;
-  string sComment = "Drawing 2D Cartesian system";
+  std::string sComment = "Drawing 2D Cartesian system";
 
   if (PrintComment(sComment) != rvG_OK)
     return rvCannotExport;
@@ -223,7 +223,7 @@ GCLCError CGCLC::ang_draw_system(int mark_integers, int x_step, int y_step,
 
       if (((ANG_LOG == 1) && !(i % y_step)) ||
           ((ANG_LOG == 2) && !(log_div(i, y_step)))) {
-        string name;
+        std::string name;
         if (ANG_LOG == 1)
           name = i2s(-i);
         else {
@@ -324,7 +324,7 @@ GCLCError CGCLC::ang_draw_system(int mark_integers, int x_step, int y_step,
 
       if (((ANG_LOG == 1) && !(i % y_step)) ||
           ((ANG_LOG == 2) && !(log_div(i, y_step)))) {
-        string name;
+        std::string name;
         if (ANG_LOG == 1)
           name = i2s(-i);
         else {
@@ -405,7 +405,7 @@ GCLCError CGCLC::ang_draw_system(int mark_integers, int x_step, int y_step,
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_point() {
-  string sPointName;
+  std::string sPointName;
   double x, y;
   GCLCError iRv;
 
@@ -423,7 +423,7 @@ GCLCError CGCLC::ang_point() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_getx() {
-  string sNumberName;
+  std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -439,7 +439,7 @@ GCLCError CGCLC::ang_getx() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_gety() {
-  string sNumberName;
+  std::string sNumberName;
   GCLC_object o1;
   GCLCError iRv;
 
@@ -455,7 +455,7 @@ GCLCError CGCLC::ang_gety() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_line() {
-  string sLineName;
+  std::string sLineName;
   double a, b, c;
   GCLCError iRv;
 
@@ -475,7 +475,7 @@ GCLCError CGCLC::ang_line() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_conic() {
-  string sConicName;
+  std::string sConicName;
   GCLCError iRv;
   double a, b, c, d, e, f;
 
@@ -500,7 +500,7 @@ GCLCError CGCLC::ang_conic() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_intersec2() {
-  string sPointName1, sPointName2;
+  std::string sPointName1, sPointName2;
   GCLC_object o1, o2;
   GCLCError iRv;
   double x1, y1, x2, y2, a, b, c, d, e, f, a1, b1, c1, a0, b0, c0, d0;
@@ -625,7 +625,7 @@ GCLCError CGCLC::ang_intersec2() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_tangent() {
-  string sLineName;
+  std::string sLineName;
   GCLC_object o1, o2;
   GCLCError iRv;
   double A, B, C, D, E, a, b, c;
@@ -885,15 +885,15 @@ GCLCError CGCLC::ang_draw_conic(int dashed) {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_draw_parametric_curve() {
-  string sNumberName;
+  std::string sNumberName;
   GCLCError iRv;
   double dNumber;
-  string text;
-  string init_text;
-  string cond_text;
-  string iter_text;
-  string x_text;
-  string y_text;
+  std::string text;
+  std::string init_text;
+  std::string cond_text;
+  std::string iter_text;
+  std::string x_text;
+  std::string y_text;
   double x, y, x_old = 0, y_old = 0;
 
   if (ReadToken(sNumberName) != rvGCLCOK)
@@ -913,7 +913,7 @@ GCLCError CGCLC::ang_draw_parametric_curve() {
     return iRv;
   }
 
-  if (text.find(';') != string::npos) {
+  if (text.find(';') != std::string::npos) {
     init_text = text.substr(0, text.find(';'));
     text = text.substr(text.find(';') + 1);
   } else {
@@ -921,7 +921,7 @@ GCLCError CGCLC::ang_draw_parametric_curve() {
     return rvGCLCSeparatorExpected;
   }
 
-  if (text.find(';') != string::npos) {
+  if (text.find(';') != std::string::npos) {
     cond_text = text.substr(0, text.find(';'));
     text = text.substr(text.find(';') + 1);
   } else {
@@ -935,7 +935,7 @@ GCLCError CGCLC::ang_draw_parametric_curve() {
     return iRv;
   }
 
-  if (text.find(';') != string::npos) {
+  if (text.find(';') != std::string::npos) {
     x_text = text.substr(0, text.find(';'));
     text = text.substr(text.find(';') + 1);
   } else {
@@ -1086,13 +1086,13 @@ GCLCError CGCLC::ang_plot_data() {
 
 // ----------------------------------------------------------------------------
 
-GCLCError CGCLC::ang_mark(double x0, double y0, int dir, const string &name) {
+GCLCError CGCLC::ang_mark(double x0, double y0, int dir, const std::string &name) {
   return ang_2D_3D_mark(x0, y0, dir, name, m_2D_Area);
 }
 
 // ----------------------------------------------------------------------------
 
-GCLCError CGCLC::ang_cmark(double x0, double y0, int dir, const string &name) {
+GCLCError CGCLC::ang_cmark(double x0, double y0, int dir, const std::string &name) {
   return ang_2D_3D_cmark(x0, y0, dir, name, m_2D_Area);
 }
 
@@ -1149,8 +1149,8 @@ GCLCError CGCLC::ang_fline(double x1, double y1, double x2, double y2) {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_2D_3D_mark(double x0, double y0, int dir,
-                                const string &name, GCLC_area &area) {
-  string pos;
+                                const std::string &name, GCLC_area &area) {
+  std::string pos;
   double x, y;
 
   if ((area.x_lb == 0) && (area.x_rt == 0) && (area.y_lb == 0) &&
@@ -1214,8 +1214,8 @@ GCLCError CGCLC::ang_2D_3D_mark(double x0, double y0, int dir,
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::ang_2D_3D_cmark(double x0, double y0, int dir,
-                                 const string &name, GCLC_area &area) {
-  string pos;
+                                 const std::string &name, GCLC_area &area) {
+  std::string pos;
   double x, y;
 
   if ((area.x_lb == 0) && (area.x_rt == 0) && (area.y_lb == 0) &&

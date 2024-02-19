@@ -16,7 +16,7 @@ public:
     ~CDummyLog();
 
     void Reset();
-    void AddText(const string& sText);
+    void AddText(const std::string& sText);
 };
 
 #endif // !defined(DUMMYLOG_H)

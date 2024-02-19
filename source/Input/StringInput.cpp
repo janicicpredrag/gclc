@@ -4,11 +4,9 @@
 
 #include "StringInput.h"
 
-using namespace std;
-
 // ----------------------------------------------------------------------------
 
-CStringInput::CStringInput(const string &sData) : m_sData(sData) {
+CStringInput::CStringInput(const std::string &sData) : m_sData(sData) {
   m_iDataLen = sData.length();
   m_iInputLine = 1;
   m_iPosition = 0;

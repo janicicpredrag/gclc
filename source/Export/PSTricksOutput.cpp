@@ -8,7 +8,7 @@
 
 // ----------------------------------------------------------------------------
 
-CPSTricksOutput::CPSTricksOutput(ofstream &h) : OUTPUT(h) {
+CPSTricksOutput::CPSTricksOutput(std::ofstream &h) : OUTPUT(h) {
   OUTPUT_LINE = 0;
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;
@@ -118,7 +118,7 @@ GReturnValue CPSTricksOutput::DrawArc(double x1, double y1, double x2,
 
 GReturnValue CPSTricksOutput::SetColor(unsigned char r, unsigned char g,
                                        unsigned char b) {
-  string sColorName = "r" + i2s((unsigned int)r) + "g" + i2s((unsigned int)g) +
+  std::string sColorName = "r" + i2s((unsigned int)r) + "g" + i2s((unsigned int)g) +
                       "b" + i2s((unsigned int)b);
   m_bColorsUsed = true;
   PrintToOutput("\\definecolor{" + sColorName + "}{rgb}{" + d2s(r / 255.0, 6) +
@@ -136,7 +136,7 @@ GReturnValue CPSTricksOutput::SetColor(unsigned char r, unsigned char g,
 GReturnValue CPSTricksOutput::SetBackgroundColor(unsigned char r,
                                                  unsigned char g,
                                                  unsigned char b) {
-  string sColorName = "r" + i2s((unsigned int)r) + "g" + i2s((unsigned int)g) +
+  std::string sColorName = "r" + i2s((unsigned int)r) + "g" + i2s((unsigned int)g) +
                       "b" + i2s((unsigned int)b);
   PrintToOutput("\\definecolor{" + sColorName + "}{rgb}{" + d2s(r / 255.0, 6) +
                 "," + d2s(g / 255.0, 6) + "," + d2s(b / 255.0, 6) + "}%\n");
@@ -190,8 +190,8 @@ GReturnValue CPSTricksOutput::SetThickness(double uThickness) {
 // ----------------------------------------------------------------------------
 
 GReturnValue CPSTricksOutput::PrintText(double x, double y,
-                                        const string &sPosition,
-                                        const string &sText) {
+                                        const std::string &sPosition,
+                                        const std::string &sText) {
   PrintToOutput("\\rput" + sPosition + "(" + d2s(x, 2) + "," + d2s(y, 2) +
                 "){$" + sText + "$}\n");
   OUTPUT_LINE++;
@@ -200,7 +200,7 @@ GReturnValue CPSTricksOutput::PrintText(double x, double y,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CPSTricksOutput::PrintComment(const string &sText) {
+GReturnValue CPSTricksOutput::PrintComment(const std::string &sText) {
   PrintToOutput("\n% " + sText + "\n");
   OUTPUT_LINE++;
   OUTPUT_LINE++;
@@ -209,7 +209,7 @@ GReturnValue CPSTricksOutput::PrintComment(const string &sText) {
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CPSTricksOutput::Export(const string &sText, export_type format) {
+GReturnValue CPSTricksOutput::Export(const std::string &sText, export_type format) {
   if (format == ePSTricksoutput || format == eGenericLaTeXoutput) {
     PrintToOutput("\n% Directly exported");
     PrintToOutput("\n" + sText + "\n");
@@ -294,6 +294,6 @@ GReturnValue CPSTricksOutput::FillEllipseArc(double x1, double y1, double a,
 
 // ----------------------------------------------------------------------------
 
-void CPSTricksOutput::PrintToOutput(const string &s) { Print(OUTPUT, s); }
+void CPSTricksOutput::PrintToOutput(const std::string &s) { Print(OUTPUT, s); }
 
 // ----------------------------------------------------------------------------

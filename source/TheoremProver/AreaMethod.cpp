@@ -37,9 +37,9 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       PrintLaTeX("\n\nProving lemma...(level " + i2s(m_iProofDepth) + ")");
       PrintLaTeX("\n\n\\begin{displayproof}\n");
 
-      PrintXML(string(2 * m_iProofDepth, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth, '\t'));
       PrintXML("<lemma level=" + i2s(m_iProofDepth) + ">\n");
-      PrintXML(string(2 * m_iProofDepth, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth, '\t'));
       PrintXML("<proof>\n");
     }
   } else {
@@ -50,7 +50,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   if ((m_iProofDepth == 0) || ((m_iProofDepth > 0) && (m_iProofLevel >= 3)))
     OutputStep(*m_pConjecture, "the statement", eps_statement);
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.end();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.end();
        it != m_ProverCommands.begin();) {
     it--;
 
@@ -96,7 +96,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
                    "procedure was stopped.");
       PrintLaTeX("\n\n\\proveddisproved{2}\n"); // Failed to prove or disprove
 
-      PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("</proof>\n\n");
       if (bTimeOut)
         PrintXML("\n\nTimeout; the proving procedure was stopped.");
@@ -104,7 +104,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
         PrintXML("Too many proof steps (more than the "
                  "given proof limit); the proving "
                  "procedure was stopped.");
-      PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
       Pop();
@@ -147,7 +147,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       PrintLaTeX("\n\nThe conjecture out of scope of the prover.");
       PrintLaTeX("\n\n\\proveddisproved{2}\n"); // Failed to prove or disprove
 
-      PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("</proof>\n\n");
       PrintXML("\n\nThe conjecture out of scope of the prover.");
       PrintXML("\t");
@@ -168,7 +168,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
                      "the conjecture (required elimination "
                      "not available).\n\n");
 
-          PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+          PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
           PrintXML("</proof>\n\n");
           PrintXML("Unable to eliminate the point $" + it->arg[0] + "$.\n\n");
           PrintXML("Failed to prove (or disprove) the "
@@ -238,26 +238,26 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
 
   if ((m_iProofDepth == 0) || ((m_iProofDepth > 0) && (m_iProofLevel >= 3))) {
     PrintLaTeX("\\end{displayproof}\n\n");
-    PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+    PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
     PrintXML("</proof>\n\n");
 
     if (s == e_proved) {
       PrintLaTeX("\n\\proveddisproved{1}\n"); // Proved
-      PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("<status value=\"proved\"></status>\n"); // Proved
     } else if (s == e_disproved) {
       PrintLaTeX("\n\\proveddisproved{0}\n"); // Disproved
-      PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("<status value=\"disproved\"></status>\n"); // Disproved
     } else {
       PrintLaTeX("\n\\proveddisproved{2}\n"); // Failed to prove or disprove
-      PrintXML(string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
     }
 
     // XML output
-    PrintXML(string(2 * m_iProofDepth, '\t'));
+    PrintXML(std::string(2 * m_iProofDepth, '\t'));
     if (m_iProofDepth > 0)
       PrintXML("</lemma>\n\n");
     if (m_iProofDepth > 0 && m_iProofLevel >= 3) {
@@ -294,7 +294,7 @@ void CAreaMethod::Pop()
 
 bool CAreaMethod::AlgebraicSimplification(int exceptlast,
                                           eGCLC_conjecture_status *status) {
-  string sRuleApplied;
+  std::string sRuleApplied;
 
   bool bChanged_grouped = false;
   bool bChanged_alg = true;
@@ -340,7 +340,7 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
                    "procedure was stopped.");
       PrintLaTeX("\n\n\\proveddisproved{2}\n"); // Failed to prove or disprove
 
-      PrintXML(string(m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(m_iProofDepth + 1, '\t'));
       PrintXML("</proof>\n\n");
       if (bTimeOut)
         PrintXML("\n\nTimeout; the proving procedure was stopped.");
@@ -348,7 +348,7 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
         PrintXML("Too many proof steps (more than the "
                  "given proof limit); the proving "
                  "procedure was stopped.");
-      PrintXML(string(m_iProofDepth + 1, '\t'));
+      PrintXML(std::string(m_iProofDepth + 1, '\t'));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
       PrintXML("</main_proof>\n\n");
@@ -371,7 +371,7 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
 
 // ----------------------------------------------------------------------------
 
-bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
+bool CAreaMethod::Orient(const std::string &sPoint, CGCLCProverExpression &exp) {
   switch (exp.GetType()) {
   case ep_point:
   case ep_number:
@@ -422,7 +422,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       // put the elim point in the last position
       // S_AYB -> S_BAY
 
-      string s = exp.GetArgName(0);
+      std::string s = exp.GetArgName(0);
       exp.SetArgName(0, exp.GetArgName(2));
       exp.SetArgName(2, exp.GetArgName(1));
       exp.SetArgName(1, s);
@@ -436,7 +436,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       // put the elim point in the last position
       // S_YAB -> S_ABY
 
-      string s = exp.GetArgName(2);
+      std::string s = exp.GetArgName(2);
       exp.SetArgName(2, exp.GetArgName(0));
       exp.SetArgName(0, exp.GetArgName(1));
       exp.SetArgName(1, s);
@@ -452,7 +452,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
       // put the elim point in the last position
       // P_YAB -> P_BAY
 
-      string s = exp.GetArgName(0);
+      std::string s = exp.GetArgName(0);
       exp.SetArgName(0, exp.GetArgName(2));
       exp.SetArgName(2, s);
 
@@ -504,7 +504,7 @@ bool CAreaMethod::Orient(const string &sPoint, CGCLCProverExpression &exp) {
 // ----------------------------------------------------------------------------
 
 eGCLC_conjecture_status
-CAreaMethod::ProveCollinear(const string &A, const string &B, const string &C) {
+CAreaMethod::ProveCollinear(const std::string &A, const std::string &B, const std::string &C) {
   if (Collinear(A, B, C))
     return e_proved;
   CGCLCProverExpression LemmaLeft = CGCLCProverExpression::s3(A, B, C);
@@ -805,8 +805,8 @@ bool CAreaMethod::ApplyOneGeometricRule(CGCLCProverExpression &exp,
 
 // ----------------------------------------------------------------------------
 
-bool CAreaMethod::EliminatePoint(GCLCpoint_type ptype, const string &sPoint,
-                                 list<CGCLCProverCommand>::iterator pCommand,
+bool CAreaMethod::EliminatePoint(GCLCpoint_type ptype, const std::string &sPoint,
+                                 std::list<CGCLCProverCommand>::iterator pCommand,
                                  CGCLCProverExpression &exp) {
   bool r;
 
@@ -855,7 +855,7 @@ bool CAreaMethod::EliminatePoint(GCLCpoint_type ptype, const string &sPoint,
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::EliminateIntersectionPoint(
-    const string &sPoint, list<CGCLCProverCommand>::iterator pCommand,
+    const std::string &sPoint, std::list<CGCLCProverCommand>::iterator pCommand,
     CGCLCProverExpression &exp) {
   switch (exp.GetType()) {
   case ep_segment_ratio:
@@ -872,7 +872,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (n1 / n2);
 
       // Lemma 2.4
-      string sExplanation = "Lemma 8 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 8 (point $" + sPoint + "$ eliminated)";
 
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
@@ -889,7 +889,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
           exp.GetArgName(2), pCommand->arg[1], pCommand->arg[2]);
       exp = (n1 / n2);
 
-      string sExplanation = "Lemma 8 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 8 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -900,7 +900,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       // should be replaced by S_AUV/S_CUDV or by S_APQ/S_CPDQ
       CGCLCProverExpression n1, n2;
 
-      string sCond;
+      std::string sCond;
       eGCLC_conjecture_status r =
           ProveCollinear(exp.GetArgName(0), pCommand->arg[1], pCommand->arg[2]);
 
@@ -944,8 +944,8 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (n1 / n2);
 
       // Lemma 4.8
-      string sExplanation =
-          (string) "Lemma 37 " + sCond + " (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation =
+          (std::string) "Lemma 37 " + sCond + " (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -957,7 +957,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       CGCLCProverExpression n1, n2;
 
       // char sCond[COND_LENGHT];
-      string sCond;
+      std::string sCond;
 
       eGCLC_conjecture_status r =
           ProveCollinear(exp.GetArgName(2), pCommand->arg[1], pCommand->arg[2]);
@@ -998,7 +998,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (n2 / n1);
 
       // Lemma 4.8
-      string sExplanation = (string) "Lemma 37 (reciprocial " + sCond +
+      std::string sExplanation = (std::string) "Lemma 37 (reciprocial " + sCond +
                             ") (point $" + sPoint + "$ eliminated)";
 
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
@@ -1043,7 +1043,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (n_up / n_down);
 
       // Lemma 4.2
-      string sExplanation = "Lemma 30 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 30 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1078,7 +1078,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (((r1 * GV) + (r2 * GU)) + (n * ((r3 * r4) * p1)));
 
       // Lemma 4.3 (II)
-      string sExplanation = "Lemma 32 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 32 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1095,7 +1095,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::EliminatePratioPoint(
-    const string &sPoint, list<CGCLCProverCommand>::iterator pCommand,
+    const std::string &sPoint, std::list<CGCLCProverCommand>::iterator pCommand,
     CGCLCProverExpression &exp) {
   switch (exp.GetType()) {
   case ep_segment_ratio:
@@ -1106,7 +1106,7 @@ bool CAreaMethod::EliminatePratioPoint(
       // should be replaced by AR/PQ+r/CD/PQ or by S_APRQ/S_CPDQ
       CGCLCProverExpression n1, n1a, n1b, n2;
 
-      string sCond;
+      std::string sCond;
       eGCLC_conjecture_status r =
           ProveCollinear(exp.GetArgName(0), pCommand->arg[0], pCommand->arg[1]);
 
@@ -1155,7 +1155,7 @@ bool CAreaMethod::EliminatePratioPoint(
       exp = (n1 / n2);
 
       // Lemma 4.10
-      string sExplanation = "Lemma 39 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 39 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1205,7 +1205,7 @@ bool CAreaMethod::EliminatePratioPoint(
       exp = (n2 / n1);
 
       // Lemma 4.10 (reciprocial)
-      string sExplanation =
+      std::string sExplanation =
           "Lemma 39 (reciprocial) (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
@@ -1255,7 +1255,7 @@ bool CAreaMethod::EliminatePratioPoint(
       CGCLCProverExpression n(-1);
       exp = (GW + (nR * (GV + (n * GU))));
       // Lemma 4.1
-      string sExplanation = "Lemma 29 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 29 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1288,7 +1288,7 @@ bool CAreaMethod::EliminatePratioPoint(
       exp = ((p1 + (n1 * n5)) + (nR * p5));
 
       // Lemma 4.4
-      string sExplanation = "Lemma 33 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 33 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1305,7 +1305,7 @@ bool CAreaMethod::EliminatePratioPoint(
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::EliminateFootPoint(
-    const string &sPoint, list<CGCLCProverCommand>::iterator pCommand,
+    const std::string &sPoint, std::list<CGCLCProverCommand>::iterator pCommand,
     CGCLCProverExpression &exp) {
   switch (exp.GetType()) {
   case ep_segment_ratio:
@@ -1314,7 +1314,7 @@ bool CAreaMethod::EliminateFootPoint(
       CGCLCProverExpression n1, n2;
 
       // char sCond[COND_LENGHT];
-      string sCond;
+      std::string sCond;
 
       eGCLC_conjecture_status r =
           ProveCollinear(exp.GetArgName(0), pCommand->arg[2], pCommand->arg[3]);
@@ -1356,8 +1356,8 @@ bool CAreaMethod::EliminateFootPoint(
       exp = (n1 / n2);
 
       // Lemma 4.9
-      string sExplanation =
-          (string) "Lemma 38 " + sCond + " (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation =
+          (std::string) "Lemma 38 " + sCond + " (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1401,7 +1401,7 @@ bool CAreaMethod::EliminateFootPoint(
       exp = (((p1 * GV) + (p2 * GU)) / p3);
 
       // Lemma 4.3
-      string sExplanation = "Lemma 31 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 31 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1435,7 +1435,7 @@ bool CAreaMethod::EliminateFootPoint(
       exp = (((r1 * GV) + (r2 * GU)) + (nNegOne * ((r3 * r4) * p1)));
 
       // Lemma 4.3
-      string sExplanation = "Lemma 32 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 32 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1452,7 +1452,7 @@ bool CAreaMethod::EliminateFootPoint(
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::EliminateTratioPoint(
-    const string &sPoint, list<CGCLCProverCommand>::iterator pCommand,
+    const std::string &sPoint, std::list<CGCLCProverCommand>::iterator pCommand,
     CGCLCProverExpression &exp) {
   switch (exp.GetType()) {
   case ep_segment_ratio:
@@ -1462,7 +1462,7 @@ bool CAreaMethod::EliminateTratioPoint(
       CGCLCProverExpression n1, n2;
 
       // char sCond[COND_LENGHT];
-      string sCond;
+      std::string sCond;
       eGCLC_conjecture_status r =
           ProveCollinear(exp.GetArgName(0), pCommand->arg[0], pCommand->arg[1]);
 
@@ -1510,7 +1510,7 @@ bool CAreaMethod::EliminateTratioPoint(
       exp = (n1 / n2);
 
       // Lemma 4.11
-      string sExplanation = "Lemma 40 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 40 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1557,7 +1557,7 @@ bool CAreaMethod::EliminateTratioPoint(
       exp = (n2 / n1);
 
       // Lemma 4.11
-      string sExplanation = "Lemma 40 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 40 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1608,7 +1608,7 @@ bool CAreaMethod::EliminateTratioPoint(
       exp = (p + (y * s));
 
       // Lemma 4.6
-      string sExplanation = "Lemma 35 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 35 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1632,7 +1632,7 @@ bool CAreaMethod::EliminateTratioPoint(
       exp = ((p1 + (n2 * p2)) + (n1 * (s1 + s2)));
 
       // Lemma 4.7
-      string sExplanation = "Lemma 36 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 36 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1652,7 +1652,7 @@ bool CAreaMethod::EliminateTratioPoint(
       exp = (s + (y * p));
 
       // Lemma 4.5
-      string sExplanation = "Lemma 34 (point $" + sPoint + "$ eliminated)";
+      std::string sExplanation = "Lemma 34 (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }
@@ -1814,7 +1814,7 @@ bool CAreaMethod::P3_to_segments(CGCLCProverExpression &exp) {
 bool CAreaMethod::H4points(CGCLCProverExpression &exp) {
   // S_ABC = S_ABD + S_ADC + S_DBC
 
-  string A, B, C, D;
+  std::string A, B, C, D;
   if (exp.GetType() == ep_equality || exp.GetType() == ep_sum ||
       exp.GetType() == ep_ratio || exp.GetType() == ep_mult) {
     if (H4points(exp.GetArg(0)) || H4points(exp.GetArg(1)))
@@ -1825,7 +1825,7 @@ bool CAreaMethod::H4points(CGCLCProverExpression &exp) {
     A = exp.GetArgName(0);
     B = exp.GetArgName(1);
     C = exp.GetArgName(2);
-    for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+    for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
          it != m_ProverCommands.end(); it++) {
       if ((it->type == p_point) && (it->arg[0] != A) && (it->arg[0] != B) &&
           (it->arg[0] != C)) {
@@ -1848,7 +1848,7 @@ bool CAreaMethod::H4points(CGCLCProverExpression &exp) {
           m_pConjecture->Replace(copy_exp, e3);
 
           // Lemma 2.2-3
-          string sExplanation = "Lemma 4";
+          std::string sExplanation = "Lemma 4";
           OutputStep(*m_pConjecture, sExplanation, eps_geometric_simplification);
           return true;
         }
@@ -1862,7 +1862,7 @@ bool CAreaMethod::H4points(CGCLCProverExpression &exp) {
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::PointOccurs(const CGCLCProverExpression &exp,
-                              const string &A) const {
+                              const std::string &A) const {
   switch (exp.GetType()) {
   case ep_number:
     return false;
@@ -1882,7 +1882,7 @@ bool CAreaMethod::PointOccurs(const CGCLCProverExpression &exp,
 
 // ----------------------------------------------------------------------------
 
-int CAreaMethod::PointOccurences(const string &A,
+int CAreaMethod::PointOccurences(const std::string &A,
                                  const CGCLCProverExpression &exp) const {
   int s = 0;
   switch (exp.GetType()) {
@@ -1904,8 +1904,8 @@ int CAreaMethod::PointOccurences(const string &A,
 
 // ----------------------------------------------------------------------------
 
-bool CAreaMethod::ExistsS3(const CGCLCProverExpression &exp, const string &A,
-                           const string &B, const string &C) const {
+bool CAreaMethod::ExistsS3(const CGCLCProverExpression &exp, const std::string &A,
+                           const std::string &B, const std::string &C) const {
   if (exp.ExistsAtomicExpression(CGCLCProverExpression::s3(A, B, C)))
     return true;
   return false;
@@ -1914,8 +1914,8 @@ bool CAreaMethod::ExistsS3(const CGCLCProverExpression &exp, const string &A,
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::ExistsS3similar(const CGCLCProverExpression &exp,
-                                  const string &A, const string &B,
-                                  const string &C) const {
+                                  const std::string &A, const std::string &B,
+                                  const std::string &C) const {
   if (exp.ExistsAtomicExpression(CGCLCProverExpression::s3(A, C, B)))
     return true;
   if (exp.ExistsAtomicExpression(CGCLCProverExpression::s3(B, A, C)))
@@ -1932,8 +1932,8 @@ bool CAreaMethod::ExistsS3similar(const CGCLCProverExpression &exp,
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::ExistsP3similar(const CGCLCProverExpression &exp,
-                                  const string &A, const string &B,
-                                  const string &C) const {
+                                  const std::string &A, const std::string &B,
+                                  const std::string &C) const {
   if (A != C)
     if (exp.ExistsAtomicExpression(CGCLCProverExpression::p3(C, B, A)))
       return true;
@@ -1946,7 +1946,7 @@ bool CAreaMethod::ExistsP3similar(const CGCLCProverExpression &exp,
 // ----------------------------------------------------------------------------
 
 bool CAreaMethod::ExistsSegmentsimilar(const CGCLCProverExpression &exp,
-                                       const string &A, const string &B) const {
+                                       const std::string &A, const std::string &B) const {
   if (A != B) {
     if (exp.ExistsAtomicExpression(CGCLCProverExpression::segment(B, A)))
       return true;
@@ -1960,8 +1960,8 @@ bool CAreaMethod::ExistsSegmentsimilar(const CGCLCProverExpression &exp,
 
 // ----------------------------------------------------------------------------
 
-bool CAreaMethod::GetConstant(const string &sConstant, double &r) const {
-  for (list<CGCLCProverCommand>::const_iterator it = m_ProverCommands.begin();
+bool CAreaMethod::GetConstant(const std::string &sConstant, double &r) const {
+  for (std::list<CGCLCProverCommand>::const_iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     if (it->type == p_constant) {
       if (it->arg[0] == sConstant) {
@@ -1997,7 +1997,7 @@ bool CAreaMethod::ApplyAssumptions(CGCLCProverExpression &exp) {
   case ep_p4:
   case ep_s4:
 
-    for (list<CNDGC>::iterator it = m_NDGCs.begin(); it != m_NDGCs.end();
+    for (std::list<CNDGC>::iterator it = m_NDGCs.begin(); it != m_NDGCs.end();
          it++) {
       if ((exp == it->m_Left) && (it->m_type == ep_equality) &&
           (it->m_Right.GetType() == ep_number)) {
@@ -2066,7 +2066,7 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
 
         // for explanation, in case it is not proved
         Lemma.SetType(ep_inequality);
-        string sCond = Lemma.sPrintLaTeX();
+        std::string sCond = Lemma.sPrintLaTeX();
         Lemma.SetType(ep_equality);
         eGCLC_conjecture_status r = ZeroByAssumption(LemmaLeft);
 
@@ -2097,7 +2097,7 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
           CGCLCProverExpression Factor(*aMultiplicants[i]);
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
-            string sCond1 = "cancellation rule (assuming $" + sCond + "$)";
+            std::string sCond1 = "cancellation rule (assuming $" + sCond + "$)";
             OutputStep(*m_pConjecture, sCond1, eps_algebraic);
             delete[] aMultiplicants;
             return true;
@@ -2129,7 +2129,7 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
 
 eGCLC_conjecture_status
 CAreaMethod::ZeroByAssumption(const CGCLCProverExpression &exp) const {
-  for (list<CNDGC>::const_iterator it = m_NDGCs.begin(); it != m_NDGCs.end();
+  for (std::list<CNDGC>::const_iterator it = m_NDGCs.begin(); it != m_NDGCs.end();
        it++) {
     bool bFound = false;
 
@@ -2301,7 +2301,7 @@ double CAreaMethod::EvaluateExpression(const CGCLCProverExpression &exp) const {
 // ----------------------------------------------------------------------------
 
 void CAreaMethod::OutputStep(const CGCLCProverExpression &exp,
-                             const string &explanation, eGCLC_proof_step type) {
+                             const std::string &explanation, eGCLC_proof_step type) {
   if (type == eps_geometric_elimination)
     m_iNumberOfEliminationSteps++;
   else if (type == eps_geometric_simplification)
@@ -2319,7 +2319,7 @@ void CAreaMethod::OutputStep(const CGCLCProverExpression &exp,
 // ----------------------------------------------------------------------------
 
 void CAreaMethod::OutputLaTeXStep(const CGCLCProverExpression &exp,
-                                  const string &explanation,
+                                  const std::string &explanation,
                                   eGCLC_proof_step type) {
   bool bPrint = false;
   // 0 - nothing
@@ -2375,7 +2375,7 @@ void CAreaMethod::OutputLaTeXStep(const CGCLCProverExpression &exp,
     double e1 = EvaluateExpression(exp.GetArg(0));
     double e2 = EvaluateExpression(exp.GetArg(1));
 
-    string sValue;
+    std::string sValue;
 
     if (fabs((double)(e1 - (int)(e1 + EPSILON))) < EPSILON)
       sValue += i2s((int)(e1 + EPSILON)) + "=";
@@ -2438,7 +2438,7 @@ void CAreaMethod::OutputLaTeXStep(const CGCLCProverExpression &exp,
 // ----------------------------------------------------------------------------
 
 void CAreaMethod::OutputXMLStep(const CGCLCProverExpression &exp,
-                                const string &explanation,
+                                const std::string &explanation,
                                 eGCLC_proof_step type) {
   bool bPrint = false;
   // 0 - nothing
@@ -2495,19 +2495,19 @@ void CAreaMethod::OutputXMLStep(const CGCLCProverExpression &exp,
     double e2 = EvaluateExpression(exp.GetArg(1));
 
     // exp.PrettyPrintXML(m_hXMLOutputProof, sValue, 2 * m_iProofDepth + 2);
-    PrintXML(string(2 * m_iProofDepth + 2, '\t') + "<proof_step>\n");
+    PrintXML(std::string(2 * m_iProofDepth + 2, '\t') + "<proof_step>\n");
     exp.PrintXML(m_hXMLOutputProof, 2 * m_iProofDepth + 3);
 
     PrintXML(make_indent(2 * m_iProofDepth + 3) + "<explanation>" +
              explanation + "</explanation>\n");
 
-    string sValue = make_indent(2 * m_iProofDepth + 3) + "<semantics><value>" +
+    std::string sValue = make_indent(2 * m_iProofDepth + 3) + "<semantics><value>" +
                     d2s(e1, 6) + "</value>"
                                  "<value>" +
                     d2s(e2, 6) + "</value></semantics>\n";
     PrintXML(sValue);
 
-    PrintXML(string(2 * m_iProofDepth + 2, '\t') + "</proof_step>\n\n");
+    PrintXML(std::string(2 * m_iProofDepth + 2, '\t') + "</proof_step>\n\n");
   }
 }
 
@@ -2550,7 +2550,7 @@ void CAreaMethod::PrintMethodSpecificOutput() {
 
 // ----------------------------------------------------------------------------
 
-string CAreaMethod::GetMethodSpecificOutput() {
+std::string CAreaMethod::GetMethodSpecificOutput() {
   return "\nThe theorem prover based on the area method used."
          "\nNumber of elimination proof steps: " +
          i2s(m_iNumberOfEliminationSteps, 6) +
@@ -2564,5 +2564,5 @@ string CAreaMethod::GetMethodSpecificOutput() {
              6);
 }
 
-const string _arName = "Area";
-const string &CAreaMethod::GetName() const { return _arName; }
+const std::string _arName = "Area";
+const std::string &CAreaMethod::GetName() const { return _arName; }

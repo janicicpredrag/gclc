@@ -4,13 +4,11 @@
 #include "drawing.h"
 #include "settings.h"
 
-using namespace std;
-
 //! Class for arc-layered drawing of any kind of graph
 class ArcLayeredDrawing:public Drawing
 {
  private:
-  vector<vector <int> > layers; // layers needed for this drawing
+  std::vector<std::vector <int> > layers; // layers needed for this drawing
   struct Point graphCenter;     // center of graph drawing
   float graphWidth;             // width of graph drawing
   //! Returns boolean value indicating if center and the width of the drawing are provided
@@ -31,15 +29,15 @@ class ArcLayeredDrawing:public Drawing
   /*! \param int number of nodes in first layer (default should be 0)
    * \param map<int, bool>& reference  to map of unexplored nodes
    */
-  void setInitialLayer(int, map<int, bool>&);
+  void setInitialLayer(int, std::map<int, bool>&);
   //! Sets all nodes as unexplored
   /*! \param map<int, bool>& reference to unexplored nodes
    */
-  void setAllNodesToUnexplored(map<int, bool>&);
+  void setAllNodesToUnexplored(std::map<int, bool>&);
   //! Checks if there are still unexplored nodes
   /*! \param map<int, bool> map of unexplored nodes
    */
-  bool existUnexploredNode(map<int, bool>);
+  bool existUnexploredNode(std::map<int, bool>);
   //! Gets widest layer width (layer with largest number of elements)
   /*! \return unsigned int largest layer width
    */
@@ -68,12 +66,12 @@ class ArcLayeredDrawing:public Drawing
   /*! \param int ancestor layer (we are looking of its descendants)
    * \param map<int, bool>& reference to map of unexplored nodes (it is updated in this function)
    */
-  vector<int> getDescendants(int, map<int, bool>&);
+  std::vector<int> getDescendants(int, std::map<int, bool>&);
   //! Merges descendants of the layer into one
   /*! \param vector<int>& reference to descendants vector (out argument, vector being merged)
    * \param vector<int> source vector (merging from)
    */
-  void mergeDescendants(vector<int>&, vector<int>, map<int, bool>&) const;
+  void mergeDescendants(std::vector<int>&, std::vector<int>, std::map<int, bool>&) const;
   //! Makes layers needed for the drawing
   void makeLayers();
   //! Make connections in GCLC
@@ -81,19 +79,19 @@ class ArcLayeredDrawing:public Drawing
    * \param ofstream& reference to file
    * \param Graph labeled graph
    */
-  void makeConnectionsGCLC(ofstream&, Graph);
+  void makeConnectionsGCLC(std::ofstream&, Graph);
   //! Connects adjacent layers
   /*!\param ofstream& reference to file 
    * \param int layer index
    * \param Graph labeled graph
    */
-  void connectAdjLayers(ofstream&, int, Graph);
+  void connectAdjLayers(std::ofstream&, int, Graph);
   //! Connects nodes within the layer
   /*!\param ofstream& reference to file 
    * \param int layer index
    * \param Graph labeled graph
    */
-  void connectLayer(ofstream&, int, Graph);
+  void connectLayer(std::ofstream&, int, Graph);
   //! Computers coordinates
   void computeCoordinates();
  public:
@@ -103,7 +101,7 @@ class ArcLayeredDrawing:public Drawing
    * \param Settings settings object
    * \param string file name
    */
-  ArcLayeredDrawing(Graph, Settings, string="");
+  ArcLayeredDrawing(Graph, Settings, std::string="");
   //! A constuctor
   /*! If center of the drawing and width of the drawing parameters are given,
    * then offset and scaling factors from Settings object are overriden (they are
@@ -115,7 +113,7 @@ class ArcLayeredDrawing:public Drawing
    * \param float width of the drawing
    * \param string file name
    */
-  ArcLayeredDrawing(Graph, Settings, struct Point, float, string="");
+  ArcLayeredDrawing(Graph, Settings, struct Point, float, std::string="");
   //! Returns if edge should be drawn as an arc.
   /*! Returns true if nodes are on the same layer, and are consequent on that layer.
    * \param int first nodes node number

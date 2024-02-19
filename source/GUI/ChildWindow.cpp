@@ -10,9 +10,7 @@
 #include "FreePointItem.h"
 #include "GCLCEngine/GCLC.h"
 #include "Input/EditorInput.h"
-#include "Input/StringInput.h"
 #include "Logging/DummyLog.h"
-#include "Logging/FileLog.h"
 #include "Logging/QOutputLog.h"
 #include "ReplaceDialog.h"
 #include <QApplication>
@@ -86,7 +84,7 @@ bool ChildWindow::Save(QString fileName) {
   if (!outfile.open(QIODevice::WriteOnly | QIODevice::Text))
     return false;
   QTextStream out(&outfile);
-  out << getEditor()->toPlainText() << endl;
+  out << getEditor()->toPlainText() << "\n";
   outfile.close();
   return true;
 }
@@ -144,7 +142,7 @@ bool ChildWindow::Export(enum exportFormat format, QString fileName) {
     return false;
   }
 
-  ofstream file(fileName.toStdString());
+  std::ofstream file(fileName.toStdString());
   if (!file.is_open())
     return false;
 
@@ -232,10 +230,12 @@ void ChildWindow::Find() {
   dialog.setText(m_FindText);
   dialog.setFlags(m_FindFlags);
   if (dialog.exec() == QDialog::Accepted) {
-    m_FindFlags = 0;
+    // m_FindFlags = 0;
+    m_FindFlags &= ~QTextDocument::FindCaseSensitively;
+    m_FindFlags &= ~QTextDocument::FindWholeWords;
     m_FindText = dialog.getText();
     if (dialog.caseSensitive())
-      m_FindFlags = QTextDocument::FindCaseSensitively;
+      m_FindFlags |= QTextDocument::FindCaseSensitively;
     if (dialog.matchWholeWord())
       m_FindFlags |= QTextDocument::FindWholeWords;
     QList<QTextEdit::ExtraSelection> extraSelections;
@@ -289,7 +289,9 @@ void ChildWindow::Replace() {
   dialog.setReplaceText(m_ReplaceText);
   dialog.setFlags(m_FindFlags);
   if (dialog.exec() == QDialog::Accepted) {
-    m_FindFlags = 0;
+    // m_FindFlags = 0;
+    m_FindFlags &= ~QTextDocument::FindCaseSensitively;
+    m_FindFlags &= ~QTextDocument::FindWholeWords;
     m_FindText = dialog.getFindText();
     m_ReplaceText = dialog.getReplaceText();
     if (dialog.caseSensitive())
@@ -373,7 +375,7 @@ void ChildWindow::pickColor() {
 bool ChildWindow::ExportToXML(QString fileName) {
   QEditorInput Input(getEditor());
   QOutputLog Log(getTextOutput());
-  ofstream ho(fileName.toStdString());
+  std::ofstream ho(fileName.toStdString());
   if (!ho.is_open())
     return false;
   Log.AddText("\nExporting to XML...\n");
@@ -409,7 +411,7 @@ bool ChildWindow::Build(prover_config &Prover_params) {
     delete m_pCompiler;
   QFileInfo fileInfo(getFileName());
   Prover_params.sTheoremFileName = fileInfo.baseName().toStdString();
-  ofstream XMLoutput;
+  std::ofstream XMLoutput;
   CGCLC *pc = new CGCLC(Input, Log, Prover_params, false, XMLoutput);
   m_pCompiler = pc;
 
@@ -430,7 +432,7 @@ bool ChildWindow::Build(prover_config &Prover_params) {
 
   if (nRet != rvG_OK) {
     int nErr, nLine, nPos;
-    string sErr;
+    std::string sErr;
     m_pCompiler->GetError(nErr, sErr, nLine, nPos);
     annotateLineInEditor(nLine, QColor(255, 0, 0)); // locate error in editor
     setFileCompiled(false);
@@ -449,16 +451,15 @@ bool ChildWindow::Build(prover_config &Prover_params) {
   m_nTotalTracedPoints = 0;
   if (m_nFrames > 1) {
     QString coordinate = "(\\s+)(-?)(\\d+)((\\.\\d+)?)";
-    QRegExp rx_traced("\\b(trace)(\\s+)(\\w)+" + coordinate + coordinate +
+    QRegularExpression rx_traced("\\b(trace)(\\s+)(\\w)+" + coordinate + coordinate +
                       coordinate);
     QString input = getEditor()->toPlainText(); // fixme to avoid copying string
     QString point_decl;
 
-    int pos = 0;
-    while ((pos = rx_traced.indexIn(input, pos)) != -1) {
-      point_decl = rx_traced.cap(0);
-      pos += point_decl.length();
-      m_nTotalTracedPoints++;
+    QRegularExpressionMatchIterator i = rx_traced.globalMatch(input);
+    while (i.hasNext()) {
+        QRegularExpressionMatch match = i.next();
+        m_nTotalTracedPoints++;
     }
     if (m_nTotalTracedPoints > 0) {
       m_TracedPoints.clear();
@@ -487,7 +488,7 @@ bool ChildWindow::Build(prover_config &Prover_params) {
 void ChildWindow::showRemainingAnimationFrames() {
   if (m_nCurrentFrame == m_nFrames)
     return;
-  QTime t;
+  QElapsedTimer t;
   t.start();
   int startFrame = m_nCurrentFrame;
   for (; m_nCurrentFrame <= m_nFrames && m_bPlayingAnimation;
@@ -504,22 +505,20 @@ void ChildWindow::showRemainingAnimationFrames() {
 // --------------------------------------------------------------------------------------------
 
 void ChildWindow::showAnimationFrame(int i) {
-  int pos;
   double x, y, x0, y0, x1, y1;
 
   m_nCurrentFrame = i;
 
   QString coordinate = "(\\s+)(-?)(\\d+)((\\.\\d+)?)";
-  QRegExp rx("\\b(point)(\\s+)(\\w)+" + coordinate + coordinate + coordinate +
+  QRegularExpression rx("\\b(point)(\\s+)(\\w)+" + coordinate + coordinate + coordinate +
              coordinate);
 
   QString input = getEditor()->toPlainText(); // fixme to avoid copying string
   QString point_decl;
-
-  pos = 0;
-  while ((pos = rx.indexIn(input, pos)) != -1) {
-    point_decl = rx.cap(0);
-
+  QRegularExpressionMatchIterator it = rx.globalMatch(input);
+  while (it.hasNext()) {
+    QRegularExpressionMatch match = it.next();
+    point_decl = match.captured();
     QTextStream myteststream(&point_decl);
     QString point, name;
     myteststream >> point >> name >> x0 >> y0 >> x1 >> y1;
@@ -533,8 +532,7 @@ void ChildWindow::showAnimationFrame(int i) {
     }
 
     QString after = QString("point %1 %2 %3").arg(name).arg(x).arg(y);
-    pos += after.length();
-    input.replace(QRegExp(point_decl), after);
+    input.replace(QRegularExpression(point_decl), after);
   }
 
   CDummyLog Log;
@@ -544,7 +542,7 @@ void ChildWindow::showAnimationFrame(int i) {
 
   prover_config ProverConfig;
   ProverConfig.TheoremProvingMethod = tpNone;
-  ofstream ho;
+  std::ofstream ho;
   eGCLC_conjecture_status prover_output = e_idle;
   double prover_time = 0;
   CGCLC C(Input, Log, ProverConfig, false, ho);
@@ -556,17 +554,20 @@ void ChildWindow::showAnimationFrame(int i) {
 
   // Handling traced points
   if (m_nTotalTracedPoints > 0) {
-    QRegExp rx_traced("\\b(trace)(\\s+)(\\w)+" + coordinate + coordinate +
+    QRegularExpression rx_traced("\\b(trace)(\\s+)(\\w)+" + coordinate + coordinate +
                       coordinate);
     double r, g, b;
-    pos = 0;
+    // pos = 0;
     int traced_point_index = 0;
-    while ((pos = rx_traced.indexIn(input, pos)) != -1) {
-      point_decl = rx_traced.cap(0);
+    QRegularExpressionMatchIterator i = rx_traced.globalMatch(input);
+    while (i.hasNext()) {
+      QRegularExpressionMatch match = i.next();
+      std::string v;
+      point_decl = match.captured();
       QTextStream myteststream(&point_decl);
-      string v;
       QString trace, name;
       myteststream >> trace >> name >> r >> g >> b;
+
       int pointIndex =
           m_nTotalTracedPoints * (m_nCurrentFrame - 1) + traced_point_index;
       if (!m_TracedPoints[pointIndex].defined) {
@@ -574,10 +575,10 @@ void ChildWindow::showAnimationFrame(int i) {
 
           size_t pos1 = v.find('(', 0) + 1;
           size_t pos2 = v.find(',', 0) + 2;
-          bool b1 = (pos1 == string::npos
+          bool b1 = (pos1 == std::string::npos
                          ? false
                          : convert(v.substr(pos1, pos2 - pos1 - 2), x1));
-          bool b2 = (pos1 == string::npos
+          bool b2 = (pos1 == std::string::npos
                          ? false
                          : convert(v.substr(pos2, v.size() - pos2 - 1), y1));
 
@@ -610,7 +611,7 @@ void ChildWindow::showAnimationFrame(int i) {
           m_pQGraphicsViewOutput->SetPen(oldPen);
         }
       }
-      pos += point_decl.length();
+      //pos += point_decl.length();
       traced_point_index++;
     }
   }
@@ -632,7 +633,7 @@ void ChildWindow::playAnimation(bool bPlay) {
 // --------------------------------------------------------------------------------------------
 
 void ChildWindow::showFreePoints() {
-  int pos;
+  //int pos;
   double x0, y0, x1, y1;
 
   QFont font;
@@ -641,21 +642,21 @@ void ChildWindow::showFreePoints() {
   font.setItalic(true);
 
   QString coordinate = "(\\s+)(-?)(\\d+)((\\.\\d+)?)";
-  QRegExp rx("\\b(point)(\\s+)(\\w)+" + coordinate + coordinate);
+  QRegularExpression rx("\\b(point)(\\s+)(\\w)+" + coordinate + coordinate);
 
   QString point_decl;
   qreal s = m_pQGraphicsViewOutput->getScale();
 
-  pos = 0;
-  while ((pos = rx.indexIn(getEditor()->toPlainText(), pos)) != -1) {
-    point_decl = rx.cap(0);
+  //pos = 0;
+  QRegularExpressionMatchIterator i = rx.globalMatch(getEditor()->toPlainText());
+  while (i.hasNext()) {
+    QRegularExpressionMatch match = i.next();
+    point_decl = match.captured();
     QTextStream myteststream(&point_decl);
     QString point, name;
     myteststream >> point >> name >> x0 >> y0;
-    pos += 1;
+    //pos += 1;
 
-    // QGraphicsEllipseItem* item = new QGraphicsEllipseItem(s*(x0-3),
-    // -s*(y0-3), s*2*3, -s*2*3);
     QGraphicsEllipseItem *item = new QGraphicsEllipseItem(
         s * (x0 - 3), s * (y0 - 3), s * 2 * 3, s * 2 * 3);
     item->setBrush(QBrush(QColor(150, 250, 150)));
@@ -667,46 +668,40 @@ void ChildWindow::showFreePoints() {
     gt->setText(name);
     qreal w = gt->boundingRect().width();
     qreal h = gt->boundingRect().height();
-    // gt->setPos(s*x0-w/2,-s*y0-h/2);
     gt->setPos(s * x0 - w / 2, s * y0 + h / 2);
-    // gt->scale(1,-1);
     gt->setTransform(QTransform::fromScale(1, -1));
     m_Scene->addItem(gt);
 
     QGraphicsSimpleTextItem *gtm = new QGraphicsSimpleTextItem;
 
     FreePointItem *fitem = new FreePointItem;
-    // fitem->setRect(s*(x0-3), -s*(y0-3), s*2*3, -s*2*3);
     fitem->setRect(s * (x0 - 3), s * (y0 - 3), s * 2 * 3, s * 2 * 3);
     fitem->setBrush(QBrush(QColor(0, 150, 0)));
     fitem->setFlag(QGraphicsItem::ItemIsMovable, true);
     fitem->setFlag(QGraphicsItem::ItemIsSelectable, true);
-    // fitem->setParams(getEditor(),s,name,gtm,-(s*x0-w/2),-(-s*y0-h/2),false);
     fitem->setParams(getEditor(), s, name, gtm, -(s * x0 - w / 2),
                      (-s * y0 - h / 2), false);
     m_Scene->addItem(fitem);
 
     gtm->setFont(font);
     gtm->setText(name);
-    // gtm->setPos(s*x0-w/2,-s*y0-h/2);
     gtm->setPos(s * x0 - w / 2, s * y0 + h / 2);
-    // gtm->scale(1,-1);
     gtm->setTransform(QTransform::fromScale(1, -1));
     m_Scene->addItem(gtm);
   }
 
-  QRegExp rxa("\\b(point)(\\s+)(\\w)+" + coordinate + coordinate + coordinate +
+  QRegularExpression rxa("\\b(point)(\\s+)(\\w)+" + coordinate + coordinate + coordinate +
               coordinate);
-  pos = 0;
-  while ((pos = rxa.indexIn(getEditor()->toPlainText(), pos)) != -1) {
-    point_decl = rxa.cap(0);
+  //pos = 0;
+  QRegularExpressionMatchIterator it = rxa.globalMatch(getEditor()->toPlainText());
+  while (it.hasNext()) {
+    QRegularExpressionMatch match = it.next();
+    point_decl = match.captured();
     QTextStream myteststream(&point_decl);
     QString point, name;
     myteststream >> point >> name >> x0 >> y0 >> x1 >> y1;
-    pos += 1;
+    //pos += 1;
 
-    // QGraphicsEllipseItem* item = new QGraphicsEllipseItem(s*(x1-3),
-    // -s*(y1-3), s*2*3, -s*2*3);
     QGraphicsEllipseItem *item = new QGraphicsEllipseItem(
         s * (x1 - 3), s * (y1 - 3), s * 2 * 3, s * 2 * 3);
     item->setBrush(QBrush(QColor(250, 250, 150)));
@@ -718,34 +713,27 @@ void ChildWindow::showFreePoints() {
     gt->setText(name);
     qreal w = gt->boundingRect().width();
     qreal h = gt->boundingRect().height();
-    // gt->setPos(s*x1-w/2,-s*y1-h/2);
     gt->setPos(s * x1 - w / 2, s * y1 + h / 2);
-    // gt->scale(1,-1);
     gt->setTransform(QTransform::fromScale(1, -1));
     m_Scene->addItem(gt);
 
     QGraphicsSimpleTextItem *gtm = new QGraphicsSimpleTextItem;
 
     FreePointItem *fitem = new FreePointItem;
-    // fitem->setRect(s*(x1-3), -s*(y1-3), s*2*3, -s*2*3);
     fitem->setRect(s * (x1 - 3), s * (y1 - 3), s * 2 * 3, s * 2 * 3);
     fitem->setBrush(QBrush(QColor(150, 150, 0)));
     fitem->setFlag(QGraphicsItem::ItemIsMovable, true);
     fitem->setFlag(QGraphicsItem::ItemIsSelectable, true);
-    // fitem->setParams(getEditor(),s,name,gtm,-(s*x1-w/2),-(-s*y1-h/2),true);
     fitem->setParams(getEditor(), s, name, gtm, -(s * x1 - w / 2),
                      (-s * y1 - h / 2), true);
     m_Scene->addItem(fitem);
 
     gtm->setFont(font);
     gtm->setText(name);
-    //       gtm->setPos(s*x1-w/2,-s*y1-h/2);
     gtm->setPos(s * x1 - w / 2, s * y1 + h / 2);
-    // gtm->scale(1,-1);
     gtm->setTransform(QTransform::fromScale(1, -1));
     m_Scene->addItem(gtm);
   }
-
   m_Scene->update();
 }
 
@@ -783,7 +771,7 @@ void ChildWindow::updateWatchWindow(CGCompiler *pc) {
     return;
 
   QString name;
-  string v;
+  std::string v;
 
   for (int row = 0; row < 10; row++) {
     name = m_Watch->getObjectName(row, 0);
@@ -802,7 +790,7 @@ void ChildWindow::updateWatchWindow(CGCompiler *pc) {
 void ChildWindow::updateWatchCell(int row, int column) {
   GReturnValue rv;
   QString name;
-  string v;
+  std::string v;
   if (column != 0)
     return;
   name = m_Watch->getObjectName(row, 0);

@@ -19,12 +19,12 @@ private:
         XPolynomial* xp12, 
         XPolynomial* xp21, 
         XPolynomial* xp22);
-    static bool _IsTriangular(vxp& vxps, vector<int>& vars, int level);
+    static bool _IsTriangular(vxp& vxps, std::vector<int>& vars, int level);
 
 public:
     static bool ReduceLineCircleIntersection(
-        vector<bool>& vecPointsFree,
-        vector<uint>& vecPointsIndex,
+        std::vector<bool>& vecPointsFree,
+        std::vector<uint>& vecPointsIndex,
         vxp& polySystem);
-    static bool Triangulate(vxp& vxps, vector<int>& vars, int level, uint* pMaxt);
+    static bool Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMaxt);
 };

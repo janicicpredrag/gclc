@@ -1,4 +1,5 @@
 #include "OutputHighlighter.h"
+#include <QRegularExpression>
 
 // --------------------------------------------------------------------------------------------
 
@@ -26,10 +27,15 @@ void OutputHighlighter::highlightBlock(const QString &text) {
   QString keyword;
   foreach (rule, highlightingRules) {
     foreach (keyword, rule.keywords) {
-      QRegExp expression(keyword);
-      int index = text.indexOf(expression);
-      if (index >= 0) {
-        int length = expression.matchedLength();
+      QRegularExpression expression(keyword);
+      // int index = text.indexOf(expression);
+      QRegularExpressionMatchIterator i = expression.globalMatch(text);
+      if (i.hasNext()) {
+//      if (index >= 0) {
+//        int length = expression.matchedLength();
+        int index = text.indexOf(expression);
+        QRegularExpressionMatch match = i.next();
+        int length = match.capturedLength();
         setFormat(index, length, rule.format);
       }
     }

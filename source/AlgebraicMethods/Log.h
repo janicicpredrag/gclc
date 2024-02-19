@@ -14,20 +14,20 @@
 
 class Log {
   static int _maxLevel;
-  static ofstream *_outFileLatex;
-  static ofstream *_outFileXML;
+  static std::ofstream *_outFileLatex;
+  static std::ofstream *_outFileXML;
   static bool _standardOutput;
   static bool _lockOutputFiles;
-  static ofstream *_outFiles[5];
+  static std::ofstream *_outFiles[5];
 
   static bool _sectionStarted;
   static bool _subsectionStarted;
   static bool _paragraphStarted;
 
 #ifdef DBG
-  static vector<char *> _objectNames;
-  static vector<int> _objectCounts;
-  static vector<int> _objectCountsTotal;
+  static std::vector<char *> _objectNames;
+  static std::vector<int> _objectCounts;
+  static std::vector<int> _objectCountsTotal;
 #endif
 
 public:
@@ -44,15 +44,15 @@ public:
   static bool LogEnabledXML();
 
   static void InitOutputFile(char *path);
-  static void SetLatexOutputFile(ofstream *outFile);
-  static void SetXMLOutputFile(ofstream *outFile);
+  static void SetLatexOutputFile(std::ofstream *outFile);
+  static void SetXMLOutputFile(std::ofstream *outFile);
 
   static void SetStandardOutput(bool standardOutput);
   static bool GetStandardOutput();
 
   static void LockOutputFiles(bool lock);
 
-  static void SetOutputFile(ofstream *outFile, int index);
+  static void SetOutputFile(std::ofstream *outFile, int index);
 
   static double ElapsedTime(double startTime);
 

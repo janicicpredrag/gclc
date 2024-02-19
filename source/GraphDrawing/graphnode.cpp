@@ -1,7 +1,7 @@
 #include "graphnode.h"
 
-GraphNode::GraphNode(int _nodeNumber, const string &tmpChar) {
-  string tmpString = tmpChar;
+GraphNode::GraphNode(int _nodeNumber, const std::string &tmpChar) {
+  std::string tmpString = tmpChar;
   nodeNumber = _nodeNumber;
   nodeLabel = tmpString;
 }
@@ -10,14 +10,14 @@ int GraphNode::getNodeNumber() const { return nodeNumber; }
 
 void GraphNode::setNodeNumber(int _nodeNumber) { nodeNumber = _nodeNumber; }
 
-string GraphNode::getNodeLabel() const { return nodeLabel; }
+std::string GraphNode::getNodeLabel() const { return nodeLabel; }
 
-void GraphNode::setNodeLabel(string _nodeLabel) { nodeLabel = _nodeLabel; }
+void GraphNode::setNodeLabel(std::string _nodeLabel) { nodeLabel = _nodeLabel; }
 
 void GraphNode::updateNodeLabel() {
   // set node label if it is not allready set
   if (nodeLabel == "") {
-    stringstream strings;
+    std::stringstream strings;
     strings << nodeNumber;
     nodeLabel = strings.str();
   }

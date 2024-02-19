@@ -19,10 +19,8 @@
 #define PROVER_TIMEOUT 10000
 #define PROOF_LIMIT 10000
 
-using namespace std;
-
-void take_text(const string &sInput, int &nInputPos, string &sOutput);
-void take_id(const string &sInput, int &nInputPos, string &sOutput);
+void take_text(const std::string &sInput, int &nInputPos, std::string &sOutput);
+void take_id(const std::string &sInput, int &nInputPos, std::string &sOutput);
 
 enum eGCLC_prover_command {
   p_constant,
@@ -71,7 +69,7 @@ public:
 
 private:
   eGCLC_prover_command type;
-  string arg[6];
+  std::string arg[6];
   double x, y;
 };
 
@@ -83,11 +81,11 @@ public:
   CNDGC();
   virtual ~CNDGC();
   void CleanUp();
-  string sPrintLaTeX();
-  string sPrintXML(int indent);
+  std::string sPrintLaTeX();
+  std::string sPrintXML(int indent);
 
 private:
-  string m_sCondition;
+  std::string m_sCondition;
   CGCLCProverExpression m_Left;
   CGCLCProverExpression m_Right;
   GCLCexperssion_type m_type;
@@ -101,7 +99,7 @@ public:
   virtual ~CNewDef() {}
 
 private:
-  string m_sDef;
+  std::string m_sDef;
 };
 
 class CTheoremProver {
@@ -110,13 +108,13 @@ public:
   virtual ~CTheoremProver();
   virtual void CleanUp();
 
-  bool Prove(const string &sLaTeXProof, const string &sXMLProof, double &Time,
-             const string &theorem, eGCLC_conjecture_status &Status);
+  bool Prove(const std::string &sLaTeXProof, const std::string &sXMLProof, double &Time,
+             const std::string &theorem, eGCLC_conjecture_status &Status);
   virtual bool AddProverCommand(eGCLC_prover_command type,
-                                const string &a1 = "", const string &a2 = "",
-                                const string &a3 = "", const string &a4 = "",
-                                const string &a5 = "");
-  virtual bool SetProverConjecture(const string &conjecture);
+                                const std::string &a1 = "", const std::string &a2 = "",
+                                const std::string &a3 = "", const std::string &a4 = "",
+                                const std::string &a5 = "");
+  virtual bool SetProverConjecture(const std::string &conjecture);
   void SetProofLevel(int n) { m_iProofLevel = n; }
   int GetProofLevel() { return m_iProofLevel; }
   void SetProofLimit(int n) { m_iProofLimit = n; }
@@ -132,46 +130,46 @@ public:
   bool Timeout();
 
   virtual void PrintMethodSpecificOutput() = 0;
-  virtual string GetMethodSpecificOutput() = 0;
+  virtual std::string GetMethodSpecificOutput() = 0;
 
-  bool GetPointsOnLine(const string &sLineName, string &P1, string &P2);
+  bool GetPointsOnLine(const std::string &sLineName, std::string &P1, std::string &P2);
 
-  virtual const string &GetName() const = 0;
+  virtual const std::string &GetName() const = 0;
 
 protected:
   virtual enum eGCLC_conjecture_status
   ProveConjecture(const CGCLCProverExpression &Conj) = 0;
   void PrintNDGConditions(bool itemize = false);
   virtual void PrintProofFooter(eGCLC_conjecture_status eRet);
-  virtual void PrintProofTitleXML(const string &theoremName);
-  virtual void PrintProofTitleLatex(const string &theoremName);
+  virtual void PrintProofTitleXML(const std::string &theoremName);
+  virtual void PrintProofTitleLatex(const std::string &theoremName);
 
-  bool ExistsPoint(const string &A);
-  bool Collinear(const string &A, const string &B, const string &C);
-  bool OnTheLine(const string &P, const string &l);
+  bool ExistsPoint(const std::string &A);
+  bool Collinear(const std::string &A, const std::string &B, const std::string &C);
+  bool OnTheLine(const std::string &P, const std::string &l);
 
-  bool AddNewDef(string &sDef);
+  bool AddNewDef(std::string &sDef);
   bool AddNDG(GCLCexperssion_type type, const CGCLCProverExpression &Left,
-              const CGCLCProverExpression &Right, const string &sCond);
+              const CGCLCProverExpression &Right, const std::string &sCond);
 
   bool CalculateCoordinates(CGCLCProverCommand &Command) const;
-  bool GetPointCoordinates(const string &sPoint, double &x1, double &y) const;
+  bool GetPointCoordinates(const std::string &sPoint, double &x1, double &y) const;
 
-  void PrintLaTeX(const string &s);
-  void PrintXML(const string &s);
+  void PrintLaTeX(const std::string &s);
+  void PrintXML(const std::string &s);
 
-  bool GetExpression(const string &conjecture, int &nPos,
+  bool GetExpression(const std::string &conjecture, int &nPos,
                      CGCLCProverExpression &exp);
 
   CGCLCProverExpression m_InitialConjecture;
   CGCLCProverExpression* m_pConjecture;
   bool m_bValidConjecture;
-  list<CNewDef> m_NewDefs;
+  std::list<CNewDef> m_NewDefs;
 
-  list<CGCLCProverCommand> m_ProverCommands;
+  std::list<CGCLCProverCommand> m_ProverCommands;
 
-  list<CNDGC> m_NDGCs;
-  ofstream m_hLaTeXOutputProof, m_hXMLOutputProof;
+  std::list<CNDGC> m_NDGCs;
+  std::ofstream m_hLaTeXOutputProof, m_hXMLOutputProof;
 
   int m_iProofLevel;
   int m_iProofLimit;
@@ -183,9 +181,9 @@ protected:
 
 private:
   bool AddProverCommandLowLevel(eGCLC_prover_command type,
-                                const string &a1 = "", const string &a2 = "",
-                                const string &a3 = "", const string &a4 = "",
-                                const string &a5 = "", const string &a6 = "");
+                                const std::string &a1 = "", const std::string &a2 = "",
+                                const std::string &a3 = "", const std::string &a4 = "",
+                                const std::string &a5 = "", const std::string &a6 = "");
   bool PrintList();
   void PrintNGDCs();
   int m_iPointCounter;

@@ -4,7 +4,6 @@
 #include <sstream>
 #include <string>
 
-using namespace std;
 
 //! GraphNode is class used to represent one graph node.
 /*! Graph is consisted of nodes, and this class is used to represent a
@@ -13,7 +12,7 @@ using namespace std;
 class GraphNode {
 private:
   int nodeNumber;
-  string nodeLabel;
+  std::string nodeLabel;
   //  list<GraphNode>::const_iterator it;
 public:
   /*!\brief A constructor
@@ -22,7 +21,7 @@ public:
    * \param _nodeNumber represents value of node number (default value is 0)
    * \param *tmpChar represents value of node label (default value "")
    */
-  GraphNode(int _nodeNumber = 0, const string &tmpChar = "");
+  GraphNode(int _nodeNumber = 0, const std::string &tmpChar = "");
   /*!\brief get number of the graph node
    * \return number of the graph node
    */
@@ -36,12 +35,12 @@ public:
    *
    *\return label of the graph node
    */
-  string getNodeLabel() const;
+  std::string getNodeLabel() const;
   /*!\brief sets label of the graph node
    *
    *\param _nodeLabel set node label to this value
    */
-  void setNodeLabel(string _nodeLabel);
+  void setNodeLabel(std::string _nodeLabel);
   //! Updates node label acording to node number
   /*! Updates node label if it isn't allready set. New node label will be
    * analogue to node number.

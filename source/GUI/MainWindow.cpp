@@ -118,7 +118,10 @@ void MainWindow::createChild(QString fileName) {
   QAction *newAction = new QAction(this);
   newAction->setText(fileName);
   ui->menuFile->insertAction(ui->actionClose, newAction);
-  QVariant v = qVariantFromValue((void *)childWindow);
+  // QVariant v = qVariantFromValue((void *)childWindow);
+  QObject *object = childWindow;
+  QVariant v = QVariant::fromValue(object);
+
   newAction->setData(v);
 
   ui->menuFile->insertSeparator(ui->actionClose);
@@ -475,7 +478,7 @@ void MainWindow::ImportJavaView() {
 
   setCursor(Qt::WaitCursor);
 
-  ifstream hi(inputFileName.toStdString());
+  std::ifstream hi(inputFileName.toStdString());
   if (!hi.is_open())
     return; // printf("File error. Cannot open input file.\n");
 
@@ -701,8 +704,8 @@ void MainWindow::onEnableHighlighting() {
 
 void MainWindow::displayAbout() {
   QMessageBox::about(this, tr("About"),
-                     tr("This is GCLC 2022 \n Developed and copyright "
-                        "(c) 1995-2022 by \n Predrag Janicic, University of "
+                     tr("This is GCLC 2024 \n Developed and copyright "
+                        "(c) 1995-2024 by \n Predrag Janicic, University of "
                         "Belgrade.\nLicensed under the Creative Commons licence CC BY-ND."));
 }
 

@@ -299,13 +299,13 @@ GReturnValue QGraphicsViewOutput::PrintText(double x, double y,
       if (strchr (sPosition, 't'))
           y -= 0.288*h;*/
 
-  if (sPosition.find('r') != string::npos)
+  if (sPosition.find('r') != std::string::npos)
     x -= w / 2;
-  if (sPosition.find('l') != string::npos)
+  if (sPosition.find('l') != std::string::npos)
     x += w / 2;
-  if (sPosition.find('b') != string::npos)
+  if (sPosition.find('b') != std::string::npos)
     y += 0.273 * h;
-  if (sPosition.find('t') != string::npos)
+  if (sPosition.find('t') != std::string::npos)
     y -= 0.288 * h;
 
   gt->setPos(x, y);
@@ -400,4 +400,4 @@ GReturnValue QGraphicsViewOutput::FillEllipseArc(double x1, double y1, double a,
 
 // --------------------------------------------------------------------------------------------
 
-void QGraphicsViewOutput::PrintToOutput(const string & /*s*/) { return; }
+void QGraphicsViewOutput::PrintToOutput(const std::string & /*s*/) { return; }

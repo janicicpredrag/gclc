@@ -216,8 +216,8 @@ GReturnValue CIntermediateRepresentation::SetDashLen(double d1, double d2,
 // ----------------------------------------------------------------------------
 
 GReturnValue CIntermediateRepresentation::PrintText(double x, double y,
-                                                    const string &position,
-                                                    const string &text,
+                                                    const std::string &position,
+                                                    const std::string &text,
                                                     GCLC_area &area) {
   CGCLCPrimitive Command;
   Command.type = printtext;
@@ -231,7 +231,7 @@ GReturnValue CIntermediateRepresentation::PrintText(double x, double y,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CIntermediateRepresentation::PrintComment(const string &text) {
+GReturnValue CIntermediateRepresentation::PrintComment(const std::string &text) {
   CGCLCPrimitive Command;
   Command.type = printcomment;
   Command.text = text;
@@ -240,7 +240,7 @@ GReturnValue CIntermediateRepresentation::PrintComment(const string &text) {
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CIntermediateRepresentation::DirectExport(const string &text,
+GReturnValue CIntermediateRepresentation::DirectExport(const std::string &text,
                                                        export_type format) {
   CGCLCPrimitive Command;
   Command.type = directexport;
@@ -340,7 +340,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
   int num, i;
   double angle;
 
-  for (list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
+  for (std::list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
        it != m_ListOfPrimitives.end() && !founddim; it++) {
     if (it->type == dim) {
       iRv = Out.Init((int)it->arg[0], (int)it->arg[1]);
@@ -365,7 +365,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
     Default_Area.y_rt = DEFAULT_HEIGHT;
   }
 
-  for (list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
+  for (std::list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
        it != m_ListOfPrimitives.end(); it++) {
     if (it->type == setbgcolor) {
       iRv = Out.SetBackgroundColor((unsigned char)it->arg[0],
@@ -383,7 +383,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
 
   bool bSkipLayer = false;
 
-  for (list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
+  for (std::list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
        it != m_ListOfPrimitives.end(); it++) {
     if (it->type == setlayer)
       bSkipLayer = SkipLayer((unsigned int)it->arg[0]);
@@ -410,7 +410,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
   }
 
   bSkipLayer = false;
-  for (list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
+  for (std::list<CGCLCPrimitive>::iterator it = m_ListOfPrimitives.begin();
        it != m_ListOfPrimitives.end(); it++) {
     if (it->type == setlayer)
       bSkipLayer = SkipLayer((unsigned int)it->arg[0]);
@@ -933,7 +933,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
 
 GReturnValue CIntermediateRepresentation::ClipSegmentByEmptyCircles(
     double x1, double y1, double x2, double y2, CGCLCOutput &Out,
-    list<CGCLCPrimitive>::iterator it) {
+    std::list<CGCLCPrimitive>::iterator it) {
   GReturnValue iRv;
   double a, b, c, d, x, xx, y, yy, r;
   double x1c, y1c, x2c, y2c;
@@ -987,7 +987,7 @@ GReturnValue CIntermediateRepresentation::ClipSegmentByEmptyCircles(
       {
         if (bet(x1, y1, x2c, y2c, x2, y2)) // B(p1,p2c,p2)
         {
-          list<CGCLCPrimitive>::iterator jt = it;
+          std::list<CGCLCPrimitive>::iterator jt = it;
           if (bet(x1, y1, x1c, y1c, x2c, y2c)) // B(p1,p1c,p2c,p2)
           {
             iRv = ClipSegmentByEmptyCircles(x1, y1, x1c, y1c, Out, jt++);
@@ -1056,7 +1056,7 @@ GReturnValue CIntermediateRepresentation::ClipSegmentByEmptyCircles(
 
 GReturnValue CIntermediateRepresentation::ClipArcByEmptyCircles(
     double x1, double y1, double xr1, double yr1, double angle,
-    CGCLCOutput &Out, list<CGCLCPrimitive>::iterator it, int precision) {
+    CGCLCOutput &Out, std::list<CGCLCPrimitive>::iterator it, int precision) {
   double a, b, c, d, e, f;
   double x2, y2, xr2, yr2;
   double xi1, yi1, xi2, yi2;
@@ -1174,7 +1174,7 @@ GReturnValue CIntermediateRepresentation::ClipArcByEmptyCircles(
             return rvG_OK;
         }
       } else {
-        list<CGCLCPrimitive>::iterator jt = it;
+        std::list<CGCLCPrimitive>::iterator jt = it;
         if (angle2 > angle1) {
 
           if (angle > angle1) {
@@ -1207,7 +1207,7 @@ GReturnValue CIntermediateRepresentation::ClipArcByEmptyCircles(
 // ----------------------------------------------------------------------------
 
 GReturnValue CIntermediateRepresentation::ClipPixelByEmptyCircles(
-    double x1, double y1, CGCLCOutput &Out, list<CGCLCPrimitive>::iterator it) {
+    double x1, double y1, CGCLCOutput &Out, std::list<CGCLCPrimitive>::iterator it) {
   // new, non-recursive version - 08.06.2008.
   double x, xx, y, yy, r;
   int ii = 0;

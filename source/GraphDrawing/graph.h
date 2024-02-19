@@ -12,18 +12,16 @@
 #include <map>
 #include <vector>
 
-using namespace std;
-
 //! Graph is class used to represent a graph
 class Graph {
 private:
-  vector< list<GraphNode> > adjacencyList;
+  std::vector< std::list<GraphNode> > adjacencyList;
   //! deletes a graph
   void deleteGraph();
   //! function internally used for DFS algorithm
-  void DFSSearch(Graph &, map<int, bool> &, int);
+  void DFSSearch(Graph &, std::map<int, bool> &, int);
   //! function used internally for BFS algorithm
-  void BFSScan(Graph &, map<int, bool> &, map<int, int> &, list<int> &, int);
+  void BFSScan(Graph &, std::map<int, bool> &, std::map<int, int> &, std::list<int> &, int);
   //! returns true if graph is empty
   bool isEmpty() const;
 
@@ -33,7 +31,7 @@ public:
   //! const string & constructor
   /*!\param filename filename to read graph data from
    */
-  Graph(const string &);
+  Graph(const std::string &);
   //! Copy constructor
   Graph(Graph &);
   //! destructor
@@ -61,7 +59,7 @@ public:
   //! Gets all graph nodes
   /*!\return vector of all graph nodes
    */
-  vector<GraphNode> getNodes();
+  std::vector<GraphNode> getNodes();
   //! Updates node labels
   /*! Updates node labels in case that they are not allready set. For instance,
    * if node number is 1, then node label will be set to "1" in this
@@ -89,7 +87,7 @@ public:
    *\param const string& node label
    *\return boolean value indicating if graph node was successfully added
    */
-  bool addNode(int, const string &);
+  bool addNode(int, const std::string &);
   //! Gets nodes degree of specified node
   /*! \param int node number of graph node whose node degree is queried
    */
@@ -157,7 +155,7 @@ public:
   /*!\param int node number whose neighbours should be returned
    *\return vector<int> vector of node numbers
    */
-  vector<int> getNeighbours(int);
+  std::vector<int> getNeighbours(int);
   //! DFS algorithm for exploring graph
   /*!\param Graph& DFS tree will be stored in this argument (this is out
    * argument)
@@ -200,7 +198,7 @@ public:
    * \param vector<int>& reference to outer cycle vector
    * \return boolean value indicating if graph is internaly triangulated
    */
-  bool getOuterCycle(vector<int> &);
+  bool getOuterCycle(std::vector<int> &);
   //! Computes canonical ordering of the graph
   /*! Calculates canonical ordering of the graph. Graph
    * must be 2-connected and internally triangulated.
@@ -225,7 +223,7 @@ public:
   /*!\param const string & filename
    *\return boolean value indicating if graph was loaded properly
    */
-  bool fromFile(const string &);
+  bool fromFile(const std::string &);
   // friend ostream& operator<<(ostream&, Graph&);
 };
 

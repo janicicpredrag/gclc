@@ -10,7 +10,7 @@
 #define UI_CHILDFORM_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
+#include <QtWidgets/QWidgetAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGraphicsView>

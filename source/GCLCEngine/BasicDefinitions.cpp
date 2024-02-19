@@ -7,7 +7,7 @@
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_number() {
-  string sNumberName;
+  std::string sNumberName;
   double dNumber;
   GCLCError iRv;
 
@@ -25,7 +25,7 @@ GCLCError CGCLC::get_number() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_point(int &iArgs) {
-  string sPointName;
+  std::string sPointName;
   double x, y, x1, y1;
   GCLCError iRv;
 
@@ -110,7 +110,7 @@ GCLCError CGCLC::get_point(int &iArgs) {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_line() {
-  string sLineName;
+  std::string sLineName;
   GCLC_object o1, o2;
   double k;
   GCLCError iRv;
@@ -167,7 +167,7 @@ GCLCError CGCLC::get_line() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_circle() {
-  string sCircleName;
+  std::string sCircleName;
   GCLC_object o1, o2;
   double k;
   GCLCError iRv;
@@ -211,7 +211,7 @@ GCLCError CGCLC::get_circle() {
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::set_equal() {
-  string sLeftObjectName;
+  std::string sLeftObjectName;
   GCLC_object o;
   GCLCError iRv;
 

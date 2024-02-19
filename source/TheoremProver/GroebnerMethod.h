@@ -13,7 +13,7 @@ public:
   CGroebnerMethod();
   virtual ~CGroebnerMethod();
 
-  const string &GetName() const;
+  const std::string &GetName() const;
 
   Groebner gb_prover;
 };

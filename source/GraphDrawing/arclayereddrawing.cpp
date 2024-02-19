@@ -2,7 +2,7 @@
 #include <cmath>
 
 ArcLayeredDrawing::ArcLayeredDrawing(Graph _graph, Settings _settings,
-                                     string _filename)
+                                     std::string _filename)
     : Drawing(_filename, _graph, _settings) {
   // set graph center and graph width valued to invalid values
   graphCenter.x = -1.0;
@@ -16,7 +16,7 @@ ArcLayeredDrawing::ArcLayeredDrawing(Graph _graph, Settings _settings,
 
 ArcLayeredDrawing::ArcLayeredDrawing(Graph _graph, Settings _settings,
                                      struct Point _graphCenter,
-                                     float _graphWidth, string _filename)
+                                     float _graphWidth, std::string _filename)
     : Drawing(_filename, _graph, _settings) {
   graphCenter = _graphCenter;
   graphWidth = _graphWidth;
@@ -50,10 +50,10 @@ void ArcLayeredDrawing::recalculateOffsetAndScalingFactors(
 }
 
 void ArcLayeredDrawing::setInitialLayer(int n,
-                                        map<int, bool> &unExploredNodes) {
+                                        std::map<int, bool> &unExploredNodes) {
   if (n > graph.getNodesNumber())
     GraphUtil::Error("index out of bound");
-  vector<int> firstLayer;
+  std::vector<int> firstLayer;
   for (int i = 0; i < n; i++) {
     GraphNode gn = graph.getNodeAt(i);
     firstLayer.push_back(gn.getNodeNumber());
@@ -63,14 +63,14 @@ void ArcLayeredDrawing::setInitialLayer(int n,
 }
 
 void ArcLayeredDrawing::setAllNodesToUnexplored(
-    map<int, bool> &unExploredNodes) {
-  vector<GraphNode> allNodes = graph.getNodes();
+    std::map<int, bool> &unExploredNodes) {
+  std::vector<GraphNode> allNodes = graph.getNodes();
   for (unsigned int i = 0; i < allNodes.size(); i++)
     unExploredNodes[allNodes[i].getNodeNumber()] = false;
 }
 
-bool ArcLayeredDrawing::existUnexploredNode(map<int, bool> unExploredNodes) {
-  for (map<int, bool>::const_iterator it = unExploredNodes.begin();
+bool ArcLayeredDrawing::existUnexploredNode(std::map<int, bool> unExploredNodes) {
+  for (std::map<int, bool>::const_iterator it = unExploredNodes.begin();
        it != unExploredNodes.end(); it++)
     if (!it->second)
       return true;
@@ -106,19 +106,19 @@ unsigned int ArcLayeredDrawing::getWidestArcEdge(int layerLevel) {
   return widestArcEdge;
 }
 
-vector<int> ArcLayeredDrawing::getDescendants(int i,
-                                              map<int, bool> &unExploredNodes) {
-  vector<int> descendants;
+std::vector<int> ArcLayeredDrawing::getDescendants(int i,
+                                              std::map<int, bool> &unExploredNodes) {
+  std::vector<int> descendants;
   for (unsigned int j = 0; j < layers[i].size(); j++) {
-    vector<int> neighbours = graph.getNeighbours(layers[i][j]);
+    std::vector<int> neighbours = graph.getNeighbours(layers[i][j]);
     mergeDescendants(descendants, neighbours, unExploredNodes);
   }
   return descendants;
 }
 
 void ArcLayeredDrawing::mergeDescendants(
-    vector<int> &descendants, vector<int> neighbours,
-    map<int, bool> &unExploredNodes) const {
+    std::vector<int> &descendants, std::vector<int> neighbours,
+    std::map<int, bool> &unExploredNodes) const {
   for (unsigned int i = 0; i < neighbours.size(); i++)
     if (!GraphUtil::isElementInVector(descendants, neighbours[i]) &&
         !unExploredNodes[neighbours[i]]) {
@@ -129,20 +129,20 @@ void ArcLayeredDrawing::mergeDescendants(
 
 void ArcLayeredDrawing::makeLayers() {
   // set unexplored nodes
-  map<int, bool> unExploredNodes;
+  std::map<int, bool> unExploredNodes;
   setAllNodesToUnexplored(unExploredNodes);
   // instead of 1, number should be checked in settings object
   setInitialLayer(1, unExploredNodes);
   // set all layers
   int i = 0;
   while (existUnexploredNode(unExploredNodes)) {
-    vector<int> descendants = getDescendants(i, unExploredNodes);
+    std::vector<int> descendants = getDescendants(i, unExploredNodes);
     layers.push_back(descendants);
     i++;
   }
 }
 
-void ArcLayeredDrawing::makeConnectionsGCLC(ofstream &graphFile,
+void ArcLayeredDrawing::makeConnectionsGCLC(std::ofstream &graphFile,
                                             Graph labeledGraph) {
   for (unsigned int i = 0; i < layers.size() - 1; i++) {
     connectAdjLayers(graphFile, i, labeledGraph);
@@ -151,7 +151,7 @@ void ArcLayeredDrawing::makeConnectionsGCLC(ofstream &graphFile,
   connectLayer(graphFile, layers.size() - 1, labeledGraph);
 }
 
-void ArcLayeredDrawing::connectAdjLayers(ofstream &graphFile, int layerIndex,
+void ArcLayeredDrawing::connectAdjLayers(std::ofstream &graphFile, int layerIndex,
                                          Graph labeledGraph) {
   for (unsigned int i = 0; i < layers[layerIndex].size(); i++) {
     for (unsigned int j = 0; j < layers[layerIndex + 1].size(); j++) {
@@ -165,7 +165,7 @@ void ArcLayeredDrawing::connectAdjLayers(ofstream &graphFile, int layerIndex,
   }
 }
 
-void ArcLayeredDrawing::connectLayer(ofstream &graphFile, int layerIndex,
+void ArcLayeredDrawing::connectLayer(std::ofstream &graphFile, int layerIndex,
                                      Graph labeledGraph) {
   for (unsigned int i = 0; i < layers[layerIndex].size() - 1; i++) {
     for (unsigned int j = i + 1; j < layers[layerIndex].size(); j++) {

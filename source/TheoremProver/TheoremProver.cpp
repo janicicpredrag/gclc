@@ -31,7 +31,7 @@ void CNDGC::CleanUp() {}
 
 // ----------------------------------------------------------------------------
 
-string CNDGC::sPrintLaTeX() {
+std::string CNDGC::sPrintLaTeX() {
   if (m_type == ep_equality)
     return m_Left.sPrintLaTeX() + "=" + m_Right.sPrintLaTeX();
   else
@@ -40,24 +40,24 @@ string CNDGC::sPrintLaTeX() {
 
 // ----------------------------------------------------------------------------
 
-string CNDGC::sPrintXML(int indent) {
-  string s;
+std::string CNDGC::sPrintXML(int indent) {
+  std::string s;
 
-  s += string(indent + 1, '\t');
+  s += std::string(indent + 1, '\t');
   if (m_type == ep_equality)
     s += "<equality>\n";
   else
     s += "<inequality>\n";
 
-  s += string(indent + 2, '\t') + "<expression>\n";
+  s += std::string(indent + 2, '\t') + "<expression>\n";
   s += m_Left.sPrintXML(indent + 3);
-  s += string(indent + 2, '\t') + "</expression>\n";
+  s += std::string(indent + 2, '\t') + "</expression>\n";
 
-  s += string(indent + 2, '\t') + "<expression>\n";
+  s += std::string(indent + 2, '\t') + "<expression>\n";
   s += m_Right.sPrintXML(indent + 3);
-  s += string(indent + 2, '\t') + "</expression>\n";
+  s += std::string(indent + 2, '\t') + "</expression>\n";
 
-  s += string(indent + 1, '\t');
+  s += std::string(indent + 1, '\t');
   if (m_type == ep_equality)
     s += "</equality>\n";
   else
@@ -96,8 +96,8 @@ void CTheoremProver::CleanUp() {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::Prove(const string &sLaTeXProof, const string &sXMLProof,
-                           double &Time, const string &theorem,
+bool CTheoremProver::Prove(const std::string &sLaTeXProof, const std::string &sXMLProof,
+                           double &Time, const std::string &theorem,
                            eGCLC_conjecture_status &Status) {
 
   if (!sLaTeXProof.empty()) {
@@ -153,9 +153,9 @@ bool CTheoremProver::Prove(const string &sLaTeXProof, const string &sXMLProof,
 
 // ----------------------------------------------------------------------------
 
-void CTheoremProver::PrintProofTitleXML(const string &theoremName) {
+void CTheoremProver::PrintProofTitleXML(const std::string &theoremName) {
   // XML output
-  string t = theoremName;
+  std::string t = theoremName;
   if (t.empty())
     t = "[not named]";
   else
@@ -166,7 +166,7 @@ void CTheoremProver::PrintProofTitleXML(const string &theoremName) {
   // XML output
   PrintXML("\n\t<definitions>\n");
 
-  for (list<CNewDef>::iterator it = m_NewDefs.begin(); it != m_NewDefs.end();
+  for (std::list<CNewDef>::iterator it = m_NewDefs.begin(); it != m_NewDefs.end();
        it++) {
     // LaTeX output
     PrintLaTeX("\n\t" + it->m_sDef + "\n");
@@ -183,14 +183,14 @@ void CTheoremProver::PrintProofTitleXML(const string &theoremName) {
 
 // ----------------------------------------------------------------------------
 
-void CTheoremProver::PrintProofTitleLatex(const string &theoremName) {
+void CTheoremProver::PrintProofTitleLatex(const std::string &theoremName) {
   if (m_NewDefs.size() != 0) {
     // if (m_pNewDefs != NULL) {
     // LaTeX output
     PrintLaTeX("\n\\vspace*{2mm} \\hrule \\vspace*{2mm} \n");
   }
   // LaTeX output
-  string t = theoremName;
+  std::string t = theoremName;
   if (t.empty())
     t = "[not named]";
   else
@@ -226,16 +226,16 @@ void CTheoremProver::PrintNDGConditions(bool itemize) {
     // XML output
     PrintXML("\n\t<NDGconditions></NDGconditions>\n");
   } else {
-    string sLaTeXCond, sXMLCond;
+    std::string sLaTeXCond, sXMLCond;
     // LaTeX output
-    PrintLaTeX((string) "\n\n" + (itemize ? "\\item[" : "") + "NDG conditions" +
+    PrintLaTeX((std::string) "\n\n" + (itemize ? "\\item[" : "") + "NDG conditions" +
                (itemize ? "]" : "") + " are:\n\n");
     if (itemize)
       PrintLaTeX("\\begin{itemize}\n");
     // XML output
     PrintXML("\n\t<NDGconditions>\n");
 
-    for (list<CNDGC>::iterator it = m_NDGCs.begin(); it != m_NDGCs.end();
+    for (std::list<CNDGC>::iterator it = m_NDGCs.begin(); it != m_NDGCs.end();
          it++) {
       if (itemize)
         PrintLaTeX("\\item\n");
@@ -351,10 +351,10 @@ void CTheoremProver::PrintNDGConditions(bool itemize) {
 bool CTheoremProver::AddNDG(GCLCexperssion_type type,
                             const CGCLCProverExpression &Left,
                             const CGCLCProverExpression &Right,
-                            const string &sCond) {
+                            const std::string &sCond) {
   bool bAlreadyExists = false;
 
-  for (list<CNDGC>::iterator it = m_NDGCs.begin();
+  for (std::list<CNDGC>::iterator it = m_NDGCs.begin();
        it != m_NDGCs.end() && !bAlreadyExists; it++) {
     // do nothing if already exists
     if (it->m_Left == Left && (it->m_Right == Right) && (it->m_type == type))
@@ -397,10 +397,10 @@ bool CTheoremProver::AddNDG(GCLCexperssion_type type,
 // ----------------------------------------------------------------------------
 
 bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
-                                      const string &a1, const string &a2,
-                                      const string &a3, const string &a4,
-                                      const string &a5) {
-  string s1, s2, s3, s4;
+                                      const std::string &a1, const std::string &a2,
+                                      const std::string &a3, const std::string &a4,
+                                      const std::string &a5) {
+  std::string s1, s2, s3, s4;
 
   if (type == p_point) {
     if (ExistsPoint(a1))
@@ -420,7 +420,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
 
       return AddProverCommandLowLevel(type, a1, a2, a3, a4, a5);
     } else { // form: intersec X a b
-      for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+      for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
            it != m_ProverCommands.end(); it++) {
         if (it->type == p_line) {
           if (a2 == it->arg[0]) {
@@ -453,12 +453,12 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
   }
 
   if (type == online) {
-    string sConstantName;
+    std::string sConstantName;
     sConstantName = "r_{" + i2s(m_iPointCounter++) + "}";
 
     double r;
     convert(a4, r);
-    string s = "Let $" + sConstantName +
+    std::string s = "Let $" + sConstantName +
                "$ be the number such that {\\tt PRATIO} $" + a1 + "$ $" + a2 +
                "$ $" + a2 + "$ $" + a3 + "$ $" + sConstantName +
                "$ (for the concrete example $" + sConstantName + "$=" +
@@ -470,11 +470,11 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
   }
 
   if (type == med) {
-    string sPointName1, sPointName2;
+    std::string sPointName1, sPointName2;
     sPointName1 = "M_{" + a1 + "}^{" + i2s(m_iPointCounter++) + "}";
     sPointName2 = "T_{" + a1 + "}^{" + i2s(m_iPointCounter++) + "}";
 
-    string s = "Let $" + sPointName1 + "$ be the midpoint of the segment $" +
+    std::string s = "Let $" + sPointName1 + "$ be the midpoint of the segment $" +
                a2 + a3 + "$.";
     AddNewDef(s);
 
@@ -491,7 +491,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
   }
 
   if (type == perp) {
-    for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+    for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
          it != m_ProverCommands.end(); it++) {
       if (it->type == p_line) {
         if (it->arg[0] == a3) {
@@ -502,10 +502,10 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
     }
 
     if (!s1.empty()) {
-      string sPointName;
+      std::string sPointName;
       if (Collinear(a2, s1, s2)) {
         sPointName = "T_{" + a1 + "}^{" + i2s(m_iPointCounter++) + "}";
-        string s = "Let $" + sPointName +
+        std::string s = "Let $" + sPointName +
                    "$ be the point on the normal from the point on the line $" +
                    a2 + "$ (such that {\\tt TRATIO} $" + a3 + "$ $" +
                    sPointName + "$ $" + a2 + "$ $" + s1 + "$ $1$).";
@@ -518,7 +518,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
       } else {
         sPointName = "F_{" + a1 + "}^{" + i2s(m_iPointCounter++) + "}";
 
-        string s = "Let $" + sPointName +
+        std::string s = "Let $" + sPointName +
                    "$ be the foot of the normal from the point $" + a2 +
                    "$ on the line $" + a3 + "$.";
         AddNewDef(s);
@@ -539,7 +539,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
   }
 
   if (type == p_foot) {
-    for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+    for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
          it != m_ProverCommands.end(); it++) {
       if (it->type == p_line) {
         if (it->arg[0] == a3) {
@@ -556,7 +556,7 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
   }
 
   if (type == parallel) {
-    for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+    for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
          it != m_ProverCommands.end(); it++) {
       if (it->type == p_line) {
         if (it->arg[0] == a3) {
@@ -567,8 +567,8 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
     }
 
     if (!s1.empty()) {
-      string sPointName1 = "P_{" + a1 + "}^{" + i2s(m_iPointCounter++) + "}";
-      string s = "Let $" + sPointName1 + "$ be the point such that lines $" +
+      std::string sPointName1 = "P_{" + a1 + "}^{" + i2s(m_iPointCounter++) + "}";
+      std::string s = "Let $" + sPointName1 + "$ be the point such that lines $" +
                  sPointName1 + a2 + "$ and $" + s1 + s2 +
                  "$ are parallel (and {\\tt PRATIO} $" + sPointName1 + "$ $" +
                  a2 + "$ $" + s1 + "$ $" + s2 + "$ $1$).\n";
@@ -588,8 +588,8 @@ bool CTheoremProver::AddProverCommand(eGCLC_prover_command type,
 // ----------------------------------------------------------------------------
 
 bool CTheoremProver::AddProverCommandLowLevel(
-    eGCLC_prover_command type, const string &a1, const string &a2,
-    const string &a3, const string &a4, const string &a5, const string &a6) {
+    eGCLC_prover_command type, const std::string &a1, const std::string &a2,
+    const std::string &a3, const std::string &a4, const std::string &a5, const std::string &a6) {
   CGCLCProverCommand Command;
   Command.type = type;
 
@@ -620,8 +620,8 @@ bool CTheoremProver::AddProverCommandLowLevel(
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::ExistsPoint(const string &A) {
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+bool CTheoremProver::ExistsPoint(const std::string &A) {
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     if (it->type == p_point || it->type == p_inter || it->type == p_pratio ||
         it->type == p_tratio || it->type == p_foot || it->type == midpoint ||
@@ -642,12 +642,12 @@ bool CTheoremProver::ExistsPoint(const string &A) {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::Collinear(const string &A, const string &B,
-                               const string &C) {
+bool CTheoremProver::Collinear(const std::string &A, const std::string &B,
+                               const std::string &C) {
   if (A == B || A == C || B == C)
     return true;
 
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     if (it->type == p_line) {
       if (!OnTheLine(A, it->arg[0]))
@@ -665,9 +665,9 @@ bool CTheoremProver::Collinear(const string &A, const string &B,
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::OnTheLine(const string &P, const string &l) {
-  string A, B;
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+bool CTheoremProver::OnTheLine(const std::string &P, const std::string &l) {
+  std::string A, B;
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     switch (it->type) {
     case p_line:
@@ -680,7 +680,7 @@ bool CTheoremProver::OnTheLine(const string &P, const string &l) {
       break;
     }
   }
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     switch (it->type) {
     case p_line:
@@ -715,9 +715,9 @@ bool CTheoremProver::OnTheLine(const string &P, const string &l) {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::GetPointsOnLine(const string &sLineName, string &P1,
-                                     string &P2) {
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+bool CTheoremProver::GetPointsOnLine(const std::string &sLineName, std::string &P1,
+                                     std::string &P2) {
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     if (it->type == p_line) {
       if (it->arg[0] == sLineName) {
@@ -906,8 +906,8 @@ bool CTheoremProver::CalculateCoordinates(CGCLCProverCommand &Command) const {
 bool CTheoremProver::PrintList() {
   m_pConjecture->PrettyPrint();
 
-  string s;
-  for (list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
+  std::string s;
+  for (std::list<CGCLCProverCommand>::iterator it = m_ProverCommands.begin();
        it != m_ProverCommands.end(); it++) {
     switch (it->type) {
     case p_point:
@@ -948,7 +948,7 @@ bool CTheoremProver::PrintList() {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::SetProverConjecture(const string &conjecture) {
+bool CTheoremProver::SetProverConjecture(const std::string &conjecture) {
   int nInputPos;
   if (!GetExpression(conjecture, nInputPos, m_InitialConjecture))
     return false;
@@ -967,12 +967,12 @@ bool CTheoremProver::SetProverConjecture(const string &conjecture) {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
+bool CTheoremProver::GetExpression(const std::string &conjecture, int &nPos,
                                    CGCLCProverExpression &exp) {
-  string s;
+  std::string s;
   int nInputPos = 0;
   bool bBracket = false;
-  string InputString;
+  std::string InputString;
   double n;
   unsigned i;
 
@@ -981,7 +981,7 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
   InputString = conjecture;
   take_id(InputString, nInputPos, s);
 
-  // InputString += nInputPos;
+  // Inputstd::string += nInputPos;
   InputString = InputString.substr(nInputPos, InputString.size() - nInputPos);
 
   nPos += nInputPos;
@@ -1159,8 +1159,8 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
     }
 
     if (exp.GetType() == ep_segment_ratio) {
-      string N1 = exp.GetArgName(2);
-      string N2 = exp.GetArgName(3);
+      std::string N1 = exp.GetArgName(2);
+      std::string N2 = exp.GetArgName(3);
       CGCLCProverExpression Left(ep_p3, N1, N2, N1);
       CGCLCProverExpression Right(0.0);
       if (!AddNDG(ep_inequality, Left, Right, "(conjecture based assumption)"))
@@ -1233,7 +1233,7 @@ bool CTheoremProver::GetExpression(const string &conjecture, int &nPos,
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::AddNewDef(string &sDef) {
+bool CTheoremProver::AddNewDef(std::string &sDef) {
   CNewDef d;
   d.m_sDef = sDef;
   m_NewDefs.push_back(d);
@@ -1249,14 +1249,14 @@ bool CTheoremProver::Timeout() {
 
 // ----------------------------------------------------------------------------
 
-void CTheoremProver::PrintLaTeX(const string &s) {
+void CTheoremProver::PrintLaTeX(const std::string &s) {
   if (m_hLaTeXOutputProof.is_open())
     Print(m_hLaTeXOutputProof, s);
 }
 
 // ----------------------------------------------------------------------------
 
-void CTheoremProver::PrintXML(const string &s) {
+void CTheoremProver::PrintXML(const std::string &s) {
   if (m_hXMLOutputProof.is_open())
     Print(m_hXMLOutputProof, s);
 }
@@ -1265,7 +1265,7 @@ void CTheoremProver::PrintXML(const string &s) {
 // miscellaneous
 // **************************************************************************
 
-void take_text(const string &sInput, int &nInputPos, string &sOutput) {
+void take_text(const std::string &sInput, int &nInputPos, std::string &sOutput) {
   char c;
 
   nInputPos = 0;
@@ -1287,7 +1287,7 @@ void take_text(const string &sInput, int &nInputPos, string &sOutput) {
 
 // ----------------------------------------------------------------------------
 
-void take_id(const string &sInput, int &nInputPos, string &sOutput) {
+void take_id(const std::string &sInput, int &nInputPos, std::string &sOutput) {
   char c;
   int i = 0;
   int brackets = 0;
@@ -1306,7 +1306,7 @@ void take_id(const string &sInput, int &nInputPos, string &sOutput) {
   } while (skip);
 
   do {
-    sOutput += string(1, c);
+    sOutput += std::string(1, c);
     i++;
     c = sInput[++nInputPos];
 

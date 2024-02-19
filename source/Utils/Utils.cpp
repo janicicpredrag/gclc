@@ -7,24 +7,24 @@
 #include <string>
 
 
-string i2s(int n, unsigned width) {
-  string s = to_string(n);
+std::string i2s(int n, unsigned width) {
+  std::string s = std::__cxx11::to_string(n);
   if (width > s.size())
-    s = string(width - s.size(), ' ') + s;
+    s = std::string(width - s.size(), ' ') + s;
   return s;
 }
 
 // ----------------------------------------------------------------------------////
 
-string d2s(double n, int precision) {
-  ostringstream stream;
+std::string d2s(double n, int precision) {
+  std::ostringstream stream;
   if (precision < 0) {
     if (-EPS < n - floor(n) && n - floor(n) < EPS)
       stream << floor(n);
     else
       stream << n;
   } else
-    stream << fixed << setprecision(precision) << n;
+    stream << std::fixed << std::setprecision(precision) << n;
   return stream.str();
 }
 
@@ -37,10 +37,10 @@ bool is_blank(char c) {
 // ----------------------------------------------------------------------------////
 
 // remove leading and trailing spaces from a string
-const string trim(const string &sInput, const string &t) {
-  string s = sInput;
-  string::size_type i = s.find_last_not_of(t);
-  if (i == string::npos)
+const std::string trim(const std::string &sInput, const std::string &t) {
+  std::string s = sInput;
+  std::string::size_type i = s.find_last_not_of(t);
+  if (i == std::string::npos)
     return "";
   return s.erase(i + 1).erase(0, sInput.find_first_not_of(t));
 }
@@ -48,10 +48,10 @@ const string trim(const string &sInput, const string &t) {
 // ----------------------------------------------------------------------------////
 
 // remove backspaces from a string
-const string removeBackspaces(const string &sInput) {
-  string s = sInput;
-  string::size_type i;
-  while ((i = s.find('\b')) != string::npos) {
+const std::string removeBackspaces(const std::string &sInput) {
+  std::string s = sInput;
+  std::string::size_type i;
+  while ((i = s.find('\b')) != std::string::npos) {
     if (i == 0)
       s.erase(0, 1);
     else
@@ -62,14 +62,14 @@ const string removeBackspaces(const string &sInput) {
 
 // ----------------------------------------------------------------------------////
 
-void trimrightzeros(string &name) {
+void trimrightzeros(std::string &name) {
   while (name[name.size()] == '0')
     name.resize(name.size() - 1);
 }
 
 // ----------------------------------------------------------------------------////
 
-bool convert_int(const string &word, int &number) {
+bool convert_int(const std::string &word, int &number) {
   int i = 0;
   char c;
   number = (int)0.00;
@@ -85,7 +85,7 @@ bool convert_int(const string &word, int &number) {
 
 // ----------------------------------------------------------------------------////
 
-bool convert(const string &word, double &number) {
+bool convert(const std::string &word, double &number) {
   int i = 0, sign = 1;
   double dp = 1.00;
   double exp = 0, mult;
@@ -508,7 +508,7 @@ double transform_ellipse_angle(double a, double b, double phi) {
 // ----------------------------------------------------------------------------////
 
 bool MakeArcPath(double x1, double y1, double a, double b, double phi1,
-                 double phi2, string &sPath) {
+                 double phi2, std::string &sPath) {
   double xs, ys, xe, ye, xi, yi;
   double psi, phi;
   double phi1t, phi2t;
@@ -664,9 +664,9 @@ double HeronArea(double x1, double y1, double x2, double y2, double x3,
 
 // ----------------------------------------------------------------------------////
 
-string make_indent(int indent) {
+std::string make_indent(int indent) {
   int i;
-  string s;
+  std::string s;
   for (i = 0; i < indent; i++)
     s += "\t";
   return s;
@@ -674,15 +674,15 @@ string make_indent(int indent) {
 
 // ----------------------------------------------------------------------------////
 
-void Print(ostream &h, string s) { h << s; }
+void Print(std::ostream &h, std::string s) { h << s; }
 
 // ----------------------------------------------------------------------------////
 
-void Print(ofstream &h, string s) { h << s; }
+void Print(std::ofstream &h, std::string s) { h << s; }
 
 // ----------------------------------------------------------------------------////
 
-void Print(ostream &h, char c) { h << c; }
+void Print(std::ostream &h, char c) { h << c; }
 
 // ----------------------------------------------------------------------------////
 

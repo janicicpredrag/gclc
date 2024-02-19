@@ -7,16 +7,14 @@
 #include <sstream>
 #include <string>
 
-using namespace std;
+static const std::string SPACES = " \t\r\n"; // what gets removed when we trim
 
-static const string SPACES = " \t\r\n"; // what gets removed when we trim
+const std::string trim(const std::string &sInput, const std::string &t = SPACES);
+const std::string removeBackspaces(const std::string &sInput);
+void trimrightzeros(std::string &name);
 
-const string trim(const string &sInput, const string &t = SPACES);
-const string removeBackspaces(const string &sInput);
-void trimrightzeros(string &name);
-
-bool convert_int(const string &word, int &number);
-bool convert(const string &word, double &number);
+bool convert_int(const std::string &word, int &number);
+bool convert(const std::string &word, double &number);
 
 void power(double d, int exp, double &result);
 int log_div(int d, int c);
@@ -38,26 +36,26 @@ bool clip_segment(double x1, double y1, double x2, double y2, double x_lb,
 
 double transform_ellipse_angle(double a, double b, double phi);
 bool MakeArcPath(double x1, double y1, double a, double b, double phi1,
-                 double phi2, string &sPath);
+                 double phi2, std::string &sPath);
 
 int solve(double a, double b, double c, double &x1, double &x2, int &r);
 double HeronArea(double x1, double y1, double x2, double y2, double x3,
                  double y3);
 
-string make_indent(int indent);
+std::string make_indent(int indent);
 
-void Print(ofstream &h, string s);
-void Print(ostream &h, string s);
-void Print(ostream &h, char c);
+void Print(std::ofstream &h, std::string s);
+void Print(std::ostream &h, std::string s);
+void Print(std::ostream &h, char c);
 
-string i2s(int n, unsigned width = 0);
-string d2s(double n, int precision);
+std::string i2s(int n, unsigned width = 0);
+std::string d2s(double n, int precision);
 
 bool is_blank(char c);
 
-template <typename T> string toHexString(const T &n) {
-  ostringstream stream;
-  stream << setfill('0') << setw(2) << hex << uppercase << n;
+template <typename T> std::string toHexString(const T &n) {
+  std::ostringstream stream;
+  stream << std::setfill('0') << std::setw(2) << std::hex << std::uppercase << n;
   return stream.str();
 }
 

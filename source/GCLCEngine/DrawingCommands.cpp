@@ -119,7 +119,7 @@ GCLCError CGCLC::draw_line(bool dashed) {
   if ((fabs(o1.p[0] - o2.p[0]) <= EPS) && (fabs(o1.p[1] - o2.p[1]) <= EPS))
     return rvGCLCBadLine;
 
-  string sComment;
+  std::string sComment;
   if (o1.type == GCLC_POINT)
     sComment = "Drawing line " + o1.name + " " + o2.name;
   else
@@ -304,7 +304,7 @@ GCLCError CGCLC::draw_circle(bool dashed) {
     //-------- End of support for XML form ---------
   }
 
-  string sComment;
+  std::string sComment;
   if (o1.type == GCLC_POINT)
     sComment = "Drawing circle " + o1.name + " " + o2.name;
   else
@@ -511,7 +511,7 @@ GCLCError CGCLC::draw_ellipsearc(bool dashed, bool bFourGivenPoints,
     return rvGCLCBadEllipse;
   b = sqrt((y3 - y1) * (y3 - y1) * a * a / (a * a - (x3 - x1) * (x3 - x1)));
 
-  string sComment;
+  std::string sComment;
   if (bFourGivenPoints)
     sComment = "Drawing ellipse arc " + o1.name + " " + o2.name + " " +
                o3.name + " " + o4.name + " " + d2s(angle, 2);
@@ -726,7 +726,7 @@ GCLCError CGCLC::draw_polygon() {
 
 GCLCError CGCLC::draw_tree() {
   GCLCError iRv;
-  string tree;
+  std::string tree;
   int i, iMaxHeight, iMaxNodesAtLevel[1024];
   double dFigureWidth, dFigureHeight, dRotationAngle, number;
   GCLC_object o;
@@ -773,9 +773,9 @@ GCLCError CGCLC::draw_tree() {
 
 // ----------------------------------------------------------------------------
 
-int CGCLC::check_tree(const string &sTree, int iLevel, int iMaxNodesAtLevel[],
+int CGCLC::check_tree(const std::string &sTree, int iLevel, int iMaxNodesAtLevel[],
                       int &iMaxHeight) {
-  string sSubTree;
+  std::string sSubTree;
   unsigned subTreeStart;
   int iBrackets = 0;
   unsigned i = 0;
@@ -849,12 +849,12 @@ int CGCLC::check_tree(const string &sTree, int iLevel, int iMaxNodesAtLevel[],
 // ----------------------------------------------------------------------------
 
 int CGCLC::draw_all_nodes(double dFigureWidth, double dLevelHeight,
-                          const string &sTree, int iMaxNodesAtLevel[],
+                          const std::string &sTree, int iMaxNodesAtLevel[],
                           int iLevel, int iNumberOfSiblings, int iCurrentNode,
                           double dParentX, double dParentY, bool bParentNoName,
                           double dRootX, double dRootY, int iStyle,
-                          double dRotationAngle, const string &sRefPointName) {
-  string sSubTree;
+                          double dRotationAngle, const std::string &sRefPointName) {
+  std::string sSubTree;
   unsigned subTreeStart;
 
   int iBrackets, j;
@@ -874,7 +874,7 @@ int CGCLC::draw_all_nodes(double dFigureWidth, double dLevelHeight,
          (i < sTree.size()))
     i++;
 
-  string sName;
+  std::string sName;
   sName = sTree.substr(sStart, i - sStart);
   bNoName = (sName == "_");
 
@@ -1018,7 +1018,7 @@ int CGCLC::draw_all_nodes(double dFigureWidth, double dLevelHeight,
     return -1;
 
   double DMD = 0.7 * DM; // diagonal distance
-  string pos;
+  std::string pos;
 
   if (iStyle == 1 || iStyle == 2) {
     if (x > px) {
@@ -1138,10 +1138,10 @@ int CGCLC::draw_all_nodes(double dFigureWidth, double dLevelHeight,
 
 GCLCError CGCLC::draw_graph_a() {
   // 	Arc Layered Method
-  string sToken1;
-  string sToken2;
-  string sNodes;
-  string sEdges;
+  std::string sToken1;
+  std::string sToken2;
+  std::string sNodes;
+  std::string sEdges;
   GCLCError iRv, iRv2;
   int i, j;
 
@@ -1162,12 +1162,12 @@ GCLCError CGCLC::draw_graph_a() {
   Graph graph;
 
   // reading graph nodes
-  map<string, int> Nodes;
+  std::map<std::string, int> Nodes;
   CStringInput input(sNodes);
   i = 1;
   while ((iRv = ReadToken(input, sToken1)) == rvGCLCOK) {
     graph.addNode(i);
-    Nodes.insert(pair<string, int>(sToken1, i++));
+    Nodes.insert(std::pair<std::string, int>(sToken1, i++));
   }
 
   if (iRv != rvGCLCEndOfInput)
@@ -1201,9 +1201,9 @@ GCLCError CGCLC::draw_graph_a() {
       new ArcLayeredDrawing(graph, settingsArclayered01, p, dFigureWidth);
   canvas->draw();
 
-  map<int, struct Point> coordinates = canvas->getCoordinates();
+  std::map<int, struct Point> coordinates = canvas->getCoordinates();
 
-  map<string, int>::iterator it;
+  std::map<std::string, int>::iterator it;
   for (it = Nodes.begin(); it != Nodes.end(); it++) {
     double x = coordinates[it->second].x;
     double y = coordinates[it->second].y;
@@ -1284,12 +1284,12 @@ GCLCError CGCLC::draw_graph_a() {
 
 GCLCError CGCLC::draw_graph_b() {
   // 	Baricenter Method
-  string sReferenceName;
-  string sToken1;
-  string sToken2;
-  string sNodes;
-  string sEdges;
-  string sComment;
+  std::string sReferenceName;
+  std::string sToken1;
+  std::string sToken2;
+  std::string sNodes;
+  std::string sEdges;
+  std::string sComment;
   GCLC_object o;
   GCLCError iRv, iRv2;
   int i, j;
@@ -1304,14 +1304,14 @@ GCLCError CGCLC::draw_graph_b() {
   Graph graph;
 
   // reading graph nodes
-  map<string, int> Nodes;
-  map<int, struct Point> fixedVertices;
+  std::map<std::string, int> Nodes;
+  std::map<int, struct Point> fixedVertices;
   CStringInput inputN(sNodes);
   i = 1;
   while ((iRv = ReadToken(inputN, sToken1)) == rvGCLCOK &&
          (iRv2 = ReadToken(inputN, sToken2)) == rvGCLCOK) {
     graph.addNode(i);
-    Nodes.insert(pair<string, int>(sToken1, i));
+    Nodes.insert(std::pair<std::string, int>(sToken1, i));
 
     if (sToken2[0] != '_') {
       if (Value(sToken2, o) == rvGCLCOK && o.type == GCLC_POINT) {
@@ -1350,9 +1350,9 @@ GCLCError CGCLC::draw_graph_b() {
       new BarycenterDrawing(graph, settingsBarycenter01, fixedVertices);
   canvas->draw();
 
-  map<int, struct Point> coordinates = canvas->getCoordinates();
+  std::map<int, struct Point> coordinates = canvas->getCoordinates();
 
-  map<string, int>::iterator it;
+  std::map<std::string, int>::iterator it;
   for (it = Nodes.begin(); it != Nodes.end(); it++) {
     double x = coordinates[it->second].x;
     double y = coordinates[it->second].y;
@@ -1366,7 +1366,7 @@ GCLCError CGCLC::draw_graph_b() {
         return rvGCLCOutOfMemory;
     }
 
-    string sPointName = sReferenceName + (it->first);
+    std::string sPointName = sReferenceName + (it->first);
     if (Let(sPointName, GCLC_POINT, x, y, 0, 0.00, 0.00, 0.00) != rvGCLCOK)
       return rvGCLCOutOfMemory;
     if (PrintComment("Labelling node " + sPointName) != rvG_OK)
@@ -1470,7 +1470,7 @@ GCLCError CGCLC::fill_circle() {
       return rvGCLCWrongType;
   }
 
-  string sComment;
+  std::string sComment;
   if (o1.type == GCLC_POINT)
     sComment = "Filling circle " + o1.name + " " + o2.name;
   else

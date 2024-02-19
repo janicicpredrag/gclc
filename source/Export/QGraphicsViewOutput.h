@@ -52,7 +52,7 @@ public:
   qreal getScale() { return m_ScaleX; }
 
 private:
-  void PrintToOutput(const string &s);
+  void PrintToOutput(const std::string &s);
   QGraphicsScene *m_pScene;
   QGraphicsView *m_pView;
   QPen m_OutlinePen;

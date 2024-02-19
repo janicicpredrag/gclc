@@ -1,7 +1,7 @@
 #include "Groebner.h"
 #include "PolyReader.h"
 
-const string Groebner::Description() { return "Buchberger's method"; }
+const std::string Groebner::Description() { return "Buchberger's method"; }
 
 //
 // Prove conclusion using Groebner basis method
@@ -241,7 +241,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
 // polynomials
 //
 bool Groebner::ReduceAll(vxp &vxps) {
-  vector<XPolynomial *>::iterator it = vxps.begin();
+  std::vector<XPolynomial *>::iterator it = vxps.begin();
   uint k = 0;
 
   Log::PrintLogF(5, "REDUCE ALL\n\n");

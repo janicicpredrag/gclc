@@ -21,7 +21,7 @@ public:
   virtual void Reset();
   virtual GReturnValue ReadChar(unsigned char &c);
   virtual bool EndOfInputData();
-  void Replace(QRegExp before, QString after);
+  void Replace(QRegularExpression before, QString after);
 
   QString getText() { return text; }
 

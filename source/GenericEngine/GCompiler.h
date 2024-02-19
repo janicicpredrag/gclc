@@ -27,7 +27,7 @@ class CGCLCLog;
 class CIntermediateRepresentation;
 
 typedef struct GCLCobjecttag {
-  string name;
+  std::string name;
   int type;
   double p[6];
 } GCLC_object;
@@ -42,8 +42,8 @@ enum eTheoremProvingMethod {
 };
 
 struct prover_config {
-  string m_sTheoremName;
-  string sTheoremFileName;
+  std::string m_sTheoremName;
+  std::string sTheoremFileName;
   eTheoremProvingMethod TheoremProvingMethod;
   bool bDeductionControl;
   bool bLaTeX;
@@ -55,7 +55,7 @@ public:
   CFixedPoint() {}
   CFixedPoint(const CFixedPoint &p) { *this = p; }
 
-  CFixedPoint(double x, double y, double x1, double y1, const string &sName,
+  CFixedPoint(double x, double y, double x1, double y1, const std::string &sName,
               int iStartLine, int iStartPosition, int iEndLine,
               int iEndPosition, int iEndDestLine, int iEndDestPosition) {
     this->x = x;
@@ -87,9 +87,9 @@ public:
     return *this;
   }
 
-  const string &GetName() { return sName; }
+  const std::string &GetName() { return sName; }
 
-  string sName;
+  std::string sName;
   int iStartLine;
   int iStartPosition;
   int iEndLine;
@@ -105,7 +105,7 @@ public:
   CTracePoint(const CTracePoint &p) { *this = p; }
 
   CTracePoint(unsigned char r, unsigned char g, unsigned char b,
-              const string &sName) {
+              const std::string &sName) {
     this->r = r;
     this->g = g;
     this->b = b;
@@ -120,9 +120,9 @@ public:
     return *this;
   }
 
-  string &GetName() { return sName; }
+  std::string &GetName() { return sName; }
   unsigned char r, g, b;
-  string sName;
+  std::string sName;
 };
 
 class CGCompiler {
@@ -134,14 +134,14 @@ public:
 
   virtual GReturnValue Import(eGCLC_conjecture_status &prover_output,
                               double &prover_time) = 0;
-  virtual GReturnValue GetError(int &iErrorCode, string &sErrMessage, int &line,
+  virtual GReturnValue GetError(int &iErrorCode, std::string &sErrMessage, int &line,
                                 int &pos) = 0;
   GReturnValue Export(CGCLCOutput &Output);
 
-  virtual GReturnValue GetValue(const string &sVarName, string &sValue) = 0;
-  virtual GReturnValue GetPointValue(const string &sVarName, double &x,
+  virtual GReturnValue GetValue(const std::string &sVarName, std::string &sValue) = 0;
+  virtual GReturnValue GetPointValue(const std::string &sVarName, double &x,
                                      double &y) = 0;
-  bool FixedPointExists(const string &sName);
+  bool FixedPointExists(const std::string &sName);
 
   virtual bool GetAnimationFrames(int &iFrames, int &iSpeed) = 0;
   GReturnValue DrawTraceSegment(double x1, double y1, double x2, double y2);
@@ -154,20 +154,20 @@ public:
     return (m_pTheoremProver != NULL
             /*&& m_ProverConfig.TheoremProvingMethod != tpNone*/);
   }
-  bool GetPointsOnLine(const string &sLineName, string &P1, string &P2);
+  bool GetPointsOnLine(const std::string &sLineName, std::string &P1, std::string &P2);
   GReturnValue
-  AddProverCommand(eGCLC_prover_command type, const string &arg1 = "",
-                   const string &arg2 = "", const string &arg3 = "",
-                   const string &arg4 = "", const string &arg5 = "");
-  GReturnValue SetProverConjecture(const string &conjecture);
+  AddProverCommand(eGCLC_prover_command type, const std::string &arg1 = "",
+                   const std::string &arg2 = "", const std::string &arg3 = "",
+                   const std::string &arg4 = "", const std::string &arg5 = "");
+  GReturnValue SetProverConjecture(const std::string &conjecture);
   void SetProofLevel(int level);
   int GetProofLevel();
   void SetProofLimit(int limit);
   int GetProofLimit();
   void SetProverTimeout(int timeout);
   int GetProverTimeout();
-  GReturnValue Prove(const string &sLaTeXProof, const string &sXMLProof,
-                     double &Time, const string &sTheoremName,
+  GReturnValue Prove(const std::string &sLaTeXProof, const std::string &sXMLProof,
+                     double &Time, const std::string &sTheoremName,
                      eGCLC_conjecture_status &Status);
   void CleanUpProver();
   bool ValidConjecture() {
@@ -176,7 +176,7 @@ public:
   const CGCLCProverExpression* GetConjecture() {
     return m_pTheoremProver->GetConjecture();
   }
-  string GetMethodSpecificOutput();
+  std::string GetMethodSpecificOutput();
 
 protected:
   GReturnValue SetPixel(double x1, double y1, GCLC_area &area);
@@ -190,10 +190,10 @@ protected:
   GReturnValue DrawArcSensitive(double x1, double y1, double x2, double y2,
                                 double angle, bool dashed, GCLC_area &area,
                                 int precision);
-  GReturnValue PrintText(double x, double y, const string &position,
-                         const string &text, GCLC_area &area);
-  GReturnValue PrintComment(const string &text);
-  GReturnValue DirectExport(const string &text, export_type format);
+  GReturnValue PrintText(double x, double y, const std::string &position,
+                         const std::string &text, GCLC_area &area);
+  GReturnValue PrintComment(const std::string &text);
+  GReturnValue DirectExport(const std::string &text, export_type format);
   GReturnValue EmptyCircle(double x1, double y1, double x2, double y2,
                            GCLC_area &area);
   GReturnValue FillTriangle(double x1, double y1, double x2, double y2,
@@ -218,11 +218,11 @@ protected:
   GReturnValue SetDim(double x, double y);
 
   GReturnValue AddFixedPoint(double x, double y, double x1, double y1,
-                             const string &sName, int iStartLine,
+                             const std::string &sName, int iStartLine,
                              int iStartPosition, int iEndLine, int iEndPosition,
                              int iStartDestLine, int iEndDestPos);
   GReturnValue AddTracePoint(unsigned char r, unsigned char g, unsigned char b,
-                             const string &sName);
+                             const std::string &sName);
 
   CIntermediateRepresentation *m_pPrim;
 
@@ -230,8 +230,8 @@ private:
   bool m_bExternIntermediateRepresentations;
   bool m_bExternProverCommands;
 
-  map<string, CFixedPoint> m_FixedPoints;
-  map<string, CTracePoint> m_TracePoints;
+  std::map<std::string, CFixedPoint> m_FixedPoints;
+  std::map<std::string, CTracePoint> m_TracePoints;
 
   double m_dLastThickness;
   unsigned char m_r, m_g, m_b;

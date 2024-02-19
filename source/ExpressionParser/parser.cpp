@@ -141,9 +141,9 @@ typedef double (*ThreeArgFunction)(const double arg1, const double arg2,
                                    const double arg3);
 
 // maps of function names to functions
-static map<string, OneArgFunction> OneArgumentFunctions;
-static map<string, TwoArgFunction> TwoArgumentFunctions;
-static map<string, ThreeArgFunction> ThreeArgumentFunctions;
+static std::map<std::string, OneArgFunction> OneArgumentFunctions;
+static std::map<std::string, TwoArgFunction> TwoArgumentFunctions;
+static std::map<std::string, ThreeArgFunction> ThreeArgumentFunctions;
 
 // for standard library functions
 #define STD_FUNCTION(arg) OneArgumentFunctions[#arg] = arg
@@ -363,11 +363,11 @@ double Parser::Primary(const bool get) // primary (base) tokens
   }
 
   case NAME: {
-    string word = word_;
+    std::string word = word_;
     GetToken(true);
     if (type_ == LHPAREN) {
       // might be single-argument function (eg. abs (x) )
-      map<string, OneArgFunction>::const_iterator si;
+      std::map<std::string, OneArgFunction>::const_iterator si;
       si = OneArgumentFunctions.find(word);
       if (si != OneArgumentFunctions.end()) {
         double v = Expression(true); // get argument
@@ -576,7 +576,7 @@ double Parser::Evaluate() // get result
 }
 
 // change program and evaluate it
-double Parser::Evaluate(const string program) // get result
+double Parser::Evaluate(const std::string program) // get result
 {
   // do same stuff constructor did
   program_ = program;

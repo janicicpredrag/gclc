@@ -13,7 +13,7 @@ public:
   CWuMethod();
   virtual ~CWuMethod();
 
-  const string &GetName() const;
+  const std::string &GetName() const;
 
   Wu wu_prover;
 };
