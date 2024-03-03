@@ -10,7 +10,7 @@ using namespace std;
 
 // ----------------------------------------------------------------------------
 
-CLaTeXOutput::CLaTeXOutput(ofstream &h) : OUTPUT(h) {
+CLaTeXOutput::CLaTeXOutput(ostream &h) : OUTPUT(h) {
   OUTPUT_LINE = 0;
   LINE_WIDTH = 0.16;
   COUNTER = 1;

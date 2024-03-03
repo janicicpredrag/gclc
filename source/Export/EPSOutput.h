@@ -9,7 +9,7 @@
 
 class CEPSOutput : public CGCLCOutput {
 public:
-  CEPSOutput(std::ofstream &h);
+  CEPSOutput(std::ostream &h);
   virtual ~CEPSOutput();
 
   void Reset();
@@ -38,7 +38,7 @@ public:
 private:
   void PrintToOutput(const std::string &s);
   double LINE_WIDTH;
-  std::ofstream &OUTPUT;
+  std::ostream &OUTPUT;
   double m_dCurrentLineWidth;
   int m_iCurrentFontSize;
   unsigned char m_r;

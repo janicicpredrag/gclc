@@ -9,7 +9,7 @@
 
 class CLaTeXOutput : public CGCLCOutput {
 public:
-  CLaTeXOutput(std::ofstream &h);
+  CLaTeXOutput(std::ostream &h);
   virtual ~CLaTeXOutput();
 
   GReturnValue FillTriangle(double, double, double, double, double, double) {
@@ -45,7 +45,7 @@ private:
   void PrintToOutput(const std::string &s);
   int OUTPUT_LINE, COUNTER, PRECISION;
   double LINE_WIDTH;
-  std::ofstream &OUTPUT;
+  std::ostream &OUTPUT;
   double m_dCurrentLineWidth;
   bool m_bColorsUsed;
 };

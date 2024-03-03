@@ -8,7 +8,7 @@
 
 // ----------------------------------------------------------------------------
 
-CTikZOutput::CTikZOutput(std::ofstream &h) : OUTPUT(h) {
+CTikZOutput::CTikZOutput(std::ostream &h) : OUTPUT(h) {
   OUTPUT_LINE = 0;
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;

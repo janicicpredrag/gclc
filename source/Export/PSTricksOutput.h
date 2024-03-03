@@ -9,7 +9,7 @@
 
 class CPSTricksOutput : public CGCLCOutput {
 public:
-  CPSTricksOutput(std::ofstream &h);
+  CPSTricksOutput(std::ostream &h);
   virtual ~CPSTricksOutput();
 
   void Reset();
@@ -39,7 +39,7 @@ private:
   void PrintToOutput(const std::string &s);
   int OUTPUT_LINE;
   double LINE_WIDTH;
-  std::ofstream &OUTPUT;
+  std::ostream &OUTPUT;
   double m_dCurrentLineWidth;
   bool m_bColorsUsed;
   double m_nX; // width

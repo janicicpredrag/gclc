@@ -10,7 +10,7 @@
 
 class CTikZOutput : public CGCLCOutput {
 public:
-  CTikZOutput(std::ofstream &h);
+  CTikZOutput(std::ostream &h);
   virtual ~CTikZOutput();
 
   void Reset();
@@ -40,7 +40,7 @@ private:
   void PrintToOutput(const std::string &s);
   int OUTPUT_LINE;
   double LINE_WIDTH;
-  std::ofstream &OUTPUT;
+  std::ostream &OUTPUT;
   double m_dCurrentLineWidth;
   bool m_bColorsUsed;
   double m_nX; // width

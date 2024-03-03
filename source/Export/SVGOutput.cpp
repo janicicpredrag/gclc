@@ -10,7 +10,7 @@
 
 // ----------------------------------------------------------------------------
 
-CSVGOutput::CSVGOutput(std::ofstream &h) : OUTPUT(h) {
+CSVGOutput::CSVGOutput(std::ostream &h) : OUTPUT(h) {
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;
   m_iCurrentFontSize = 8;

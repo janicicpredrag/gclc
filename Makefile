@@ -77,7 +77,7 @@ OBJS := $(SRCS:%.cpp=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 CPPFLAGS ?= 
-CXXFLAGS = -m64 -std=c++11 -O2 -Wall -W -pipe  -fPIC
+CXXFLAGS = -m64 -std=c++11 -O2 -Wall -W -pipe -fPIC
 
 LDFLAGS = 
 

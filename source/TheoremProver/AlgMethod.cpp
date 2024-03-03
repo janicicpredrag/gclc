@@ -2798,12 +2798,11 @@ std::string CAlgMethod::GetMethodSpecificOutput() {
 
 void CAlgMethod::PrintProofTitleXML(const std::string &theoremName) {
   // XML output
-  Print(m_hXMLOutputProof,
-        "\n<proof_title>GCLC Prover Output for "
-        "conjecture " +
-            (!theoremName.empty() ? theoremName
-                                  : (std::string) "[not named]" + " (" + GetName() +
-                                        " method used)</proof_title>\n\n"));
+  std::string name = "GCLC Prover Output for conjecture " +
+                     (!theoremName.empty() ? theoremName
+                                           : (std::string) "[not named] (" +
+                                                 GetName() + " method used)");
+  Print(m_hXMLOutputProof, "\n<proof_title>" + name + +"</proof_title>\n\n");
 }
 
 // ----------------------------------------------------------------------------

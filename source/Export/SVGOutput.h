@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include <ostream>
 #if !defined(SVGOUTPUT_H)
 #define SVGOUTPUT_H
 
@@ -9,7 +10,7 @@
 
 class CSVGOutput : public CGCLCOutput {
 public:
-  CSVGOutput(std::ofstream &h);
+  CSVGOutput(std::ostream &h);
   virtual ~CSVGOutput();
 
   void Reset();
@@ -38,7 +39,7 @@ public:
 private:
   void PrintToOutput(const std::string &s);
   double LINE_WIDTH;
-  std::ofstream &OUTPUT;
+  std::ostream &OUTPUT;
   double m_dCurrentLineWidth;
   int m_iCurrentFontSize;
   std::string m_sCurrentColor;
