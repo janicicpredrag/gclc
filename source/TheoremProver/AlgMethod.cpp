@@ -1593,7 +1593,8 @@ XPolynomial *CAlgMethod::_PointOnLineCondition(Point *p, Point *q1, Point *q2) {
 
 //
 // Point p is midpoint of (q1, q2)
-// P = (q1+q2)/2 for x
+// P = (q1+q2)/2 i.e.
+// 2P = q1+q2
 XPolynomial *CAlgMethod::_MidpointCondition(Point *p, Point *q1, Point *q2, bool bX) {
     if (!p || !q1 || !q2) {
       Log::OutputText("Points not used.");
@@ -1610,10 +1611,9 @@ XPolynomial *CAlgMethod::_MidpointCondition(Point *p, Point *q1, Point *q2, bool
     XPolynomial *xp = new XPolynomial(bX ? p->X.Free : p->Y.Free, bX ? p->X.Index : p->Y.Index);
     XPolynomial *x1 = new XPolynomial(bX ? q1->X.Free : q1->Y.Free, bX ? q1->X.Index : q1->Y.Index);
     XPolynomial *x2 = new XPolynomial(bX ? q2->X.Free : q2->Y.Free, bX ? q2->X.Index : q2->Y.Index);
-    XPolynomial *h = new XPolynomial(0.5);
+    XPolynomial *h = new XPolynomial(2);
 
-    x1->Mul(h);
-    x2->Mul(h);
+    xp->Mul(h);
     xp->Subtract(x1);
     xp->Subtract(x2);
     h->Dispose();
