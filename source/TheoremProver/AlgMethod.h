@@ -240,6 +240,7 @@ private:
   XPolynomial *_TangensNum(Point *b, Point *a, Point *c);
   XPolynomial *_TangensDen(Point *b, Point *a, Point *c);
   XPolynomial *_PointOnLineCondition(Point *p, Point *q1, Point *q2);
+  XPolynomial *_MidpointCondition(Point *p, Point *q1, Point *q2, bool bX);
   XPolynomial *_DiffRatioCondition(Point *p1, Point *p2, Point *p3, Point *p4,
                                    Line *l, const std::string &sr);
   XPolynomial *_DiffRatioCondition(HalfPoint *h1, HalfPoint *h2, HalfPoint *h3,

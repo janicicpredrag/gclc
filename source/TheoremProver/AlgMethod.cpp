@@ -1367,6 +1367,16 @@ void CAlgMethod::_ExtractConditionPolynomials() {
       }
       break;
     case midpoint:
+        _AddCondition(_MidpointCondition(_FindPoint(it->arg[0]),
+                                            _FindPoint(it->arg[1]),
+                                            _FindPoint(it->arg[2]), true), // for x
+                      false);
+        _AddCondition(_MidpointCondition(_FindPoint(it->arg[0]),
+                                         _FindPoint(it->arg[1]),
+                                         _FindPoint(it->arg[2]), false), // for y
+                      false);
+/*
+ *    Replaced (07.03.2024):
       // two conditions
       // point on line and equal segments
       _AddCondition(_PointOnLineCondition(_FindPoint(it->arg[0]),
@@ -1376,7 +1386,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
       _AddCondition(_EqualSegmentCondition(
                         _FindPoint(it->arg[0]), _FindPoint(it->arg[1]),
                         _FindPoint(it->arg[0]), _FindPoint(it->arg[2])),
-                    true);
+                    true);*/
       break;
     case p_pratio:
       // pratio D C B A k
@@ -1577,6 +1587,46 @@ XPolynomial *CAlgMethod::_PointOnLineCondition(Point *p, Point *q1, Point *q2) {
   Log::OutputEnumItemEnd();
 
   return xp;
+}
+
+// ----------------------------------------------------------------------------
+
+//
+// Point p is midpoint of (q1, q2)
+// P = (q1+q2)/2 for x
+XPolynomial *CAlgMethod::_MidpointCondition(Point *p, Point *q1, Point *q2, bool bX) {
+    if (!p || !q1 || !q2) {
+      Log::OutputText("Points not used.");
+    }
+
+    Log::OutputEnumItemBegin();
+    Log::OutputParagraphBegin();
+    Log::OutputTextNoTag("point $%s$ is the midpoint of ($%s$, $%s$) (%s)",
+                          p->Name.c_str(), q1->Name.c_str(), q2->Name.c_str(),
+                         (bX ? "$x$" : "$y$"));
+    Log::OutputParagraphEnd();
+
+    // xp = p - q1/2 - q2/2;
+    XPolynomial *xp = new XPolynomial(bX ? p->X.Free : p->Y.Free, bX ? p->X.Index : p->Y.Index);
+    XPolynomial *x1 = new XPolynomial(bX ? q1->X.Free : q1->Y.Free, bX ? q1->X.Index : q1->Y.Index);
+    XPolynomial *x2 = new XPolynomial(bX ? q2->X.Free : q2->Y.Free, bX ? q2->X.Index : q2->Y.Index);
+    XPolynomial *h = new XPolynomial(0.5);
+
+    x1->Mul(h);
+    x2->Mul(h);
+    xp->Subtract(x1);
+    xp->Subtract(x2);
+    h->Dispose();
+    x1->Dispose();
+    x2->Dispose();
+
+    if (xp == NULL || xp->IsZero()) {
+        Log::OutputText("\n\nno condition");
+    }
+    PolyReader::PrintPolynomial(xp, 1);
+    Log::OutputEnumItemEnd();
+
+    return xp;
 }
 
 // ----------------------------------------------------------------------------

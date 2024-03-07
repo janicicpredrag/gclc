@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
   srand((unsigned)time(NULL));
 
   Print(std::cout, "\n");
-  Print(std::cout, "GCLC 2022 (GC language (R) -> LaTeX Converter)\n");
+  Print(std::cout, "GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
   Print(
       std::cout,
-      "Copyright (c) 1995-2022 by Predrag Janicic, University of Belgrade.\n");
+      "Copyright (c) 1995-2024 by Predrag Janicic, University of Belgrade.\n");
   Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
   Print(std::cout, "\n");
 
