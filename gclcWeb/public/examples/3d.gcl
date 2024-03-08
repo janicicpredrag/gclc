@@ -1,0 +1,100 @@
+dim 180 160 
+
+number xc 90
+number yc 80
+point O xc yc
+
+% change projection by changing the
+% angles alpha and beta
+number alpha 4.2
+number beta 1
+expression cos_beta { cos(beta) }
+expression sin_beta { sin(beta) }
+
+number unit 10
+expression x_v { xc+cos(alpha)*unit }
+expression y_v { yc+sin(alpha)*unit*cos_beta }
+point X1 x_v y_v
+towards x O X1 10
+
+expression x_v { xc-sin(alpha)*unit }
+expression y_v { yc+cos(alpha)*unit*cos_beta }
+point Y1 x_v y_v
+towards y O Y1 10
+
+expression y_v { yc+unit*sin_beta }
+point Z1 xc y_v
+towards z O Z1 8
+
+mark_t x
+mark_t y
+mark_t z
+drawvector O x
+drawvector O y
+drawvector O z
+
+cmark X1
+cmark Y1
+cmark Z1
+printat_t X1 { 1 }
+printat_t Y1 { 1 }
+printat_l Z1 { 1 }
+
+point T_old 0 0
+
+linethickness 0.7
+
+number x_min 0
+number y_min 0
+number x_max 9
+number y_max 9
+number step 0.5
+
+number x x_min
+while { x<x_max } 
+{
+    number y y_min
+    while { y<y_max }
+    {
+        % put your function here, instead of
+        % sin(x)+sin(y)*cos(x)
+        expression z { sin(x)+sin(y)*cos(x) }
+        expression z { z*sin_beta }
+
+        towards Tx O X1 x
+        translate Ty O Y1 Tx
+        towards Ty Tx Ty y
+        translate Tz O Z1 Ty
+        towards T Ty Tz z
+
+        expression r { (x+y)*250/(x_max+y_max) }
+        color r 0 0
+        expression cond { ite(y==y_min,0,1) }
+        towards T1 T T_old cond
+        drawsegment T T1
+
+        expression x1 { x-step }
+        expression cond { ite(x==x_min,0,1) }
+        % put your function here, instead of
+        % sin(x1)+sin(y)*cos(x1)
+        expression z { sin(x1)+sin(y)*cos(x1) }
+        expression z { z*sin_beta }
+
+        towards Tx O X1 x1
+        translate Ty O Y1 Tx
+        towards Ty Tx Ty y
+        translate Tz O Z1 Ty
+        towards T2 Ty Tz z
+
+        towards T3 T T2 cond
+        drawsegment T T3
+
+        translate T_old T T T
+
+        expression r { 250-r }
+        color 140 r 140  
+        cmark T
+        expression y { y+step }
+    }
+    expression x { x+step }
+}
