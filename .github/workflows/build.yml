@@ -40,7 +40,7 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3.3.0
         with:
-          version: "6.6.1"
+          version: "6.2.4"
           host: "linux"
           target: "desktop"
           arch: "gcc_64"
@@ -81,7 +81,7 @@ jobs:
       - name: Install QT
         uses: jurplel/install-qt-action@v3.3.0
         with:
-          version: "6.4.3"
+          version: "6.2.4"
           host: "windows"
           target: "desktop"
           arch: "win64_mingw"
@@ -98,12 +98,12 @@ jobs:
 
       - name: Move DLLs
         run: |
-          cp ../Qt/6.4.3/mingw_64/bin/Qt6Core.dll executable/
-          cp ../Qt/6.4.3/mingw_64/bin/Qt6Gui.dll executable/
-          cp ../Qt/6.4.3/mingw_64/bin/Qt6PrintSupport.dll executable/
-          cp ../Qt/6.4.3/mingw_64/bin/Qt6Widgets.dll executable/
+          cp ../Qt/6.2.4/mingw_64/bin/Qt6Core.dll executable/
+          cp ../Qt/6.2.4/mingw_64/bin/Qt6Gui.dll executable/
+          cp ../Qt/6.2.4/mingw_64/bin/Qt6PrintSupport.dll executable/
+          cp ../Qt/6.2.4/mingw_64/bin/Qt6Widgets.dll executable/
           mkdir -p executable/platforms/
-          cp ../Qt/6.4.3/mingw_64/plugins/platforms/qwindows.dll executable/platforms/
+          cp ../Qt/6.2.4/mingw_64/plugins/platforms/qwindows.dll executable/platforms/
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
