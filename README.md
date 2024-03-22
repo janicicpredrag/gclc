@@ -51,10 +51,9 @@ For more information see [manual](manual/gclc_man.pdf).
 ## Executables
 
 Pre-built executables (both the command line version and the version
-with graphical user interface, both for Windows and for Linux) are 
+with graphical user interface, both for Windows and for Linux) are
 available in the folder 'executable'. Running these executables may
-require installing some libraries (for instance, by 
-`sudo apt-get install qt5-default` on linux).
+require installing some libraries (as `qt6`).
 
 You can download latest executables (without code) from
 [Github Release page](https://github.com/janicicpredrag/gclc/releases).
@@ -85,7 +84,7 @@ GCLC is written in the C++ programming language and uses Qt libraries.
 GNU C++ g++ compiler is needed (or some other C++ compiler, but then
 Makefile and .pro files should be updated). Building GCLC with the
 graphical user interface requires [Qt Library](https://www.qt.io/)
-version 6.4 or higher.
+version 6.2 or higher.
 
 In the following, it is assumed that `make` is available.
 Under Windows, one can use `mingw32-make` instead, for instance.
