@@ -14,7 +14,7 @@ The application was open-sourced in 2020, 25 years after its very first version.
 
 GCLC has a command-line and a graphical version.
 
-The source code and executables for Windows and Linux are available from 
+The source code and executables for Windows and Linux are available from
 the [GCLC web page](http://www.matf.bg.ac.rs/~janicic/gclc/)
 or from the [Github Release page](https://github.com/janicicpredrag/gclc/releases).
 
@@ -35,16 +35,16 @@ Proofs by the automated theorem provers are generated in LaTeX form.
 gclc filename -a|w|g -pic|tikz|pst|eps|svg|xml
 ```
 
- + `filename` the name of the input file 
- + `-a` selects the theorem prover based on the area method
- + `-w` selects the theorem prover based on Wu's method
- + `-g` selects the theorem prover based on the Gröbner bases method
- + `-pic` selects the simple LaTeX format for the output; this is the default value for output format
- + `-tikz` selects the LaTeX TikZ format for the output
- + `-pst` selects the LaTeX PStrics format 
- + `-eps` selects EPS format for the output
- + `-svg` selects SVG format for the output
- + `-xml` selects XML for the output.
+- `filename` the name of the input file
+- `-a` selects the theorem prover based on the area method
+- `-w` selects the theorem prover based on Wu's method
+- `-g` selects the theorem prover based on the Gröbner bases method
+- `-pic` selects the simple LaTeX format for the output; this is the default value for output format
+- `-tikz` selects the LaTeX TikZ format for the output
+- `-pst` selects the LaTeX PStrics format
+- `-eps` selects EPS format for the output
+- `-svg` selects SVG format for the output
+- `-xml` selects XML for the output.
 
 For more information see [manual](manual/gclc_man.pdf).
 
@@ -78,6 +78,9 @@ code input and code completion.
 Typescript code available in 'gclcWeb/' directory. File 'source/wGCLCmain.cpp'
 is the main file for WASM build.
 
+Web interface currently doesn't support export to raster formats, import from JavaView,
+free points, watch window, deduction control, `animation_frames` and `trace` commands.
+
 ## Building from source code
 
 GCLC is written in the C++ programming language and uses Qt libraries.
@@ -105,7 +108,6 @@ mingw32-make -f Makefile.win
 
 The executable (release version) 'gclc' will be created in the folder 'gclc/executable'.
 
-
 ### Building gclc (command line version) from the terminal using qmake:
 
 Go to the folder 'gclc/source', then:
@@ -132,26 +134,26 @@ The executable (release version) 'gclc-gui' will be created in the folder 'gclc/
 
 ### Building gclc (command line version) from Qt Creator
 
-Load the project cGCLC.pro from the folder 'gclc/source', 
-then run *Build/Run qmake*, then run *Build/Build project cGCLC*.
+Load the project cGCLC.pro from the folder 'gclc/source',
+then run _Build/Run qmake_, then run _Build/Build project cGCLC_.
 Within the Qt Creator choose Release or Debug version.
 
-The executable 'gclc' will be created in the folder 'gclc/executable'. 
+The executable 'gclc' will be created in the folder 'gclc/executable'.
 
 ### Building gclc-gui (version with the graphical user interface) from Qt Creator
 
-Load the project gGCLC.pro from the folder 'gclc/source', 
-then run *Build/Run qmake*, then run *Build/Build project gGCLC*.
+Load the project gGCLC.pro from the folder 'gclc/source',
+then run _Build/Run qmake_, then run _Build/Build project gGCLC_.
 Within the Qt Creator choose Release or Debug version.
 
-The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'. 
+The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'.
 
 ### Multiple makefiles
 
 Note that all of the above `qmake` invocation produce files named
-Makefile in the same directory ('gclc/source'). Each invocation of 
-`qmake` will overwrite the existing Makefile, so if one 'Makefile' 
-is to be used afterwards, it should be renamed, for instance to 
+Makefile in the same directory ('gclc/source'). Each invocation of
+`qmake` will overwrite the existing Makefile, so if one 'Makefile'
+is to be used afterwards, it should be renamed, for instance to
 'Makefile-gui-release', and then make could be invoked as follows:
 
 ```
