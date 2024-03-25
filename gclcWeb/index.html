@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GCLC</title>
+    <meta
+      name="description"
+      content="GCLC is a tool for visualizing geometry, and for producing mathematical illustrations"
+    />
+    <script type="module" src="src/main.ts"></script>
+  </head>
+  <body data-theme="light">
+    <main>
+      <div id="bar">
+        <div class="dropdown">
+          <button title="File...">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"
+              />
+              <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M14 4l0 4l-6 0l0 -4" />
+            </svg>
+            <span>File</span>
+          </button>
+          <div class="dropdownContent">
+            <button id="buttonSave">Save</button>
+            <button id="buttonOpen">Open</button>
+            <button id="openExamplesPopupButton">Load example</button>
+            <button id="openExportPopupButton">Export picture</button>
+          </div>
+        </div>
+        <button id="buildButton" title="Build">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 21l4 -12m2 0l1.48 4.439m.949 2.847l1.571 4.714" />
+            <path d="M12 7m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+            <path d="M4 12c1.526 2.955 4.588 5 8 5c3.41 0 6.473 -2.048 8 -5" />
+            <path d="M12 5v-2" />
+          </svg>
+          <span id="buildButtonSpan">Build</span>
+        </button>
+        <button
+          id="buildingButton"
+          title="Wait a sec..."
+          disabled
+          style="display: none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="spining"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" />
+            <path d="M12 21c-3.314 0 -6 -2.462 -6 -5.5s2.686 -5.5 6 -5.5" />
+            <path d="M21 12c0 3.314 -2.462 6 -5.5 6s-5.5 -2.686 -5.5 -6" />
+            <path d="M12 14c3.314 0 6 -2.462 6 -5.5s-2.686 -5.5 -6 -5.5" />
+            <path d="M14 12c0 -3.314 -2.462 -6 -5.5 -6s-5.5 2.686 -5.5 6" />
+          </svg>
+          <span>Building</span>
+        </button>
+        <div class="dropdown">
+          <button title="Proof..." id="proverDropdownButton">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M6 6l0 14" />
+              <path d="M6 13l14 0" />
+            </svg>
+            <span>Theorem proving</span>
+          </button>
+          <div class="dropdownContent" id="proverDropdownContent">
+            <button class="onlyIfProverDisabled" id="enableProverButton">
+              Enable theorem proving
+            </button>
+            <button class="onlyIfProverEnabled" id="disableProverButton">
+              Disable theorem proving
+            </button>
+            <button
+              class="onlyIfProverEnabled dropdownGroupStart selectedMethod"
+              id="areaMethodButton"
+            >
+              Area method
+            </button>
+            <button class="onlyIfProverEnabled" id="wuMethodButton">
+              Wu's method
+            </button>
+            <button class="onlyIfProverEnabled" id="grobnerMethodButton">
+              Gröbner bases method
+            </button>
+            <button
+              class="onlyIfProverEnabled dropdownGroupStart"
+              id="openExportProofPopupButton"
+              enabled
+            >
+              Export proof
+            </button>
+          </div>
+        </div>
+        <button id="buttonPlay" title="Start time">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
+              stroke-width="0"
+              fill="currentColor"
+            />
+          </svg>
+          <span>Animate</span>
+        </button>
+        <button
+          id="buttonPause"
+          title="Pause"
+          style="width: 6rem; display: none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z"
+              stroke-width="0"
+              fill="currentColor"
+            />
+            <path
+              d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z"
+              stroke-width="0"
+              fill="currentColor"
+            />
+          </svg>
+          <span>Pause</span>
+        </button>
+        <button id="buttonReset" title="Reset zoom">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M21 21l-6 -6" />
+            <path
+              d="M3.268 12.043a7.017 7.017 0 0 0 6.634 4.957a7.012 7.012 0 0 0 7.043 -6.131a7 7 0 0 0 -5.314 -7.672a7.021 7.021 0 0 0 -8.241 4.403"
+            />
+            <path d="M3 4v4h4" />
+          </svg>
+          <span>Reset zoom</span>
+        </button>
+        <button id="shareButton" title="Share">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M8.7 10.7l6.6 -3.4" />
+            <path d="M8.7 13.3l6.6 3.4" />
+          </svg>
+          <span>Share</span>
+        </button>
+        <div class="dropdown">
+          <button title="More information">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+              <path d="M12 9h.01" />
+              <path d="M11 12h1v4h1" />
+            </svg>
+            <span>Info</span>
+          </button>
+          <div class="dropdownContent" style="left: -30px">
+            <button id="aboutButton">About</button>
+            <button id="manualButton">Manual</button>
+            <button id="githubButton">Github</button>
+          </div>
+        </div>
+      </div>
+      <div id="io">
+        <div id="input"></div>
+        <div id="output">
+          <div><div id="svgBox"></div></div>
+        </div>
+      </div>
+      <div id="bottomPane">
+        <nav>
+          <button
+            id="terminalPaneButton"
+            class="selectedButton"
+            title="Log terminal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M8 9l3 3l-3 3" />
+              <path d="M13 15l3 0" />
+              <path
+                d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
+              />
+            </svg>
+          </button>
+          <button id="timePaneButton" title="Time control">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+              <path d="M12 7v5l3 3" />
+            </svg>
+          </button>
+          <button id="settingsPaneButton" title="Settings">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
+              />
+              <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+            </svg>
+          </button>
+        </nav>
+        <div>
+          <pre id="terminalPane" class="selectedPane"></pre>
+          <div id="timePane" class="nonSelectedPane">
+            <div class="formRow">
+              <button id="playButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"
+                    stroke-width="0"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+              <button id="pauseButton" style="display: none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path
+                    d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z"
+                    stroke-width="0"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z"
+                    stroke-width="0"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+              <input
+                type="range"
+                min="1"
+                max="5000"
+                value="0"
+                class="slider"
+                id="slider"
+              />
+            </div>
+            <div class="formRow">
+              <label>Play speed</label>
+              <button id="speed05Button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M8 16h2a2 2 0 1 0 0 -4h-2v-4h4" />
+                  <path d="M5 16v.01" />
+                  <path d="M15 16l4 -4" />
+                  <path d="M19 16l-4 -4" />
+                </svg>
+              </button>
+              <button id="speed1Button" class="selectedButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M9 16v-8l-2 2" />
+                  <path d="M13 16l4 -4" />
+                  <path d="M17 16l-4 -4" />
+                </svg>
+              </button>
+              <button id="speed2Button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M14 16l4 -4" />
+                  <path d="M18 16l-4 -4" />
+                  <path
+                    d="M6 10a2 2 0 1 1 4 0c0 .591 -.417 1.318 -.816 1.858l-3.184 4.143l4 0"
+                  />
+                </svg>
+              </button>
+              <button id="speed3Button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M14 16l4 -4" />
+                  <path d="M18 16l-4 -4" />
+                  <path d="M8 12a2 2 0 1 0 -2 -2" />
+                  <path d="M6 14a2 2 0 1 0 2 -2" />
+                </svg>
+              </button>
+            </div>
+            <div class="formRow">
+              <label>Looping</label>
+              <button id="onceLoopButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3" />
+                  <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3" />
+                  <path d="M11 11l1 -1v4" />
+                </svg>
+              </button>
+              <button id="loopLoopButton" class="selectedButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3" />
+                  <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3" />
+                </svg>
+              </button>
+              <button id="oscillateLoopButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M21 7l-18 0" />
+                  <path d="M18 10l3 -3l-3 -3" />
+                  <path d="M6 20l-3 -3l3 -3" />
+                  <path d="M3 17l18 0" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="settingsPane" class="nonSelectedPane">
+            <div class="formRow">
+              <label for="darkThemeCheckbox">Dark theme</label>
+              <input
+                type="checkbox"
+                checked="checked"
+                id="darkThemeCheckbox"
+                name="darkThemeCheckbox"
+              />
+            </div>
+            <div class="formRow">
+              <label for="fontSizeInput">Font size</label>
+              <input
+                type="number"
+                id="fontSizeInput"
+                name="fontSizeInput"
+                min="8"
+                max="16"
+                value="12"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="aboutPopup" class="popup">
+      <header>
+        <h2>About</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <p>This is GCLC 2024</p>
+      <p>
+        Developed and copyright (c) 1995-2024 by Predrag Janičić, University of
+        Belgrade.
+      </p>
+      <p>Web interface written by Nikola Ubavić</p>
+      <p>Licensed under the Creative Commons licence CC BY-ND</p>
+    </div>
+
+    <div id="examplesPopup" class="popup">
+      <header>
+        <h2>Examples</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <div id="examplesList">
+        <article id="example1">
+          <header>Triangle</header>
+          <p>A basic geometric construction</p>
+        </article>
+        <article id="example2">
+          <header>Parametric</header>
+          <p>Parametric curves in Cartesian and polar coordinates</p>
+        </article>
+        <article id="example3">
+          <header>Cycloid</header>
+          <p>Demonstration of moving objects</p>
+        </article>
+        <article id="example4">
+          <header>3D</header>
+          <p>Rectangular mesh in three dimensions</p>
+        </article>
+        <article id="example5">
+          <header>Proof</header>
+          <p>Learn how to prove Menelaus's theorem</p>
+        </article>
+        <div class="formRow">
+          <div class="spacer"></div>
+          <button id="moreExamplesButton">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 15l6 -6" />
+              <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
+              <path
+                d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"
+              />
+            </svg>
+            <span>More examples on Github</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="exportPopup" class="popup">
+      <header>
+        <h2>Export</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <div class="formRow">
+        <label for="filenameInput">Filename: </label>
+        <input
+          type="text"
+          name="filenameInput"
+          id="filenameInput"
+          maxlength="40"
+          required
+        />
+      </div>
+      <div class="formRow">
+        <label for="formatsSelect">Format: </label>
+        <select name="formatsSelect" id="formatsSelect">
+          <option value="SVG">Scalable Vector Graphics (.svg)</option>
+          <option value="EPS">Encapsulated PostScript (.eps)</option>
+          <option value="TIKZ">LateX TikZ (.tex)</option>
+          <option value="PIC">LateX Pic (.tex)</option>
+          <option value="PST">LateX PStrics (.tex)</option>
+        </select>
+      </div>
+      <div class="formRow">
+        <div class="spacer"></div>
+        <button id="exportButton">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+            <path d="M7 11l5 5l5 -5" />
+            <path d="M12 4l0 12" />
+          </svg>
+          <span>Export</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="exportProofPopup" class="popup">
+      <header>
+        <h2>Export proof</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <div class="formRow">
+        <label for="filenameProofInput">Filename:</label>
+        <input
+          type="text"
+          name="filenameProofInput"
+          id="filenameProofInput"
+          maxlength="40"
+          required
+        />
+      </div>
+      <div class="formRow">
+        <label for="formatsProofSelect">Format:</label>
+        <select name="formatsProofSelect" id="formatsProofSelect">
+          <option value="XML">XML (.xml)</option>
+          <option value="LATEX">Latex (.tex)</option>
+        </select>
+      </div>
+      <div class="formRow">
+        <div class="spacer"></div>
+        <button id="exportProofButton">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+            <path d="M7 11l5 5l5 -5" />
+            <path d="M12 4l0 12" />
+          </svg>
+          <span>Export</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="sharePopup" class="popup">
+      <header>
+        <h2>Share</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <p>Copy and share following link:</p>
+      <a id="shareUrl"></a>
+    </div>
+
+    <div id="codeTooLongToSharePopup" class="popup">
+      <header>
+        <h2>Error</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <p>
+        Sorry, code is too long to be shared. Please, save code as file, and
+        share file.
+      </p>
+    </div>
+
+    <div id="proofViewPopup" class="popup">
+      <header>
+        <h2>Proof</h2>
+        <button class="close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <div id="proofContainer"></div>
+      <div class="formRow">
+        <div class="spacer"></div>
+        <button id="proofViewExportXmlButton">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+            <path d="M7 11l5 5l5 -5" />
+            <path d="M12 4l0 12" />
+          </svg>
+          <span>Export XML</span>
+        </button>
+        <button id="proofViewExportLaTexButton">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+            <path d="M7 11l5 5l5 -5" />
+            <path d="M12 4l0 12" />
+          </svg>
+          <span>Export Latex</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="backdrop"></div>
+  </body>
+</html>

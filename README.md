@@ -1,33 +1,31 @@
 # GCLC
 
-GCLC is a mathematical software for producing high-quality mathematical 
-illustrations, for teaching mathematics, and for automated proving of 
-geometry theorems. 
+GCLC is a mathematical software for producing high-quality mathematical
+illustrations, for teaching mathematics, and for automated proving of
+geometry theorems.
 
-GCLC has been developed, with some idle years, since 1995. Its first 
-release made public (web) was built in 1996. There were several substantial 
-code revisions. The original version was written in pure C, and over time it 
-turned into C++ (while some C remains are still there). The current version 
+GCLC has been developed, with some idle years, since 1995. Its first
+release made public (web) was built in 1996. There were several substantial
+code revisions. The original version was written in pure C, and over time it
+turned into C++ (while some C remains are still there). The current version
 with graphical user interface uses Qt libraries.
 
-The application turned open-source in 2020, some 25 years after its very 
-first version.
+The application was open-sourced in 2020, 25 years after its very first version.
 
 GCLC has a command-line and a graphical version.
 
-The source code and executables for Windows and Linux are available from 
+The source code and executables for Windows and Linux are available from
 the [GCLC web page](http://www.matf.bg.ac.rs/~janicic/gclc/)
 or from the [Github Release page](https://github.com/janicicpredrag/gclc/releases).
 
 ## Input
- 
+
 GCLC accepts files in GCL language, but can also import [JavaView](http://www.javaview.de/) files.
 
 ## Output
 
-GCLC processes GCL files and can export generated illustrations in several 
-formats: simple LaTeX, LaTeX TikZ, LaTeX PSTricks, EPS, SVG and XML (textual 
-specification).
+GCLC processes GCL files and can export generated illustrations in several
+formats: simple LaTeX, LaTeX TikZ, LaTeX PSTricks, EPS, SVG and XML (textual specification).
 
 Proofs by the automated theorem provers are generated in LaTeX form.
 
@@ -37,26 +35,25 @@ Proofs by the automated theorem provers are generated in LaTeX form.
 gclc filename -a|w|g -pic|tikz|pst|eps|svg|xml
 ```
 
- + `filename` the name of the input file 
- + `-a` selects the theorem prover based on the area method
- + `-w` selects the theorem prover based on Wu's method
- + `-g` selects the theorem prover based on the Gröbner bases method
- + `-pic` selects the simple LaTeX format for the output; this is the default value for output format
- + `-tikz` selects the LaTeX TikZ format for the output
- + `-pst` selects the LaTeX PStrics format 
- + `-eps` selects EPS format for the output
- + `-svg` selects SVG format for the output
- + `-xml` selects XML for the output.
+- `filename` the name of the input file
+- `-a` selects the theorem prover based on the area method
+- `-w` selects the theorem prover based on Wu's method
+- `-g` selects the theorem prover based on the Gröbner bases method
+- `-pic` selects the simple LaTeX format for the output; this is the default value for output format
+- `-tikz` selects the LaTeX TikZ format for the output
+- `-pst` selects the LaTeX PStrics format
+- `-eps` selects EPS format for the output
+- `-svg` selects SVG format for the output
+- `-xml` selects XML for the output.
 
 For more information see [manual](manual/gclc_man.pdf).
 
 ## Executables
 
 Pre-built executables (both the command line version and the version
-with graphical user interface, both for Windows and for Linux) are 
+with graphical user interface, both for Windows and for Linux) are
 available in the folder 'executable'. Running these executables may
-require installing some libraries (for instance, by 
-`sudo apt-get install qt5-default` on linux).
+require installing some libraries (as `qt6`).
 
 You can download latest executables (without code) from
 [Github Release page](https://github.com/janicicpredrag/gclc/releases).
@@ -65,13 +62,32 @@ with running GUI version of GCLC.
 
 Executables also can be built from the available source code.
 
+## Web version
+
+Since 2024, GCLC can be run inside web browser.
+GCLC web version works thanks to the [Emscripten](https://emscripten.org/)
+compiler which can compile C/C++ code to a [WASM](https://webassembly.org/)
+binary. WASM then can be run inside any major browser.
+
+The web graphical interface mimics Qt graphical interface, but it is
+independent form it. The web interface is written from scratch in Typescript.
+This graphical interface communicates with console version of GCLC compiled to WASM.
+However, web interface leans heavily on [Codemirror](https://codemirror.net/) for
+code input and code completion.
+
+Typescript code available in 'gclcWeb/' directory. File 'source/wGCLCmain.cpp'
+is the main file for WASM build.
+
+Web interface currently doesn't support export to raster formats, import from JavaView,
+free points, watch window, deduction control, `animation_frames` and `trace` commands.
+
 ## Building from source code
 
-GCLC is written in the C++ programming language and uses Qt libraries. 
+GCLC is written in the C++ programming language and uses Qt libraries.
 GNU C++ g++ compiler is needed (or some other C++ compiler, but then
 Makefile and .pro files should be updated). Building GCLC with the
-graphical user interface requires [Qt Library](https://www.qt.io/) 
-version 5.10 or higher.
+graphical user interface requires [Qt Library](https://www.qt.io/)
+version 6.2 or higher.
 
 In the following, it is assumed that `make` is available.
 Under Windows, one can use `mingw32-make` instead, for instance.
@@ -81,7 +97,7 @@ Under Windows, one can use `mingw32-make` instead, for instance.
 Under Linux, go to the folder 'gclc', then:
 
 ```
-make 
+make
 ```
 
 Under Windows, go to the folder 'gclc', then:
@@ -90,8 +106,7 @@ Under Windows, go to the folder 'gclc', then:
 mingw32-make -f Makefile.win
 ```
 
-The executable (release version) 'gclc' will be created in the folder 'gclc/executable'. 
-
+The executable (release version) 'gclc' will be created in the folder 'gclc/executable'.
 
 ### Building gclc (command line version) from the terminal using qmake:
 
@@ -102,52 +117,103 @@ qmake cGCLC.pro
 make
 ```
 
-The executable (release version) 'gclc' will be created in the folder 'gclc/executable'. 
+The executable (release version) 'gclc' will be created in the folder 'gclc/executable'.
 
-### Building gclc-gui (version with the graphical user interface) from the terminal 
+### Building gclc-gui (version with the graphical user interface) from the terminal
 
 Go to the folder 'gclc/source', then:
 
 ```
-qmake gGCLC.pro 
+qmake gGCLC.pro
 make
 ```
 
-The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'. 
+The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'.
 
 (For debug version: `qmake gGCLC.pro CONFIG+=debug CONFIG+=qml_debug`)
 
 ### Building gclc (command line version) from Qt Creator
 
-Load the project cGCLC.pro from the folder 'gclc/source', 
-then run *Build/Run qmake*, then run *Build/Build project cGCLC*.
+Load the project cGCLC.pro from the folder 'gclc/source',
+then run _Build/Run qmake_, then run _Build/Build project cGCLC_.
 Within the Qt Creator choose Release or Debug version.
 
-The executable 'gclc' will be created in the folder 'gclc/executable'. 
+The executable 'gclc' will be created in the folder 'gclc/executable'.
 
 ### Building gclc-gui (version with the graphical user interface) from Qt Creator
 
-Load the project gGCLC.pro from the folder 'gclc/source', 
-then run *Build/Run qmake*, then run *Build/Build project gGCLC*.
+Load the project gGCLC.pro from the folder 'gclc/source',
+then run _Build/Run qmake_, then run _Build/Build project gGCLC_.
 Within the Qt Creator choose Release or Debug version.
 
-The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'. 
+The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'.
 
 ### Multiple makefiles
 
 Note that all of the above `qmake` invocation produce files named
-Makefile in the same directory ('gclc/source'). Each invocation of 
-`qmake` will overwrite the existing Makefile, so if one 'Makefile' 
-is to be used afterwards, it should be renamed, for instance to 
+Makefile in the same directory ('gclc/source'). Each invocation of
+`qmake` will overwrite the existing Makefile, so if one 'Makefile'
+is to be used afterwards, it should be renamed, for instance to
 'Makefile-gui-release', and then make could be invoked as follows:
 
 ```
 make -f Makefile-gui-release
 ```
 
-If you build different makefiles, then after using qmake, use 
-`make clean` before `make`.
+If you build different makefiles, then after using qmake, use `make clean` before `make`.
+
+### Building web version
+
+Web version is build in three steps:
+
+1.  **Compiling the GCLC to a WASM file**. This step is done via `emcc`,
+    and described 'Makefile.win'.
+2.  **Compiling the Typescript code** This is step is done via `npm`
+    (using [Vite](https://vitejs.dev/)).
+3.  Adding assets and deploying.
+
+First, you will need to setup locally
+[`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and
+[`emcc`](https://emscripten.org/docs/getting_started/downloads.html). Once you have `emcc` available,
+in the project root directory run:
+
+```
+make -f Makefile.win
+```
+
+This step produces 'gclc.wasm' and 'gclc.js' inside 'gclcWeb/'.
+
+Now you have to install `npm` dependencies (only need to be done the first time).
+Inside 'gclcWeb/' run:
+
+```
+npm install
+```
+
+After that run
+
+```
+npm run build
+```
+
+Whole website will be generated inside 'gclcWeb/dist' directory. You can publish
+whole directory to the public server.
+
+#### Editor grammar
+
+Code editor is based on [Codemirror](https://codemirror.net/) library. Parser for
+editor is generated from 'gclcWeb/gclcLanguage/gclc.grammar' file with `lezer-generator`:
+
+```
+npx lezer-generator gclc.grammar -o lang.js
+```
+
+#### Development server
+
+While developing, you can start a development server with `npm run dev`. Dev server
+reloads only when one of `ts` (`js`) files is changed.
+`.wasm` and `.grammar` are not tracked.
 
 ## License
 
-This software is licensed under the [MIT License](LICENSE.md). 
+This software is licensed under the [MIT License](LICENSE.md).

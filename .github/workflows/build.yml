@@ -35,7 +35,9 @@ jobs:
           name: manual-build-artifact
 
       - name: Move manual
-        run: mv gclc_man.pdf manual/gclc_man.pdf
+        run: |
+          rm source/manual/gclc_man.pdf
+          mv gclc_man.pdf source/manual/gclc_man.pdf
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3.3.0
@@ -75,8 +77,8 @@ jobs:
 
       - name: Move manual
         run: |
-          rm manual/gclc_man.pdf
-          mv gclc_man.pdf manual/gclc_man.pdf
+          rm source/manual/gclc_man.pdf
+          mv gclc_man.pdf source/manual/gclc_man.pdf
 
       - name: Install QT
         uses: jurplel/install-qt-action@v3.3.0
@@ -149,6 +151,7 @@ jobs:
 
       - name: move
         run: |
+          cp gclc_man.pdf source/manual/gclc_man.pdf
           mv gclc_man.pdf manual/gclc_man.pdf
           mv gclc-gui.exe executable/pre-built/windows/gclc-gui.exe
           mv gclc.exe executable/pre-built/windows/gclc.exe
@@ -160,4 +163,4 @@ jobs:
         with:
           message: Build executables
           default_author: github_actions
-          add: "manual/gclc_man.pdf executable/pre-built/*"
+          add: "manual/gclc_man.pdf source/manual/gclc_man.pdf executable/pre-built/*"

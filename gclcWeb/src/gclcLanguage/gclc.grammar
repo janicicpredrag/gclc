@@ -1,0 +1,258 @@
+@top Program { line* }
+
+@precedence { times @left, plus @left, comp @left  }
+
+@skip { space }
+
+line {
+  LineComment
+  | Statement
+}
+
+Statement {
+  command (Identifier | Number | StatementBlock | ExpressionList)*
+}
+
+StatementBlock {
+  "{" line+ "}"
+}
+
+ExpressionList {
+  "{" expression (";"? expression)* "}"
+}
+
+command{
+  ty<"point","A">
+  | ty<"line", "B">
+  | ty<"circle", "B">
+  | ty<"number", "B">
+  | ty<"angle", "B">
+  | ty<"angle_o", "B">
+  | ty<"set_equal", "B">
+  | ty<"expression", "B">
+  | ty<"array", "B">
+  | ty<"while", "B">
+  | ty<"if_then_else", "B">
+  | ty<"random", "B">
+  | ty<"intersec", "B">
+  | ty<"intersection", "B">
+  | ty<"intersec2", "B">
+  | ty<"intersection2", "B">
+  | ty<"drawpoint", "B">
+  | ty<"drawsegment", "B">
+  | ty<"drawdashsegment", "B">
+  | ty<"drawline", "B">
+  | ty<"drawdashline", "B">
+  | ty<"drawvector", "B">
+  | ty<"drawcircle", "B">
+  | ty<"drawdashcircle", "B">
+  | ty<"drawarc", "B">
+  | ty<"drawdasharc", "B">
+  | ty<"drawarc_p", "B">
+  | ty<"drawdasharc_p", "B">
+  | ty<"drawellipse", "B">
+  | ty<"drawdashellipse", "B">
+  | ty<"drawellipsearc", "B">
+  | ty<"drawdashellipsearc", "B">
+  | ty<"drawellipsearc1", "B">
+  | ty<"drawdashellipsearc1", "B">
+  | ty<"drawellipsearc2", "B">
+  | ty<"drawdashellipsearc2", "B">
+  | ty<"drawpolygon", "B">
+  | ty<"drawarrow", "B">
+  | ty<"drawbezier3", "B">
+  | ty<"drawbezier4", "B">
+  | ty<"drawdashbezier3", "B">
+  | ty<"drawdashbezier4", "B">
+  | ty<"layer", "B">
+  | ty<"hide_layer", "B">
+  | ty<"hide_layers_from", "B">
+  | ty<"hide_layers_to", "B">
+  | ty<"filltriangle", "B">
+  | ty<"fillrectangle", "B">
+  | ty<"fillcircle", "B">
+  | ty<"fillellipse", "B">
+  | ty<"fillarc", "B">
+  | ty<"fillarc0", "B">
+  | ty<"fillellipsearc", "B">
+  | ty<"fillellipsearc0", "B">
+  | ty<"midpoint", "B">
+  | ty<"perp", "B">
+  | ty<"perpendicular", "B">
+  | ty<"parallel", "B">
+  | ty<"getcenter", "B">
+  | ty<"online", "B">
+  | ty<"onsegment", "B">
+  | ty<"oncircle", "B">
+  | ty<"bis", "B">
+  | ty<"bisector", "B">
+  | ty<"med", "B">
+  | ty<"mediatrice", "B">
+  | ty<"distance", "B">
+  | ty<"sim", "B">
+  | ty<"symmetrical", "B">
+  | ty<"translate", "B">
+  | ty<"rotate", "B">
+  | ty<"rotateonellipse", "B">
+  | ty<"turtle", "B">
+  | ty<"towards", "B">
+  | ty<"cmark", "B">
+  | ty<"cmark_lt", "B">
+  | ty<"cmark_l", "B">
+  | ty<"cmark_lb", "B">
+  | ty<"cmark_t", "B">
+  | ty<"cmark_b", "B">
+  | ty<"cmark_rt", "B">
+  | ty<"cmark_r", "B">
+  | ty<"cmark_rb", "B">
+  | ty<"mark", "B">
+  | ty<"mark_lt", "B">
+  | ty<"mark_l", "B">
+  | ty<"mark_lb", "B">
+  | ty<"mark_t", "B">
+  | ty<"mark_b", "B">
+  | ty<"mark_rt", "B">
+  | ty<"mark_r", "B">
+  | ty<"mark_rb", "B">
+  | ty<"printat", "B">
+  | ty<"printat_lt", "B">
+  | ty<"printat_l", "B">
+  | ty<"printat_lb", "B">
+  | ty<"printat_t", "B">
+  | ty<"printat_b", "B">
+  | ty<"printat_rt", "B">
+  | ty<"printat_r", "B">
+  | ty<"printat_rb", "B">
+  | ty<"printvalueat", "B">
+  | ty<"printvalueat_lt", "B">
+  | ty<"printvalueat_l", "B">
+  | ty<"printvalueat_lb", "B">
+  | ty<"printvalueat_t", "B">
+  | ty<"printvalueat_b", "B">
+  | ty<"printvalueat_rt", "B">
+  | ty<"printvalueat_r", "B">
+  | ty<"printvalueat_rb", "B">
+  | ty<"getx", "B">
+  | ty<"gety", "B">
+  | ty<"foot", "B">
+  | ty<"procedure", "B">
+  | ty<"call", "B">
+  | ty<"include", "B">
+  | ty<"drawtree", "B">
+  | ty<"drawgraph_a", "B">
+  | ty<"drawgraph_b", "B">
+  | ty<"ang_picture", "C">
+  | ty<"ang_origin", "C">
+  | ty<"ang_unit", "C">
+  | ty<"ang_scale", "C">
+  | ty<"ang_point", "C">
+  | ty<"ang_line", "C">
+  | ty<"ang_conic", "C">
+  | ty<"ang_conicprecision", "C">
+  | ty<"ang_intersec2", "C">
+  | ty<"ang_intersection2", "C">
+  | ty<"ang_drawline", "C">
+  | ty<"ang_drawline_p", "C">
+  | ty<"ang_drawsystem", "C">
+  | ty<"ang_drawsystem_p", "C">
+  | ty<"ang_drawsystem0", "C">
+  | ty<"ang_drawsystem1", "C">
+  | ty<"ang_drawsystem_a", "C">
+  | ty<"ang_drawsystem0_a", "C">
+  | ty<"ang_drawsystem1_a", "C">
+  | ty<"ang_drawconic", "C">
+  | ty<"ang_drawdashconic", "C">
+  | ty<"ang_draw_parametric_curve", "C">
+  | ty<"ang_tangent", "C">
+  | ty<"ang_plot_data", "C">
+  | ty<"ang_getx", "C">
+  | ty<"ang_gety", "C">
+  | ty<"ang3d_picture", "D">
+  | ty<"ang3d_origin", "D">
+  | ty<"ang3d_unit", "D">
+  | ty<"ang3d_scale", "D">
+  | ty<"ang3d_point", "D">
+  | ty<"ang3d_drawline_p", "D">
+  | ty<"ang3d_axes_drawing_range", "D">
+  | ty<"ang3d_drawsystem_p", "D">
+  | ty<"ang3d_draw_parametric_surface", "D">
+  | ty<"ang3d_draw_parametric_curve", "D">
+  | ty<"ang3d_getx", "D">
+  | ty<"ang3d_gety", "D">
+  | ty<"ang3d_getz", "D">
+  | ty<"dim", "E">
+  | ty<"color", "E">
+  | ty<"background", "E">
+  | ty<"area", "E">
+  | ty<"circleprecision", "E">
+  | ty<"bezierprecision", "E">
+  | ty<"linethickness", "E">
+  | ty<"arrowstyle", "E">
+  | ty<"dash", "E">
+  | ty<"dashstyle", "E">
+  | ty<"dmc", "E">
+  | ty<"mcr", "E">
+  | ty<"mcp", "E">
+  | ty<"normal", "E">
+  | ty<"double", "E">
+  | ty<"fontsize", "E">
+  | ty<"export_to_latex", "E">
+  | ty<"export_to_simple_latex", "E">
+  | ty<"export_to_pstricks", "E">
+  | ty<"export_to_tikz", "E">
+  | ty<"export_to_eps", "E">
+  | ty<"export_to_svg", "E">
+  | ty<"animation_frames", "F">
+  | ty<"trace", "F">
+  | ty<"prove", "G">
+  | ty<"prooflevel", "G">
+  | ty<"prooflimit", "G">
+  | ty<"prover_timeout", "G">
+  | ty<"theorem_name", "G">
+}
+
+
+
+expression {
+  Number
+  | Identifier
+  | Negative { "-" expression }
+  | "(" expression ")"
+  | Sum
+  | Product
+  | Comparation
+}
+
+Comparation {
+  expression !comp "==" expression
+  | expression !comp "<" expression
+  | expression !comp ">" expression
+  | expression !comp "<=" expression
+  | expression !comp ">=" expression
+}
+
+Sum {
+  expression !plus "+" expression
+  | expression !plus "-" expression
+}
+
+Product {
+  expression !times "*" expression
+  | expression !times "/" expression
+}
+
+ty<word,type> { @specialize[@name={type}]<Identifier, word> }
+
+@tokens {
+  Identifier { $[a-zA-Z]$[a-zA-Z0-9_']*("{"$[a-zA-Z0-9_']*"}"$[ ])? }
+
+  Number { $[0-9]+("."$[0-9]+)? }
+
+  LineComment { "%" ![\n]* lineEnd }
+
+  space { $[ \t\r]+ }
+
+  lineEnd { "\n" | @eof }
+}
+
+@detectDelim

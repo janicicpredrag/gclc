@@ -12,7 +12,7 @@
 
 // ----------------------------------------------------------------------------
 
-CEPSOutput::CEPSOutput(std::ofstream &h) : OUTPUT(h) {
+CEPSOutput::CEPSOutput(std::ostream &h) : OUTPUT(h) {
   LINE_WIDTH = 0.16;
   m_dCurrentLineWidth = LINE_WIDTH;
   m_iCurrentFontSize = 8;

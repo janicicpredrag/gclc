@@ -6,9 +6,8 @@
 #include <sstream>
 #include <string>
 
-
 std::string i2s(int n, unsigned width) {
-  std::string s = std::__cxx11::to_string(n);
+  std::string s = std::to_string(n);
   if (width > s.size())
     s = std::string(width - s.size(), ' ') + s;
   return s;
@@ -685,7 +684,6 @@ void Print(std::ofstream &h, std::string s) { h << s; }
 void Print(std::ostream &h, char c) { h << c; }
 
 // ----------------------------------------------------------------------------////
-
 
 #if defined(_PLATFORM_WIN_)
 

@@ -38,7 +38,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       PrintLaTeX("\n\n\\begin{displayproof}\n");
 
       PrintXML(std::string(2 * m_iProofDepth, '\t'));
-      PrintXML("<lemma level=" + i2s(m_iProofDepth) + ">\n");
+      PrintXML("<lemma level=\"" + i2s(m_iProofDepth) + "\">\n");
       PrintXML(std::string(2 * m_iProofDepth, '\t'));
       PrintXML("<proof>\n");
     }
