@@ -116,7 +116,7 @@ bool Graph::containsNode(int nodeNumber) {
   return false;
 }
 
-bool Graph::containsNode(GraphNode node) {
+bool Graph::containsNode(const GraphNode &node) {
   std::list<GraphNode>::const_iterator tempIt;
   for (unsigned int i = 0; i < adjacencyList.size(); i++) {
     tempIt = adjacencyList[i].begin();
