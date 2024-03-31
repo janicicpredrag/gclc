@@ -12,11 +12,7 @@ Graph::Graph(Graph &graph) {
 }
 
 void Graph::deleteGraph() {
-  for (unsigned int i = 0; i < adjacencyList.size(); i++)
-    if (!adjacencyList[i].empty())
-      adjacencyList[i].clear();
-  if (!adjacencyList.empty())
-    adjacencyList.clear();
+  adjacencyList.clear();
 }
 
 bool Graph::isEmpty() const { return (getNodesNumber() == 0); }
