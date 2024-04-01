@@ -12,11 +12,7 @@ Graph::Graph(Graph &graph) {
 }
 
 void Graph::deleteGraph() {
-  for (unsigned int i = 0; i < adjacencyList.size(); i++)
-    if (!adjacencyList[i].empty())
-      adjacencyList[i].clear();
-  if (!adjacencyList.empty())
-    adjacencyList.clear();
+  adjacencyList.clear();
 }
 
 bool Graph::isEmpty() const { return (getNodesNumber() == 0); }
@@ -28,8 +24,8 @@ int Graph::getNodesNumber() const { return (int)adjacencyList.size(); }
 int Graph::getHighestNodeNumber() const {
   std::list<GraphNode>::const_iterator itGraphNode = adjacencyList[0].begin();
   int maxNodeNumber = itGraphNode->getNodeNumber();
-  for (unsigned int i = 0; i < adjacencyList.size(); i++) {
-    itGraphNode = adjacencyList[i].begin();
+  for (const std::list<GraphNode> &adjacencies : adjacencyList) {
+    itGraphNode = adjacencies.begin();
     if (itGraphNode->getNodeNumber() > maxNodeNumber)
       maxNodeNumber = itGraphNode->getNodeNumber();
   }
@@ -108,18 +104,18 @@ bool Graph::addNode(int nodeNumber, const std::string &nodeLabel) {
 
 bool Graph::containsNode(int nodeNumber) {
   std::list<GraphNode>::const_iterator tempIt;
-  for (unsigned int i = 0; i < adjacencyList.size(); i++) {
-    tempIt = adjacencyList[i].begin();
+  for (const std::list<GraphNode> &adjacencies : adjacencyList) {
+    tempIt = adjacencies.begin();
     if (tempIt->getNodeNumber() == nodeNumber)
       return true;
   }
   return false;
 }
 
-bool Graph::containsNode(GraphNode node) {
+bool Graph::containsNode(const GraphNode &node) {
   std::list<GraphNode>::const_iterator tempIt;
-  for (unsigned int i = 0; i < adjacencyList.size(); i++) {
-    tempIt = adjacencyList[i].begin();
+  for (const std::list<GraphNode> &adjacencies : adjacencyList) {
+    tempIt = adjacencies.begin();
     if (*tempIt == node)
       return true;
   }
@@ -130,10 +126,8 @@ bool Graph::containsEdge(int from, int to) {
   if (!containsNode(from))
     return false;
   int selectedNode = nodeIndex(from);
-  std::list<GraphNode>::const_iterator tempIt;
-  for (tempIt = adjacencyList[selectedNode].begin();
-       tempIt != adjacencyList[selectedNode].end(); tempIt++)
-    if (tempIt->getNodeNumber() == to)
+  for (const GraphNode &node : adjacencyList[selectedNode])
+    if (node.getNodeNumber() == to)
       return true;
   return false;
 }
@@ -160,10 +154,10 @@ bool Graph::addEdge(int from, int to) {
   // get ending point GraphNode
   GraphNode endPointEdge = getGraphNode(to);
 
-  for (unsigned int i = 0; i < adjacencyList.size(); i++) {
-    std::list<GraphNode>::const_iterator itGraphNode = adjacencyList[i].begin();
+  for (std::list<GraphNode> &adjacencies : adjacencyList) {
+    std::list<GraphNode>::const_iterator itGraphNode = adjacencies.begin();
     if (itGraphNode->getNodeNumber() == from)
-      adjacencyList[i].push_back(endPointEdge);
+      adjacencies.push_back(endPointEdge);
   }
   return true;
 }
@@ -236,11 +230,10 @@ void Graph::DFS(Graph &dfsTree) {
     vertex_map[nodes[i].getNodeNumber()] = true;
 
   // for every vertex marked as new do DFSSearch()
-  for (std::map<int, bool>::const_iterator it = vertex_map.begin();
-       it != vertex_map.end(); it++)
-    if (it->second) {
-      dfsTree.addNode(it->first);
-      DFSSearch(dfsTree, vertex_map, it->first);
+  for (const std::pair<int, bool> &it : vertex_map)
+    if (it.second) {
+      dfsTree.addNode(it.first);
+      DFSSearch(dfsTree, vertex_map, it.first);
     }
 }
 
@@ -298,9 +291,8 @@ void Graph::BFS(Graph &bfsTree) {
   // update levels to nodes
   for (i = 0; i < getNodesNumber(); i++) {
     // update neighbours
-    for (std::list<GraphNode>::iterator it = bfsTree.adjacencyList[i].begin();
-         it != bfsTree.adjacencyList[i].end(); it++)
-      it->setNodeLabel(i2s(mapLevel[it->getNodeNumber()]));
+    for (GraphNode &node : bfsTree.adjacencyList[i])
+      node.setNodeLabel(i2s(mapLevel[node.getNodeNumber()]));
   }
 }
 

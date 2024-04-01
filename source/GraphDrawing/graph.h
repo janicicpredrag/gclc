@@ -101,7 +101,7 @@ public:
   /*!\param GraphNode graph node to check
    *\return boolean value indicating if graph node is in the graph
    */
-  bool containsNode(GraphNode);
+  bool containsNode(const GraphNode&);
   //! Tests if edge between two graph nodes exists
   /*!\param int originating graph node number
    *\param int destination graph node number

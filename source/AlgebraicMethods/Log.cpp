@@ -228,7 +228,7 @@ void Log::OutputBold(const char *text) {
 }
 
 void Log::OutputText(const char *text, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, text);
 
   vsprintf(__log_msg, text, ap);
@@ -243,7 +243,7 @@ void Log::OutputText(const char *text, ...) {
 }
 
 void Log::OutputTextNoTag(const char *text, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, text);
 
   vsprintf(__log_msg, text, ap);
@@ -387,7 +387,7 @@ void Log::OutputEnumEnd(const char *enumCommand) {
 }
 
 void Log::OutputEnumItem(const char *text, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, text);
 
   vsprintf(__log_msg, text, ap);
@@ -421,7 +421,7 @@ void Log::OutputSubSectionBegin(const char *text, int notNumber, ...) {
   }
   _subsectionStarted = true;
 
-  va_list(ap);
+  va_list ap;
   va_start(ap, notNumber);
 
   vsprintf(__log_msg, text, ap);
@@ -448,7 +448,7 @@ void Log::OutputSubSectionEnd() {
 }
 
 void Log::OutputEnumDescriptionBold(const char *text, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, text);
 
   vsprintf(__log_msg, text, ap);
@@ -463,7 +463,7 @@ void Log::OutputEnumDescriptionBold(const char *text, ...) {
 }
 
 void Log::OutputDescriptionItemBegin(const char *text, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, text);
 
   vsprintf(__log_msg, text, ap);
@@ -480,7 +480,7 @@ void Log::OutputDescriptionItemBegin(const char *text, ...) {
 }
 
 void Log::OutputDescriptionItemEnd(const char *text, ...) {
-  va_list(ap);
+  va_list ap;
   va_start(ap, text);
 
   vsprintf(__log_msg, text, ap);
