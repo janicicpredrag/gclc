@@ -230,7 +230,7 @@ void Graph::DFS(Graph &dfsTree) {
     vertex_map[nodes[i].getNodeNumber()] = true;
 
   // for every vertex marked as new do DFSSearch()
-  for (const std::pair<int, bool> &it : vertex_map)
+  for (const std::pair<int, bool> it : vertex_map)
     if (it.second) {
       dfsTree.addNode(it.first);
       DFSSearch(dfsTree, vertex_map, it.first);
