@@ -31,14 +31,6 @@ bool GraphNode::operator!=(const GraphNode &newGraphNode) const {
   return (*this != newGraphNode);
 }
 
-GraphNode &GraphNode::operator=(const GraphNode &newGraphNode) {
-  if (*this == newGraphNode)
-    return *this;
-  nodeNumber = newGraphNode.nodeNumber;
-  nodeLabel = newGraphNode.nodeLabel;
-  return *this;
-}
-
 bool GraphNode::operator<(const GraphNode &newGraphNode) const {
   return (nodeNumber < newGraphNode.nodeNumber);
 }

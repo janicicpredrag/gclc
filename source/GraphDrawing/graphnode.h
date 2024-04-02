@@ -48,7 +48,6 @@ public:
   void updateNodeLabel();
   bool operator==(const GraphNode &) const;
   bool operator!=(const GraphNode &) const;
-  GraphNode &operator=(const GraphNode &);
   bool operator<(const GraphNode &) const;
   // friend ostream& operator<<(ostream& ostr, const GraphNode& gn);
   // friend istream& operator>>(istream& istr, GraphNode& gn);

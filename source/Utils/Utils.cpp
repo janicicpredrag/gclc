@@ -87,7 +87,7 @@ bool convert_int(const std::string &word, int &number) {
 bool convert(const std::string &word, double &number) {
   int i = 0, sign = 1;
   double dp = 1.00;
-  double exp = 0, mult;
+  double exp = 0;
   bool decimal = false;
   bool exponent = false;
   char c;
@@ -115,7 +115,7 @@ bool convert(const std::string &word, double &number) {
           decimal = true;
           if (!convert(word.substr(i), exp))
             return false;
-          power(10, (int)exp, mult);
+          const double mult = pow(10.0, (int)exp);
           number *= mult;
           return true;
         } else
@@ -140,29 +140,6 @@ bool convert(const std::string &word, double &number) {
 
   number *= sign;
   return true;
-}
-
-// ----------------------------------------------------------------------------////
-
-void power(double d, int exp, double &result) {
-  bool positive = true;
-  if (d == 0) {
-    result = 1;
-    return;
-  }
-
-  result = 1;
-  if (exp < 0) {
-    positive = false;
-    exp = -exp;
-  }
-  for (int i = 1; i <= exp; i++) {
-    if (positive)
-      result *= d;
-    else
-      result /= d;
-  }
-  return;
 }
 
 // ----------------------------------------------------------------------------////

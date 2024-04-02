@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "JavaView.h"
+#include <cmath>
 #include <string.h>
 #if defined(__MACH__)
 #include <stdlib.h>
@@ -1154,27 +1155,10 @@ GReturnValue CJavaView::ReadNumber(double *dNumber) {
   return rvG_OK;
 }
 
-GReturnValue CJavaView::power(double d, int exp, double *result) {
-  bool positive = true;
-
-  *result = 1;
-  if (exp < 0) {
-    positive = false;
-    exp = -exp;
-  }
-  for (int i = 1; i <= exp; i++) {
-    if (positive)
-      (*result) = (*result) * d;
-    else
-      (*result) = (*result) / d;
-  }
-  return rvG_OK;
-}
-
 GReturnValue CJavaView::convert(char *word, double *number) {
   int i = 0, sign = 1;
   double dp = 1.00;
-  double exp = 0, mult;
+  double exp = 0;
   bool decimal = false;
   bool exponent = false;
   char c;
@@ -1198,7 +1182,7 @@ GReturnValue CJavaView::convert(char *word, double *number) {
           iRv = convert(word + i, &exp);
           if (iRv != rvG_OK)
             return iRv;
-          iRv = power(10, (int)exp, &mult);
+          const double mult = pow(10.0, (int)exp);
           (*number) = (*number) * mult;
           return iRv;
         } else {

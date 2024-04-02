@@ -34,8 +34,6 @@ public:
   Graph(const std::string &);
   //! Copy constructor
   Graph(Graph &);
-  //! destructor
-  ~Graph();
   //! Gets number of nodes
   /*! This function is used to get number of graph nodes
    * \return number of nodes
