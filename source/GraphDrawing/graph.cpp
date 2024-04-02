@@ -17,8 +17,6 @@ void Graph::deleteGraph() {
 
 bool Graph::isEmpty() const { return (getNodesNumber() == 0); }
 
-Graph::~Graph() { deleteGraph(); }
-
 int Graph::getNodesNumber() const { return (int)adjacencyList.size(); }
 
 int Graph::getHighestNodeNumber() const {
