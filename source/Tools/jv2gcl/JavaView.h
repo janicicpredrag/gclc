@@ -112,7 +112,6 @@ private:
 	
 	GReturnValue ReadNumber(double *dNumber);
 	GReturnValue convert(char *word, double *number);
-	GReturnValue power(double d, int exp, double *result);
 
 	int m_iLineBeforeLastToken;
 	int m_iPositionBeforeLastToken;

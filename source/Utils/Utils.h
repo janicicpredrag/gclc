@@ -16,7 +16,6 @@ void trimrightzeros(std::string &name);
 bool convert_int(const std::string &word, int &number);
 bool convert(const std::string &word, double &number);
 
-void power(double d, int exp, double &result);
 int log_div(int d, int c);
 
 bool same_point(double x1, double y1, double x2, double y2);
