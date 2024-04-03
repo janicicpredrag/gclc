@@ -10,6 +10,8 @@ const defaultFileName = "out";
 
 let FileName: string;
 
+const numberOfExamples = 6;
+
 const getFileName = (): string => {
   return FileName || defaultFileName;
 };
@@ -75,11 +77,18 @@ const loadCode = () => {
 };
 
 const loadExample = (order: number) => () => {
-  if (order < 1 || order > 5) {
+  if (order < 1 || order > numberOfExamples) {
     return;
   }
 
-  const exampleNames = ["triangle", "parametric", "cycloid", "3d", "menelaus"];
+  const exampleNames = [
+    "triangle",
+    "parametric",
+    "cycloid",
+    "3d",
+    "menelaus",
+    "tree",
+  ];
   const fileName = exampleNames[order - 1];
 
   fetch(`examples/${fileName}.gcl`)
@@ -169,7 +178,7 @@ const setFileUI = () => {
     .getElementById("openExamplesPopupButton")
     ?.addEventListener("click", showPopup("examplesPopup"));
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= numberOfExamples; i++) {
     document
       .getElementById(`example${i}`)
       ?.addEventListener("click", loadExample(i));
