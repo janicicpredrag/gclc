@@ -526,6 +526,17 @@ input[type="number"]:focus {
   animation: Rotate 1s linear infinite;
 }
 
+#gclcTitle,
+#gclcTitle:visited {
+  font-weight: bold;
+  font-size: larger;
+  color: var(--color-blue);
+}
+
+#gclcTitle:hover {
+  color: var(--color-blue2);
+}
+
 @keyframes Rotate {
   from {
     transform: rotate(0deg);
