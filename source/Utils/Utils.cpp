@@ -62,7 +62,7 @@ const std::string removeBackspaces(const std::string &sInput) {
 // ----------------------------------------------------------------------------////
 
 void trimrightzeros(std::string &name) {
-  while (name[name.size()] == '0')
+  while (!name.empty() && name[name.size() - 1] == '0')
     name.resize(name.size() - 1);
 }
 
