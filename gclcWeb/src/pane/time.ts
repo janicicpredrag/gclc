@@ -36,10 +36,6 @@ const onSliderInput = (e: Event) => {
 
   currentTime = Number((target as HTMLInputElement).value) / sliderMax;
 
-  if (!playing) {
-    return;
-  }
-
   tempCode = getCode();
 
   if ((tempCode.match(movablePointRgx) || []).length == 0) {
