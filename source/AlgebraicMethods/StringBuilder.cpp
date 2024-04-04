@@ -41,7 +41,7 @@ void StringBuilder::_AllocSize(int size)
 void StringBuilder::AddREAL(REAL cf)
 {
 	char dst[37] = {0};
-	sprintf(dst, "%.3lf", cf);
+	snprintf(dst, sizeof(dst), "%.3lf", cf);
 
 	int len = 0;
 	while (dst[len])
