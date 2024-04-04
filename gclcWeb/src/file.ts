@@ -2,7 +2,7 @@ import { compile } from "./compiler";
 import { getCode, setCode } from "./editor";
 import { openLink } from "./info";
 import { resetOutputView } from "./outputView";
-import { printLog } from "./pane/terminal";
+import { printLog, resetTerminal } from "./pane/terminal";
 import { resetTimer } from "./pane/time";
 import { closePopups, showPopup } from "./popup";
 
@@ -68,6 +68,7 @@ const loadCode = () => {
 
       setCode(content);
       resetTimer();
+      resetTerminal();
     };
 
     reader.readAsText(file, "UTF-8");
@@ -101,6 +102,7 @@ const loadExample = (order: number) => () => {
       closePopups();
       resetOutputView();
       resetTimer();
+      resetTerminal();
     })
     .catch(console.log);
 };

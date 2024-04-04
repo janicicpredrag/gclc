@@ -3,7 +3,7 @@ import { getCode } from "../editor";
 import { getFileName } from "../file";
 import { setOutputView } from "../outputView";
 import { openPane } from "./panes";
-import { printLog } from "./terminal";
+import { printLog, resetTerminal } from "./terminal";
 
 type LoopMode = "once" | "loop" | "oscillate";
 
@@ -93,6 +93,8 @@ const pausePlaying = () => {
 };
 
 const startPlaying = () => {
+  resetTerminal();
+
   if (playing) {
     return;
   }
@@ -100,6 +102,8 @@ const startPlaying = () => {
   tempCode = getCode();
 
   if ((tempCode.match(movablePointRgx) || []).length == 0) {
+    printLog("Error: nothing to animate");
+    openPane("terminal")();
     return;
   }
 
