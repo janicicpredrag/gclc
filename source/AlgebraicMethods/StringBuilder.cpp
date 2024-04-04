@@ -43,12 +43,7 @@ void StringBuilder::AddREAL(REAL cf)
 	char dst[37] = {0};
 	snprintf(dst, sizeof(dst), "%.3lf", cf);
 
-	int len = 0;
-	while (dst[len])
-	{
-		len ++;
-	}
-	--len;
+	size_t len = strlen(dst);
 
 	while (dst[len] == '0')
 	{
