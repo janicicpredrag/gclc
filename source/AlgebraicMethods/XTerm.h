@@ -4,6 +4,7 @@
 #include "Power.h"
 #include "UPolynomialFraction.h"
 #include "ObjectBank.h"
+#include <iostream>
 
 class XTerm : public Term
 {
@@ -35,7 +36,7 @@ public:
 
 	// printing
 	void PrettyPrint() const;
-	void PrintLatex(StringBuilder* sb) const;
+	void PrintLatex(std::ostream &os) const;
 
 	// overriden methods
 	int Compare(Term* t) const;

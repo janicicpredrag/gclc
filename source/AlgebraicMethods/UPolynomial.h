@@ -2,6 +2,7 @@
 
 #include "Polynomial.h"
 #include "UTerm.h"
+#include <iostream>
 
 class UPolynomial : public Polynomial
 {
@@ -17,5 +18,5 @@ public:
 	bool IsUnit() const;
 
 	// printint
-	void PrintLatex(StringBuilder* sb) const;
+	void PrintLatex(std::ostream &os) const;
 };

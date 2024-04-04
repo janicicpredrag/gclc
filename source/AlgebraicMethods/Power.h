@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Object.h"
-#include "StringBuilder.h"
+#include <iostream>
 
 /*************************************************************
 *
@@ -51,5 +51,5 @@ public:
 
 	// printint
 	void PrettyPrint() const;
-	void PrintLatex(StringBuilder* sb) const;
+	void PrintLatex(std::ostream &os) const;
 };

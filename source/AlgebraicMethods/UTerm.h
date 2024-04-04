@@ -3,6 +3,7 @@
 #include "Power.h"
 #include "Term.h"
 #include "ObjectBank.h"
+#include <iostream>
 
 class UTerm : public Term
 {
@@ -37,7 +38,7 @@ public:
 
 	// printing
 	void PrettyPrint() const;
-	void PrintLatex(StringBuilder* sb) const;
+	void PrintLatex(std::ostream &os) const;
 
 	// overriden methods
 	int Compare(Term* other) const;

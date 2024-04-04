@@ -1,4 +1,8 @@
 #include "UTerm.h"
+#include <cstddef>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
 
 UTerm::UTerm(REAL coeff)
 : _coeff(coeff)
@@ -157,25 +161,49 @@ void UTerm::PrettyPrint() const
 }
 
 //
+// stringise a real, trimming trailing zeros
+//
+static void print_real(std::ostream &os, REAL value)
+{
+	char dst[37] = {0};
+	snprintf(dst, sizeof(dst), "%.3lf", value);
+
+	size_t len = strlen(dst);
+
+	while (dst[len] == '0')
+	{
+		len --;
+	}
+
+	if (dst[len] == '.')
+	{
+		len --;
+	}
+	dst[len + 1] = 0;
+
+	os << dst;
+}
+
+//
 // multiplication of coeff and upowers
 //
-void UTerm::PrintLatex(StringBuilder* sb) const
+void UTerm::PrintLatex(std::ostream &os) const
 {
 	if (this->GetPowerCount() == 0 || this->GetCoeff() * this->GetCoeff() != 1)
 	{
 		//Object::PrintREAL(this->GetCoeff());
-		sb->AddREAL(this->GetCoeff());
+		print_real(os, this->GetCoeff());
 	}
 	else if (this->GetCoeff() == -1)
 	{
 		//Log::PrintLogF(0, " - ");
-		sb->AddChar('-');
+		os << '-';
 	}
 
 	uint size = this->GetPowerCount();
 	for (uint ii = 0; ii < size; ii++)
 	{
-		this->GetPower(ii)->PrintLatex(sb);
+		this->GetPower(ii)->PrintLatex(os);
 	}
 }
 

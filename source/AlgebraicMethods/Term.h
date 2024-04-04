@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Power.h"
 #include "ObjectBank.h"
+#include <iostream>
 
 class Term;
 class TermStorage;
@@ -73,5 +74,5 @@ public:
 	void ChangePowerDegree(int index, int change);
 
 	virtual void PrettyPrint() const = 0;
-	virtual void PrintLatex(StringBuilder* sb) const = 0;
+	virtual void PrintLatex(std::ostream &os) const = 0;
 };

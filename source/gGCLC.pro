@@ -70,7 +70,6 @@ SOURCES += gGCLCmain.cpp\
     AlgebraicMethods/TermStorageAvl.cpp \
     AlgebraicMethods/TermStorage.cpp \
     AlgebraicMethods/Term.cpp \
-    AlgebraicMethods/StringBuilder.cpp \
     AlgebraicMethods/Reduce.cpp \
     AlgebraicMethods/Prover.cpp \
     AlgebraicMethods/Power.cpp \
@@ -140,7 +139,6 @@ HEADERS  += \
     AlgebraicMethods/TermStorageAvl.h \
     AlgebraicMethods/TermStorage.h \
     AlgebraicMethods/Term.h \
-    AlgebraicMethods/StringBuilder.h \
     AlgebraicMethods/stdinc.h \
     AlgebraicMethods/Reduce.h \
     AlgebraicMethods/Prover.h \

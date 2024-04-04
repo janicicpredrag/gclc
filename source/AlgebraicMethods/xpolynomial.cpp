@@ -1,6 +1,10 @@
 #include "PolyReader.h"
-#include "StringBuilder.h"
 #include "XPolynomial.h"
+#include <cstring>
+#include <iostream>
+#include <new>
+#include <sstream>
+#include <string>
 
 XPolynomial::XPolynomial() { COSTR("xpoly"); }
 
@@ -417,22 +421,23 @@ void XPolynomial::SimpleReduction() {
 // latex output
 //
 char *XPolynomial::PrintLatex() const {
-  StringBuilder *sb = new StringBuilder();
+  std::ostringstream ss;
 
   uint size = this->GetTermCount();
   for (uint ii = 0; ii < size; ii++) {
     if (ii > 0) {
       // Log::PrintLogF(0, " + ");
-      sb->AddChar('+');
+      ss << '+';
     }
-    this->GetTerm(ii)->PrintLatex(sb);
+    this->GetTerm(ii)->PrintLatex(ss);
   }
   if (size == 0) {
-    sb->AddChar('0');
+    ss << '0';
   }
 
-  char *res = sb->GetStringCopy();
-  delete sb;
+  const std::string str = ss.str();
+  char *res = new char[str.size() + 1];
+  memcpy(res, str.c_str(), str.size() + 1);
 
   // +- => -
   // -+ => -
@@ -452,7 +457,7 @@ char *XPolynomial::PrintLatex() const {
   return res;
 }
 
-void XPolynomial::PrintLatex(StringBuilder * /* sb */) const {}
+void XPolynomial::PrintLatex(std::ostream & /* sb */) const {}
 
 //
 // Improve latex output by removing unit constants
