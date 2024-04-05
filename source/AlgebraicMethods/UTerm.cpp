@@ -166,9 +166,9 @@ void UTerm::PrettyPrint() const
 static void print_real(std::ostream &os, REAL value)
 {
 	char dst[37] = {0};
-	snprintf(dst, sizeof(dst), "%.3lf", value);
+    snprintf(dst, sizeof(dst), "%.3lf", value);
 
-	size_t len = strlen(dst);
+    size_t len = strlen(dst) - 1;
 
 	while (dst[len] == '0')
 	{
