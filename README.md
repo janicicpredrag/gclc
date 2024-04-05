@@ -167,7 +167,7 @@ If you build different makefiles, then after using qmake, use `make clean` befor
 Web version is build in three steps:
 
 1.  **Compiling the GCLC to a WASM file**. This step is done via `emcc`,
-    and described 'Makefile.win'.
+    and described 'Makefile.web'.
 2.  **Compiling the Typescript code** This is step is done via `npm`
     (using [Vite](https://vitejs.dev/)).
 3.  Adding assets and deploying.
@@ -178,7 +178,7 @@ First, you will need to setup locally
 in the project root directory run:
 
 ```
-make -f Makefile.win
+make -f Makefile.web
 ```
 
 This step produces 'gclc.wasm' and 'gclc.js' inside 'gclcWeb/'.
