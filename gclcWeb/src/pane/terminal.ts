@@ -33,4 +33,10 @@ const printLog = (log: string): number[] => {
   return [];
 };
 
-export { printLog };
+const resetTerminal = () => {
+  const terminal = document.getElementById("terminalPane")!;
+  terminal.innerHTML = "";
+  terminal.scrollTop = terminal.scrollHeight;
+};
+
+export { printLog, resetTerminal };

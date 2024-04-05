@@ -1,0 +1,20 @@
+point P 60 90
+
+fontsize 12
+drawtree P 150 80 3 0
+{   
+    root
+    { left
+        { }
+        { a }
+     }
+    { right
+        { _
+            { b }
+            { c }
+            { d }
+        }
+        { e }
+        { f }
+    }
+}
