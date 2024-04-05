@@ -2,6 +2,7 @@
 
 #include "Polynomial.h"
 #include "XTerm.h"
+#include <iostream>
 
 class XPolynomial : public Polynomial
 {
@@ -36,7 +37,7 @@ public:
 	void PseudoRemainder(XPolynomial* xp, int index, bool free = false, XPolynomial* xpDivisionResult = NULL);
 
 	// printing
-	void PrintLatex(StringBuilder* sb) const;
+	void PrintLatex(std::ostream &os) const;
 	char* PrintLatex() const;
 };
 

@@ -1,5 +1,6 @@
 #include "Power.h"
 #include "ObjectBank.h"
+#include <iostream>
 
 Power::Power(uint index, uint degree, VAR_TYPE varType)
 : _index(index), _degree(degree), _vType(varType)
@@ -101,31 +102,23 @@ void Power::PrettyPrint() const
 //
 // superscript of subscript
 //
-void Power::PrintLatex(StringBuilder* sb) const
+void Power::PrintLatex(std::ostream &os) const
 {
 #if 1
 	// safe latex output
 	// but output is larger than optimal
-	sb->AddChar(_vType == VAR_TYPE_U ? 'u' : 'x');
-	sb->AddString("_{", 2);
-	sb->AddInt(_index);
-	sb->AddChar('}');
+	os << (_vType == VAR_TYPE_U ? 'u' : 'x') << "_{" << _index << '}';
 
 	if (_degree > 1)
 	{
-		sb->AddString("^{", 2);
-		sb->AddInt(_degree);
-		sb->AddChar('}');
+		os << "^{" << _degree << '}';
 	}
 #else
-	sb->AddChar(_var);
-	sb->AddChar('_');
-	sb->AddInt(_index);
+	os << _var << '_' << _index;
 
 	if (_degree > 1)
 	{
-		sb->AddChar('^');
-		sb->AddInt(_degree);
+		os << '^' << _degree;
 	}
 #endif
 }

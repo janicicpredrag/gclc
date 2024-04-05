@@ -1,4 +1,5 @@
 #include "UPolynomial.h"
+#include <iostream>
 
 class UPolynomialFraction : public Object
 {
@@ -30,5 +31,5 @@ public:
 
 	// printing
 	void PrettyPrint() const;
-	void PrintLatex(StringBuilder* sb) const;
+	void PrintLatex(std::ostream &os) const;
 };

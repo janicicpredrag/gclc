@@ -3,6 +3,7 @@
 #include "Term.h"
 #include "TermStorage.h"
 #include "ITimeout.h"
+#include <iostream>
 
 /*************************************************************
 *
@@ -54,5 +55,5 @@ public:
 
 	// printint
 	void PrettyPrint() const;
-	virtual void PrintLatex(StringBuilder* sb) const = 0;
+	virtual void PrintLatex(std::ostream &os) const = 0;
 };

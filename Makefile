@@ -60,7 +60,6 @@ SRCS       = cGCLCmain.cpp \
 		AlgebraicMethods/TermStorageAvl.cpp \
 		AlgebraicMethods/TermStorage.cpp \
 		AlgebraicMethods/Term.cpp \
-		AlgebraicMethods/StringBuilder.cpp \
 		AlgebraicMethods/Reduce.cpp \
 		AlgebraicMethods/Prover.cpp \
 		AlgebraicMethods/Power.cpp \

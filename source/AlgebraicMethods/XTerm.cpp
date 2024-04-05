@@ -1,6 +1,7 @@
 #include "XTerm.h"
 #include "XPolynomial.h"
 #include "PolyReader.h"
+#include <iostream>
 
 XTerm::XTerm()
 : _frac(NULL)
@@ -366,14 +367,14 @@ void XTerm::PrettyPrint() const
 //
 // multiplication of fraction and powers
 //
-void XTerm::PrintLatex(StringBuilder* sb) const
+void XTerm::PrintLatex(std::ostream &os) const
 {
-	this->GetUFraction()->PrintLatex(sb);
+	this->GetUFraction()->PrintLatex(os);
 
 	uint size = this->GetPowerCount();
 	for (uint ii = 0; ii < size; ii++)
 	{
-		this->GetPower(ii)->PrintLatex(sb);
+		this->GetPower(ii)->PrintLatex(os);
 	}
 }
 

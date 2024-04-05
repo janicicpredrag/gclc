@@ -55,7 +55,7 @@ bool UPolynomial::IsUnit() const
 //
 // latex output
 //
-void UPolynomial::PrintLatex(StringBuilder* sb) const
+void UPolynomial::PrintLatex(std::ostream &os) const
 {
 	uint size = this->GetTermCount();
 	for (uint ii = 0; ii < size; ii++)
@@ -63,8 +63,8 @@ void UPolynomial::PrintLatex(StringBuilder* sb) const
 		if (ii > 0 && ((UTerm*)this->GetTerm(ii))->GetCoeff() > 0)
 		{
 			//Log::PrintLogF(0, " + ");
-			sb->AddChar('+');
+			os << '+';
 		}
-		this->GetTerm(ii)->PrintLatex(sb);
+		this->GetTerm(ii)->PrintLatex(os);
 	}
 }

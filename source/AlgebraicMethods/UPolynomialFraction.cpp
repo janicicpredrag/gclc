@@ -1,4 +1,5 @@
 #include "UPolynomialFraction.h"
+#include <iostream>
 
 UPolynomialFraction::UPolynomialFraction()
 : _num(NULL), _den(NULL)
@@ -187,7 +188,7 @@ void UPolynomialFraction::PrettyPrint() const
 //
 // fraction of numerator and denominator
 //
-void UPolynomialFraction::PrintLatex(StringBuilder* sb) const
+void UPolynomialFraction::PrintLatex(std::ostream &os) const
 {
 	// is it really fraction?
 	if (this->GetDenominator()->IsUnit() == true)
@@ -197,27 +198,27 @@ void UPolynomialFraction::PrintLatex(StringBuilder* sb) const
 		{
 			// add brackets
 			//Log::PrintLogF(0, "(");
-			sb->AddChar('(');
-			this->GetNumerator()->PrintLatex(sb);
+			os << '(';
+			this->GetNumerator()->PrintLatex(os);
 			//Log::PrintLogF(0, ")");
-			sb->AddChar(')');
+			os << ')';
 		}
 		else
 		{
 			// no brackets
-			this->GetNumerator()->PrintLatex(sb);
+			this->GetNumerator()->PrintLatex(os);
 		}
 	}
 	else
 	{
 		// regular fraction
 		//Log::PrintLogF(0, "\\frac{");
-		sb->AddString("\\frac{", 6);
-		this->GetNumerator()->PrintLatex(sb);
+		os << "\\frac{";
+		this->GetNumerator()->PrintLatex(os);
 		//Log::PrintLogF(0, "}{");
-		sb->AddString("}{", 2);
-		this->GetDenominator()->PrintLatex(sb);
+		os << "}{";
+		this->GetDenominator()->PrintLatex(os);
 		//Log::PrintLogF(0, "}");
-		sb->AddChar('}');
+		os << '}';
 	}
 }
