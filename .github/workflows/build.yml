@@ -18,7 +18,7 @@ jobs:
           root_file: gclc_man.tex
 
       - name: Upload manual
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4
         with:
           name: manual-build-artifact
           path: manual/gclc_man.pdf
@@ -143,7 +143,7 @@ jobs:
         run: zip -r windows.zip gclc.exe gclc-gui.exe gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support *.dll platforms/
 
       - name: Release
-        uses: softprops/action-gh-release@4634c16e79c963813287e889244c50009e7f0981
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             linux.zip
