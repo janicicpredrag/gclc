@@ -11,7 +11,7 @@ public:
 	~UPolynomial();
 
 	UPolynomial(REAL cf);
-	Polynomial* Clone();
+	UPolynomial* Clone() override;
 
 	TERM_TYPE Type() const;
 

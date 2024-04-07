@@ -160,7 +160,7 @@ bool Reduce::ReduceLineCircleIntersection(
     // (e5) last pol should have factor (x11 - x21)
     // (e6) divide with (x11 - x21)
     Log::PrintLogF(level, "dividing last pol with (x11 - x21) (first - third point):\n\n");
-    XPolynomial* xf = (XPolynomial*)xp11->Clone();
+    XPolynomial* xf = xp11->Clone();
     xf->Subtract(xp21);
     Log::PrintLogF(level, "x11 - x21 = \n\n");
     PolyReader::PrintPolynomial(xf, level);

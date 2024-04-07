@@ -26,7 +26,7 @@ UPolynomial::UPolynomial(REAL cf)
 	COSTR("upoly");
 }
 
-Polynomial* UPolynomial::Clone()
+UPolynomial* UPolynomial::Clone()
 {
 	UPolynomial* upClone = new UPolynomial();
 

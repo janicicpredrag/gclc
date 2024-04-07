@@ -36,8 +36,8 @@ UPolynomialFraction* UPolynomialFraction::Clone()
 {
 	UPolynomialFraction* ufClone = new UPolynomialFraction();
 
-	UPolynomial* upNumClone = (UPolynomial*)this->GetNumerator()->Clone();
-	UPolynomial* upDenClone = (UPolynomial*)this->GetDenominator()->Clone();
+	UPolynomial* upNumClone = this->GetNumerator()->Clone();
+	UPolynomial* upDenClone = this->GetDenominator()->Clone();
 
 	ufClone->SetNumerator(upNumClone);
 	upNumClone->Dispose();

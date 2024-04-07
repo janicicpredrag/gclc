@@ -16,7 +16,7 @@ public:
 	~XPolynomial();
 	XPolynomial(REAL x);
 	XPolynomial(bool free, int index);
-	Polynomial* Clone();
+	XPolynomial* Clone() override;
 
 	TERM_TYPE Type() const;
 
