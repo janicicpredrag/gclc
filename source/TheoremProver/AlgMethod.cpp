@@ -4,6 +4,7 @@
 
 #include "AlgMethod.h"
 #include "../AlgebraicMethods/PolyReader.h"
+#include <algorithm>
 #include <assert.h>
 
 // ----------------------------------------------------------------------------
@@ -2419,7 +2420,7 @@ CAlgMethod::_Prove(const CGCLCProverExpression & /* pConj */) {
 
     double timeout = m_iProverTimeout < 0 ?
                       -1 :
-                      MAX2(0, (double)m_iProverTimeout - m_Timer.ElapsedTime());
+                      std::max(0.0, (double)m_iProverTimeout - m_Timer.ElapsedTime());
 
     // proof status
     PROVER_STATUS ps = _prover->Prove(vxps, vxpConjectures[ii], ii, timeout);
