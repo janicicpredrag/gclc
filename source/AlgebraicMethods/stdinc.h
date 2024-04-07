@@ -30,8 +30,6 @@ typedef double REAL;
 #define E_TIMEOUTERROR 10024
 #define E_COMPLEX      10025
 
-#define MIN2(a,b) ((a)<(b)?(a):(b))
-
 #define DESER_DBG 0
 
 //
