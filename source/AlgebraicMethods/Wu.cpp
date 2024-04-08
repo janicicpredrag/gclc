@@ -1,6 +1,7 @@
 #include "Wu.h"
 #include "PolyReader.h"
 #include "Reduce.h"
+#include <algorithm>
 
 const std::string Wu::Description() { return "Wu's method"; }
 
@@ -77,7 +78,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
 	int maxIndex = 0;
 	for (ii = 0; ii < size; ii++)
 	{
-		_maxt = MAX2(_maxt, vxps[ii]->GetTotalTermCount());
+		_maxt = std::max(_maxt, vxps[ii]->GetTotalTermCount());
 		Power* pow = vxps[ii]->GetTerm(0)->GetPower(0);
 		if (pow == NULL)
 		{
@@ -223,7 +224,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
 					if (jj != ii)
 					{
 						vxps[jj]->PseudoRemainder(vxps[ii], var);
-						_maxt = MAX2(_maxt, vxps[jj]->GetTotalTermCount());
+						_maxt = std::max(_maxt, vxps[jj]->GetTotalTermCount());
 						if (Log::StopAfterMaxT > 0 && _maxt > (uint)Log::StopAfterMaxT)
 						{
 							Log::PrintLogF(1, "\\item[Stopping:] maxt = %d has overriched maximum alowed value of %d!\n\n", _maxt, Log::StopAfterMaxT);
@@ -238,7 +239,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
 				// reduce two minimal polynomials and repeat the process
                 Log::PrintLogF(1, "\\item[No linear degree polynomials:] Reducing polynomial $p_{%d}$ (of degree %d) with $p_{%d}$ (of degree %d).\n\n", pos2, min2, pos1, min1);
 				vxps[pos2]->PseudoRemainder(vxps[pos1], var);
-				_maxt = MAX2(_maxt, vxps[pos2]->GetTotalTermCount());
+				_maxt = std::max(_maxt, vxps[pos2]->GetTotalTermCount());
 				if (Log::StopAfterMaxT > 0 && _maxt > (uint)Log::StopAfterMaxT)
 				{
 					Log::PrintLogF(1, "\\item[Stopping:] maxt = %d has overriched maximum alowed value of %d!\n\n", _maxt, Log::StopAfterMaxT);
@@ -386,7 +387,7 @@ bool Wu::_FinalRemainder(vxp &vxps, std::vector<int> &vars,
     xpConclusion->PseudoRemainder(vxps[ii], vars[ii]);
     PolyReader::PrintPolynomial(xpConclusion, 1, -2);
 
-    _maxt = MAX2(_maxt, xpConclusion->GetTotalTermCount());
+    _maxt = std::max(_maxt, xpConclusion->GetTotalTermCount());
     if (Log::StopAfterMaxT > 0 && _maxt > (uint)Log::StopAfterMaxT) {
       Log::OutputText("Warning: Stopping wu's alg because maxt = %d has "
                       "overriched maximum alowed value of %d\n\n",

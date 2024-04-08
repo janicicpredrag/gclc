@@ -1,4 +1,5 @@
 #include "PolyReader.h"
+#include <algorithm>
 
 XPolynomial *PolyReader::ReadXPolynomial(char *stream) {
   int start = 0, end = 0;
@@ -348,7 +349,7 @@ void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
   Log::PrintLogF(1, "\\begin{eqnarray*}\n");
   Log::PrintLogF(2, "<polynomial_system>\n");
 
-  unsigned count = size > 0 ? MIN2((unsigned)size, vpols.size()) : vpols.size();
+  unsigned count = size > 0 ? std::min((size_t)size, vpols.size()) : vpols.size();
   for (unsigned i = 0; i < count; i++) {
     PrintPolynomial(vpols[i], level, i, true);
   }

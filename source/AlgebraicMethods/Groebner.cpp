@@ -1,5 +1,6 @@
 #include "Groebner.h"
 #include "PolyReader.h"
+#include <algorithm>
 
 const std::string Groebner::Description() { return "Buchberger's method"; }
 
@@ -176,7 +177,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
 
       xp = vxps[i]->Clone();
       xp->SPol(vxps[k]);
-      _maxt = MAX2(_maxt, xp->GetTotalTermCount());
+      _maxt = std::max(_maxt, xp->GetTotalTermCount());
 
       if (Groebner::FullReduce(vxps, xp, -1) == false) {
         xp->Dispose();
@@ -443,7 +444,7 @@ bool Groebner::Reduce(XPolynomial* xp1, XPolynomial* xp2)
   
   jm->Dispose();
 
-  _maxt = MAX2(_maxt, xp1->GetTotalTermCount());
+  _maxt = std::max(_maxt, xp1->GetTotalTermCount());
 
   if (ITimeout::CheckTimeoutSafe() == false)
   {
@@ -518,7 +519,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   xp2Clone->Dispose();
   g->Dispose();
 
-  _maxt = MAX2(_maxt, xp1->GetTotalTermCount());
+  _maxt = std::max(_maxt, xp1->GetTotalTermCount());
 
   if (ITimeout::CheckTimeoutSafe() == false) {
     _bTimeout = true;
@@ -557,7 +558,7 @@ bool Groebner::GroebnerBasis2(vxp &vxps) {
     pairs.clear();
     uint size = vxps.size();
     for (uint ii = 0; ii < size - 1; ii++) {
-      for (uint jj = MAX2(ii + 1, startAt); jj < size; jj++) {
+      for (uint jj = std::max(ii + 1, startAt); jj < size; jj++) {
         Log::OutputEnumItem(
             "Creating S-polynomial from the pair $(p_{%d}, p_{%d}$).", ii, jj);
         // don't process this pair if gcd cond

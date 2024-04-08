@@ -1,5 +1,6 @@
 #include "Reduce.h"
 #include "PolyReader.h"
+#include <algorithm>
 
 // points are in following order:
 // 0,1 : first point on circle
@@ -256,7 +257,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
 	int maxIndex = 0;
 	for (ii = 0; ii < size; ii++)
 	{
-		(*pMaxt) = MAX2((*pMaxt), vxps[ii]->GetTotalTermCount());
+		*pMaxt = std::max(*pMaxt, vxps[ii]->GetTotalTermCount());
 		Power* pow = vxps[ii]->GetTerm(0)->GetPower(0);
 		if (pow == NULL)
 		{
@@ -442,7 +443,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
 					if (jj != ii)
 					{
 						vxps[jj]->PseudoRemainder(vxps[ii], var);
-						(*pMaxt) = MAX2((*pMaxt), vxps[jj]->GetTotalTermCount());
+						*pMaxt = std::max(*pMaxt, vxps[jj]->GetTotalTermCount());
 						if (Log::StopAfterMaxT > 0 && (*pMaxt) > (uint)Log::StopAfterMaxT)
 						{
                             if (level == 1)
@@ -465,7 +466,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
                         Log::OutputDescriptionItemEnd("Reducing polynomial $p_{%d}$ (of degree %d) with $p_{%d}$ (of degree %d).\n\n", pos2, min2, pos1, min1);
                }
 				vxps[pos2]->PseudoRemainder(vxps[pos1], var);
-				(*pMaxt) = MAX2((*pMaxt), vxps[pos2]->GetTotalTermCount());
+				*pMaxt = std::max(*pMaxt, vxps[pos2]->GetTotalTermCount());
 				if (Log::StopAfterMaxT > 0 && (*pMaxt) > (uint)Log::StopAfterMaxT)
 				{
                     if (level == 1)
