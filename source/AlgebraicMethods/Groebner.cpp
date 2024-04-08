@@ -174,7 +174,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
       }
       m1->Dispose();
 
-      xp = (XPolynomial *)vxps[i]->Clone();
+      xp = vxps[i]->Clone();
       xp->SPol(vxps[k]);
       _maxt = MAX2(_maxt, xp->GetTotalTermCount());
 
@@ -506,7 +506,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   c1Clone->Dispose();
   pc1g->AddTerm(tc1g);
   tc1g->Dispose();
-  XPolynomial *xp2Clone = (XPolynomial *)xp2->Clone();
+  XPolynomial *xp2Clone = xp2->Clone();
   xp2Clone->Mul(pc1g);
   pc1g->Dispose();
 
@@ -569,7 +569,7 @@ bool Groebner::GroebnerBasis2(vxp &vxps) {
                           ii, jj);
           continue;
         }
-        XPolynomial *xp = (XPolynomial *)xp1->Clone();
+        XPolynomial *xp = xp1->Clone();
         xp->SPol(xp2);
         // Reduce(xp, xp2);
 

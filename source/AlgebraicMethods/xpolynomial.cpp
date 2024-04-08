@@ -116,7 +116,7 @@ XPolynomial *XPolynomial::CreatePolynomialCondition(bool f1, uint index1,
   return xp;
 }
 
-Polynomial *XPolynomial::Clone() {
+XPolynomial *XPolynomial::Clone() {
   XPolynomial *xpClone = new XPolynomial();
 
   _terms->EnumReset();
@@ -376,7 +376,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
   Log::PrintLogF(logLevel, "lm1(q, x%d) = \n", index);
   PolyReader::PrintPolynomial(q, logLevel);
 
-  XPolynomial *xpClone = (XPolynomial *)xp->Clone();
+  XPolynomial *xpClone = xp->Clone();
   xpClone->Mul(p);
 
   Log::PrintLogF(logLevel, "p1 * lm(p0) = \n");

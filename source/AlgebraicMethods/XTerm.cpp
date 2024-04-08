@@ -427,7 +427,7 @@ void XTerm::Merge(Term* t)
 	n1->Mul(d2);
 
 	// create second sumand, n2*d1
-	UPolynomial* n2clone = (UPolynomial*)n2->Clone();
+	UPolynomial* n2clone = n2->Clone();
 	n2clone->Mul(d1);
 
 	// add n2*d1 to the n1
