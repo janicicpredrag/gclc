@@ -39,7 +39,7 @@ XTerm* XTerm::Clone()
 	return xtClone;
 }
 
-Term* XTerm::ClonePowers()
+XTerm* XTerm::ClonePowers()
 {
 	XTerm* xtClone = new XTerm();
 

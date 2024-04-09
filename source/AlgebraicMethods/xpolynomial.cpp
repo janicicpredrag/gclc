@@ -319,7 +319,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
       if (free) {
         // THIS WORKS ONLY FOR LINEAR CASES!!!
         Polynomial *pp = xt->GetUFraction()->GetNumerator();
-        xtClone = (XTerm *)xt->ClonePowers();
+        xtClone = xt->ClonePowers();
         for (int jj = 0 /*, size1 = pp->GetTermCount()*/; jj < size; jj++) {
           Term *tt = pp->GetTerm(jj);
           if (tt->VariableDeg(index, free) == varDeg1) {
