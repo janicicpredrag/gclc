@@ -128,7 +128,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
 
             if (m1 && m2)
             {
-                m1 = (XTerm*)m1->Clone();
+                m1 = m1->Clone();
                 m1->GCDWith(m2);
                 gcdCond = (m1->GetPowerCount() == 0);
                 m1->Dispose();
@@ -164,7 +164,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
         continue;
       }
 
-      m1 = (XTerm *)m1->Clone();
+      m1 = m1->Clone();
       m1->GCDWith(m2);
       if (m1->GetPowerCount() == 0) {
         Log::PrintLogF(1, "Polynomial will be reduced to zero because "
@@ -433,7 +433,7 @@ bool Groebner::Reduce(XPolynomial* xp1, XPolynomial* xp2)
   for (j = 1; (uint)j < xp2->GetTermCount() && status == 0; j++)
   {
 	  m1 = (XTerm*)xp2->GetTerm(j);
-	  m1 = (XTerm*)m1->Clone();
+	  m1 = m1->Clone();
 	  status = m1->Mul(jm);
 	  if (status == 0)
 	  {
@@ -487,7 +487,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   }
 
   // divide f1/f2
-  g = (XTerm *)c1f1->Clone();
+  g = c1f1->Clone();
   g->Divide(c2f2);
 
   // multiply first with c2 (must create c2 first)
@@ -501,7 +501,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
 
   // multiply second with c1g (create c1 and g)
   XPolynomial *pc1g = new XPolynomial();
-  XTerm *tc1g = (XTerm *)g->Clone();
+  XTerm *tc1g = g->Clone();
   UPolynomialFraction *c1Clone = c1f1->GetUFraction()->Clone();
   tc1g->SetUFraction(c1Clone);
   c1Clone->Dispose();
@@ -629,7 +629,7 @@ bool Groebner::GCDCondition(XPolynomial *xp1, XPolynomial *xp2) {
   XTerm *m2 = (XTerm *)xp2->GetTerm(0);
 
   if (m1 && m2) {
-    m1 = (XTerm *)m1->Clone();
+    m1 = m1->Clone();
     m1->GCDWith(m2);
     cond = (m1->GetPowerCount() == 0);
     m1->Dispose();

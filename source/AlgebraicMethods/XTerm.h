@@ -15,7 +15,7 @@ public:
 	XTerm();
 	~XTerm();
 
-	Term* Clone();
+	XTerm* Clone() override;
 	Term* ClonePowers();
 
 	TERM_TYPE Type() const;
