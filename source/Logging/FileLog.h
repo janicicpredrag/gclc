@@ -10,7 +10,7 @@
 class CFileLog : public CGCLCLog {
 public:
   CFileLog(std::ostream &f);
-  virtual ~CFileLog();
+  virtual ~CFileLog() = default;
 
   virtual void Reset();
   virtual void AddText(const std::string &sText);
