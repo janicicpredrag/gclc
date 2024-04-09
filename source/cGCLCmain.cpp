@@ -90,7 +90,6 @@ int main(int argc, char *argv[]) {
       ho.open(sOutputFileName.c_str());
       if (!ho.is_open()) {
         Print(std::cout, "File error. Cannot open output file.\n");
-        hi.close();
         return -1;
       }
     }
@@ -106,7 +105,6 @@ int main(int argc, char *argv[]) {
     if (!ho.is_open()) {
       Print(std::cout,
             "File error. Cannot open output file (" + sOutputFileName + ").\n");
-      hi.close();
       return -1;
     }
   }
@@ -122,8 +120,6 @@ int main(int argc, char *argv[]) {
   std::ofstream hl("gclc.log");
   if (!hl.is_open()) {
     Print(std::cout, "File error. Cannot open log file.\n");
-    hi.close();
-    ho.close();
     return -1;
   }
 
@@ -137,9 +133,6 @@ int main(int argc, char *argv[]) {
   // support for batch mode
   if (bBatchMode) {
     BatchProcess(eOutputType, hi, hl, ho, iCounter);
-    hi.close();
-    ho.close();
-    hl.close();
     return 0;
   }
 
@@ -285,9 +278,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  hi.close();
-  hl.close();
-  ho.close();
   return 0;
 }
 
