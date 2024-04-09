@@ -19,7 +19,7 @@ XTerm::~XTerm()
 	DESTR("xterm");
 }
 
-Term* XTerm::Clone()
+XTerm* XTerm::Clone()
 {
 	XTerm* xtClone = new XTerm();
 
@@ -39,7 +39,7 @@ Term* XTerm::Clone()
 	return xtClone;
 }
 
-Term* XTerm::ClonePowers()
+XTerm* XTerm::ClonePowers()
 {
 	XTerm* xtClone = new XTerm();
 
@@ -190,7 +190,7 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	{
 		Log::PrintLogF(1, "CreatePolynomialConditionTerm(f1 = %d, index1 = %d, f2 = %d, index2 = %d)\n", f1, index1, f2, index2);
 		XPolynomial* xp = new XPolynomial();
-		xp->AddTerm((XTerm*)xt->Clone());
+		xp->AddTerm(xt->Clone());
 		PolyReader::PrintPolynomial(xp);
 		xp->Dispose();
 	}

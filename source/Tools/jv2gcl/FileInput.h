@@ -13,7 +13,7 @@ class CFileInput : public CGCLCInput
 {
 public:
 	CFileInput(FILE* h);
-	virtual ~CFileInput();
+	virtual ~CFileInput() = default;
 	
 	GReturnValue ReadChar(char* c);
 	bool EndOfInputData();

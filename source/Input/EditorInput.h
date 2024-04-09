@@ -16,7 +16,7 @@ public:
   QEditorInput(QTextEdit *pe);
   QEditorInput(QString &s);
 
-  virtual ~QEditorInput();
+  virtual ~QEditorInput() = default;
 
   virtual void Reset();
   virtual GReturnValue ReadChar(unsigned char &c);

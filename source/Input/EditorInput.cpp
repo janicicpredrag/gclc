@@ -25,8 +25,6 @@ QEditorInput::QEditorInput(QString &s) {
   m_iGlobalPosition = 0;
 }
 
-QEditorInput::~QEditorInput() {}
-
 void QEditorInput::Reset() {
   CGCLCInput::Reset();
   /*

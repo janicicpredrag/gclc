@@ -13,12 +13,6 @@ CFileInput::CFileInput(FILE* h)
 }
 
 
-CFileInput::~CFileInput()
-{
-
-}
-
-
 GReturnValue CFileInput::ReadChar(char* c)
 {
 	if (m_h == NULL) 

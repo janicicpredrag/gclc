@@ -13,7 +13,7 @@ class CDummyLog : public CGCLCLog
 {
 public: 
 	CDummyLog();
-    ~CDummyLog();
+	virtual ~CDummyLog() = default;
 
     void Reset();
     void AddText(const std::string& sText);

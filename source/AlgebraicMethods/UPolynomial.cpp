@@ -34,7 +34,7 @@ UPolynomial* UPolynomial::Clone()
 	while (_terms->EnumMoveNext())
 	{
 		UTerm* ut = (UTerm*)_terms->EnumGetCurrent();
-		UTerm* utClone = (UTerm*)ut->Clone();
+		UTerm* utClone = ut->Clone();
 		upClone->AddTerm(utClone);
 		utClone->Dispose();
 	}

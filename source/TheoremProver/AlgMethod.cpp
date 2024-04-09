@@ -1512,8 +1512,7 @@ void CAlgMethod::_AddCondition(XPolynomial *xp, bool check, vxp *polySystem) {
   } else if (check) {
     // is there same condition
     for (ii = 0, size = vxps.size(); add == true && ii < size; ii++) {
-      xp1 = (XPolynomial *)(polySystem ? polySystem->at(ii)->Clone()
-                                       : vxps[ii]->Clone());
+      xp1 = polySystem ? polySystem->at(ii)->Clone() : vxps[ii]->Clone();
       xp1->Subtract(xp);
 
       add = add && xp1->IsZero() == false;
@@ -1526,8 +1525,7 @@ void CAlgMethod::_AddCondition(XPolynomial *xp, bool check, vxp *polySystem) {
 
       if (add) {
         // check reverse sign!
-        xp1 = (XPolynomial *)(polySystem ? polySystem->at(ii)->Clone()
-                                         : vxps[ii]->Clone());
+        xp1 = polySystem ? polySystem->at(ii)->Clone() : vxps[ii]->Clone();
         xp1->Add(xp);
 
         add = add && xp1->IsZero() == false;
@@ -1884,7 +1882,7 @@ XPolynomial *CAlgMethod::_AddSegmentLengthConditionVariable(XPolynomial *xp1) {
   // x^2 - |ab|
   // x^2
   xp = new XPolynomial(false, ++lastDepIndex);
-  x1 = (XPolynomial *)xp->Clone();
+  x1 = xp->Clone();
   xp->Mul(x1);
   // -|ab|
   xp->Subtract(xp1);
@@ -1984,12 +1982,12 @@ XPolynomial *CAlgMethod::_PointOnConicCondition(Conic *h, Point *p) {
   XPolynomial *u5 = new XPolynomial(h->H5.Free, h->H5.Index);
 
   // x2
-  XPolynomial *xp = (XPolynomial *)x2->Clone();
+  XPolynomial *xp = x2->Clone();
   // x2^2
   xp->Mul(x1);
 
   // x1
-  XPolynomial *xp1 = (XPolynomial *)x1->Clone();
+  XPolynomial *xp1 = x1->Clone();
   // u1x1
   xp1->Mul(u1);
   // u1x1 + u3
@@ -2002,7 +2000,7 @@ XPolynomial *CAlgMethod::_PointOnConicCondition(Conic *h, Point *p) {
   xp1->Dispose();
 
   // u2x1^2
-  xp1 = (XPolynomial *)x1->Clone();
+  xp1 = x1->Clone();
   xp1->Mul(x1);
   xp1->Mul(u2);
 
@@ -2011,7 +2009,7 @@ XPolynomial *CAlgMethod::_PointOnConicCondition(Conic *h, Point *p) {
   xp1->Dispose();
 
   // x2^2 + (u1x1 + u3)x2 + u2x1^2 + u4x1 + u5
-  xp1 = (XPolynomial *)x1->Clone();
+  xp1 = x1->Clone();
   xp1->Mul(u4);
   xp->Add(xp1);
   xp1->Dispose();

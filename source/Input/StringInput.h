@@ -11,7 +11,7 @@
 class CStringInput : public CGCLCInput {
 public:
   CStringInput(const std::string &sData);
-  virtual ~CStringInput();
+  virtual ~CStringInput() = default;
 
   GReturnValue ReadChar(unsigned char &c);
   bool EndOfInputData();

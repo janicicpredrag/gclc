@@ -12,10 +12,6 @@ CFileInput::CFileInput(std::ifstream &h) : m_h(h) {}
 
 // ----------------------------------------------------------------------------
 
-CFileInput::~CFileInput() {}
-
-// ----------------------------------------------------------------------------
-
 GReturnValue CFileInput::ReadChar(unsigned char &c) {
   if (!m_h.good())
     return rvG_InvalidInput;

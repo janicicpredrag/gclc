@@ -9,7 +9,7 @@ class CDebugView;
 class QOutputLog : public CGCLCLog {
 public:
   QOutputLog(QPlainTextEdit *pOutput);
-  virtual ~QOutputLog();
+  virtual ~QOutputLog() = default;
 
   virtual void Reset();
   virtual void AddText(const std::string &sText);

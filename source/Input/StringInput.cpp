@@ -15,10 +15,6 @@ CStringInput::CStringInput(const std::string &sData) : m_sData(sData) {
 
 // ----------------------------------------------------------------------------
 
-CStringInput::~CStringInput() {}
-
-// ----------------------------------------------------------------------------
-
 GReturnValue CStringInput::ReadChar(unsigned char &c) {
   if (m_iDataLen - 1 < m_iTotalPos)
     return rvG_EndOfData;

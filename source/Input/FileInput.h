@@ -11,7 +11,7 @@
 class CFileInput : public CGCLCInput {
 public:
   CFileInput(std::ifstream &h);
-  virtual ~CFileInput();
+  virtual ~CFileInput() = default;
 
   GReturnValue ReadChar(unsigned char &c);
   bool EndOfInputData();

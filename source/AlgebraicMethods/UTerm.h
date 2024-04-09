@@ -18,7 +18,7 @@ public:
 
 	void Dispose();
 
-	Term* Clone();
+	UTerm* Clone() override;
 
 	TERM_TYPE Type() const;
 

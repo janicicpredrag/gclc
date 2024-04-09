@@ -42,7 +42,7 @@ void UTerm::Dispose()
 	}
 }
 
-Term* UTerm::Clone()
+UTerm* UTerm::Clone()
 {
 #ifdef UTERMS_BANK
 	UTerm* utClone = UTermsBank::UTermsFactory.AcquireUTerm(this->GetCoeff());
