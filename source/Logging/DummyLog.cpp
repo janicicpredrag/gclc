@@ -10,10 +10,10 @@ CDummyLog::CDummyLog() {}
 
 // ----------------------------------------------------------------------------
 
-void CDummyLog::Reset() { return; }
+void CDummyLog::Reset() { }
 
 // ----------------------------------------------------------------------------
 
-void CDummyLog::AddText(const std::string & /* pText */) { return; }
+void CDummyLog::AddText(const std::string & /* pText */) { }
 
 // ----------------------------------------------------------------------------
