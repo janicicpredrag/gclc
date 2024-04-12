@@ -9,6 +9,7 @@
 #include "gcompiler.h"
 #include "GCLCInput.h"
 #include "FileInput.h"
+#include <string>
 
 #include "ListOfFaces.h"
 
@@ -82,7 +83,7 @@ private:
 	GReturnValue GetToken(char **psToken);
 
 	JavaViewcommands choose_command(char* word,char* params);
-	GReturnValue  skip(char* commandname);
+	GReturnValue  skip(const std::string &commandname);
 	void AttachNames();
 
 	

@@ -5,6 +5,7 @@
 
 #include "JavaView.h"
 #include <cmath>
+#include <string>
 #include <string.h>
 #if defined(__MACH__)
 #include <stdlib.h>
@@ -74,7 +75,7 @@ GReturnValue CJavaView::Import(CGCLCInput *pInput,
 }
 
 GReturnValue CJavaView::ReadModel() {
-  char *word, *commandname;
+  char *word;
   GReturnValue iRv, err;
   JavaViewcommands com;
   do {
@@ -98,10 +99,7 @@ GReturnValue CJavaView::ReadModel() {
     if (!strcmp(word, JVTagName[_jv_jvx_model][1]))
       return rvG_OK;
 
-    commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -171,10 +169,7 @@ GReturnValue CJavaView::ReadGeometry() {
     if (!strcmp(word, JVTagName[_jv_geometry][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -216,10 +211,7 @@ GReturnValue CJavaView::ReadPointSet() {
   do {
     iRv = GetToken(&word);
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (!strcmp(word, JVTagName[_jv_pointset][1])) {
       struct point *pPoint;
@@ -296,10 +288,7 @@ GReturnValue CJavaView::ReadPoints() {
     if (!strcmp(word, JVTagName[_jv_points][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -454,10 +443,7 @@ GReturnValue CJavaView::ReadFaceSet() {
       return rvG_OK;
     }
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -496,10 +482,7 @@ GReturnValue CJavaView::ReadFaces() {
     if (!strcmp(word, JVTagName[_jv_faces][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -575,10 +558,7 @@ GReturnValue CJavaView::ReadLineSet() {
     if (!strcmp(word, JVTagName[_jv_lineset][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -613,10 +593,7 @@ GReturnValue CJavaView::ReadLines() {
     if (!strcmp(word, JVTagName[_jv_lines][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -666,11 +643,8 @@ GReturnValue CJavaView::ReadL() {
     char *endsubstring = substring + 5;
     while (*endsubstring != '"')
       endsubstring++;
-    char *name = (char *)alloca(endsubstring - substring - 4);
-    if (name == NULL)
-      return rvG_OutOfMemory;
-    strncpy(name, substring + 5, endsubstring - substring - 5);
-    name[endsubstring - substring - 5] = '\0';
+    const std::string name{substring + 5,
+                           static_cast<size_t>(endsubstring - substring - 5)};
 
     sprintf(m_sOutput, "midpoint M%i_%i_%i_%i P%i_%i P%i_%i", m_iGeometryIndex,
             (int)(iFirst + 1), m_iGeometryIndex, (int)(iSecond + 1),
@@ -679,7 +653,7 @@ GReturnValue CJavaView::ReadL() {
     Output(m_sOutput);
 
     sprintf(m_sOutput, "printat_t M%i_%i_%i_%i {%s}", m_iGeometryIndex,
-            (int)(iFirst + 1), m_iGeometryIndex, (int)(iSecond + 1), name);
+            (int)(iFirst + 1), m_iGeometryIndex, (int)(iSecond + 1), name.c_str());
     Output(m_sOutput);
   }
 
@@ -702,10 +676,7 @@ GReturnValue CJavaView::ReadVectorField() {
     if (!strcmp(word, JVTagName[_jv_vectorfield][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -747,10 +718,7 @@ GReturnValue CJavaView::ReadVectors() {
     if (!strcmp(word, JVTagName[_jv_vectors][1]))
       return rvG_OK;
 
-    char *commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -832,7 +800,7 @@ GReturnValue CJavaView::ReadThickness() {
 }
 
 GReturnValue CJavaView::ReadColors() {
-  char *word, *commandname;
+  char *word;
   GReturnValue iRv, err;
   JavaViewcommands com;
 
@@ -841,10 +809,7 @@ GReturnValue CJavaView::ReadColors() {
     if (!strcmp(word, JVTagName[_jv_colors][1]))
       return rvG_OK;
 
-    commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -866,7 +831,7 @@ GReturnValue CJavaView::ReadColors() {
 }
 
 GReturnValue CJavaView::ReadFaceColors() {
-  char *word, *commandname;
+  char *word;
   GReturnValue iRv, err;
   JavaViewcommands com;
 
@@ -875,10 +840,7 @@ GReturnValue CJavaView::ReadFaceColors() {
     if (!strcmp(word, JVTagName[_jv_colors][1]))
       return rvG_OK;
 
-    commandname = (char *)alloca(strlen(word) + 1);
-    if (commandname == NULL)
-      return rvG_OutOfMemory;
-    strcpy(commandname, word);
+    const std::string commandname{word};
 
     if (iRv != rvG_EndOfData) {
       m_sParams[0] = '\0';
@@ -979,23 +941,18 @@ JavaViewcommands CJavaView::choose_command(char *word, char *params) {
   return _jv_unsupportedcommand;
 }
 
-GReturnValue CJavaView::skip(char *commandname) {
+GReturnValue CJavaView::skip(const std::string &commandname) {
   char *word;
-  char *endcommandname;
 
-  endcommandname = (char *)alloca(strlen(commandname) + 3);
-  strcpy(endcommandname, "</");
-  strncpy(endcommandname + 2, commandname + 1, strlen(commandname) - 1);
-  if (commandname[strlen(commandname) - 1] != '>')
-    strcpy(endcommandname + 2 + strlen(commandname) - 1, ">");
-  else
-    strcpy(endcommandname + 2 + strlen(commandname) - 1, "");
+  std::string endcommandname{"</" + commandname.substr(1)};
+  if (!commandname.empty() && commandname[commandname.size() - 1] != '>')
+    endcommandname += ">";
 
   GReturnValue iRv;
   do {
     iRv = GetToken(&word);
     if (iRv != rvG_EndOfData) {
-      if (!strcmp(word, endcommandname))
+      if (word == endcommandname)
         return rvG_OK;
     }
   } while (iRv != rvG_EndOfData);
