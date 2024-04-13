@@ -33,7 +33,7 @@ class CFace {
 public:
   CFace();
   virtual ~CFace();
-  bool AddNewVertex(unsigned int uIndex);
+  bool AddNewVertex(int uIndex);
   unsigned char GetRColor() { return r; };
   unsigned char GetGColor() { return g; }
   unsigned char GetBColor() { return b; }
@@ -62,7 +62,7 @@ public:
   void DeleteAll();
   void SetGeometryIndex(unsigned int uIndex);
   bool AddNewFace();
-  bool AddNewVertex(unsigned int uIndex);
+  bool AddNewVertex(int uIndex);
   CFace *GetFirstFace();
   CFace *GetNextFace();
   int GetGeometry() { return m_iGeometry; }

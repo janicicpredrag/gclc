@@ -55,7 +55,7 @@ bool CListOfFaces::AddNewFace() {
   return true;
 }
 
-bool CListOfFaces::AddNewVertex(unsigned int uIndex) {
+bool CListOfFaces::AddNewVertex(int uIndex) {
   return m_pLastFace->AddNewVertex(uIndex);
 }
 
@@ -99,7 +99,7 @@ CFace::~CFace() {
   }
 }
 
-bool CFace::AddNewVertex(unsigned int uIndex) {
+bool CFace::AddNewVertex(int uIndex) {
   struct vertex *pVertex;
 
   pVertex = new vertex;
