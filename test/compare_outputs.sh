@@ -1,7 +1,13 @@
 #!/bin/bash
 
+LOG_FILE="./diff-log"
+
 compare_outputs() {
     echo $3
+
+    directory=${3%/*}
+    filename=$(basename "$3")
+    filename="${filename%.*}"
     
     for flag in "pic" "tikz" "pst" "eps" "svg" "xml"; do
         if [ "$flag" = "tikz" ]; then
@@ -10,10 +16,6 @@ compare_outputs() {
             ext="$flag"
         fi
 
-        directory=${3%/*}
-        filename=$(basename "$3")
-        filename="${filename%.*}"
-
         FILE1="./1$filename.$ext"
         FILE2="./2$filename.$ext"
 
@@ -21,7 +23,13 @@ compare_outputs() {
         if [ -f "$directory/$filename.$ext" ] ; then
             mv "$directory/$filename.$ext" "$FILE1"
         else
-            { echo "$3: $flag"; echo "$gclcOutput"; printf "\n"; } >> "./diff-log"
+            {
+                echo "$3: $flag"
+                echo "\`\`\`"
+                echo "$gclcOutput"
+                echo "\`\`\`"
+                echo ""
+            } >> "$LOG_FILE"
             continue
         fi
 
@@ -29,14 +37,26 @@ compare_outputs() {
         if [ -f "$directory/$filename.$ext" ] ; then
             mv "$directory/$filename.$ext" "$FILE2"
         else
-            { echo "$3: $flag"; echo "$gclcOutput"; printf "\n"; } >> "./diff-log"
+            {
+                echo "$3: $flag"
+                echo "\`\`\`"
+                echo "$gclcOutput"
+                echo "\`\`\`"
+                printf ""
+            } >> "$LOG_FILE"
             continue
         fi
 
         difference=$(diff --suppress-common-lines "$FILE1" "$FILE2")
 
         if [ -n "$difference" ] ; then
-            { echo "$3: $flag"; echo "$difference"; printf "\n"; } >> "./diff-log"
+            {
+                echo "$3: $flag"
+                echo "\`\`\`"
+                echo "$difference"
+                echo "\`\`\`"
+                echo ""
+            } >> "$LOG_FILE"
         fi
 
         rm "$FILE1" "$FILE2"
@@ -45,7 +65,7 @@ compare_outputs() {
 
 if [ "$#" -ne 3 ]; then
     echo "Illegal number of parameters!"
-    echo "Usage: ./compare_output.sh program1 program2 sample_directory"
+    echo "Usage: ./compare_output.sh program1 program2 directory|file"
     exit 1
 fi
 
@@ -65,8 +85,12 @@ if ! [[ -x "$2" ]] ; then
     exit 1
 fi
 
-echo "" > "./diff-log"
+touch "$LOG_FILE"
 
-find "$3" -type f -name "*.gcl" | while read -r file; do
-    compare_outputs "$1" "$2" "$file"
-done
+if [ -d "$3" ]; then
+    find "$3" -maxdepth 1 -type f -name "*.gcl" | while read -r file; do
+        compare_outputs "$1" "$2" "$file"
+    done
+else
+    compare_outputs "$1" "$2" "$3"
+fi
