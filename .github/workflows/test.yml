@@ -45,7 +45,7 @@ jobs:
             const outputLog = loadLog("diff-log");
             const proofLog = loadLog("proof-log");
 
-            const body = `## Basic samples \n ${log} \n ## Prover samples \n ${proofLog}`;
+            const body = `## Basic samples \n ${outputLog} \n ## Prover samples \n ${proofLog}`;
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
