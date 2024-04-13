@@ -502,8 +502,7 @@ GReturnValue CJavaView::ReadF() {
   double number;
   char *word;
 
-  if (!m_ListOfFaces.AddNewFace())
-    return rvG_OutOfMemory;
+  m_ListOfFaces.AddNewFace();
 
   char *substring = strstr(m_sParams, "name=");
   if (substring != NULL) {

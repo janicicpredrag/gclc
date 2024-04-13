@@ -60,7 +60,7 @@ public:
 	CListOfFaces();
 	void DeleteAll();
 	void SetGeometryIndex(unsigned int uIndex);
-	bool AddNewFace();
+	void AddNewFace();
 	void AddNewVertex(int uIndex);
 	CFace* GetFirstFace();
 	CFace* GetNextFace();

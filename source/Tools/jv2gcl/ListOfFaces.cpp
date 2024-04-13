@@ -25,7 +25,7 @@ void CListOfFaces::SetGeometryIndex(unsigned int uIndex)
 	m_iGeometry = uIndex;
 }
 
-bool CListOfFaces::AddNewFace()
+void CListOfFaces::AddNewFace()
 {
 	CFace pFace;
 
@@ -34,8 +34,6 @@ bool CListOfFaces::AddNewFace()
 	pFace.b = 0;
 
 	m_vFaces.push_back(pFace);
-
-	return true;
 }
 
 void CListOfFaces::AddNewVertex(int uIndex)
