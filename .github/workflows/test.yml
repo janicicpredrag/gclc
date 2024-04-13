@@ -24,7 +24,9 @@ jobs:
           chmod +x gclc
 
       - name: Run tests
-        run: ./test/compare_outputs.sh executable/gclc latest/gclc ./samples/basic_samples/
+        run: |
+          ./test/compare_outputs.sh executable/gclc latest/gclc ./samples/basic_samples/
+          ./test/compare_proofs.sh executable/gclc latest/gclc ./samples/samples_prover/
 
       - name: Comment
         uses: actions/github-script@v7
@@ -40,13 +42,10 @@ jobs:
               }
             }
 
-            const log = loadLog("diff-log");
+            const outputLog = loadLog("diff-log");
+            const proofLog = loadLog("proof-log");
 
-            const body = `Tests completed.
-            \`\`\`
-            ${log}
-            \`\`\`
-            `;
+            const body = `## Basic samples \n ${log} \n ## Prover samples \n ${proofLog}`;
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
