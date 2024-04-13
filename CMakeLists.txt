@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project(GCLC LANGUAGES CXX)
 
 # enable -W and -Wall if possible
@@ -83,3 +83,9 @@ add_executable(gclc
 
 # require ISO C++11
 target_compile_features(gclc PRIVATE cxx_std_11)
+
+if(MINGW)
+  target_link_options(gclc
+    PRIVATE "LINKER:-s LINKER:-subsystem,console LINKER:-mthreads"
+  )
+endif()
