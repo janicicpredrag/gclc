@@ -27,7 +27,8 @@
 
 EXTERN EMSCRIPTEN_KEEPALIVE void render(char *input, char *fileName,
                                         char **outputPtr, int outputType,
-                                        int proofType, char **logPtr) {
+                                        int proofType, int deductionControl,
+                                        char **logPtr) {
 
   std::ostringstream outputStream, logStream, latexProofStream, xmlProofStream;
   std::string inputStr(input);
@@ -47,6 +48,8 @@ EXTERN EMSCRIPTEN_KEEPALIVE void render(char *input, char *fileName,
     ProverConfig.TheoremProvingMethod = tpGroebnerMethod;
 
   ProverConfig.bDeductionControl = false;
+  if (deductionControl != 0)
+    ProverConfig.bDeductionControl = true;
 
   ProverConfig.bLaTeX = false;
   if (proofType != 0)

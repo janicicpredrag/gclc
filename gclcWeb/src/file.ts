@@ -132,7 +132,13 @@ const exportPicture = () => {
   const outputFormat = formatsSelect.value as OutputType;
 
   const code = getCode();
-  const [outputData, log] = compile(code, getFileName(), outputFormat, "None");
+  const [outputData, log] = compile(
+    code,
+    getFileName(),
+    outputFormat,
+    "None",
+    false
+  );
 
   const errors = printLog(log);
   if (errors.length > 0) {

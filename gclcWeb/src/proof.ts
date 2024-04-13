@@ -3,6 +3,7 @@ import { closePopups, showPopup } from "./popup";
 
 let SelectedProofMethod: ProofMethod = "None";
 let LatexProof: string, XmlProof: string;
+let DeductionControl: boolean;
 
 const setProverMethod = (method: ProofMethod) => () => {
   SelectedProofMethod = method;
@@ -54,6 +55,29 @@ const getProofs = (): [string, string] => {
 
 const getSelectedProofMethod = (): ProofMethod => {
   return SelectedProofMethod;
+};
+
+const setDeductionControlHandler = (control: boolean) => () => {
+  DeductionControl = control;
+
+  const enableButton = document.getElementById(
+    "enableDeductionControlButton"
+  ) as HTMLElement;
+  const disableButton = document.getElementById(
+    "disableDeductionControlButton"
+  ) as HTMLElement;
+
+  if (control) {
+    enableButton.style.display = "none";
+    disableButton.style.display = "block";
+  } else {
+    enableButton.style.display = "block";
+    disableButton.style.display = "none";
+  }
+};
+
+const getDeductionControl = (): boolean => {
+  return DeductionControl;
 };
 
 const enableTheoremExport = (enable: boolean) => {
@@ -144,6 +168,14 @@ const setProofUI = () => {
   document
     .getElementById("proofViewExportLaTexButton")
     ?.addEventListener("click", () => saveProof("LATEX"));
+
+  document
+    .getElementById("enableDeductionControlButton")
+    ?.addEventListener("click", setDeductionControlHandler(true));
+
+  document
+    .getElementById("disableDeductionControlButton")
+    ?.addEventListener("click", setDeductionControlHandler(false));
 };
 
 export {
@@ -153,4 +185,5 @@ export {
   getSelectedProofMethod,
   processAndDisplayXmlDocument,
   enableTheoremExport,
+  getDeductionControl,
 };

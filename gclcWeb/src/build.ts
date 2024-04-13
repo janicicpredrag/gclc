@@ -6,6 +6,7 @@ import { openPane } from "./pane/panes";
 import { printLog } from "./pane/terminal";
 import {
   enableTheoremExport,
+  getDeductionControl,
   getSelectedProofMethod,
   processAndDisplayXmlDocument,
   setProofs,
@@ -34,7 +35,8 @@ const buildEventHandler = () => {
       code,
       getFileName(),
       "SVG",
-      getSelectedProofMethod()
+      getSelectedProofMethod(),
+      getDeductionControl()
     );
 
     setProofs(latexProof, xmlProof);
