@@ -55,8 +55,8 @@ bool CListOfFaces::AddNewFace() {
   return true;
 }
 
-bool CListOfFaces::AddNewVertex(int uIndex) {
-  return m_pLastFace->AddNewVertex(uIndex);
+void CListOfFaces::AddNewVertex(int uIndex) {
+  m_pLastFace->AddNewVertex(uIndex);
 }
 
 void CListOfFaces::AttachColorsToCurrentFace(unsigned char r, unsigned char g,
@@ -87,10 +87,9 @@ void CListOfFaces::SetLastFaceName(const std::string &sName) {
 
 CFace::CFace() { m_iCurrentVertex = 0; }
 
-bool CFace::AddNewVertex(int uIndex) {
+void CFace::AddNewVertex(int uIndex) {
   vertex vVertex = {.index = uIndex};
   m_vVertices.push_back(vVertex);
-  return true;
 }
 
 struct vertex *CFace::GetFirstVertex() {

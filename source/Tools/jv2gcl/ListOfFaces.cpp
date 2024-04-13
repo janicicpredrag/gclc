@@ -72,9 +72,9 @@ bool CListOfFaces::AddNewFace()
 	return true;
 }
 
-bool CListOfFaces::AddNewVertex(int uIndex)
+void CListOfFaces::AddNewVertex(int uIndex)
 {
-	return m_pLastFace->AddNewVertex(uIndex);
+	m_pLastFace->AddNewVertex(uIndex);
 }
 
 
@@ -121,11 +121,10 @@ CFace::CFace()
 	m_iCurrentVertex = 0;
 }
 
-bool CFace::AddNewVertex(int uIndex)
+void CFace::AddNewVertex(int uIndex)
 {
 	vertex vVertex = {.index = uIndex};
 	m_vVertices.push_back(vVertex);
-	return true;
 }
 
 

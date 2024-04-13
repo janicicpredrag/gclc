@@ -611,8 +611,7 @@ GReturnValue CJavaView::ReadF()
 		if (iRv!=rvG_OK) 
 			return iRv;
 
-		if (!m_ListOfFaces.AddNewVertex((int)number+1))
-			return rvG_OutOfMemory;
+		m_ListOfFaces.AddNewVertex((int)number + 1);
 
 		iRv=GetToken(&word);
 		if (iRv!=rvG_OK)
