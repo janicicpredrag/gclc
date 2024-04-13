@@ -5,6 +5,7 @@
 #if !defined(LISTOFFACES_H)
 #define LISTOFFACES_H
 
+#include <string>
 
 struct javaviewface
 {
@@ -26,7 +27,7 @@ struct point
 {
 	double x,y;
 	unsigned char r,g,b;
-	char *name;
+	std::string name;
 	struct point* pnext;
 };
 
@@ -94,7 +95,7 @@ public:
 	int GetGeometry() { return m_iGeometry; }
 	void AttachColorsToCurrentPoint(unsigned char r,unsigned char g,unsigned char b);
 	void GetCurrentPoint(double *x,double *y);
-	void SetLastPointName(char* sName);
+	void SetLastPointName(std::string &sName);
 
 private:
 	int m_iGeometry;

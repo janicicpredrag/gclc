@@ -4,6 +4,7 @@
 
 #include "ListOfFaces.h"
 #include <malloc.h>
+#include <string>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -206,8 +207,6 @@ void CListOfPoints::DeleteAll()
 	while(pPoint!=NULL)
 	{
 		pP = pPoint->pnext;
-		if (pPoint->name!=NULL)
-			free(pPoint->name);
 		delete pPoint;
 		pPoint = pP;
 	}
@@ -234,7 +233,7 @@ bool CListOfPoints::AddNewPoint(double x,double y,unsigned char r,unsigned char 
 		return false;
 
 	pPoint->pnext = NULL;
-	pPoint->name = NULL;
+	pPoint->name = "";
 	pPoint->x=x;
 	pPoint->y=y;
 	pPoint->r=r;
@@ -288,8 +287,7 @@ void CListOfPoints::GetCurrentPoint(double *x,double *y)
 	*y = m_pCurrentPoint->y;
 }
 
-
-void CListOfPoints::SetLastPointName(char* sName)
+void CListOfPoints::SetLastPointName(const std::string &sName)
 {
 	m_pLastPoint->name = sName;
 }

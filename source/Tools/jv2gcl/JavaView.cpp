@@ -275,11 +275,12 @@ GReturnValue CJavaView::ReadPointSet()
 //				sprintf(m_sOutput,"cmark P%i_%i",m_iGeometryIndex, i);
 //				Output(m_sOutput);
 
-				if (pPoint->name!=NULL)
+				if (pPoint->name != "")
 				{
 					sprintf(m_sOutput,"cmark P%i_%i",m_iGeometryIndex, i); 
 					Output(m_sOutput);
-					sprintf(m_sOutput,"printat_rt P%i_%i {%s}",m_iGeometryIndex, i, pPoint->name); 
+					sprintf(m_sOutput, "printat_rt P%i_%i {%s}", m_iGeometryIndex, i,
+					        pPoint->name.c_str());
 					Output(m_sOutput);
 				}
 
@@ -386,11 +387,8 @@ GReturnValue CJavaView::ReadP()
 		char* endsubstring=substring+5;
 		while(*endsubstring != '"')
 			endsubstring++;
-		char* name=(char*)malloc(endsubstring-substring-4);
-		if (name==NULL)
-			return rvG_OutOfMemory;
-		strncpy(name, substring+5, endsubstring-substring-5);
-		name[endsubstring-substring-5]='\0';
+		const std::string name{substring + 5,
+		                       static_cast<size_t>(endsubstring - substring - 5)};
 		m_ListOfPoints.SetLastPointName(name);
 	}
 
