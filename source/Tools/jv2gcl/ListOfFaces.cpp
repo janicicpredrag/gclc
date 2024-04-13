@@ -4,6 +4,7 @@
 
 #include "ListOfFaces.h"
 #include <malloc.h>
+#include <string>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -186,110 +187,68 @@ struct vertex* CFace::GetNextVertex()
 
 CListOfPoints::CListOfPoints()
 {
-	m_pFirstPoint = NULL;
-	m_pLastPoint = NULL;
+	m_iCurrentPoint = 0;
 }
-
 
 CListOfPoints::~CListOfPoints()
 {
 	DeleteAll();
 }
 
-
-void CListOfPoints::DeleteAll()
-{
-	struct point *pPoint, *pP;
-
-	pPoint=m_pFirstPoint;
-
-	while(pPoint!=NULL)
-	{
-		pP = pPoint->pnext;
-		if (pPoint->name!=NULL)
-			free(pPoint->name);
-		delete pPoint;
-		pPoint = pP;
-	}
-	m_pFirstPoint = NULL;
-	m_pLastPoint = NULL;
+void CListOfPoints::DeleteAll() {
+	m_vPoints.clear();
 }
-
-
 
 void CListOfPoints::SetGeometryIndex(unsigned int uIndex)
 {
 	m_iGeometry = uIndex;
 }
 
-
-	
-
 bool CListOfPoints::AddNewPoint(double x,double y,unsigned char r,unsigned char g,unsigned char b)
 {
-	struct point *pPoint;
+	struct point pPoint;
 
-	pPoint = new struct point;
-	if (pPoint == NULL) 
-		return false;
+	pPoint.x = x;
+	pPoint.y = y;
+	pPoint.r = r;
+	pPoint.g = g;
+	pPoint.b = b;
 
-	pPoint->pnext = NULL;
-	pPoint->name = NULL;
-	pPoint->x=x;
-	pPoint->y=y;
-	pPoint->r=r;
-	pPoint->g=g;
-	pPoint->b=b;
-
-	if(m_pFirstPoint==NULL)
-		m_pFirstPoint=pPoint;
-	else
-		m_pLastPoint->pnext=pPoint;
-	
-	m_pLastPoint = pPoint;
-
+	m_vPoints.push_back(pPoint);
 	return true;
 }
 
-	
-
 void CListOfPoints::AttachColorsToCurrentPoint(unsigned char r,unsigned char g,unsigned char b)
 {
-	m_pCurrentPoint->r=r;
-	m_pCurrentPoint->g=g;
-	m_pCurrentPoint->b=b;
+	m_vPoints[m_iCurrentPoint].r = r;
+	m_vPoints[m_iCurrentPoint].g = g;
+	m_vPoints[m_iCurrentPoint].b = b;
 }
-
-
-
 
 struct point* CListOfPoints::GetFirstPoint()
 {
-	m_pCurrentPoint = m_pFirstPoint;
-	return m_pCurrentPoint;
+	m_iCurrentPoint = 0;
+	return m_vPoints.empty() ? NULL : &m_vPoints.front();
 }
-
 
 struct point* CListOfPoints::GetNextPoint()
 {
-	if (m_pCurrentPoint!=NULL)
+	if (m_iCurrentPoint + 1 < m_vPoints.size())
 	{
-		m_pCurrentPoint = m_pCurrentPoint->pnext;
-		return m_pCurrentPoint;
+		++m_iCurrentPoint;
+		return &m_vPoints[m_iCurrentPoint];
 	}
 	else
 		return NULL;
 }
 
-
 void CListOfPoints::GetCurrentPoint(double *x,double *y) 
 { 
-	*x = m_pCurrentPoint->x;
-	*y = m_pCurrentPoint->y;
+	*x = m_vPoints[m_iCurrentPoint].x;
+	*y = m_vPoints[m_iCurrentPoint].y;
 }
 
-
-void CListOfPoints::SetLastPointName(char* sName)
+void CListOfPoints::SetLastPointName(const std::string &sName)
 {
 	m_pLastPoint->name = sName;
 }

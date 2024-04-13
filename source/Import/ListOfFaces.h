@@ -5,7 +5,9 @@
 #if !defined(LISTOFFACES_H)
 #define LISTOFFACES_H
 
+#include <cstddef>
 #include <string>
+#include <vector>
 
 struct javaviewface {
   int geometry;
@@ -23,7 +25,6 @@ struct point {
   double x, y;
   unsigned char r, g, b;
   std::string name;
-  struct point *pnext;
 };
 
 class CFace {
@@ -92,7 +93,8 @@ public:
 
 private:
   int m_iGeometry;
-  struct point *m_pFirstPoint, *m_pCurrentPoint, *m_pLastPoint;
+  std::vector<point> m_vPoints;
+  size_t m_iCurrentPoint;
 };
 
 #endif // !defined(LISTOFFACES_H)

@@ -7,11 +7,6 @@
 #include <cmath>
 #include <string>
 #include <string.h>
-#if defined(__MACH__)
-#include <stdlib.h>
-#else
-#include <malloc.h>
-#endif
 
 #define X_OFF 70
 #define Y_OFF 50
@@ -337,11 +332,8 @@ GReturnValue CJavaView::ReadP() {
     char *endsubstring = substring + 5;
     while (*endsubstring != '"')
       endsubstring++;
-    char *name = (char *)malloc(endsubstring - substring - 4);
-    if (name == NULL)
-      return rvG_OutOfMemory;
-    strncpy(name, substring + 5, endsubstring - substring - 5);
-    name[endsubstring - substring - 5] = '\0';
+    const std::string name{substring + 5,
+                           static_cast<size_t>(endsubstring - substring - 5)};
     m_ListOfPoints.SetLastPointName(name);
   }
 
@@ -518,11 +510,8 @@ GReturnValue CJavaView::ReadF() {
     char *endsubstring = substring + 5;
     while (*endsubstring != '"')
       endsubstring++;
-    char *name = (char *)malloc(endsubstring - substring - 4);
-    if (name == NULL)
-      return rvG_OutOfMemory;
-    strncpy(name, substring + 5, endsubstring - substring - 5);
-    name[endsubstring - substring - 5] = '\0';
+    const std::string name{substring + 5,
+                           static_cast<size_t>(endsubstring - substring - 5)};
     m_ListOfFaces.SetLastFaceName(name);
   }
 
