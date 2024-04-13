@@ -11,91 +11,55 @@
 
 CListOfFaces::CListOfFaces()
 {
-	m_pFirstFace = NULL;
-	m_pLastFace = NULL;
+	m_iCurrentFace = 0;
 }
-
-CListOfFaces::~CListOfFaces()
-{
-	DeleteAll();
-}
-
 
 void CListOfFaces::DeleteAll()
 {
-	CFace *pFace, *pF;
-
-	pFace=m_pFirstFace;
-
-	while(pFace!=NULL)
-	{
-		pF = pFace->m_pNextFace;
-		delete pFace;
-		pFace = pF;
-	}
-	m_pFirstFace = NULL;
-	m_pLastFace = NULL;
+	m_iCurrentFace = 0;
+	m_vFaces.clear();
 }
-
-
 
 void CListOfFaces::SetGeometryIndex(unsigned int uIndex)
 {
 	m_iGeometry = uIndex;
 }
 
-
 bool CListOfFaces::AddNewFace()
 {
-	CFace *pFace;
+	CFace pFace;
 
-	pFace = new CFace;
-	if (pFace == NULL) 
-		return false;
+	pFace.r = 0;
+	pFace.g = 0;
+	pFace.b = 0;
 
-	pFace->m_pNextFace = NULL;
-	pFace->name = "";
-	pFace->r=0;
-	pFace->g=0;
-	pFace->b=0;
-
-	if(m_pFirstFace==NULL)
-		m_pFirstFace=pFace;
-	else
-		m_pLastFace->m_pNextFace = pFace;
-	
-	m_pLastFace = pFace;
+	m_vFaces.push_back(pFace);
 
 	return true;
 }
 
 void CListOfFaces::AddNewVertex(int uIndex)
 {
-	m_pLastFace->AddNewVertex(uIndex);
+	m_vFaces.back().AddNewVertex(uIndex);
 }
-
 
 void CListOfFaces::AttachColorsToCurrentFace(unsigned char r,unsigned char g,unsigned char b)
 {
-	m_pCurrentFace->AttachColors(r,g,b);
+	m_vFaces[m_iCurrentFace].AttachColors(r, g, b);
 }
-
-
-
 
 CFace* CListOfFaces::GetFirstFace()
 {
-	m_pCurrentFace = m_pFirstFace;
-	return m_pCurrentFace;
+	m_iCurrentFace = 0;
+	return m_vFaces.empty() ? nullptr : &m_vFaces.front();
 }
-
 
 CFace* CListOfFaces::GetNextFace()
 {
-	if (m_pCurrentFace!=NULL)
+	if (m_iCurrentFace + 1 < m_vFaces.size())
 	{
-		m_pCurrentFace = m_pCurrentFace->m_pNextFace;
-		return m_pCurrentFace;
+		++m_iCurrentFace;
+		return &m_vFaces[m_iCurrentFace];
 	}
 	else
 		return NULL;
@@ -103,9 +67,8 @@ CFace* CListOfFaces::GetNextFace()
 
 void CListOfFaces::SetLastFaceName(const std::string &sName)
 {
-	m_pLastFace->name = sName;
+	m_vFaces.back().name = sName;
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

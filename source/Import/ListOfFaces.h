@@ -51,13 +51,11 @@ private:
   bool m_bVisible;
   std::vector<vertex> m_vVertices;
   size_t m_iCurrentVertex;
-  CFace *m_pNextFace;
 };
 
 class CListOfFaces {
 public:
   CListOfFaces();
-  virtual ~CListOfFaces();
   void DeleteAll();
   void SetGeometryIndex(unsigned int uIndex);
   bool AddNewFace();
@@ -71,7 +69,8 @@ public:
 
 private:
   int m_iGeometry;
-  CFace *m_pFirstFace, *m_pCurrentFace, *m_pLastFace;
+  std::vector<CFace> m_vFaces;
+  size_t m_iCurrentFace;
 };
 
 class CListOfPoints {
