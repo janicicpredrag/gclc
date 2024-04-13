@@ -85,49 +85,23 @@ void CListOfFaces::SetLastFaceName(const std::string &sName) {
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CFace::CFace() { m_pFirstVertex = NULL; }
-
-CFace::~CFace() {
-  struct vertex *pVertex, *pV;
-
-  pVertex = m_pFirstVertex;
-
-  while (pVertex != NULL) {
-    pV = pVertex->pnext;
-    delete pVertex;
-    pVertex = pV;
-  }
-}
+CFace::CFace() { m_iCurrentVertex = 0; }
 
 bool CFace::AddNewVertex(int uIndex) {
-  struct vertex *pVertex;
-
-  pVertex = new vertex;
-  if (pVertex == NULL)
-    return false;
-
-  pVertex->index = uIndex;
-  pVertex->pnext = NULL;
-
-  if (m_pFirstVertex == NULL)
-    m_pFirstVertex = pVertex;
-  else
-    m_pLastVertex->pnext = pVertex;
-
-  m_pLastVertex = pVertex;
-
+  vertex vVertex = {.index = uIndex};
+  m_vVertices.push_back(vVertex);
   return true;
 }
 
 struct vertex *CFace::GetFirstVertex() {
-  m_pCurrentVertex = m_pFirstVertex;
-  return m_pCurrentVertex;
+  m_iCurrentVertex = 0;
+  return m_vVertices.empty() ? nullptr : &m_vVertices.front();
 }
 
 struct vertex *CFace::GetNextVertex() {
-  if (m_pCurrentVertex != NULL) {
-    m_pCurrentVertex = m_pCurrentVertex->pnext;
-    return m_pCurrentVertex;
+  if (m_iCurrentVertex + 1 < m_vVertices.size()) {
+    ++m_iCurrentVertex;
+    return &m_vVertices[m_iCurrentVertex];
   } else
     return NULL;
 }

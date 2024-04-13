@@ -18,7 +18,6 @@ struct javaviewface {
 
 struct vertex {
   int index;
-  struct vertex *pnext;
 };
 
 struct point {
@@ -32,7 +31,6 @@ class CFace {
 
 public:
   CFace();
-  virtual ~CFace();
   bool AddNewVertex(int uIndex);
   unsigned char GetRColor() { return r; };
   unsigned char GetGColor() { return g; }
@@ -51,7 +49,8 @@ private:
   unsigned char r, g, b;
 
   bool m_bVisible;
-  struct vertex *m_pFirstVertex, *m_pCurrentVertex, *m_pLastVertex;
+  std::vector<vertex> m_vVertices;
+  size_t m_iCurrentVertex;
   CFace *m_pNextFace;
 };
 
