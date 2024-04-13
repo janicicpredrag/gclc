@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-#include "FormHeaders/ui_MainWindow.h"
+#include "ui_MainWindow.h"
 #include "Import/JavaView.h"
 #include <QFileDialog>
 #include <QFontDialog>

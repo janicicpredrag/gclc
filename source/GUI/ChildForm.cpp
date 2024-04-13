@@ -1,5 +1,5 @@
 #include "ChildForm.h"
-#include "FormHeaders/ui_ChildForm.h"
+#include "ui_ChildForm.h"
 
 // --------------------------------------------------------------------------------------------
 
