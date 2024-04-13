@@ -78,7 +78,11 @@ jobs:
           cache: "false"
 
       - name: Make CLI version
-        run: make
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cmake --build build
+          mkdir -p executable
+          cp build/gclc executable/
 
       - name: Make GUI version
         run: |

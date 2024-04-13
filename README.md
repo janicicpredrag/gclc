@@ -89,7 +89,7 @@ Makefile and .pro files should be updated). Building GCLC with the
 graphical user interface requires [Qt Library](https://www.qt.io/)
 version 6.2 or higher.
 
-In the following, it is assumed that `make` is available.
+In the following, it is assumed that `cmake` is available.
 Under Windows, one can use `mingw32-make` instead, for instance.
 
 ### Building gclc (command line version) from the terminal using the provided Makefile
@@ -97,7 +97,8 @@ Under Windows, one can use `mingw32-make` instead, for instance.
 Under Linux, go to the folder 'gclc', then:
 
 ```
-make
+cmake -B build -S .
+cmake --build build
 ```
 
 Under Windows, go to the folder 'gclc', then:
