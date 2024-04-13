@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 project(GCLC LANGUAGES CXX)
 
+set(gui AUTO CACHE STRING "build the GCLC GUI")
+set_property(CACHE gui PROPERTY STRINGS AUTO ON OFF)
+
 # enable -W and -Wall if possible
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG(-W HAS_W)
@@ -10,6 +13,21 @@ endif()
 CHECK_CXX_COMPILER_FLAG(-Wall HAS_WALL)
 if(HAS_WALL)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+endif()
+
+if(NOT gui STREQUAL "OFF")
+  find_package(Qt6 COMPONENTS Core Gui PrintSupport Widgets)
+  if(gui STREQUAL "AUTO")
+    if(Qt6_FOUND)
+      message(STATUS "setting -Dgui=ON")
+      set(gui ON)
+    else()
+      message(STATUS "setting -Dgui=OFF")
+      set(gui OFF)
+    endif()
+  elseif(NOT Qt6_FOUND)
+    message(FATAL_ERROR "-Dgui=ON and Qt6 not found")
+  endif()
 endif()
 
 add_executable(gclc
@@ -89,3 +107,5 @@ if(MINGW)
     PRIVATE "LINKER:-s LINKER:-subsystem,console LINKER:-mthreads"
   )
 endif()
+
+add_subdirectory(source)

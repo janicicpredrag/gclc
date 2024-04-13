@@ -77,18 +77,13 @@ jobs:
           arch: "gcc_64"
           cache: "false"
 
-      - name: Make CLI version
+      - name: Make CLI and GUI version
         run: |
           cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
           mkdir -p executable
           cp build/gclc executable/
-
-      - name: Make GUI version
-        run: |
-          cd source/ 
-          qmake gGCLC.pro
-          make
+          cp build/source/gclc-gui executable/
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
@@ -122,18 +117,13 @@ jobs:
           arch: "win64_mingw"
           cache: "false"
 
-      - name: Make CLI version
+      - name: Make CLI and GUI version
         run: |
           cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
           mkdir -p executable
           cp build/gclc executable/
-
-      - name: Make GUI version
-        run: |
-          cd source/ 
-          qmake.exe -r QMAKE_CXXFLAGS+=-std=gnu++17 QMAKE_CXXFLAGS+=-static gGCLC.pro
-          make
+          cp build/source/gclc-gui* executable/
 
       - name: Move DLLs
         run: |
