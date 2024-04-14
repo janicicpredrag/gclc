@@ -45,7 +45,7 @@ public:
 	struct vertex* GetFirstVertex();
 	struct vertex* GetNextVertex();
 	void AttachColors(unsigned char r0,unsigned char g0,unsigned char b0) { r = r0; b=b0; g=g0; }
-	char *name;
+	std::string name;
 private:
 	unsigned char r,g,b;
 
@@ -70,7 +70,7 @@ public:
 	CFace* GetNextFace();
 	int GetGeometry() { return m_iGeometry; }
 	void AttachColorsToCurrentFace(unsigned char r,unsigned char g,unsigned char b);
-	void SetLastFaceName(char* sName);
+	void SetLastFaceName(const std::string &sName);
 
 private:
 	int m_iGeometry;

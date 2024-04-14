@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "ListOfFaces.h"
-#include <malloc.h>
 #include <string>
 
 //////////////////////////////////////////////////////////////////////
@@ -31,8 +30,6 @@ void CListOfFaces::DeleteAll()
 	while(pFace!=NULL)
 	{
 		pF = pFace->m_pNextFace;
-		if(pFace->name!=NULL)
-			free(pFace->name);
 		delete pFace;
 		pFace = pF;
 	}
@@ -57,7 +54,7 @@ bool CListOfFaces::AddNewFace()
 		return false;
 
 	pFace->m_pNextFace = NULL;
-	pFace->name=NULL;
+	pFace->name = "";
 	pFace->r=0;
 	pFace->g=0;
 	pFace->b=0;
@@ -104,8 +101,7 @@ CFace* CListOfFaces::GetNextFace()
 		return NULL;
 }
 
-
-void CListOfFaces::SetLastFaceName(char* sName)
+void CListOfFaces::SetLastFaceName(const std::string &sName)
 {
 	m_pLastFace->name = sName;
 }
