@@ -77,7 +77,6 @@ private:
 class CListOfPoints {
 public:
   CListOfPoints();
-  virtual ~CListOfPoints();
   void DeleteAll();
   bool AddNewPoint(double x, double y, unsigned char r, unsigned char g,
                    unsigned char b);
