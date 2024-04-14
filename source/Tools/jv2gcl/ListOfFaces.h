@@ -38,7 +38,7 @@ friend class CListOfFaces;
 public:
 	CFace();
 	void AddNewVertex(int uIndex);
-	unsigned char GetRColor() { return r; };
+	unsigned char GetRColor() { return r; }
 	unsigned char GetGColor() { return g; }
 	unsigned char GetBColor() { return b; }
 
