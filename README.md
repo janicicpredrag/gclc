@@ -84,26 +84,19 @@ free points, watch window, deduction control, `animation_frames` and `trace` com
 ## Building from source code
 
 GCLC is written in the C++ programming language and uses Qt libraries.
-GNU C++ g++ compiler is needed (or some other C++ compiler, but then
-Makefile and .pro files should be updated). Building GCLC with the
+A C++ compiler is needed. Building GCLC with the
 graphical user interface requires [Qt Library](https://www.qt.io/)
 version 6.2 or higher.
 
-In the following, it is assumed that `make` is available.
-Under Windows, one can use `mingw32-make` instead, for instance.
+In the following, it is assumed that `cmake` is available.
 
-### Building gclc (command line version) from the terminal using the provided Makefile
+### Building gclc (command line version) from the terminal using the provided CMakeLists.txt
 
-Under Linux, go to the folder 'gclc', then:
-
-```
-make
-```
-
-Under Windows, go to the folder 'gclc', then:
+Go to the folder 'gclc', then:
 
 ```
-mingw32-make -f Makefile.win
+cmake -B build -S .
+cmake --build build
 ```
 
 The executable (release version) 'gclc' will be created in the folder 'gclc/executable'.

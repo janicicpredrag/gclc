@@ -1,5 +1,5 @@
 #include "WatchWindow.h"
-#include "FormHeaders/ui_WatchWindow.h"
+#include "ui_WatchWindow.h"
 
 // --------------------------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 #include "ReplaceDialog.h"
-#include "FormHeaders/ui_ReplaceDialog.h"
+#include "ui_ReplaceDialog.h"
 
 
 // --------------------------------------------------------------------------------------------
