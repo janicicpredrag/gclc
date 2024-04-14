@@ -1,29 +1,22 @@
 #!/bin/bash
 
-LOG_FILE="./diff-log"
+LOG_FILE="./proof-log"
 
-compare_outputs() {
+compare_proofs() {
     echo $3
 
     directory=${3%/*}
     filename=$(basename "$3")
     filename="${filename%.*}"
     
-    for flag in "pic" "tikz" "pst" "eps" "svg" "xml"; do
-        if [ "$flag" = "tikz" ]; then
-            ext="tkz"
-        else
-            ext="$flag"
-        fi
-
-        FILE1="./1$filename.$ext"
-        FILE2="./2$filename.$ext"
-
+    for flag in "a" "w" "g"; do
         gclcOutput=$("./$1" "$3" "-$flag")
-        if [ -f "$directory/$filename.$ext" ] ; then
-            mv "$directory/$filename.$ext" "$FILE1"
+        if [ -f "$directory/${filename}_proof.tex" ] && [ -f "$directory/$filename.pic" ]; then
+            mv "$directory/${filename}_proof.tex" "1.tex"
+            mv "$directory/$filename.pic" "1.pic"
         else
-            {
+            echo "  $flag: ERROR"
+            { 
                 echo "$3: $flag"
                 echo "\`\`\`"
                 echo "$gclcOutput"
@@ -34,24 +27,25 @@ compare_outputs() {
         fi
 
         gclcOutput=$("./$2" "$3" "-$flag")
-        if [ -f "$directory/$filename.$ext" ] ; then
-            mv "$directory/$filename.$ext" "$FILE2"
+        if [ -f "$directory/${filename}_proof.tex" ] && [ -f "$directory/$filename.pic" ]; then
+            mv "$directory/${filename}_proof.tex" "2.tex"
+            mv "$directory/$filename.pic" "2.pic"
         else
-            {
+            echo "  $flag: ERROR"
+            { 
                 echo "$3: $flag"
                 echo "\`\`\`"
                 echo "$gclcOutput"
                 echo "\`\`\`"
-                printf ""
+                 echo ""
             } >> "$LOG_FILE"
             continue
         fi
 
-        difference=$(diff --suppress-common-lines "$FILE1" "$FILE2")
-
+        difference=$(diff --suppress-common-lines "1.tex" "2.tex")
         if [ -n "$difference" ] ; then
-            {
-                echo "$3: $flag"
+            { 
+                echo "$3: $flag tex"
                 echo "\`\`\`"
                 echo "$difference"
                 echo "\`\`\`"
@@ -59,7 +53,18 @@ compare_outputs() {
             } >> "$LOG_FILE"
         fi
 
-        rm "$FILE1" "$FILE2"
+        difference=$(diff --suppress-common-lines "1.pic" "2.pic")
+        if [ -n "$difference" ] ; then
+            { 
+                echo "$3: $flag pic"
+                echo "\`\`\`"
+                echo "$difference"
+                echo "\`\`\`"
+                echo ""
+            } >> "$LOG_FILE"
+        fi
+
+        rm "1.tex" "1.pic" "2.tex" "2.pic"
     done
 }
 
@@ -85,12 +90,12 @@ if ! [[ -x "$2" ]] ; then
     exit 1
 fi
 
-touch "$LOG_FILE"
+echo "" > "$LOG_FILE"
 
 if [ -d "$3" ]; then
     find "$3" -maxdepth 1 -type f -name "*.gcl" | while read -r file; do
-        compare_outputs "$1" "$2" "$file"
+        compare_proofs "$1" "$2" "$file"
     done
 else
-    compare_outputs "$1" "$2" "$3"
+    compare_proofs "$1" "$2" "$3"
 fi
