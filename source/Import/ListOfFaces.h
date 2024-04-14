@@ -9,13 +9,6 @@
 #include <string>
 #include <vector>
 
-struct javaviewface {
-  int geometry;
-  int v1, v2, v3, v4;
-  unsigned char r, g, b;
-  bool visible;
-};
-
 struct vertex {
   int index;
 };
@@ -32,7 +25,7 @@ class CFace {
 public:
   CFace();
   void AddNewVertex(int uIndex);
-  unsigned char GetRColor() { return r; };
+  unsigned char GetRColor() { return r; }
   unsigned char GetGColor() { return g; }
   unsigned char GetBColor() { return b; }
 
@@ -51,16 +44,14 @@ private:
   bool m_bVisible;
   std::vector<vertex> m_vVertices;
   size_t m_iCurrentVertex;
-  CFace *m_pNextFace;
 };
 
 class CListOfFaces {
 public:
   CListOfFaces();
-  virtual ~CListOfFaces();
   void DeleteAll();
   void SetGeometryIndex(unsigned int uIndex);
-  bool AddNewFace();
+  void AddNewFace();
   void AddNewVertex(int uIndex);
   CFace *GetFirstFace();
   CFace *GetNextFace();
@@ -71,13 +62,13 @@ public:
 
 private:
   int m_iGeometry;
-  CFace *m_pFirstFace, *m_pCurrentFace, *m_pLastFace;
+  std::vector<CFace> m_vFaces;
+  size_t m_iCurrentFace;
 };
 
 class CListOfPoints {
 public:
   CListOfPoints();
-  virtual ~CListOfPoints();
   void DeleteAll();
   bool AddNewPoint(double x, double y, unsigned char r, unsigned char g,
                    unsigned char b);

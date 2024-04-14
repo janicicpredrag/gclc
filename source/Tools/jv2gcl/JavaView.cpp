@@ -5,7 +5,6 @@
 #include "JavaView.h"
 #include "GCLCInput.h"
 #include <cmath>
-#include <malloc.h>
 #include <string>
 #include <string.h>
 
@@ -451,7 +450,7 @@ GReturnValue CJavaView::ReadFaceSet()
 				unsigned int uFirstIndex = pVertex->index;
 				pVertex = pFace->GetNextVertex();
 
-				if (pFace->name!=NULL)
+				if (pFace->name != "")
 				{
 					sprintf(m_sOutput,"translate P%i_label P%i_%i P%i_%i P%i_%i",
 						m_ListOfFaces.GetGeometry(),
@@ -469,7 +468,7 @@ GReturnValue CJavaView::ReadFaceSet()
 						m_ListOfFaces.GetGeometry(), pVertex->index);
 					Output(m_sOutput);
 
-					if (pFace->name!=NULL)
+					if (pFace->name != "")
 					{
 						sprintf(m_sOutput,"translate P%i_label P%i_%i P%i_%i P%i_label",
 							m_ListOfFaces.GetGeometry(),
@@ -488,7 +487,7 @@ GReturnValue CJavaView::ReadFaceSet()
 					m_ListOfFaces.GetGeometry(), uFirstIndex);
 				Output(m_sOutput);
 
-				if (pFace->name!=NULL)
+				if (pFace->name != "")
 				{
 					sprintf(m_sOutput,"towards P%i_label P%i_%i P%i_label %3.2f",
 						m_ListOfFaces.GetGeometry(), 
@@ -496,7 +495,8 @@ GReturnValue CJavaView::ReadFaceSet()
 						m_ListOfFaces.GetGeometry(), 1.0 / (iNumberOfVerteces + 1));
 					Output(m_sOutput);
 
-					sprintf(m_sOutput,"printat P%i_label {%s}",m_iGeometryIndex, pFace->name); 
+					sprintf(m_sOutput, "printat P%i_label {%s}", m_iGeometryIndex,
+					        pFace->name.c_str());
 					Output(m_sOutput);
 				}
 
@@ -583,8 +583,7 @@ GReturnValue CJavaView::ReadF()
 	double number;
 	char *word;
 
-	if (!m_ListOfFaces.AddNewFace())
-		return rvG_OutOfMemory;
+	m_ListOfFaces.AddNewFace();
 
 	char* substring=strstr(m_sParams, "name=");
 	if(substring!=NULL)
@@ -592,11 +591,8 @@ GReturnValue CJavaView::ReadF()
 		char* endsubstring=substring+5;
 		while(*endsubstring != '"')
 			endsubstring++;
-		char* name=(char*)malloc(endsubstring-substring-4);
-		if (name==NULL)
-			return rvG_OutOfMemory;
-		strncpy(name, substring+5, endsubstring-substring-5);
-		name[endsubstring-substring-5]='\0';
+		const std::string name{substring + 5,
+		                       static_cast<size_t>(endsubstring - substring - 5)};
 		m_ListOfFaces.SetLastFaceName(name);
 	}
 
