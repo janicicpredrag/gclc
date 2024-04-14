@@ -32,13 +32,14 @@ Proofs by the automated theorem provers are generated in LaTeX form.
 ## Usage with command line
 
 ```
-gclc filename -a|w|g -pic|tikz|pst|eps|svg|xml
+gclc filename -a|w|g -d -pic|tikz|pst|eps|svg|xml
 ```
 
 - `filename` the name of the input file
 - `-a` selects the theorem prover based on the area method
 - `-w` selects the theorem prover based on Wu's method
 - `-g` selects the theorem prover based on the Gröbner bases method
+- `-d` enables deduction control
 - `-pic` selects the simple LaTeX format for the output; this is the default value for output format
 - `-tikz` selects the LaTeX TikZ format for the output
 - `-pst` selects the LaTeX PStrics format
