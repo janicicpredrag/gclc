@@ -160,6 +160,7 @@ CListOfPoints::~CListOfPoints()
 }
 
 void CListOfPoints::DeleteAll() {
+	m_iCurrentPoint = 0;
 	m_vPoints.clear();
 }
 
