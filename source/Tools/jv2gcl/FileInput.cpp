@@ -25,7 +25,6 @@ GReturnValue CFileInput::ReadChar(char* c)
 	else 
 	{
 		*c = (char)ch;
-		m_iGlobalPosition++;
 		if ((*c) == '\n') 
 		{
 			m_iInputLine++; 

@@ -14,7 +14,6 @@ QEditorInput::QEditorInput(QTextEdit *pTextBuffer) {
   string_pos = 0;
   m_iInputLine = 1;
   m_iPosition = 0;
-  m_iGlobalPosition = 0;
 }
 
 QEditorInput::QEditorInput(QString &s) {
@@ -22,7 +21,6 @@ QEditorInput::QEditorInput(QString &s) {
   string_pos = 0;
   m_iInputLine = 1;
   m_iPosition = 0;
-  m_iGlobalPosition = 0;
 }
 
 void QEditorInput::Reset() {
@@ -43,7 +41,6 @@ GReturnValue QEditorInput::ReadChar(unsigned char &c) {
     m_iPosition = 0;
   } else
     m_iPosition++;
-  m_iGlobalPosition++;
   return rvG_OK;
 }
 
