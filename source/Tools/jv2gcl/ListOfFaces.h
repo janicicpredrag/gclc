@@ -9,15 +9,6 @@
 #include <string>
 #include <vector>
 
-struct javaviewface
-{
-	int geometry;
-	int v1,v2,v3,v4;
-	unsigned char r,g,b;
-	bool visible;
-};
-
-
 struct vertex
 {
 	int index;
