@@ -361,6 +361,10 @@ button.onlyIfProverEnabled {
   display: none;
 }
 
+#disableDeductionControlButton {
+  display: none;
+}
+
 .selectedMethod::after {
   content: "✓";
 }

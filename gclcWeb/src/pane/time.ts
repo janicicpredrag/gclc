@@ -42,7 +42,7 @@ const onSliderInput = (e: Event) => {
     return;
   }
 
-  const [_, log] = compile(tempCode, getFileName(), "SVG", "None");
+  const [_, log] = compile(tempCode, getFileName(), "SVG", "None", false);
 
   const errors = printLog(log);
   if (errors.length > 0) {
@@ -107,7 +107,7 @@ const startPlaying = () => {
     return;
   }
 
-  const [_, log] = compile(tempCode, getFileName(), "SVG", "None");
+  const [_, log] = compile(tempCode, getFileName(), "SVG", "None", false);
 
   const errors = printLog(log);
   if (errors.length > 0) {

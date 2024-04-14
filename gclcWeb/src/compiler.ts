@@ -31,6 +31,7 @@ type Render = (
   outputPtr: Pointer,
   outputType: number,
   proofType: number,
+  deductionControl: number,
   logPtr: Pointer
 ) => void;
 
@@ -48,12 +49,14 @@ const setupCompiler = () => {
 
   createModule().then((module: BaseWASMModule) => {
     Module = module;
+
     render = Module.cwrap("render", null, [
       "number", // char* input
       "number", // char* filename
       "number", // char** outputPtr
       "number", // int outputType
       "number", // int proofType
+      "number", // int deductionControl
       "number", // char **logPtr
     ]) as Render;
 
@@ -93,7 +96,8 @@ const compile = (
   code: string,
   filename: string,
   outputType: OutputType,
-  proofMethod: ProofMethod
+  proofMethod: ProofMethod,
+  deductionControl: boolean
 ): [string, string, string, string] => {
   const inputPtr = setInputMemory(code);
 
@@ -110,6 +114,7 @@ const compile = (
     outputPtr,
     outputTypeValue(outputType),
     proofMethodValue(proofMethod),
+    deductionControl ? 1 : 0,
     logPtr
   );
 
