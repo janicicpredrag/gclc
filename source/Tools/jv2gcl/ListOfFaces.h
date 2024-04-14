@@ -21,7 +21,6 @@ struct javaviewface
 struct vertex
 {
 	int index;
-	struct vertex* pnext;
 };
 
 
@@ -38,8 +37,7 @@ friend class CListOfFaces;
 
 public:
 	CFace();
-	virtual ~CFace();
-	bool AddNewVertex(unsigned int uIndex);
+	void AddNewVertex(int uIndex);
 	unsigned char GetRColor() { return r; };
 	unsigned char GetGColor() { return g; }
 	unsigned char GetBColor() { return b; }
@@ -52,7 +50,8 @@ private:
 	unsigned char r,g,b;
 
 	bool m_bVisible;
-	struct vertex *m_pFirstVertex, *m_pCurrentVertex, *m_pLastVertex;
+	std::vector<vertex> m_vVertices;
+	size_t m_iCurrentVertex;
 	CFace* m_pNextFace;
 };
 
@@ -66,7 +65,7 @@ public:
 	void DeleteAll();
 	void SetGeometryIndex(unsigned int uIndex);
 	bool AddNewFace();
-	bool AddNewVertex(unsigned int uIndex);
+	void AddNewVertex(int uIndex);
 	CFace* GetFirstFace();
 	CFace* GetNextFace();
 	int GetGeometry() { return m_iGeometry; }

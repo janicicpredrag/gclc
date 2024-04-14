@@ -493,7 +493,7 @@ GReturnValue CJavaView::ReadFaceSet()
 					sprintf(m_sOutput,"towards P%i_label P%i_%i P%i_label %3.2f",
 						m_ListOfFaces.GetGeometry(), 
 						m_ListOfFaces.GetGeometry(), uFirstIndex,
-						m_ListOfFaces.GetGeometry(), (double)(1.0/(iNumberOfVerteces+1)));
+						m_ListOfFaces.GetGeometry(), 1.0 / (iNumberOfVerteces + 1));
 					Output(m_sOutput);
 
 					sprintf(m_sOutput,"printat P%i_label {%s}",m_iGeometryIndex, pFace->name); 
@@ -611,8 +611,7 @@ GReturnValue CJavaView::ReadF()
 		if (iRv!=rvG_OK) 
 			return iRv;
 
-		if (!m_ListOfFaces.AddNewVertex((int)number+1))
-			return rvG_OutOfMemory;
+		m_ListOfFaces.AddNewVertex((int)number + 1);
 
 		iRv=GetToken(&word);
 		if (iRv!=rvG_OK)
