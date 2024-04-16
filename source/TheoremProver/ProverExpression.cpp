@@ -2,6 +2,8 @@
 #include "TheoremProver.h"
 #include <assert.h>
 #include <cmath>
+#include <cstddef>
+#include <vector>
 
 #define EPSILON 0.00001
 
@@ -1086,42 +1088,31 @@ bool CGCLCProverExpression::SumOfFractions() {
 
 bool CGCLCProverExpression::CancelationMult(
     const CGCLCProverExpression &Factor) {
-  CGCLCProverExpression **aSummands, **aMultiplicants;
 
   int iMaxIndex = CountTopLevelOperands(ep_sum);
-  aSummands = new CGCLCProverExpression *[iMaxIndex];
+  std::vector<CGCLCProverExpression *> aSummands;
+  aSummands.reserve(iMaxIndex);
 
-  iMaxIndex = 0;
-  FillTopLevelOperands(ep_sum, aSummands, iMaxIndex);
+  FillTopLevelOperands(ep_sum, aSummands);
 
-  int j, k;
+  for (CGCLCProverExpression *j : aSummands) {
+    std::vector<CGCLCProverExpression *> aMultiplicants;
+    aMultiplicants.reserve(j->CountTopLevelOperands(ep_mult));
 
-  for (j = 0; j < iMaxIndex; j++) {
-    aMultiplicants = new CGCLCProverExpression
-        *[aSummands[j]->CountTopLevelOperands(ep_mult)];
-    if (aMultiplicants == NULL) {
-      delete[] aSummands;
-      return false;
-    }
+    j->FillTopLevelOperands(ep_mult, aMultiplicants);
 
-    int iMaxIndex2 = 0;
-    aSummands[j]->FillTopLevelOperands(ep_mult, aMultiplicants, iMaxIndex2);
+    for (CGCLCProverExpression *k : aMultiplicants) {
+      if (Factor == *k) {
+        *k = 1.0;
 
-    bool bExists = false;
-    for (k = 0; k < iMaxIndex2 && !bExists; k++) {
-      if (Factor == *(aMultiplicants[k])) {
-        *aMultiplicants[k] = 1.0;
-
-        bExists = true;
+        break;
       } else {
-        if (aMultiplicants[k]->GetType() == ep_number)
-          if (aMultiplicants[k]->GetNumber() == 0)
-            bExists = true;
+        if (k->GetType() == ep_number)
+          if (k->GetNumber() == 0)
+            break;
       }
     }
-    delete[] aMultiplicants;
   }
-  delete[] aSummands;
   return true;
 }
 
@@ -1129,45 +1120,38 @@ bool CGCLCProverExpression::CancelationMult(
 
 bool CGCLCProverExpression::AllSummandsHaveFactor(
     const CGCLCProverExpression &Factor) {
-  CGCLCProverExpression **aSummands;
-  CGCLCProverExpression **aMultiplicants;
 
   int iMaxIndex = CountTopLevelOperands(ep_sum);
 
-  aSummands = new CGCLCProverExpression *[iMaxIndex];
+  std::vector<CGCLCProverExpression *> aSummands;
+  aSummands.reserve(iMaxIndex);
 
-  iMaxIndex = 0;
-  FillTopLevelOperands(ep_sum, aSummands, iMaxIndex);
+  FillTopLevelOperands(ep_sum, aSummands);
 
   bool bEverywhere, bExists;
-  int j, k;
 
   bEverywhere = true;
-  for (j = 0; j < iMaxIndex && bEverywhere; j++) {
-    if (aSummands[j]->GetType() != ep_number ||
-        aSummands[j]->GetNumber() != 0) {
-      aMultiplicants = new CGCLCProverExpression
-          *[aSummands[j]->CountTopLevelOperands(ep_mult)];
-      if (aMultiplicants == NULL) {
-        delete[] aSummands;
-        return false;
-      }
+  for (CGCLCProverExpression *j : aSummands) {
+    if (j->GetType() != ep_number || j->GetNumber() != 0) {
+      std::vector<CGCLCProverExpression *> aMultiplicants;
+      aMultiplicants.reserve(j->CountTopLevelOperands(ep_mult));
 
-      int iMaxIndex2 = 0;
-      aSummands[j]->FillTopLevelOperands(ep_mult, aMultiplicants, iMaxIndex2);
+      j->FillTopLevelOperands(ep_mult, aMultiplicants);
 
       bExists = false;
 
-      for (k = 0; k < iMaxIndex2 && !bExists; k++) {
-        if (Factor == *(aMultiplicants[k]))
+      for (CGCLCProverExpression *k : aMultiplicants) {
+        if (Factor == *k) {
           bExists = true;
+          break;
+        }
       }
-      if (!bExists)
+      if (!bExists) {
         bEverywhere = false;
-      delete[] aMultiplicants;
+        break;
+      }
     }
   }
-  delete[] aSummands;
   return bEverywhere;
 }
 
@@ -1181,59 +1165,41 @@ bool CGCLCProverExpression::SimilarSummandsOnTwoSides() {
   if (GetArg(1).type == ep_number)
     return false;
 
-  CGCLCProverExpression **aSummands1, **aSummands2;
-
   int iMaxIndex1 = GetArg(0).CountTopLevelOperands(ep_sum);
   int iMaxIndex2 = GetArg(1).CountTopLevelOperands(ep_sum);
 
-  aSummands1 = new CGCLCProverExpression *[iMaxIndex1];
-  iMaxIndex1 = 0;
-  GetArg(0).FillTopLevelOperands(ep_sum, aSummands1, iMaxIndex1);
+  std::vector<CGCLCProverExpression *> aSummands1;
+  aSummands1.reserve(iMaxIndex1);
+  GetArg(0).FillTopLevelOperands(ep_sum, aSummands1);
 
-  aSummands2 = new CGCLCProverExpression *[iMaxIndex2];
-  iMaxIndex2 = 0;
-  GetArg(1).FillTopLevelOperands(ep_sum, aSummands2, iMaxIndex2);
+  std::vector<CGCLCProverExpression *> aSummands2;
+  aSummands2.reserve(iMaxIndex2);
+  GetArg(1).FillTopLevelOperands(ep_sum, aSummands2);
 
-  int i, j, k, l;
-  for (i = 0; i < iMaxIndex1; i++) {
+  for (CGCLCProverExpression *i : aSummands1) {
 
-    CGCLCProverExpression **aMultiplicants1, **aMultiplicants2;
-    aMultiplicants1 = new CGCLCProverExpression
-        *[aSummands1[i]->CountTopLevelOperands(ep_mult)];
-    if (aMultiplicants1 == NULL) {
-      delete[] aSummands1;
-      delete[] aSummands2;
-      return false;
-    }
+    std::vector<CGCLCProverExpression *> aMultiplicants1;
+    aMultiplicants1.reserve(i->CountTopLevelOperands(ep_mult));
 
-    int iMaxIndex3 = 0;
-    aSummands1[i]->FillTopLevelOperands(ep_mult, aMultiplicants1, iMaxIndex3);
+    i->FillTopLevelOperands(ep_mult, aMultiplicants1);
 
-    for (j = 0; j < iMaxIndex2; j++) {
-      aMultiplicants2 = new CGCLCProverExpression
-          *[aSummands2[j]->CountTopLevelOperands(ep_mult)];
-      if (aMultiplicants2 == NULL) {
-        delete[] aMultiplicants1;
-        delete[] aSummands1;
-        delete[] aSummands2;
-        return false;
-      }
+    for (CGCLCProverExpression *j : aSummands2) {
+      std::vector<CGCLCProverExpression *> aMultiplicants2;
+      aMultiplicants2.reserve(j->CountTopLevelOperands(ep_mult));
 
-      int iMaxIndex4 = 0;
-      aSummands2[j]->FillTopLevelOperands(ep_mult, aMultiplicants2, iMaxIndex4);
+      j->FillTopLevelOperands(ep_mult, aMultiplicants2);
 
-      int k0 = (aMultiplicants1[0]->type == ep_number ? 1 : 0);
-      int l0 = (aMultiplicants2[0]->type == ep_number ? 1 : 0);
+      const size_t k0 = aMultiplicants1[0]->type == ep_number ? 1 : 0;
+      const size_t l0 = aMultiplicants2[0]->type == ep_number ? 1 : 0;
 
-      if ((iMaxIndex3 - k0) != (iMaxIndex4 - l0)) {
-        delete[] aMultiplicants2;
+      if (aMultiplicants1.size() - k0 != aMultiplicants2.size() - l0) {
         continue;
       }
 
       bool bAllFound = true;
-      for (k = k0; k < iMaxIndex3 && bAllFound; k++) {
+      for (size_t k = k0; k < aMultiplicants1.size() && bAllFound; k++) {
         bool bFoundMatching = false;
-        for (l = l0; l < iMaxIndex4 && !bFoundMatching; l++)
+        for (size_t l = l0; l < aMultiplicants2.size() && !bFoundMatching; l++)
           if (aMultiplicants2[l] != NULL)
             if (*(aMultiplicants1[k]) == *(aMultiplicants2[l])) {
               bFoundMatching = true;
@@ -1258,26 +1224,18 @@ bool CGCLCProverExpression::SimilarSummandsOnTwoSides() {
           else
             n = 1 - aMultiplicants2[0]->nNumber;
 
-          CGCLCProverExpression a(*(aSummands1[i]));
+          CGCLCProverExpression a(*i);
           CGCLCProverExpression b(n);
-          *aSummands1[i] = (b * a);
+          *i = b * a;
         }
 
-        *aSummands2[j] = 0.0;
+        *j = 0.0;
 
-        delete[] aMultiplicants1;
-        delete[] aMultiplicants2;
-        delete[] aSummands1;
-        delete[] aSummands2;
         return true;
-      } else
-        delete[] aMultiplicants2;
+      }
     }
-    delete[] aMultiplicants1;
   }
 
-  delete[] aSummands1;
-  delete[] aSummands2;
   return false;
 }
 
@@ -1287,57 +1245,39 @@ bool CGCLCProverExpression::SimilarSummands() {
   if (type != ep_sum)
     return false;
 
-  CGCLCProverExpression **aSummands;
-
   int iMaxIndex = CountTopLevelOperands(ep_sum);
   if (iMaxIndex == 1)
     return false;
 
-  aSummands = new CGCLCProverExpression *[iMaxIndex];
-  if (aSummands == NULL)
-    return false;
+  std::vector<CGCLCProverExpression *> aSummands;
+  aSummands.reserve(iMaxIndex);
 
-  iMaxIndex = 0;
-  FillTopLevelOperands(ep_sum, aSummands, iMaxIndex);
+  FillTopLevelOperands(ep_sum, aSummands);
 
-  int i, j, k, l;
-  for (i = 0; i < iMaxIndex; i++) {
+  for (size_t i = 0; i < aSummands.size(); i++) {
 
-    CGCLCProverExpression **aMultiplicants1, **aMultiplicants2;
-    aMultiplicants1 = new CGCLCProverExpression
-        *[aSummands[i]->CountTopLevelOperands(ep_mult)];
-    if (aMultiplicants1 == NULL) {
-      delete[] aSummands;
-      return false;
-    }
+    std::vector<CGCLCProverExpression *> aMultiplicants1;
+    aMultiplicants1.reserve(aSummands[i]->CountTopLevelOperands(ep_mult));
 
-    int iMaxIndex1 = 0;
-    aSummands[i]->FillTopLevelOperands(ep_mult, aMultiplicants1, iMaxIndex1);
+    aSummands[i]->FillTopLevelOperands(ep_mult, aMultiplicants1);
 
-    for (j = i + 1; j < iMaxIndex; j++) {
-      aMultiplicants2 = new CGCLCProverExpression
-          *[aSummands[j]->CountTopLevelOperands(ep_mult)];
-      if (aMultiplicants2 == NULL) {
-        delete[] aMultiplicants1;
-        delete[] aSummands;
-        return false;
-      }
+    for (size_t j = i + 1; j < aSummands.size(); j++) {
+      std::vector<CGCLCProverExpression *> aMultiplicants2;
+      aMultiplicants2.reserve(aSummands[j]->CountTopLevelOperands(ep_mult));
 
-      int iMaxIndex2 = 0;
-      aSummands[j]->FillTopLevelOperands(ep_mult, aMultiplicants2, iMaxIndex2);
+      aSummands[j]->FillTopLevelOperands(ep_mult, aMultiplicants2);
 
-      int k0 = (aMultiplicants1[0]->type == ep_number ? 1 : 0);
-      int l0 = (aMultiplicants2[0]->type == ep_number ? 1 : 0);
+      const size_t k0 = aMultiplicants1[0]->type == ep_number ? 1 : 0;
+      const size_t l0 = aMultiplicants2[0]->type == ep_number ? 1 : 0;
 
-      if ((iMaxIndex1 - k0) != (iMaxIndex2 - l0)) {
-        delete[] aMultiplicants2;
+      if (aMultiplicants1.size() - k0 != aMultiplicants2.size() - l0) {
         continue;
       }
 
       bool bAllFound = true;
-      for (k = k0; k < iMaxIndex1 && bAllFound; k++) {
+      for (size_t k = k0; k < aMultiplicants1.size() && bAllFound; k++) {
         bool bFoundMatching = false;
-        for (l = l0; l < iMaxIndex2 && !bFoundMatching; l++)
+        for (size_t l = l0; l < aMultiplicants2.size() && !bFoundMatching; l++)
           if (aMultiplicants2[l] != NULL)
             if (*(aMultiplicants1[k]) == *(aMultiplicants2[l])) {
               bFoundMatching = true;
@@ -1370,17 +1310,11 @@ bool CGCLCProverExpression::SimilarSummands() {
 
         *aSummands[j] = 0.0;
 
-        delete[] aMultiplicants1;
-        delete[] aMultiplicants2;
-        delete[] aSummands;
         return true;
-      } else
-        delete[] aMultiplicants2;
+      }
     }
-    delete[] aMultiplicants1;
   }
 
-  delete[] aSummands;
   return false;
 }
 
@@ -1397,13 +1331,12 @@ int CGCLCProverExpression::CountTopLevelOperands(GCLCexperssion_type t) {
 // --------------------------------------------------------------------------
 
 void CGCLCProverExpression::FillTopLevelOperands(GCLCexperssion_type t,
-                                                 CGCLCProverExpression **a,
-                                                 int &iIndex) {
+                                                 std::vector<CGCLCProverExpression *> &a) {
   if (type != t)
-    a[iIndex++] = this;
+    a.push_back(this);
   else {
-    GetArg(0).FillTopLevelOperands(t, a, iIndex);
-    GetArg(1).FillTopLevelOperands(t, a, iIndex);
+    GetArg(0).FillTopLevelOperands(t, a);
+    GetArg(1).FillTopLevelOperands(t, a);
   }
 }
 

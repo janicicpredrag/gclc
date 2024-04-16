@@ -3,6 +3,7 @@
 
 #include <sstream>
 #include <string>
+#include <vector>
 
 enum GCLCexperssion_type {
   ep_point,
@@ -196,8 +197,8 @@ public:
                const CGCLCProverExpression &RHS);
 
   int CountTopLevelOperands(GCLCexperssion_type t);
-  void FillTopLevelOperands(GCLCexperssion_type t, CGCLCProverExpression **a,
-                            int &iIndex);
+  void FillTopLevelOperands(GCLCexperssion_type t,
+                            std::vector<CGCLCProverExpression *> &a);
   bool CancelationMult(const CGCLCProverExpression &Factor);
   bool AllSummandsHaveFactor(const CGCLCProverExpression &Factor);
 

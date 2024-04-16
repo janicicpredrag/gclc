@@ -4,6 +4,7 @@
 
 #include "AreaMethod.h"
 #include <cmath>
+#include <vector>
 
 #define EPSILON 0.000005
 
@@ -2046,19 +2047,16 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
   if (iNumOfMultiplicands == 1)
     return false;
 
-  CGCLCProverExpression **aMultiplicants;
-  aMultiplicants = new CGCLCProverExpression *[iNumOfMultiplicands];
-  if (aMultiplicants == NULL)
-    return false;
+  std::vector<CGCLCProverExpression *> aMultiplicants;
+  aMultiplicants.reserve(iNumOfMultiplicands);
 
-  int i, iMaxIndex = 0;
-  pLeft->FillTopLevelOperands(ep_mult, aMultiplicants, iMaxIndex);
+  pLeft->FillTopLevelOperands(ep_mult, aMultiplicants);
 
-  for (i = 0; i < iMaxIndex; i++) {
-    if (exp.GetArg(0).AllSummandsHaveFactor(*(aMultiplicants[i])) &&
-        exp.GetArg(1).AllSummandsHaveFactor(*(aMultiplicants[i]))) {
-      if (aMultiplicants[i]->GetType() != ep_number) {
-        CGCLCProverExpression LemmaLeft(*aMultiplicants[i]);
+  for (CGCLCProverExpression *i : aMultiplicants) {
+    if (exp.GetArg(0).AllSummandsHaveFactor(*i) &&
+        exp.GetArg(1).AllSummandsHaveFactor(*i)) {
+      if (i->GetType() != ep_number) {
+        CGCLCProverExpression LemmaLeft(*i);
         CGCLCProverExpression LemmaRight(0.0);
         CGCLCProverExpression Lemma(ep_equality, LemmaLeft, LemmaRight);
         CGCLCProverExpression NDG1(LemmaLeft);
@@ -2074,53 +2072,45 @@ bool CAreaMethod::CancelMult(CGCLCProverExpression &exp) {
           r = ProveConjecture(Lemma);
 
         if (r == e_proved) {
-          CGCLCProverExpression LHS(*(aMultiplicants[i]));
+          CGCLCProverExpression LHS(*i);
           CGCLCProverExpression zero(0.0);
           m_pConjecture->Replace(LHS, zero);
           OutputStep(*m_pConjecture, "by the above proved lemma.", eps_algebraic);
-          delete[] aMultiplicants;
           return true;
         } else if (r == e_disproved) {
-          CGCLCProverExpression Factor(*aMultiplicants[i]);
+          CGCLCProverExpression Factor(*i);
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
             OutputStep(*m_pConjecture, "cancellation rule", eps_algebraic);
-            delete[] aMultiplicants;
             return true;
           }
         } else // (r == e_unknown)
         {
           if (!AddNDG(ep_inequality, NDG1, NDG2, "(cancellation assumption)")) {
-            delete[] aMultiplicants;
             return false;
           }
-          CGCLCProverExpression Factor(*aMultiplicants[i]);
+          CGCLCProverExpression Factor(*i);
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
             std::string sCond1 = "cancellation rule (assuming $" + sCond + "$)";
             OutputStep(*m_pConjecture, sCond1, eps_algebraic);
-            delete[] aMultiplicants;
             return true;
           }
         }
       } else // if the common factor is number
       {
-        if (aMultiplicants[i]->GetNumber() != 0 &&
-            aMultiplicants[i]->GetNumber() != 1) {
-          CGCLCProverExpression Factor(*aMultiplicants[i]);
+        if (i->GetNumber() != 0 && i->GetNumber() != 1) {
+          CGCLCProverExpression Factor(*i);
           if (exp.GetArg(0).CancelationMult(Factor) &&
               exp.GetArg(1).CancelationMult(Factor)) {
             OutputStep(*m_pConjecture, "cancellation rule", eps_algebraic);
 
-            delete[] aMultiplicants;
             return true;
           }
         }
       }
     }
   }
-
-  delete[] aMultiplicants;
 
   return false;
 }
