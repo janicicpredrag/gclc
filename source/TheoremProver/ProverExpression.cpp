@@ -13,7 +13,7 @@ using namespace std;
 
 Rules CGCLCProverExpression::mRules;
 
-unsigned arity(enum GCLCexperssion_type type) {
+unsigned arity(enum GCLCexpression_type type) {
   switch (type) {
   case ep_number:
   case ep_point:
@@ -119,7 +119,7 @@ CGCLCProverExpression &CGCLCProverExpression::operator=(const double n) {
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
+CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
                                              const std::string &a) {
   assert(t == ep_point || t == ep_constant);
   type = t;
@@ -132,7 +132,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
+CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
                                              const std::string &a0,
                                              const std::string &a1) {
   assert(t == ep_segment || t == ep_diffx || t == ep_diffy);
@@ -147,7 +147,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
+CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
                                              const std::string &a0, const std::string &a1,
                                              const std::string &a2) {
   assert(t == ep_s3 || t == ep_p3);
@@ -162,7 +162,7 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
 
 // --------------------------------------------------------------------------
 
-CGCLCProverExpression::CGCLCProverExpression(GCLCexperssion_type t,
+CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
                                              const std::string &a0, const std::string &a1,
                                              const std::string &a2,
                                              const std::string &a3) {
@@ -189,7 +189,7 @@ CGCLCProverExpression::CGCLCProverExpression(const double n) {
 // --------------------------------------------------------------------------
 
 CGCLCProverExpression::CGCLCProverExpression(
-    GCLCexperssion_type t, const CGCLCProverExpression &arg0,
+    GCLCexpression_type t, const CGCLCProverExpression &arg0,
     const CGCLCProverExpression &arg1) {
   assert(arity(t) == 2);
   type = t;
@@ -328,7 +328,7 @@ void CGCLCProverExpression::Pop(CGCLCProverExpression &left,
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::Set(GCLCexperssion_type t,
+void CGCLCProverExpression::Set(GCLCexpression_type t,
                                 const CGCLCProverExpression &arg0,
                                 const CGCLCProverExpression &arg1) {
   assert(arity(t) == 2);
@@ -1320,7 +1320,7 @@ bool CGCLCProverExpression::SimilarSummands() {
 
 // --------------------------------------------------------------------------
 
-int CGCLCProverExpression::CountTopLevelOperands(GCLCexperssion_type t) {
+int CGCLCProverExpression::CountTopLevelOperands(GCLCexpression_type t) {
   if (type != t)
     return 1;
   else
@@ -1330,7 +1330,7 @@ int CGCLCProverExpression::CountTopLevelOperands(GCLCexperssion_type t) {
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::FillTopLevelOperands(GCLCexperssion_type t,
+void CGCLCProverExpression::FillTopLevelOperands(GCLCexpression_type t,
                                                  std::vector<CGCLCProverExpression *> &a) {
   if (type != t)
     a.push_back(this);
@@ -1431,7 +1431,7 @@ bool CTheoremProver::GetPointCoordinates(const std::string &sPoint, double &x,
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::SetType(GCLCexperssion_type t) { type = t; }
+void CGCLCProverExpression::SetType(GCLCexpression_type t) { type = t; }
 
 // --------------------------------------------------------------------------
 

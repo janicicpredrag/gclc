@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-enum GCLCexperssion_type {
+enum GCLCexpression_type {
   ep_point,
   ep_number,
   ep_constant,
@@ -123,12 +123,12 @@ class CGCLCProverExpression {
 public:
   CGCLCProverExpression();
   CGCLCProverExpression(const CGCLCProverExpression &r);
-  CGCLCProverExpression(GCLCexperssion_type t, const std::string &arg);
-  CGCLCProverExpression(GCLCexperssion_type t, const std::string &a0,
+  CGCLCProverExpression(GCLCexpression_type t, const std::string &arg);
+  CGCLCProverExpression(GCLCexpression_type t, const std::string &a0,
                         const std::string &a1);
-  CGCLCProverExpression(GCLCexperssion_type t, const std::string &a0,
+  CGCLCProverExpression(GCLCexpression_type t, const std::string &a0,
                         const std::string &a1, const std::string &a2);
-  CGCLCProverExpression(GCLCexperssion_type t, const std::string &a0,
+  CGCLCProverExpression(GCLCexpression_type t, const std::string &a0,
                         const std::string &a1, const std::string &a2, const std::string &a3);
   CGCLCProverExpression(const double n);
 
@@ -137,7 +137,7 @@ public:
 
   CGCLCProverExpression &operator=(const CGCLCProverExpression &r);
   CGCLCProverExpression &operator=(const double n);
-  CGCLCProverExpression(GCLCexperssion_type t,
+  CGCLCProverExpression(GCLCexpression_type t,
                         const CGCLCProverExpression &arg0,
                         const CGCLCProverExpression &arg1);
 
@@ -157,10 +157,10 @@ public:
   CGCLCProverExpression operator+(const CGCLCProverExpression &a);
   CGCLCProverExpression operator/(const CGCLCProverExpression &a);
 
-  void Set(GCLCexperssion_type t, const CGCLCProverExpression &arg0,
+  void Set(GCLCexpression_type t, const CGCLCProverExpression &arg0,
            const CGCLCProverExpression &arg1);
-  void SetType(GCLCexperssion_type t);
-  GCLCexperssion_type GetType() const { return type; }
+  void SetType(GCLCexpression_type t);
+  GCLCexpression_type GetType() const { return type; }
 
   double GetNumber() const { return nNumber; }
 
@@ -196,8 +196,8 @@ public:
   bool Replace(const CGCLCProverExpression &LHS,
                const CGCLCProverExpression &RHS);
 
-  int CountTopLevelOperands(GCLCexperssion_type t);
-  void FillTopLevelOperands(GCLCexperssion_type t,
+  int CountTopLevelOperands(GCLCexpression_type t);
+  void FillTopLevelOperands(GCLCexpression_type t,
                             std::vector<CGCLCProverExpression *> &a);
   bool CancelationMult(const CGCLCProverExpression &Factor);
   bool AllSummandsHaveFactor(const CGCLCProverExpression &Factor);
@@ -211,7 +211,7 @@ public:
                       CGCLCProverExpression *&parent, int &index) const;
 
 private:
-  GCLCexperssion_type type;
+  GCLCexpression_type type;
   CGCLCProverExpression *arg[ExpressionArgCount];
 
   std::string sName;
@@ -247,6 +247,6 @@ private:
   unsigned id;
 };
 
-unsigned arity(enum GCLCexperssion_type type);
+unsigned arity(enum GCLCexpression_type type);
 
 #endif // !defined(prover_expression_h)

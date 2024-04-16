@@ -2530,7 +2530,7 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
   CGCLCProverExpression exprToRationalize;
   CGCLCProverExpression eNum, eDen;
   CGCLCProverExpression *eA, *eB, *eC, *eD;
-  GCLCexperssion_type diffType;
+  GCLCexpression_type diffType;
   Line *l;
   bool foundRational = false;
   bool rationalized = false;
