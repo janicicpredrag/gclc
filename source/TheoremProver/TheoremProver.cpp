@@ -348,7 +348,7 @@ void CTheoremProver::PrintNDGConditions(bool itemize) {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::AddNDG(GCLCexperssion_type type,
+bool CTheoremProver::AddNDG(GCLCexpression_type type,
                             const CGCLCProverExpression &Left,
                             const CGCLCProverExpression &Right,
                             const std::string &sCond) {

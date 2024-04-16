@@ -88,7 +88,7 @@ private:
   std::string m_sCondition;
   CGCLCProverExpression m_Left;
   CGCLCProverExpression m_Right;
-  GCLCexperssion_type m_type;
+  GCLCexpression_type m_type;
 };
 
 class CNewDef {
@@ -149,7 +149,7 @@ protected:
   bool OnTheLine(const std::string &P, const std::string &l);
 
   bool AddNewDef(std::string &sDef);
-  bool AddNDG(GCLCexperssion_type type, const CGCLCProverExpression &Left,
+  bool AddNDG(GCLCexpression_type type, const CGCLCProverExpression &Left,
               const CGCLCProverExpression &Right, const std::string &sCond);
 
   bool CalculateCoordinates(CGCLCProverCommand &Command) const;
