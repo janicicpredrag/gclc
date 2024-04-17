@@ -241,6 +241,8 @@ void CGCompiler::InitTheoremProver(eTheoremProvingMethod &method) {
     m_pTheoremProver = new CWuMethod;
   else if (method == tpGroebnerMethod)
     m_pTheoremProver = new CGroebnerMethod;
+  if (m_pTheoremProver != nullptr)
+    m_bExternProverCommands = true;
 }
 
 // ----------------------------------------------------------------------------
