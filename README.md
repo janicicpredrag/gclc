@@ -91,70 +91,31 @@ version 6.2 or higher.
 
 In the following, it is assumed that `cmake` is available.
 
-### Building gclc (command line version) from the terminal using the provided CMakeLists.txt
+### Building the command line version
 
-Go to the folder 'gclc', then:
+Inside the project root directory run:
 
+```bash
+cmake -B build -S .
+cmake --build build --target gclc
 ```
+
+The executable `gclc` will be created in the folder 'build'.
+
+### Building the GUI version
+
+Inside the project root directory run:
+
+```bash
 cmake -B build -S .
 cmake --build build
 ```
 
-The executable (release version) 'gclc' will be created in the folder 'gclc/executable'.
+The executable `gclc-gui` will be created in the folder 'build/source'.
 
-### Building gclc (command line version) from the terminal using qmake:
+### Using QTCreator
 
-Go to the folder 'gclc/source', then:
-
-```
-qmake cGCLC.pro
-make
-```
-
-The executable (release version) 'gclc' will be created in the folder 'gclc/executable'.
-
-### Building gclc-gui (version with the graphical user interface) from the terminal
-
-Go to the folder 'gclc/source', then:
-
-```
-qmake gGCLC.pro
-make
-```
-
-The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'.
-
-(For debug version: `qmake gGCLC.pro CONFIG+=debug CONFIG+=qml_debug`)
-
-### Building gclc (command line version) from Qt Creator
-
-Load the project cGCLC.pro from the folder 'gclc/source',
-then run _Build/Run qmake_, then run _Build/Build project cGCLC_.
-Within the Qt Creator choose Release or Debug version.
-
-The executable 'gclc' will be created in the folder 'gclc/executable'.
-
-### Building gclc-gui (version with the graphical user interface) from Qt Creator
-
-Load the project gGCLC.pro from the folder 'gclc/source',
-then run _Build/Run qmake_, then run _Build/Build project gGCLC_.
-Within the Qt Creator choose Release or Debug version.
-
-The executable (release version) 'gclc-gui' will be created in the folder 'gclc/executable'.
-
-### Multiple makefiles
-
-Note that all of the above `qmake` invocation produce files named
-Makefile in the same directory ('gclc/source'). Each invocation of
-`qmake` will overwrite the existing Makefile, so if one 'Makefile'
-is to be used afterwards, it should be renamed, for instance to
-'Makefile-gui-release', and then make could be invoked as follows:
-
-```
-make -f Makefile-gui-release
-```
-
-If you build different makefiles, then after using qmake, use `make clean` before `make`.
+You can also load 'CMakeLists.txt' in QTCreator and build project from there.
 
 ### Building web version
 
@@ -171,7 +132,7 @@ First, you will need to setup locally
 [`emcc`](https://emscripten.org/docs/getting_started/downloads.html). Once you have `emcc` available,
 in the project root directory run:
 
-```
+```bash
 make -f Makefile.web
 ```
 
@@ -180,13 +141,13 @@ This step produces 'gclc.wasm' and 'gclc.js' inside 'gclcWeb/'.
 Now you have to install `npm` dependencies (only need to be done the first time).
 Inside 'gclcWeb/' run:
 
-```
+```bash
 npm install
 ```
 
 After that run
 
-```
+```bash
 npm run build
 ```
 
@@ -198,7 +159,7 @@ whole directory to the public server.
 Code editor is based on [Codemirror](https://codemirror.net/) library. Parser for
 editor is generated from 'gclcWeb/gclcLanguage/gclc.grammar' file with `lezer-generator`:
 
-```
+```bash
 npx lezer-generator gclc.grammar -o lang.js
 ```
 
