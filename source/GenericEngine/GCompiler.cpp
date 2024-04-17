@@ -14,8 +14,6 @@
 CGCompiler::CGCompiler() {
   m_pPrim = new CIntermediateRepresentation;
   m_bExternIntermediateRepresentations = false;
-  m_bExternProverCommands = false;
-  m_pTheoremProver = NULL;
 
   m_dLastThickness = 0.16;
   m_r = 0;
@@ -28,8 +26,6 @@ CGCompiler::CGCompiler() {
 CGCompiler::CGCompiler(CIntermediateRepresentation *pPrim) {
   m_pPrim = pPrim;
   m_bExternIntermediateRepresentations = true;
-  m_bExternProverCommands = false;
-  m_pTheoremProver = NULL;
 
   m_dLastThickness = 0.16;
   m_r = 0;
@@ -47,10 +43,6 @@ void CGCompiler::CleanUp() {
   if (!m_bExternIntermediateRepresentations && m_pPrim != NULL) {
     delete m_pPrim;
     m_pPrim = NULL;
-  }
-  if (!m_bExternProverCommands && m_pTheoremProver != NULL) {
-    delete m_pTheoremProver;
-    m_pTheoremProver = NULL;
   }
   m_FixedPoints.clear();
   m_TracePoints.clear();
@@ -231,18 +223,14 @@ GReturnValue CGCompiler::AddTracePoint(unsigned char r, unsigned char g,
 // ----------------------------------------------------------------------------
 
 void CGCompiler::InitTheoremProver(eTheoremProvingMethod &method) {
-  if (m_pTheoremProver != NULL) {
-    delete m_pTheoremProver;
-    m_pTheoremProver = NULL;
-  }
   if (method == tpAreaMethod)
-    m_pTheoremProver = new CAreaMethod;
+    m_pTheoremProver.reset(new CAreaMethod);
   else if (method == tpWuMethod)
-    m_pTheoremProver = new CWuMethod;
+    m_pTheoremProver.reset(new CWuMethod);
   else if (method == tpGroebnerMethod)
-    m_pTheoremProver = new CGroebnerMethod;
-  if (m_pTheoremProver != nullptr)
-    m_bExternProverCommands = true;
+    m_pTheoremProver.reset(new CGroebnerMethod);
+  else
+    m_pTheoremProver = nullptr;
 }
 
 // ----------------------------------------------------------------------------

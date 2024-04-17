@@ -20,6 +20,7 @@ given interface.
 #include "../TheoremProver/TheoremProver.h"
 #include "../Utils/Common.h"
 #include <map>
+#include <memory>
 
 class CGCLCInput;
 class CGCLCOutput;
@@ -228,7 +229,6 @@ protected:
 
 private:
   bool m_bExternIntermediateRepresentations;
-  bool m_bExternProverCommands;
 
   std::map<std::string, CFixedPoint> m_FixedPoints;
   std::map<std::string, CTracePoint> m_TracePoints;
@@ -237,7 +237,7 @@ private:
   unsigned char m_r, m_g, m_b;
 
   // prover_config m_ProverConfig;
-  CTheoremProver *m_pTheoremProver;
+  std::unique_ptr<CTheoremProver> m_pTheoremProver;
 };
 
 #endif // !defined(GCOMPILER_H)
