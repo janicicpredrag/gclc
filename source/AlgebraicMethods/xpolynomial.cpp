@@ -41,21 +41,13 @@ XPolynomial::XPolynomial(bool free, int index) {
     UPolynomialFraction *uf = new UPolynomialFraction(1);
 
     if (free) {
-#ifdef POWER_BANK
-      Power *up = PowerBank::PowerFactory.AcquirePower(index, 1, VAR_TYPE_U);
-#else
       Power *up = new Power(index, 1, VAR_TYPE_U);
-#endif
 
       UTerm *ut = (UTerm *)uf->GetNumerator()->GetTerm(0);
       ut->AddPower(up);
       up->Dispose();
     } else {
-#ifdef POWER_BANK
-      Power *xpow = PowerBank::PowerFactory.AcquirePower(index, 1, VAR_TYPE_X);
-#else
       Power *xpow = new Power(index, 1, VAR_TYPE_X);
-#endif
 
       xt->AddPower(xpow);
       xpow->Dispose();

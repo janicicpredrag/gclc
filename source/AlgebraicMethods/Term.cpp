@@ -53,11 +53,7 @@ TermStorage *Term::CreateTermStorage() {
 #if TERM_STORAGE_CLASS_VECTOR
   return new TermStorageVector();
 #elif TERM_STORAGE_CLASS_AVL_TREE
-#ifdef AVLTREE_BANK
-  return AvlTreeBank::AvlTreeFactory.AcquireAvlTree();
-#else
   return new TermStorageAvlTree();
-#endif
 #endif
 }
 

@@ -99,35 +99,19 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 
 	if (f1)
 	{
-#ifdef POWER_BANK
-		p1 = PowerBank::PowerFactory.AcquirePower(index1, 1, VAR_TYPE_U);
-#else
 		p1 = new Power(index1, 1, VAR_TYPE_U);
-#endif
 	}
 	else
 	{
-#ifdef POWER_BANK
-		p1 = PowerBank::PowerFactory.AcquirePower(index1, 1, VAR_TYPE_X);
-#else
 		p1 = new Power(index1, 1, VAR_TYPE_X);
-#endif
 	}
 	if (f2)
 	{
-#ifdef POWER_BANK
-		p2 = PowerBank::PowerFactory.AcquirePower(index2, 1, VAR_TYPE_U);
-#else
 		p2 = new Power(index2, 1, VAR_TYPE_U);
-#endif
 	}
 	else
 	{
-#ifdef POWER_BANK
-		p2 = PowerBank::PowerFactory.AcquirePower(index2, 1, VAR_TYPE_X);
-#else
 		p2 = new Power(index2, 1, VAR_TYPE_X);
-#endif
 	}
 
 	if (!f1)
@@ -136,11 +120,7 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	}
 	else
 	{
-#ifdef UTERMS_BANK
-		UTerm* ut = UTermsBank::UTermsFactory.AcquireUTerm();
-#else
 		UTerm* ut = new UTerm();
-#endif
 		ut->AddPower(p1);
 		xt->GetUFraction()->GetNumerator()->AddTerm(ut);
 		ut->Dispose();
@@ -174,11 +154,7 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 		else
 		{
 			// add term
-#ifdef UTERMS_BANK
-			UTerm* ut = UTermsBank::UTermsFactory.AcquireUTerm();
-#else
 			UTerm* ut = new UTerm();
-#endif
 			ut->AddPower(p2);
 			xt->GetUFraction()->GetNumerator()->AddTerm(ut);
 			ut->Dispose();

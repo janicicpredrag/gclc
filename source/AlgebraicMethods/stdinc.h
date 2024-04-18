@@ -40,16 +40,3 @@ typedef double REAL;
 ///
 #define TERM_STORAGE_CLASS_VECTOR 0
 #define TERM_STORAGE_CLASS_AVL_TREE 1
-
-// use object banks instead of normal constructor
-//#define USE_OBJECT_BANKS
-#ifdef USE_OBJECT_BANKS
-#define POWER_BANK
-#define XTERMS_BANK
-#define UTERMS_BANK
-#define UPOLYS_BANK
-#define XPOLYS_BANK
-#define UPOLYF_BANK
-#define AVLNODE_BANK
-#define AVLTREE_BANK
-#endif

@@ -3,7 +3,6 @@
 #include "Term.h"
 #include "Power.h"
 #include "UPolynomialFraction.h"
-#include "ObjectBank.h"
 #include <iostream>
 
 class XTerm : public Term

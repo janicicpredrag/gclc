@@ -28,27 +28,13 @@ void UTerm::Dispose()
 
 	if (_refCount == 0)
 	{
-#ifdef UTERMS_BANK
-		for (int ii = 0, size = _powers.size(); ii < size; ii++)
-		{
-			_powers[ii]->Dispose();
-		}
-		_powers.clear();
-
-		UTermsBank::UTermsFactory.ReleaseObject(this);
-#else
 		delete this;
-#endif
 	}
 }
 
 UTerm* UTerm::Clone()
 {
-#ifdef UTERMS_BANK
-	UTerm* utClone = UTermsBank::UTermsFactory.AcquireUTerm(this->GetCoeff());
-#else
 	UTerm* utClone = new UTerm(this->GetCoeff());
-#endif
 
 	uint count = this->GetPowerCount();
     for (unsigned int ii = 0; ii < count; ii++)

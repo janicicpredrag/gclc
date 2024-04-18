@@ -69,7 +69,6 @@ SOURCES += cGCLCmain.cpp\
     AlgebraicMethods/Power.cpp \
     AlgebraicMethods/PolyReader.cpp \
     AlgebraicMethods/Polynomial.cpp \
-    AlgebraicMethods/ObjectBank.cpp \
     AlgebraicMethods/Object.cpp \
     AlgebraicMethods/Log.cpp \
     AlgebraicMethods/ITimeOut.cpp \
@@ -124,7 +123,6 @@ HEADERS  += \
     AlgebraicMethods/Power.h \
     AlgebraicMethods/PolyReader.h \
     AlgebraicMethods/Polynomial.h \
-    AlgebraicMethods/ObjectBank.h \
     AlgebraicMethods/Object.h \
     AlgebraicMethods/Log.h \
     AlgebraicMethods/ITimeout.h \

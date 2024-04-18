@@ -2,7 +2,6 @@
 
 #include "Object.h"
 #include "Power.h"
-#include "ObjectBank.h"
 #include <iostream>
 
 class Term;

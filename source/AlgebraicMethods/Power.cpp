@@ -1,5 +1,4 @@
 #include "Power.h"
-#include "ObjectBank.h"
 #include <iostream>
 
 Power::Power(uint index, uint degree, VAR_TYPE varType)
@@ -25,11 +24,7 @@ Power::~Power()
 
 Power* Power::Clone()
 {
-#ifdef POWER_BANK
-	return PowerBank::PowerFactory.AcquirePower(_index, _degree, _vType);
-#else
 	return new Power(_index, _degree, _vType);
-#endif
 }
 
 void Power::Dispose()
@@ -38,11 +33,7 @@ void Power::Dispose()
 
 	if (_refCount == 0)
 	{
-#ifdef POWER_BANK
-		PowerBank::PowerFactory.ReleaseObject(this);
-#else
 		delete this;
-#endif
 	}
 }
 
