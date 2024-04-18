@@ -13,8 +13,6 @@ int main(int argc, char* argv[])
 /*	int iErrorCode, iLine, iPos;
 	char *sErrorMessage;*/
 
-	CGCLCInput *pI = NULL;
-
 	printf("\n");
 	printf("JavaView -> GCL Converter  Version 2.00\n");
 	printf("Written by Predrag Janicic, Belgrade.\n");
@@ -46,13 +44,13 @@ int main(int argc, char* argv[])
 	printf("Output file: %s\n",argv[2]);
 	printf("\n");
 
-	pI = new CFileInput(hi);
+	CFileInput pI{hi};
 
 	CJavaView jv2gcl;
 
 	GReturnValue gRv;
 		
-	gRv=jv2gcl.Import(pI, ho);
+	gRv=jv2gcl.Import(&pI, ho);
 	
 	fclose(hi);	
 
@@ -64,7 +62,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		printf("Error while reading line %i", pI->GetCurrentLine());
+		printf("Error while reading line %i", pI.GetCurrentLine());
 		switch(gRv)
 		{
 		case rvG_OutOfMemory: 
@@ -85,8 +83,6 @@ int main(int argc, char* argv[])
 		}
 
 	}
-
-	delete pI;
 
 	return 0;
 }

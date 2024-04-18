@@ -18,7 +18,6 @@ GReturnValue CFileInput::ReadChar(unsigned char &c) {
   c = m_h.get();
   if (m_h.eof())
     return rvG_EndOfData;
-  m_iGlobalPosition++;
   if (c == '\n') {
     m_iInputLine++;
     m_iPosition = 0;

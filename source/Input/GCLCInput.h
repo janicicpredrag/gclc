@@ -15,7 +15,6 @@ public:
   virtual void Reset() {
     m_iInputLine = 1;
     m_iPosition = 0;
-    m_iGlobalPosition = 1;
   }
   virtual GReturnValue ReadChar(unsigned char &c) = 0;
   virtual bool EndOfInputData() = 0;
@@ -24,7 +23,7 @@ public:
   int GetCurrentPosition() { return m_iPosition; }
 
 protected:
-  int m_iInputLine, m_iPosition, m_iGlobalPosition;
+  int m_iInputLine, m_iPosition;
 };
 
 #endif // !defined(GCLCINPUT_H)
