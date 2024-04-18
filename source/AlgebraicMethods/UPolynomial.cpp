@@ -15,11 +15,7 @@ UPolynomial::~UPolynomial()
 //
 UPolynomial::UPolynomial(REAL cf)
 {
-#ifdef UTERMS_BANK
-	UTerm* ut = UTermsBank::UTermsFactory.AcquireUTerm(cf);
-#else
 	UTerm* ut = new UTerm(cf);
-#endif
 	this->AddTerm(ut);
 	ut->Dispose();
 

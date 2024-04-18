@@ -183,11 +183,7 @@ UTerm *PolyReader::_ReadUTerm(char *stream, int s, int e) {
   _Print(stream, s, e);
 #endif
 
-#ifdef UTERMS_BANK
-  UTerm *ut = UTermsBank::UTermsFactory.AcquireUTerm();
-#else
   UTerm *ut = new UTerm();
-#endif
 
   // read real coefficient
   int s1 = s + 1, e1;
@@ -240,11 +236,7 @@ Power *PolyReader::_ReadUPower(char *stream, int s, int /*e*/) {
   Log::PrintLogF(0, "  index = %d, degree = %d\n", index, degree);
 #endif
 
-#ifdef POWER_BANK
-  Power *up = PowerBank::PowerFactory.AcquirePower(index, degree, VAR_TYPE_U);
-#else
   Power *up = new Power(index, degree, VAR_TYPE_U);
-#endif
 
   return up;
 }
@@ -269,11 +261,7 @@ Power *PolyReader::_ReadXPower(char *stream, int s, int /*e*/) {
   Log::PrintLogF(0, "  index = %d, degree = %d\n", index, degree);
 #endif
 
-#ifdef POWER_BANK
-  Power *xp = PowerBank::PowerFactory.AcquirePower(index, degree, VAR_TYPE_X);
-#else
   Power *xp = new Power(index, degree, VAR_TYPE_X);
-#endif
 
   return xp;
 }

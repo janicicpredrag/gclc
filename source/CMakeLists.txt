@@ -60,7 +60,6 @@ if(gui)
     AlgebraicMethods/Power.cpp
     AlgebraicMethods/PolyReader.cpp
     AlgebraicMethods/Polynomial.cpp
-    AlgebraicMethods/ObjectBank.cpp
     AlgebraicMethods/Object.cpp
     AlgebraicMethods/Log.cpp
     AlgebraicMethods/ITimeOut.cpp

@@ -77,25 +77,7 @@ void AvlNode::Dispose()
 	_refCount --;
 	if (_refCount == 0)
 	{
-#ifdef AVLNODE_BANK
-	if (mySubtree[LEFT])
-	{
-		mySubtree[LEFT]->Dispose();
-	}
-	if (mySubtree[RIGHT])
-	{
-		mySubtree[RIGHT]->Dispose();
-	}
-	if (myData)
-	{
-		myData->Dispose();
-		myData = NULL;
-	}
-	
-	AvlNodeBank::AvlNodeFactory.ReleaseObject(this);
-#else
 		delete this;
-#endif
 	}
 }
 
@@ -249,11 +231,7 @@ AvlNode::Insert(Term*   item,
    if (root == NULL)
    {
 	   // Insert new node here 
-#ifdef AVLNODE_BANK
-	   root = AvlNodeBank::AvlNodeFactory.AcquireAvlNode(item);
-#else
 	   root = new AvlNode(item);
-#endif
 	   change =  HEIGHT_CHANGE;
 	   return  NULL;
    }
@@ -473,16 +451,7 @@ void TermStorageAvlTree::Dispose()
 
 	if (_refCount == 0)
 	{
-#ifdef AVLTREE_BANK
-	   if (myRoot)
-	   {
-		   myRoot->Dispose();
-		   myRoot = NULL;
-	   }
-		AvlTreeBank::AvlTreeFactory.ReleaseObject(this);
-#else
 		delete this;
-#endif
 	}
 }
 

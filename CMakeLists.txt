@@ -91,7 +91,6 @@ add_executable(gclc
   source/AlgebraicMethods/Power.cpp
   source/AlgebraicMethods/PolyReader.cpp
   source/AlgebraicMethods/Polynomial.cpp
-  source/AlgebraicMethods/ObjectBank.cpp
   source/AlgebraicMethods/Object.cpp
   source/AlgebraicMethods/Log.cpp
   source/AlgebraicMethods/ITimeOut.cpp

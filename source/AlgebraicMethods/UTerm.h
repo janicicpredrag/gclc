@@ -2,7 +2,6 @@
 
 #include "Power.h"
 #include "Term.h"
-#include "ObjectBank.h"
 #include <iostream>
 
 class UTerm : public Term
