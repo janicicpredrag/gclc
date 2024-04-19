@@ -37,7 +37,7 @@ compare_proofs() {
                 echo "\`\`\`"
                 echo "$gclcOutput"
                 echo "\`\`\`"
-                 echo ""
+                echo ""
             } >> "$LOG_FILE"
             continue
         fi
