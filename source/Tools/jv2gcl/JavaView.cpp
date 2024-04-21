@@ -437,9 +437,9 @@ GReturnValue CJavaView::ReadFaceSet()
 					(pFace->GetBColor()==0)))
 				{
 					sprintf(m_sOutput,"color %i %i %i",
-						(int)((unsigned char)pFace->GetRColor()),
-						(int)((unsigned char)pFace->GetGColor()), 
-						(int)((unsigned char)pFace->GetBColor()));
+						(int)pFace->GetRColor(),
+						(int)pFace->GetGColor(),
+						(int)pFace->GetBColor());
 					Output(m_sOutput);
 				}
 				
