@@ -229,9 +229,8 @@ void Dokazi(int argc, char* argv[])
 		LatexFile = new char[strlen(OutputFile) + 10];
 		int dotPlace = strlen(OutputFile);
 		while (dotPlace > 0 && OutputFile[dotPlace--] != '.');
-		OutputFile[dotPlace + 1] = 0;
-		sprintf(LatexFile, "%s_short.%s", OutputFile, &OutputFile[dotPlace + 2]);
-		OutputFile[dotPlace + 1] = '.';
+		sprintf(LatexFile, "%.*s_short.%s", dotPlace + 1, OutputFile,
+		        &OutputFile[dotPlace + 2]);
 	}
 
 	if (geoThms == false && strcmp(ProverName, "Wu") == 0)
