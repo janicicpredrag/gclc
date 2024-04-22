@@ -1,5 +1,6 @@
 #include "GCLCprover.h"
 #include "string.h"
+#include <string>
 
 int main(int argc, char* argv[])
 {
@@ -85,7 +86,7 @@ void Dokazi(int argc, char* argv[])
 	CTheoremProver *pProver1 = NULL; // second prover
 	char* ProverName = "Wu"; // or "Grobner" or "All"
 	char* GCLCFile = NULL; // input file
-	char* OutputFile = NULL; // target output file
+	std::string OutputFile; // target output file
 	char* LatexFile = NULL; // regular latex output
     char* XmlFile = NULL; // xml file
 	char* Graphic = NULL; // diagram file in eps format
@@ -114,7 +115,7 @@ void Dokazi(int argc, char* argv[])
 		{
 			OutputFile = argv[ii+1];
 			ii += 2;
-			printf("Output file is %s\n", OutputFile);
+			printf("Output file is %s\n", OutputFile.c_str());
 		}
 		else if (strcmp(argv[ii], "--verbose") == 0)
 		{
@@ -179,7 +180,6 @@ void Dokazi(int argc, char* argv[])
 		//return;
 		//printf("parameter --output isn't provided, using default value\n");
 		// default value is outputs\file_name.tex
-		OutputFile = new char[MAX_LINE + 1];
 		Graphic = new char[MAX_LINE + 1];
 
 		int skipDir = strlen(GCLCFile);
@@ -198,7 +198,7 @@ void Dokazi(int argc, char* argv[])
 		}
 
 		// build files
-		sprintf(OutputFile, "outputs\\%s.tex", &GCLCFile[skipDir + 1]);
+		OutputFile = std::string{"outputs\\"} + &GCLCFile[skipDir + 1] + ".tex";
 #ifdef GRAPHIC_EPS
 		sprintf(Graphic, "../graphics/%s.eps", &GCLCFile[skipDir + 1]);
 #else
@@ -210,12 +210,12 @@ void Dokazi(int argc, char* argv[])
 			GCLCFile[dotPlace] = '.';
 		}
 
-		printf("Output Latex file = %s\n", OutputFile);
+		printf("Output Latex file = %s\n", OutputFile.c_str());
 
         // xml file - latex.replace('ltx', 'xml')
-        int xs = strlen(OutputFile);
+        int xs = OutputFile.size();
         XmlFile = new char[xs + 1];
-        strcpy(XmlFile, OutputFile);
+        strcpy(XmlFile, OutputFile.c_str());
         XmlFile[xs] = 0;
         XmlFile[xs - 1] = 'l';
         XmlFile[xs - 2] = 'm';
@@ -226,12 +226,11 @@ void Dokazi(int argc, char* argv[])
 	if (geoThms == false)
 	{
 		// create latex output file, same as output with suffix '1'
-		LatexFile = new char[strlen(OutputFile) + 10];
-		int dotPlace = strlen(OutputFile);
+		LatexFile = new char[OutputFile.size() + 10];
+		int dotPlace = OutputFile.size();
 		while (dotPlace > 0 && OutputFile[dotPlace--] != '.');
-		OutputFile[dotPlace + 1] = 0;
-		sprintf(LatexFile, "%s_short.%s", OutputFile, &OutputFile[dotPlace + 2]);
-		OutputFile[dotPlace + 1] = '.';
+		sprintf(LatexFile, "%.*s_short.%s", dotPlace + 1, OutputFile.c_str(),
+		        &OutputFile.c_str()[dotPlace + 2]);
 	}
 
 	if (geoThms == false && strcmp(ProverName, "Wu") == 0)
@@ -256,23 +255,20 @@ void Dokazi(int argc, char* argv[])
 	if (geoThms == false)
 	{
 		// prove theorem
-		Dokazi2(pProver, pProver1, GCLCFile, OutputFile, LatexFile, XmlFile, Graphic, TheoremID);
+		Dokazi2(pProver, pProver1, GCLCFile, OutputFile.c_str(), LatexFile, XmlFile,
+		        Graphic, TheoremID);
 		delete [] LatexFile;
         delete [] XmlFile;
 	}
 	else
 	{
 		// create geothms output
-		GeoThmsOutput(GCLCFile, OutputFile);
+		GeoThmsOutput(GCLCFile, OutputFile.c_str());
 	}
 
     if (Graphic)
     {
         delete [] Graphic;
-    }
-    if (OutputFile)
-    {
-        delete [] OutputFile;
     }
 }
 
