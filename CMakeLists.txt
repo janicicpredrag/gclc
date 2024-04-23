@@ -107,4 +107,8 @@ if(MINGW)
   )
 endif()
 
+install(TARGETS gclc
+  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}
+)
+
 add_subdirectory(source)

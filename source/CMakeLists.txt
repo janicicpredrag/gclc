@@ -98,4 +98,8 @@ if(gui)
   target_link_libraries(gclc-gui
     PRIVATE Qt6::Core Qt6::Gui Qt6::PrintSupport Qt6::Widgets)
 
+  install(TARGETS gclc-gui
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}
+  )
+
 endif()
