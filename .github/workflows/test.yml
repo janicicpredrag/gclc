@@ -17,10 +17,9 @@ jobs:
 
       - name: Make CLI version
         run: |
-          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cmake -DCMAKE_INSTALL_DIR=executable -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
-          mkdir -p executable
-          cp build/gclc executable/
+          cmake --build build --target install
 
       - name: Download latest GCLC release
         run: |

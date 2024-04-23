@@ -79,11 +79,9 @@ jobs:
 
       - name: Make CLI and GUI version
         run: |
-          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cmake -DCMAKE_INSTALL_PREFIX=executable -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
-          mkdir -p executable
-          cp build/gclc executable/
-          cp build/source/gclc-gui executable/
+          cmake --build build --target install
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
@@ -119,11 +117,9 @@ jobs:
 
       - name: Make CLI and GUI version
         run: |
-          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cmake -DCMAKE_INSTALL_PREFIX=executable -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
-          mkdir -p executable
-          cp build/gclc executable/
-          cp build/source/gclc-gui* executable/
+          cmake --build build --target install
 
       - name: Move DLLs
         run: |
