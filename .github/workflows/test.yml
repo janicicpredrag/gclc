@@ -17,7 +17,7 @@ jobs:
 
       - name: Make CLI version
         run: |
-          cmake -DCMAKE_INSTALL_DIR=executable -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cmake -DCMAKE_INSTALL_PREFIX=executable -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
           cmake --build build --target install
 
