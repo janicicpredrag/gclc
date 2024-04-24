@@ -20,7 +20,7 @@ CGCLCOutput.
 class CGCLCOutput {
 public:
   CGCLCOutput();
-  virtual ~CGCLCOutput();
+  virtual ~CGCLCOutput() = 0;
 
   virtual void Reset() = 0;
   virtual GReturnValue Init(int x, int y) = 0;
