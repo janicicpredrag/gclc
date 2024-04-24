@@ -24,10 +24,6 @@ CEPSOutput::CEPSOutput(std::ostream &h) : OUTPUT(h) {
 
 // ----------------------------------------------------------------------------
 
-CEPSOutput::~CEPSOutput() {}
-
-// ----------------------------------------------------------------------------
-
 GReturnValue CEPSOutput::SetThickness(double uThickness) {
   if (uThickness < 0)
     PrintToOutput(d2s(-SCALE * uThickness * LINE_WIDTH, 2) +

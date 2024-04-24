@@ -19,10 +19,6 @@ CSVGOutput::CSVGOutput(std::ostream &h) : OUTPUT(h) {
 
 // ----------------------------------------------------------------------------
 
-CSVGOutput::~CSVGOutput() {}
-
-// ----------------------------------------------------------------------------
-
 GReturnValue CSVGOutput::SetThickness(double uThickness) {
   m_dCurrentLineWidth =
       (uThickness < 0) ? -uThickness * LINE_WIDTH : uThickness;

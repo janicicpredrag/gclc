@@ -11,7 +11,7 @@
 class CSVGOutput : public CGCLCOutput {
 public:
   CSVGOutput(std::ostream &h);
-  virtual ~CSVGOutput();
+  virtual ~CSVGOutput() = default;
 
   void Reset();
   GReturnValue Init(int x, int y);

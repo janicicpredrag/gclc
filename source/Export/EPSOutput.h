@@ -10,7 +10,7 @@
 class CEPSOutput : public CGCLCOutput {
 public:
   CEPSOutput(std::ostream &h);
-  virtual ~CEPSOutput();
+  virtual ~CEPSOutput() = default;
 
   void Reset();
   GReturnValue Init(int x, int y);

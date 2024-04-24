@@ -9,7 +9,7 @@
 class QGraphicsViewOutput : public CGCLCOutput {
 public:
   QGraphicsViewOutput(QGraphicsView *pView, QGraphicsScene *pScene);
-  virtual ~QGraphicsViewOutput();
+  virtual ~QGraphicsViewOutput() = default;
 
   virtual void Reset();
   virtual GReturnValue Init();
