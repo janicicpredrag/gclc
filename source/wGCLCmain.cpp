@@ -131,15 +131,10 @@ EXTERN EMSCRIPTEN_KEEPALIVE void fastRender(char *input, char **outputPtr) {
   GReturnValue r = C.Import(prover_output, prover_time);
 
   if (r == rvG_OK) {
-    CGCLCOutput *pO = new CSVGOutput(outputStream);
+    CSVGOutput pO{outputStream};
 
-    if (pO == NULL) {
-      return;
-    } else {
-      r = C.Export(*pO);
-      pO->GetPointCounter();
-      delete pO;
-    }
+    r = C.Export(pO);
+    pO.GetPointCounter();
 
     if (r != rvG_OK) {
       return;
