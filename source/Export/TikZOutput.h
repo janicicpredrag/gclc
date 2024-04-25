@@ -11,7 +11,7 @@
 class CTikZOutput : public CGCLCOutput {
 public:
   CTikZOutput(std::ostream &h);
-  virtual ~CTikZOutput();
+  virtual ~CTikZOutput() = default;
 
   void Reset();
   GReturnValue Init(int x, int y);

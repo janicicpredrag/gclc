@@ -10,7 +10,7 @@
 class CLaTeXOutput : public CGCLCOutput {
 public:
   CLaTeXOutput(std::ostream &h);
-  virtual ~CLaTeXOutput();
+  virtual ~CLaTeXOutput() = default;
 
   GReturnValue FillTriangle(double, double, double, double, double, double) {
     return rvG_OK;

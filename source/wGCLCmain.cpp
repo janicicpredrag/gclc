@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <emscripten/emscripten.h>
+#include <memory>
 #include <sstream>
 #include <string>
 
@@ -66,25 +67,20 @@ EXTERN EMSCRIPTEN_KEEPALIVE void render(char *input, char *fileName,
   GReturnValue r = C.Import(prover_output, prover_time);
 
   if (r == rvG_OK) {
-    CGCLCOutput *pO = NULL;
+    std::unique_ptr<CGCLCOutput> pO;
     if (outputType == eSVGoutput)
-      pO = new CSVGOutput(outputStream);
+      pO.reset(CSVGOutput(outputStream));
     else if (outputType == eEPSoutput)
-      pO = new CEPSOutput(outputStream);
+      pO.reset(new CEPSOutput(outputStream));
     else if (outputType == eLaTeXoutput)
-      pO = new CLaTeXOutput(outputStream);
+      pO.reset(new CLaTeXOutput(outputStream));
     else if (outputType == eTikZoutput)
-      pO = new CTikZOutput(outputStream);
+      pO.reset(new CTikZOutput(outputStream));
     else if (outputType == ePSTricksoutput)
-      pO = new CPSTricksOutput(outputStream);
+      pO.reset(new CPSTricksOutput(outputStream));
 
-    if (pO == NULL) {
-      return;
-    } else {
-      r = C.Export(*pO);
-      pO->GetPointCounter();
-      delete pO;
-    }
+    r = C.Export(*pO);
+    pO->GetPointCounter();
 
     if (r != rvG_OK) {
       return;
@@ -131,15 +127,10 @@ EXTERN EMSCRIPTEN_KEEPALIVE void fastRender(char *input, char **outputPtr) {
   GReturnValue r = C.Import(prover_output, prover_time);
 
   if (r == rvG_OK) {
-    CGCLCOutput *pO = new CSVGOutput(outputStream);
+    CSVGOutput pO{outputStream};
 
-    if (pO == NULL) {
-      return;
-    } else {
-      r = C.Export(*pO);
-      pO->GetPointCounter();
-      delete pO;
-    }
+    r = C.Export(pO);
+    pO.GetPointCounter();
 
     if (r != rvG_OK) {
       return;

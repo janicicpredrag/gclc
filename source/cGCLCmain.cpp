@@ -13,6 +13,7 @@
 #include "Utils/Utils.h"
 #include <cstdlib>
 #include <cstring>
+#include <memory>
 #include <fstream>
 #include <iostream>
 
@@ -206,30 +207,27 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    CGCLCOutput *pO = NULL;
+    std::unique_ptr<CGCLCOutput> pO;
     if (eOutputType == eSVGoutput)
-      pO = new CSVGOutput(ho);
+      pO.reset(new CSVGOutput(ho));
     else if (eOutputType == eEPSoutput)
-      pO = new CEPSOutput(ho);
+      pO.reset(new CEPSOutput(ho));
     else if (eOutputType == eLaTeXoutput)
-      pO = new CLaTeXOutput(ho);
+      pO.reset(new CLaTeXOutput(ho));
     else if (eOutputType == eTikZoutput)
-      pO = new CTikZOutput(ho);
+      pO.reset(new CTikZOutput(ho));
     else if (eOutputType == ePSTricksoutput)
-      pO = new CPSTricksOutput(ho);
+      pO.reset(new CPSTricksOutput(ho));
 
     if (eOutputType == eXMLoutput) {
       r = rvG_OK; // The input is exported to XML during Import
-    } else if (pO == NULL) {
-      Print(std::cout, "Out of memory!\n ");
-      return -1;
     } else {
       if (eOutputType == eLaTeXoutput) {
         pO->SetPointCounter(iCounter);
       }
       r = C.Export(*pO);
       iCounter = pO->GetPointCounter();
-      delete pO;
+      pO = nullptr;
     }
 
     if (r == rvG_OK) {
@@ -285,21 +283,17 @@ int main(int argc, char *argv[]) {
 
 GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstream &hl,
                           std::ofstream &ho, int iCounter) {
-  CGCLCOutput *pO = NULL;
+  std::unique_ptr<CGCLCOutput> pO;
   std::string block_text;
   CFileInput Input(hi);
   CFileLog L(hl);
 
   if (eOutputType == eTikZoutput)
-    pO = new CTikZOutput(ho);
+    pO.reset(new CTikZOutput(ho));
   else if (eOutputType == ePSTricksoutput)
-    pO = new CPSTricksOutput(ho);
+    pO.reset(new CPSTricksOutput(ho));
   else
-    pO = new CLaTeXOutput(ho);
-  if (pO == NULL) {
-    Print(std::cout, "Out of memory!\n ");
-    return rvG_OutOfMemory;
-  }
+    pO.reset(new CLaTeXOutput(ho));
 
   if (eOutputType == eLaTeXoutput)
     Print(std::cout, "Starting point number: " + i2s(iCounter) + "\n");
@@ -341,14 +335,12 @@ GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstr
         Print(std::cout, " (Line: " + i2s(start_new_lines + line) + ", position: " +
                         i2s(pos) + ")\n\n");
       }
-      delete pO;
       return rvG_ErrorInInput;
     }
   }
   if (eOutputType == eLaTeXoutput)
     Print(std::cout, "Ending point number: " + i2s(iCounter) + "\n\n");
 
-  delete pO;
   return rvG_OK;
 }
 

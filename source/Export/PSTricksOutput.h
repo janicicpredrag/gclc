@@ -10,7 +10,7 @@
 class CPSTricksOutput : public CGCLCOutput {
 public:
   CPSTricksOutput(std::ostream &h);
-  virtual ~CPSTricksOutput();
+  virtual ~CPSTricksOutput() = default;
 
   void Reset();
   GReturnValue Init(int x, int y);
