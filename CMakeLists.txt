@@ -4,6 +4,12 @@ project(GCLC LANGUAGES CXX)
 set(gui AUTO CACHE STRING "build the GCLC GUI")
 set_property(CACHE gui PROPERTY STRINGS AUTO ON OFF)
 
+# default installation location to “executable/”
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/executable CACHE PATH
+    "installation prefix" FORCE)
+endif()
+
 # enable -W and -Wall if possible
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG(-W HAS_W)
