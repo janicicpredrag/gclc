@@ -3,6 +3,7 @@
 #include "TermStorageAvl.h"
 #include "TermStorageVector.h"
 #include "XTerm.h"
+#include <memory>
 
 Term::Term() {
 #if 0
@@ -49,11 +50,11 @@ void Term::Merge(Term * /* other */) {}
 
 TermKeyType Term::Key() { return this; }
 
-TermStorage *Term::CreateTermStorage() {
+std::shared_ptr<TermStorage> Term::CreateTermStorage() {
 #if TERM_STORAGE_CLASS_VECTOR
-  return new TermStorageVector();
+  return std::make_shared<TermStorageVector>();
 #elif TERM_STORAGE_CLASS_AVL_TREE
-  return new TermStorageAvlTree();
+  return std::make_shared<TermStorageAvlTree>();
 #endif
 }
 

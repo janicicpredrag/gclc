@@ -445,16 +445,6 @@ void TermStorageAvlTree::Construct()
 	COSTR("reused avl tree");
 }
 
-void TermStorageAvlTree::Dispose()
-{
-	_refCount --;
-
-	if (_refCount == 0)
-	{
-		delete this;
-	}
-}
-
 int TermStorageAvlTree::AddTerm(Term* term)
 {
 	term->AddRef();

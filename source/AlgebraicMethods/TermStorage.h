@@ -10,7 +10,7 @@
 // its elements and quick addition of the new
 // element while keeping elements in sorted order
 //
-class TermStorage : public Object
+class TermStorage
 {
 public:
 
