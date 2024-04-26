@@ -1,14 +1,9 @@
 // <plaintext>
 #include "TermStorageAvl.h"
 #include "ITimeout.h"
+#include <algorithm>
 
 // ----------------------------------------------------------------------------- Definitions
-
-   // Return the minumum of two numbers
-inline static int
-MIN(int a, int b) {
-   return  (a < b) ? a : b;
-}
 
    // Return the maximum of two numbers
 inline static int
@@ -132,7 +127,7 @@ AvlNode::RotateTwice(AvlNode * & root, dir_t dir)
 
       // update balances
    root->mySubtree[LEFT]->myBal  = -MAX(root->myBal, 0);
-   root->mySubtree[RIGHT]->myBal = -MIN(root->myBal, 0);
+   root->mySubtree[RIGHT]->myBal = -std::min(int{root->myBal}, 0);
    root->myBal = 0;
 
       // A double rotation always shortens the overall height of the tree
