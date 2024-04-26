@@ -5,12 +5,6 @@
 
 // ----------------------------------------------------------------------------- Definitions
 
-   // Return the maximum of two numbers
-inline static int
-MAX(int a, int b) {
-   return  (a > b) ? a : b;
-}
-
    // Use mnemonic constants for valid balance-factor values
 enum balance_t { LEFT_HEAVY = -1, BALANCED = 0, RIGHT_HEAVY = 1 };
 
@@ -126,7 +120,7 @@ AvlNode::RotateTwice(AvlNode * & root, dir_t dir)
    root->mySubtree[otherDir] = oldOtherDirSubtree;
 
       // update balances
-   root->mySubtree[LEFT]->myBal  = -MAX(root->myBal, 0);
+   root->mySubtree[LEFT]->myBal  = -std::max(int{root->myBal}, 0);
    root->mySubtree[RIGHT]->myBal = -std::min(int{root->myBal}, 0);
    root->myBal = 0;
 
@@ -382,7 +376,7 @@ int
 AvlNode::Height() const {
    int  leftHeight  = (mySubtree[LEFT])  ? mySubtree[LEFT]->Height()  : 0;
    int  rightHeight = (mySubtree[RIGHT]) ? mySubtree[RIGHT]->Height() : 0;
-   return  (1 + MAX(leftHeight, rightHeight));
+   return 1 + std::max(leftHeight, rightHeight);
 }
 
 
