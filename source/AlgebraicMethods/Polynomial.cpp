@@ -1,4 +1,5 @@
 #include "Polynomial.h"
+#include <memory>
 
 Polynomial::Polynomial()
 {
@@ -8,7 +9,6 @@ Polynomial::Polynomial()
 
 Polynomial::~Polynomial()
 {
-	_terms->Dispose();
 	DESTR("poly");
 }
 
@@ -66,11 +66,10 @@ int Polynomial::Mul(Polynomial* p)
 	}
 	if (p->IsZero())
 	{
-		_terms->Dispose();
 		_terms = Term::CreateTermStorage();
 	}
 
-	TermStorage* tmpTerms = Term::CreateTermStorage();
+	std::shared_ptr<TermStorage> tmpTerms = Term::CreateTermStorage();
 
 	uint cnt1 = this->GetTermCount();
 
@@ -91,7 +90,6 @@ int Polynomial::Mul(Polynomial* p)
 	}
 
 	// now replace term storages
-	_terms->Dispose();
 	_terms = tmpTerms;
 
 	return status;
@@ -123,7 +121,6 @@ int Polynomial::Mul(REAL r)
 	if (r == 0)
 	{
 		// reset polynomial
-		_terms->Dispose();
 		_terms = Term::CreateTermStorage();
 	}
 	else

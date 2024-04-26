@@ -208,7 +208,6 @@ public:
 	   DESTR("avl tree");
    }
    void Construct();
-   void Dispose();
 
    // See if the tree is empty
    int

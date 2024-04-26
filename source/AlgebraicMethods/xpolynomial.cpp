@@ -2,6 +2,7 @@
 #include "XPolynomial.h"
 #include <cstring>
 #include <iostream>
+#include <memory>
 #include <new>
 #include <sstream>
 #include <string>
@@ -181,7 +182,7 @@ void XPolynomial::SPol(XPolynomial *xp) {
   // multiply with -1
   s2c1->Inverse();
 
-  TermStorage *tmpTerms = Term::CreateTermStorage();
+  std::shared_ptr<TermStorage> tmpTerms = Term::CreateTermStorage();
 
   // c2 * s1 * f1
   uint size = this->GetTermCount();
@@ -205,7 +206,6 @@ void XPolynomial::SPol(XPolynomial *xp) {
   s2c1->Dispose();
 
   // now replace term storages
-  _terms->Dispose();
   _terms = tmpTerms;
 }
 

@@ -1,20 +1,9 @@
 // <plaintext>
 #include "TermStorageAvl.h"
 #include "ITimeout.h"
+#include <algorithm>
 
 // ----------------------------------------------------------------------------- Definitions
-
-   // Return the minumum of two numbers
-inline static int
-MIN(int a, int b) {
-   return  (a < b) ? a : b;
-}
-
-   // Return the maximum of two numbers
-inline static int
-MAX(int a, int b) {
-   return  (a > b) ? a : b;
-}
 
    // Use mnemonic constants for valid balance-factor values
 enum balance_t { LEFT_HEAVY = -1, BALANCED = 0, RIGHT_HEAVY = 1 };
@@ -131,8 +120,8 @@ AvlNode::RotateTwice(AvlNode * & root, dir_t dir)
    root->mySubtree[otherDir] = oldOtherDirSubtree;
 
       // update balances
-   root->mySubtree[LEFT]->myBal  = -MAX(root->myBal, 0);
-   root->mySubtree[RIGHT]->myBal = -MIN(root->myBal, 0);
+   root->mySubtree[LEFT]->myBal  = -std::max(int{root->myBal}, 0);
+   root->mySubtree[RIGHT]->myBal = -std::min(int{root->myBal}, 0);
    root->myBal = 0;
 
       // A double rotation always shortens the overall height of the tree
@@ -387,7 +376,7 @@ int
 AvlNode::Height() const {
    int  leftHeight  = (mySubtree[LEFT])  ? mySubtree[LEFT]->Height()  : 0;
    int  rightHeight = (mySubtree[RIGHT]) ? mySubtree[RIGHT]->Height() : 0;
-   return  (1 + MAX(leftHeight, rightHeight));
+   return 1 + std::max(leftHeight, rightHeight);
 }
 
 
@@ -443,16 +432,6 @@ void TermStorageAvlTree::Construct()
 	myRoot = NULL;
 
 	COSTR("reused avl tree");
-}
-
-void TermStorageAvlTree::Dispose()
-{
-	_refCount --;
-
-	if (_refCount == 0)
-	{
-		delete this;
-	}
 }
 
 int TermStorageAvlTree::AddTerm(Term* term)

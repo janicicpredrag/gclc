@@ -4,6 +4,7 @@
 #include "TermStorage.h"
 #include "ITimeout.h"
 #include <iostream>
+#include <memory>
 
 /*************************************************************
 *
@@ -23,7 +24,7 @@ protected:
 	// something else.
 	// Crucial for performance.
 	//
-	TermStorage* _terms;
+	std::shared_ptr<TermStorage> _terms;
 
 public:
 	Polynomial();

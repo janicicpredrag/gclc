@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Power.h"
 #include <iostream>
+#include <memory>
 
 class Term;
 class TermStorage;
@@ -50,7 +51,7 @@ public:
 	// key used by TermStorage
 	TermKeyType Key();
 
-	static TermStorage* CreateTermStorage();
+	static std::shared_ptr<TermStorage> CreateTermStorage();
 
 	// powers
 	uint GetPowerCount() const;
