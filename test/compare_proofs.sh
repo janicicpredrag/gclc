@@ -90,7 +90,7 @@ if ! [[ -x "$2" ]] ; then
     exit 1
 fi
 
-echo "" > "$LOG_FILE"
+touch "$LOG_FILE"
 
 if [ -d "$3" ]; then
     find "$3" -maxdepth 1 -type f -name "*.gcl" | while read -r file; do
