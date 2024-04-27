@@ -57,8 +57,6 @@ unsigned arity(enum GCLCexpression_type type) {
 // --------------------------------------------------------------------------
 
 CGCLCProverExpression::CGCLCProverExpression() {
-  for (unsigned i = 0; i < ExpressionArgCount; i++)
-    arg[i] = NULL;
   sName = "";
   nNumber = 0;
   type = ep_unknown;
@@ -76,9 +74,7 @@ CGCLCProverExpression::CGCLCProverExpression(const CGCLCProverExpression &r) {
   sName = r.sName;
   nNumber = r.nNumber;
   for (unsigned i = 0; i < arity(type); i++)
-    arg[i] = new CGCLCProverExpression(r.GetArg(i));
-  for (unsigned i = arity(type); i < ExpressionArgCount; i++)
-    arg[i] = NULL;
+    arg[i].reset(new CGCLCProverExpression(r.GetArg(i)));
   id = idCounter++;
 }
 
@@ -93,11 +89,8 @@ operator=(const CGCLCProverExpression &r) {
 
   sName = r.sName;
   nNumber = r.nNumber;
-  for (unsigned i = 0; i < ExpressionArgCount; i++)
-    if (arg[i])
-      delete arg[i];
   for (unsigned i = 0; i < arity(type); i++)
-    arg[i] = new CGCLCProverExpression(r.GetArg(i));
+    arg[i].reset(new CGCLCProverExpression(r.GetArg(i)));
   for (unsigned i = arity(type); i < ExpressionArgCount; i++)
     arg[i] = NULL;
   return *this;
@@ -110,10 +103,8 @@ CGCLCProverExpression &CGCLCProverExpression::operator=(const double n) {
   sName = "";
   nNumber = n;
   type = ep_number;
-  for (unsigned i = 0; i < ExpressionArgCount; i++) {
-    delete arg[i];
+  for (unsigned i = 0; i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  }
   return *this;
 }
 
@@ -125,8 +116,6 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
   type = t;
   sName = a;
   nNumber = 0;
-  for (unsigned i = 0; i < ExpressionArgCount; i++)
-    arg[i] = NULL;
   id = idCounter++;
 }
 
@@ -138,10 +127,8 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
   assert(t == ep_segment || t == ep_diffx || t == ep_diffy);
   type = t;
   nNumber = 0;
-  arg[0] = new CGCLCProverExpression(ep_point, a0);
-  arg[1] = new CGCLCProverExpression(ep_point, a1);
-  arg[2] = NULL;
-  arg[3] = NULL;
+  arg[0].reset(new CGCLCProverExpression(ep_point, a0));
+  arg[1].reset(new CGCLCProverExpression(ep_point, a1));
   id = idCounter++;
 }
 
@@ -153,10 +140,9 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
   assert(t == ep_s3 || t == ep_p3);
   type = t;
   nNumber = 0;
-  arg[0] = new CGCLCProverExpression(ep_point, a0);
-  arg[1] = new CGCLCProverExpression(ep_point, a1);
-  arg[2] = new CGCLCProverExpression(ep_point, a2);
-  arg[3] = NULL;
+  arg[0].reset(new CGCLCProverExpression(ep_point, a0));
+  arg[1].reset(new CGCLCProverExpression(ep_point, a1));
+  arg[2].reset(new CGCLCProverExpression(ep_point, a2));
   id = idCounter++;
 }
 
@@ -169,10 +155,10 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
   assert(t == ep_s4 || t == ep_p4 || t == ep_segment_ratio || t == ep_parallel);
   type = t;
   nNumber = 0;
-  arg[0] = new CGCLCProverExpression(ep_point, a0);
-  arg[1] = new CGCLCProverExpression(ep_point, a1);
-  arg[2] = new CGCLCProverExpression(ep_point, a2);
-  arg[3] = new CGCLCProverExpression(ep_point, a3);
+  arg[0].reset(new CGCLCProverExpression(ep_point, a0));
+  arg[1].reset(new CGCLCProverExpression(ep_point, a1));
+  arg[2].reset(new CGCLCProverExpression(ep_point, a2));
+  arg[3].reset(new CGCLCProverExpression(ep_point, a3));
   id = idCounter++;
 }
 
@@ -181,8 +167,6 @@ CGCLCProverExpression::CGCLCProverExpression(GCLCexpression_type t,
 CGCLCProverExpression::CGCLCProverExpression(const double n) {
   type = ep_number;
   nNumber = n;
-  for (unsigned i = 0; i < ExpressionArgCount; i++)
-    arg[i] = NULL;
   id = idCounter++;
 }
 
@@ -194,10 +178,8 @@ CGCLCProverExpression::CGCLCProverExpression(
   assert(arity(t) == 2);
   type = t;
   nNumber = 0;
-  arg[0] = new CGCLCProverExpression(arg0);
-  arg[1] = new CGCLCProverExpression(arg1);
-  for (unsigned i = 2; i < ExpressionArgCount; i++)
-    arg[i] = NULL;
+  arg[0].reset(new CGCLCProverExpression(arg0));
+  arg[1].reset(new CGCLCProverExpression(arg1));
   id = idCounter++;
 }
 
@@ -286,11 +268,8 @@ operator/(const CGCLCProverExpression &a) {
 void CGCLCProverExpression::CleanUp() {
   // this->PrettyPrint();
   // cout << "-------------" << endl;
-  for (unsigned i = 0; i < ExpressionArgCount; i++) {
-    if (arg[i])
-      delete arg[i];
+  for (unsigned i = 0; i < ExpressionArgCount; i++)
     arg[i] = NULL;
-  }
   sName = "";
   nNumber = 0;
 }
@@ -303,11 +282,8 @@ void CGCLCProverExpression::Push(CGCLCProverExpression &left,
   assert(type == ep_equality);
   left = GetArg(0);
   right = GetArg(1);
-  for (unsigned i = 0; i < 2; i++) {
-    if (arg[i])
-      delete arg[i];
-    arg[i] = new CGCLCProverExpression(a.GetArg(i));
-  }
+  for (unsigned i = 0; i < 2; i++)
+    arg[i].reset(new CGCLCProverExpression(a.GetArg(i)));
   SetType(ep_equality);
 }
 
@@ -316,12 +292,8 @@ void CGCLCProverExpression::Push(CGCLCProverExpression &left,
 void CGCLCProverExpression::Pop(CGCLCProverExpression &left,
                                 CGCLCProverExpression &right) {
   assert(type == ep_equality);
-  if (arg[0])
-    delete arg[0];
-  if (arg[1])
-    delete arg[1];
-  arg[0] = new CGCLCProverExpression(left);
-  arg[1] = new CGCLCProverExpression(right);
+  arg[0].reset(new CGCLCProverExpression(left));
+  arg[1].reset(new CGCLCProverExpression(right));
   SetType(ep_equality);
 }
 
@@ -345,19 +317,14 @@ void CGCLCProverExpression::Set(GCLCexpression_type t,
 // --------------------------------------------------------------------------
 
 void CGCLCProverExpression::SetArg(unsigned i, CGCLCProverExpression *a) {
-  if (arg[i])
-    delete arg[i];
- arg[i] = a;
-// arg[i] = new CGCLCProverExpression(*a);
+ arg[i].reset(a);
   // id = idCounter++;
 }
 
 // --------------------------------------------------------------------------
 
 void CGCLCProverExpression::SetArg(unsigned i, const CGCLCProverExpression &a) {
-  if (arg[i])
-    delete arg[i];
-  arg[i] = new CGCLCProverExpression(a);
+  arg[i].reset(new CGCLCProverExpression(a));
   // id = idCounter++;
 }
 
@@ -479,10 +446,7 @@ bool CGCLCProverExpression::Replace(const CGCLCProverExpression &LHS,
   }*/
   for (unsigned i = 0; i < arity(type); i++)
     if (*arg[i] == LHS) {
-      delete arg[i];
-      arg[i] = new CGCLCProverExpression(RHS);
-      if (arg[i] == NULL)
-        return false;
+      arg[i].reset(new CGCLCProverExpression(RHS));
     } else if (!arg[i]->Replace(LHS, RHS))
       return false;
   return true;

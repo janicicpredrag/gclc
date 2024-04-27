@@ -1,6 +1,7 @@
 #if !defined(prover_expression_h)
 #define prover_expression_h
 
+#include <memory>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -171,7 +172,7 @@ public:
   void SetArg(unsigned i, const CGCLCProverExpression &a);
   void SetArgName(unsigned i, const std::string &s);
   CGCLCProverExpression &GetArg(int i) const { return *arg[i]; }
-  CGCLCProverExpression *GetArgP(int i) const { return arg[i]; }
+  CGCLCProverExpression *GetArgP(int i) const { return arg[i].get(); }
   std::string GetArgName(unsigned i) const;
 
   bool operator==(const CGCLCProverExpression &r) const;
@@ -212,7 +213,7 @@ public:
 
 private:
   GCLCexpression_type type;
-  CGCLCProverExpression *arg[ExpressionArgCount];
+  std::unique_ptr<CGCLCProverExpression> arg[ExpressionArgCount];
 
   std::string sName;
   double nNumber;
