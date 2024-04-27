@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  buildLinux:
+  buildAndDownload:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -28,12 +28,42 @@ jobs:
           unzip linux.zip gclc
           chmod +x gclc
 
+      - name: Move files
+        run: |
+          mkdir testFiles/
+          mv build/gclc testFiles/gclc-pr
+          mv latest/gclc testFiles/gclc-latest
+          mv test/* testFiles/
+          mv samples testFiles/
+
+      - name: Upload test files
+        uses: actions/upload-artifact@v4
+        with:
+          name: testFiles
+          path: testFiles/
+
+  outputTests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download test files
+        uses: actions/download-artifact@v4
+        with:
+          name: testFiles
+
       - name: Run tests
         run: |
-          ./test/compare_outputs.sh build/gclc latest/gclc ./samples/basic_samples/
-          echo '## Basic samples' >> $GITHUB_STEP_SUMMARY
+          ./compare_outputs.sh gclc-pr gclc-latest samples/basic_samples/
           cat diff-log >> $GITHUB_STEP_SUMMARY
-          ./test/compare_proofs.sh build/gclc latest/gclc ./samples/samples_prover/
-          echo '' >> $GITHUB_STEP_SUMMARY
-          echo '## Prover samples' >> $GITHUB_STEP_SUMMARY
+
+  proofTests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download test files
+        uses: actions/download-artifact@v4
+        with:
+          name: testFiles
+
+      - name: Run tests
+        run: |
+          ./compare_proofs.sh gclc-pr gclc-latest samples/samples_prover/
           cat proof-log >> $GITHUB_STEP_SUMMARY
