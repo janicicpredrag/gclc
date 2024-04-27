@@ -69,7 +69,7 @@ EXTERN EMSCRIPTEN_KEEPALIVE void render(char *input, char *fileName,
   if (r == rvG_OK) {
     std::unique_ptr<CGCLCOutput> pO;
     if (outputType == eSVGoutput)
-      pO.reset(CSVGOutput(outputStream));
+      pO.reset(new CSVGOutput(outputStream));
     else if (outputType == eEPSoutput)
       pO.reset(new CEPSOutput(outputStream));
     else if (outputType == eLaTeXoutput)
