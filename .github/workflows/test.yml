@@ -32,31 +32,9 @@ jobs:
       - name: Run tests
         run: |
           ./test/compare_outputs.sh executable/gclc latest/gclc ./samples/basic_samples/
+          echo '## Basic samples' >> $GITHUB_STEP_SUMMARY
+          cat diff-log >> $GITHUB_STEP_SUMMARY
           ./test/compare_proofs.sh executable/gclc latest/gclc ./samples/samples_prover/
-
-      - name: Comment
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.TOKEN }}
-          script: |
-            const fs = require("fs");
-
-            function loadLog(filename) {
-              try {
-                return fs.readFileSync(filename, { encoding: "utf8", flag: "r" });
-              } catch (error) {
-                return `Error: Cant load ${filename}`;
-              }
-            }
-
-            const outputLog = loadLog("diff-log");
-            const proofLog = loadLog("proof-log");
-
-            const body = `## Basic samples \n ${outputLog} \n ## Prover samples \n ${proofLog}`;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '## Prover samples' >> $GITHUB_STEP_SUMMARY
+          cat proof-log >> $GITHUB_STEP_SUMMARY

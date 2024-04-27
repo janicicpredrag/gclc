@@ -24,7 +24,7 @@ compare_outputs() {
             mv "$directory/$filename.$ext" "$FILE1"
         else
             {
-                echo "$3: $flag"
+                echo "\`$3\`: $flag"
                 echo "\`\`\`"
                 echo "$gclcOutput"
                 echo "\`\`\`"
@@ -38,7 +38,7 @@ compare_outputs() {
             mv "$directory/$filename.$ext" "$FILE2"
         else
             {
-                echo "$3: $flag"
+                echo "\`$3\`: $flag"
                 echo "\`\`\`"
                 echo "$gclcOutput"
                 echo "\`\`\`"
@@ -51,8 +51,8 @@ compare_outputs() {
 
         if [ -n "$difference" ] ; then
             {
-                echo "$3: $flag"
-                echo "\`\`\`"
+                echo "\`$3\`: $flag"
+                echo "\`\`\` diff"
                 echo "$difference"
                 echo "\`\`\`"
                 echo ""
