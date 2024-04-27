@@ -42,7 +42,7 @@ compare_proofs() {
             continue
         fi
 
-        difference=$(diff --suppress-common-lines "1.tex" "2.tex")
+        difference=$(diff --ignore-matching-lines=".*Time spent by the prover:.*" --suppress-common-lines "1.tex" "2.tex")
         if [ -n "$difference" ] ; then
             { 
                 echo "\`$3\`: $flag tex"
