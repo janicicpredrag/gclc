@@ -19,7 +19,6 @@ jobs:
         run: |
           cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
-          cmake --build build --target install
 
       - name: Download latest GCLC release
         run: |
@@ -31,10 +30,10 @@ jobs:
 
       - name: Run tests
         run: |
-          ./test/compare_outputs.sh executable/gclc latest/gclc ./samples/basic_samples/
+          ./test/compare_outputs.sh build/gclc latest/gclc ./samples/basic_samples/
           echo '## Basic samples' >> $GITHUB_STEP_SUMMARY
           cat diff-log >> $GITHUB_STEP_SUMMARY
-          ./test/compare_proofs.sh executable/gclc latest/gclc ./samples/samples_prover/
+          ./test/compare_proofs.sh build/gclc latest/gclc ./samples/samples_prover/
           echo '' >> $GITHUB_STEP_SUMMARY
           echo '## Prover samples' >> $GITHUB_STEP_SUMMARY
           cat proof-log >> $GITHUB_STEP_SUMMARY
