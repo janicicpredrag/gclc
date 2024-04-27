@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  buildLinux:
+  buildAndDownload:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,7 +19,6 @@ jobs:
         run: |
           cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
-          cmake --build build --target install
 
       - name: Download latest GCLC release
         run: |
@@ -29,34 +28,46 @@ jobs:
           unzip linux.zip gclc
           chmod +x gclc
 
+      - name: Move files
+        run: |
+          mkdir testFiles/
+          mv build/gclc testFiles/gclc-pr
+          mv latest/gclc testFiles/gclc-latest
+          mv test/* testFiles/
+          mv samples testFiles/
+
+      - name: Upload test files
+        uses: actions/upload-artifact@v4
+        with:
+          name: testFiles
+          path: testFiles/
+
+  outputTests:
+    runs-on: ubuntu-latest
+    needs: [buildAndDownload]
+    steps:
+      - name: Download test files
+        uses: actions/download-artifact@v4
+        with:
+          name: testFiles
+
       - name: Run tests
         run: |
-          ./test/compare_outputs.sh executable/gclc latest/gclc ./samples/basic_samples/
-          ./test/compare_proofs.sh executable/gclc latest/gclc ./samples/samples_prover/
+          sudo chmod +x compare_outputs.sh gclc-latest gclc-pr
+          ./compare_outputs.sh gclc-latest gclc-pr samples/basic_samples/
+          cat diff-log >> $GITHUB_STEP_SUMMARY
 
-      - name: Comment
-        uses: actions/github-script@v7
+  proofTests:
+    runs-on: ubuntu-latest
+    needs: [buildAndDownload]
+    steps:
+      - name: Download test files
+        uses: actions/download-artifact@v4
         with:
-          github-token: ${{ secrets.TOKEN }}
-          script: |
-            const fs = require("fs");
+          name: testFiles
 
-            function loadLog(filename) {
-              try {
-                return fs.readFileSync(filename, { encoding: "utf8", flag: "r" });
-              } catch (error) {
-                return `Error: Cant load ${filename}`;
-              }
-            }
-
-            const outputLog = loadLog("diff-log");
-            const proofLog = loadLog("proof-log");
-
-            const body = `## Basic samples \n ${outputLog} \n ## Prover samples \n ${proofLog}`;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+      - name: Run tests
+        run: |
+          sudo chmod +x compare_proofs.sh gclc-latest gclc-pr
+          ./compare_proofs.sh gclc-latest gclc-pr samples/samples_prover/
+          cat proof-log >> $GITHUB_STEP_SUMMARY

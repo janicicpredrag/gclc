@@ -17,7 +17,7 @@ compare_proofs() {
         else
             echo "  $flag: ERROR"
             { 
-                echo "$3: $flag"
+                echo "\`$3\`: $flag"
                 echo "\`\`\`"
                 echo "$gclcOutput"
                 echo "\`\`\`"
@@ -33,7 +33,7 @@ compare_proofs() {
         else
             echo "  $flag: ERROR"
             { 
-                echo "$3: $flag"
+                echo "\`$3\`: $flag"
                 echo "\`\`\`"
                 echo "$gclcOutput"
                 echo "\`\`\`"
@@ -42,11 +42,11 @@ compare_proofs() {
             continue
         fi
 
-        difference=$(diff --suppress-common-lines "1.tex" "2.tex")
+        difference=$(diff --ignore-matching-lines=".*Time spent by the prover:.*" --suppress-common-lines "1.tex" "2.tex")
         if [ -n "$difference" ] ; then
             { 
-                echo "$3: $flag tex"
-                echo "\`\`\`"
+                echo "\`$3\`: $flag tex"
+                echo "\`\`\` diff"
                 echo "$difference"
                 echo "\`\`\`"
                 echo ""
@@ -56,8 +56,8 @@ compare_proofs() {
         difference=$(diff --suppress-common-lines "1.pic" "2.pic")
         if [ -n "$difference" ] ; then
             { 
-                echo "$3: $flag pic"
-                echo "\`\`\`"
+                echo "\`$3\`: $flag pic"
+                echo "\`\`\` diff"
                 echo "$difference"
                 echo "\`\`\`"
                 echo ""
@@ -90,7 +90,7 @@ if ! [[ -x "$2" ]] ; then
     exit 1
 fi
 
-echo "" > "$LOG_FILE"
+touch "$LOG_FILE"
 
 if [ -d "$3" ]; then
     find "$3" -maxdepth 1 -type f -name "*.gcl" | while read -r file; do

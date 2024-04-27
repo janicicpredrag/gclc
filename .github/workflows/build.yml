@@ -142,8 +142,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.TOKEN }}
 
       - name: Download manual
         uses: actions/download-artifact@v4
@@ -179,7 +177,6 @@ jobs:
             windows.zip
             web.zip
           tag_name: ${{ github.ref_name }}
-          token: ${{ secrets.TOKEN }}
 
       - name: Move
         run: |
