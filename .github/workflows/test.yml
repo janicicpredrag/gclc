@@ -52,7 +52,7 @@ jobs:
 
       - name: Run tests
         run: |
-          ./compare_outputs.sh gclc-pr gclc-latest samples/basic_samples/
+          ./compare_outputs.sh gclc-latest gclc-pr samples/basic_samples/
           cat diff-log >> $GITHUB_STEP_SUMMARY
 
   proofTests:
@@ -65,5 +65,5 @@ jobs:
 
       - name: Run tests
         run: |
-          ./compare_proofs.sh gclc-pr gclc-latest samples/samples_prover/
+          ./compare_proofs.sh gclc-latest gclc-pr samples/samples_prover/
           cat proof-log >> $GITHUB_STEP_SUMMARY
