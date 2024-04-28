@@ -74,7 +74,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
   Log::PrintLogF(1, "\\subsection{Initial Reduction}\n\n");
   Log::OutputText("Reducing all polynomial hypotheses with respect to the "
                   "remaining set of hypotheses.\n\n");
-  if (Groebner::ReduceAll(vxps) == false) {
+  if (!Groebner::ReduceAll(vxps)) {
     return false;
   }
   Log::OutputText("Polynomial system after reduction:\n\n");
@@ -102,7 +102,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
                   "polynomials from the set,");
   Log::OutputText("and all non-empty results are added into Groebner set.\n\n");
   Log::PrintLogF(1, "\\begin{description}\n\n");
-  while (stopProcessing == false && k < vxps.size()) {
+  while (!stopProcessing && k < vxps.size()) {
     Log::PrintLogF(1, "\\item[Step %d]\n\n", k);
 
     Log::PrintLogF(1, "Adding new hypothesis to the Groebner set.");
@@ -121,7 +121,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
 #if 0
         // does it have gcd = 1 with any polynomial?
         bool gcdCond = false;
-		for (i = 0; i < k && gcdCond == false; i++)
+		for (i = 0; i < k && !gcdCond; i++)
         {
 			XTerm* m1 = (XTerm*)vxps[i]->GetTerm(0);
 			XTerm* m2 = (XTerm*)vxps[k]->GetTerm(0);
@@ -142,7 +142,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
         }
 #endif
 
-    for (i = 1; stopProcessing == false && i < k; i++) {
+    for (i = 1; !stopProcessing && i < k; i++) {
       Log::PrintLogF(
           1, "Reducing polynomial $p_{%d}$ with polynomial $p_{%d}$\n\n", k, i);
       //
@@ -179,20 +179,20 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
       xp->SPol(vxps[k]);
       _maxt = std::max(_maxt, xp->GetTotalTermCount());
 
-      if (Groebner::FullReduce(vxps, xp, -1) == false) {
+      if (!Groebner::FullReduce(vxps, xp, -1)) {
         xp->Dispose();
         stopProcessing = true;
       }
       Log::PrintLogF(4, "   After FullReduce:\n\n");
       // PolyReader::PrintPolynomials(vxps, 1);
 
-      if (stopProcessing == false) {
+      if (!stopProcessing) {
         if (!(xp->IsZero())) {
           Log::PrintLogF(1,
                          "Reduction is not zero, adding new S-polynomial:\n\n");
           PolyReader::PrintPolynomial(xp, 1);
           vxps.push_back(xp);
-          if (Groebner::ReduceAll(vxps) == false) {
+          if (!Groebner::ReduceAll(vxps)) {
             stopProcessing = true;
           }
         } else {
@@ -205,7 +205,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
 
     k++;
 
-    if (ITimeout::CheckTimeoutSafe() == false) {
+    if (!ITimeout::CheckTimeoutSafe()) {
       _bTimeout = true;
       stopProcessing = true;
     }
@@ -291,7 +291,7 @@ bool Groebner::ReduceAll(vxp &vxps) {
       k++;
     }
 
-    if (ITimeout::CheckTimeoutSafe() == false) {
+    if (!ITimeout::CheckTimeoutSafe()) {
       _bTimeout = true;
       return false;
     }
@@ -340,7 +340,7 @@ bool Groebner::FullReduce(vxp &vxps, XPolynomial *xp, int exclude) {
         Log::OutputText("Reducing with polynomial $p_{%d}$, the result is:\n\n",
                         candidate);
       }
-      if (Groebner::Reduce(xp, vxps[candidate]) == false) {
+      if (!Groebner::Reduce(xp, vxps[candidate])) {
         return false;
       }
       if (exclude == -1) {
@@ -348,7 +348,7 @@ bool Groebner::FullReduce(vxp &vxps, XPolynomial *xp, int exclude) {
       }
     }
 
-    if (ITimeout::CheckTimeoutSafe() == false) {
+    if (!ITimeout::CheckTimeoutSafe()) {
       _bTimeout = true;
       return false;
     }
@@ -375,8 +375,7 @@ int Groebner::CanReduce(XPolynomial *xp1, XPolynomial *xp2) {
   lmp = (XTerm *)xp2->GetTerm(0);
 
   // find monom in xp1 which is divisible with lm(p)
-  for (i = 0;
-       i < xp1->GetTermCount() && xp1->GetTerm(i)->Divisible(lmp) == false; i++)
+  for (i = 0; i < xp1->GetTermCount() && !xp1->GetTerm(i)->Divisible(lmp); i++)
     ;
 
   if (i >= xp1->GetTermCount()) {
@@ -412,7 +411,7 @@ bool Groebner::Reduce(XPolynomial* xp1, XPolynomial* xp2)
   lmp = (XTerm*)xp2->GetTerm(0);
 
   // find monom in xp1 which is divisible with lm(xp1)
-  for (i = 0; (uint)i < s1 && xp1->GetTerm(i)->Divisible(lmp) == false; i++);
+  for (i = 0; (uint)i < s1 && !xp1->GetTerm(i)->Divisible(lmp); i++);
 
   if (i == xp1->GetTermCount())
   {
@@ -446,7 +445,7 @@ bool Groebner::Reduce(XPolynomial* xp1, XPolynomial* xp2)
 
   _maxt = std::max(_maxt, xp1->GetTotalTermCount());
 
-  if (ITimeout::CheckTimeoutSafe() == false)
+  if (!ITimeout::CheckTimeoutSafe())
   {
 	  _bTimeout = true;
 	  return false;
@@ -476,7 +475,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   uint s1 = xp1->GetTermCount();
   for (ii = 0; (uint)ii < s1 && c1f1 == NULL; ii++) {
     c1f1 = (XTerm *)xp1->GetTerm(ii);
-    if (c1f1->Divisible(c2f2) == false) {
+    if (!c1f1->Divisible(c2f2)) {
       c1f1 = NULL;
     }
   }
@@ -521,7 +520,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
 
   _maxt = std::max(_maxt, xp1->GetTotalTermCount());
 
-  if (ITimeout::CheckTimeoutSafe() == false) {
+  if (!ITimeout::CheckTimeoutSafe()) {
     _bTimeout = true;
     return false;
   }
@@ -577,7 +576,7 @@ bool Groebner::GroebnerBasis2(vxp &vxps) {
         Log::OutputText("Forming S-pol of $p_{%d}$ and $p_{%d}$:", ii, jj);
         PolyReader::PrintPolynomial(xp, 1);
 
-        if (ITimeout::CheckTimeoutSafe() == false) {
+        if (!ITimeout::CheckTimeoutSafe()) {
           xp->Dispose();
           _bTimeout = true;
           Log::OutputEnumEnd("enumerate");
@@ -587,13 +586,13 @@ bool Groebner::GroebnerBasis2(vxp &vxps) {
         // do reduction
         FullReduce(vxps, xp, -2);
 
-        if (ITimeout::CheckTimeoutSafe() == false) {
+        if (!ITimeout::CheckTimeoutSafe()) {
           xp->Dispose();
           Log::OutputEnumEnd("enumerate");
           return false;
         }
 
-        if (xp && xp->IsZero() == false) {
+        if (xp && !xp->IsZero()) {
           // should be add
           pairs.push_back(xp);
           xp->AddRef();

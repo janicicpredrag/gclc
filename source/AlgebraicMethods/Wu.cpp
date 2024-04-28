@@ -20,7 +20,7 @@ PROVER_STATUS Wu::Prove(vxp &vxps, XPolynomial *xpConclusion,
     std::vector<int> vars;
     // if (retValue && Wu::_Triangulate(vxps, vars) == false)
     if (retValue == PROVER_STATUS_INPROGRESS &&
-        Reduce::Triangulate(vxps, vars, 1, &_maxt) == false) {
+        !Reduce::Triangulate(vxps, vars, 1, &_maxt)) {
       retValue = PROVER_STATUS_OTHER;
     }
     if (retValue == PROVER_STATUS_INPROGRESS &&
@@ -323,12 +323,12 @@ bool Wu::_IsTriangular(vxp& vxps, vector<int>& vars)
 			{
 				// is this variable exists in previous polynomials
 				bool varExists = false;
-				for (kk = 0, size1 = (int)vars.size(); kk < size1 && varExists == false; kk++)
+				for (kk = 0, size1 = (int)vars.size(); kk < size1 && !varExists; kk++)
 				{
 					varExists = vars[kk] == jj;
 				}
 
-				if (varExists == false)
+				if (!varExists)
 				{
 					if (hasNewVar)
 					{
@@ -347,7 +347,7 @@ bool Wu::_IsTriangular(vxp& vxps, vector<int>& vars)
 			}
 		}
 
-		if (hasNewVar == false)
+		if (!hasNewVar)
 		{
 			// no new variable in this polynomial
 			// again, system not triangular
@@ -380,7 +380,7 @@ bool Wu::_FinalRemainder(vxp &vxps, std::vector<int> &vars,
   Log::OutputText("with respect to the triangular system.\n\n");
   int size = (int)vxps.size();
   Log::OutputEnumBegin("enumerate");
-  for (int ii = size - 1; ii >= 0 && xpConclusion->IsZero() == false; ii--) {
+  for (int ii = size - 1; ii >= 0 && !xpConclusion->IsZero(); ii--) {
     Log::OutputEnumItemBegin();
     Log::OutputText("Pseudo remainder with $p_{%d}$ over variable $x_{%d}$:\n",
                     ii, vars[ii]);
@@ -411,17 +411,16 @@ bool Wu::_FinalRemainder(vxp &vxps, std::vector<int> &vars,
 bool Wu::_IsLinearSystem(vxp &vxps) {
   bool retValue = true;
 
-  for (int ii = 0, size = vxps.size(); ii < size && retValue == true; ii++) {
+  for (int ii = 0, size = vxps.size(); ii < size && retValue; ii++) {
     XPolynomial *xp = vxps[ii];
 
     // check all terms
-    for (int jj = 0, size1 = xp->GetTermCount(); jj < size1 && retValue == true;
-         jj++) {
+    for (int jj = 0, size1 = xp->GetTermCount(); jj < size1 && retValue; jj++) {
       XTerm *xt = (XTerm *)xp->GetTerm(jj);
 
       // check all powers
       for (int kk = 0, size2 = xt->GetPowerCount();
-           kk < size2 && retValue == true; kk++) {
+           kk < size2 && retValue; kk++) {
         retValue = (xt->GetPower(kk)->GetDegree() == 1);
       }
     }

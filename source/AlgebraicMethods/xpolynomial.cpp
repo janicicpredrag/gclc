@@ -463,7 +463,7 @@ void XPolynomial::_ResReplace(char *res, char l1, char l2, char r1,
 
     // search pattern
     int ii = 0;
-    while (replaced == false && res[ii]) {
+    while (!replaced && res[ii]) {
       if (res[ii] == l1 && res[ii + 1] == l2) {
         // check non-number condition
         if (!(nnCond && ii > 0 &&

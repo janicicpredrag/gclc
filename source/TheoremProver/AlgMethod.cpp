@@ -530,7 +530,7 @@ bool CAlgMethod::_FindPoints() {
 
 bool CAlgMethod::_AddDependantPoint(const std::string &name, int *pLastDepIndex,
                                     bool addCommand) {
-  if (_ExistsPoint(name) == false) {
+  if (!_ExistsPoint(name)) {
     Point *p = new Point(false, false, name);
     _points.push_back(p);
 
@@ -553,7 +553,7 @@ bool CAlgMethod::_AddDependantPoint(const std::string &name, int *pLastDepIndex,
 bool CAlgMethod::_AddFreePoint(const std::string &name, bool addCommand,
                                const std::string & /* xc */,
                                const std::string & /* yc */) {
-  if (_ExistsPoint(name) == false) {
+  if (!_ExistsPoint(name)) {
     Point *p = new Point(true, true, name);
     _points.push_back(p);
 
@@ -607,12 +607,12 @@ bool CAlgMethod::_AddFreePoint(const std::string &name, bool addCommand,
 #endif
 
     // set undetermined positions
-    if (p->X.Determined == false) {
+    if (!p->X.Determined) {
       p->X.Determined = true;
       p->X.Index = ++lastFreeIndex;
       ++freePointCoordinatesCount;
     }
-    if (p->Y.Determined == false) {
+    if (!p->Y.Determined) {
       p->Y.Determined = true;
       p->Y.Index = ++lastFreeIndex;
       ++freePointCoordinatesCount;
@@ -715,12 +715,12 @@ Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
     bool containp2 = false;
     l = _lines[ii];
     for (int jj = 0, size1 = l->Points.size();
-         jj < size1 && (containp1 == false || containp2 == false); jj++) {
+         jj < size1 && (!containp1 || !containp2); jj++) {
       containp1 = containp1 || l->Points[jj] == p1;
       containp2 = containp2 || l->Points[jj] == p2;
     }
 
-    if (containp1 == false || containp2 == false) {
+    if (!containp1 || !containp2) {
       l = NULL;
     }
   }
@@ -1063,7 +1063,7 @@ bool CAlgMethod::_FindLinesCircles() {
       for (jj = 0, size1 = l->Points.size(); jj < size1; jj++) {
         HalfPoint *hp = l->Angle == 0 ? &l->Points[jj]->Y : &l->Points[jj]->X;
 
-        if (hp->Free && minFree == false) {
+        if (hp->Free && !minFree) {
           minFree = true;
           minIndex = -1;
         }
@@ -1084,7 +1084,7 @@ bool CAlgMethod::_FindLinesCircles() {
           // minFree
           //==
           // true)
-          if (hp->Free != hp1->Free && minFree == true && hp1->Free == false) {
+          if (hp->Free != hp1->Free && minFree && !hp1->Free) {
             hp1->Free = true;
             hp1->Index = ++lastFreeIndex;
           }
@@ -1511,13 +1511,13 @@ void CAlgMethod::_AddCondition(XPolynomial *xp, bool check, vxp *polySystem) {
     add = false;
   } else if (check) {
     // is there same condition
-    for (ii = 0, size = vxps.size(); add == true && ii < size; ii++) {
+    for (ii = 0, size = vxps.size(); add && ii < size; ii++) {
       xp1 = polySystem ? polySystem->at(ii)->Clone() : vxps[ii]->Clone();
       xp1->Subtract(xp);
 
-      add = add && xp1->IsZero() == false;
+      add = add && !xp1->IsZero();
 
-      if (add == false) {
+      if (!add) {
         Log::PrintLogF(1, "Rejected, there is already same condition!\n\n");
       }
 
@@ -1528,9 +1528,9 @@ void CAlgMethod::_AddCondition(XPolynomial *xp, bool check, vxp *polySystem) {
         xp1 = polySystem ? polySystem->at(ii)->Clone() : vxps[ii]->Clone();
         xp1->Add(xp);
 
-        add = add && xp1->IsZero() == false;
+        add = add && !xp1->IsZero();
 
-        if (add == false) {
+        if (!add) {
           Log::PrintLogF(1, "Rejected, there is already same condition!\n\n");
         }
 
@@ -2122,7 +2122,7 @@ void CAlgMethod::_ExtractConjecturePolynomial() {
     XPolynomial *xpConjecture =
         _ExtractPolynomialExpression(&vpConjectures[ii]);
     if (xpConjecture &&
-        xpConjecture->IsZero() == false) // zero polynomial is always true!
+        !xpConjecture->IsZero()) // zero polynomial is always true!
     {
       vxpConjectures.push_back(xpConjecture);
     } else if (xpConjecture) {
@@ -2350,7 +2350,7 @@ enum eGCLC_conjecture_status
 CAlgMethod::_Prove(const CGCLCProverExpression & /* pConj */) {
   eGCLC_conjecture_status eRet = e_unknown;
 
-  if (this->ValidConjecture() == false) {
+  if (!this->ValidConjecture()) {
     Log::PrintLogF(
         1, "Please provide valid conjecture before calling Prove method!\n\n");
     return eRet;
@@ -2508,8 +2508,7 @@ bool CAlgMethod::_CollinearPoints(Point *a, Point *b, Point *c) {
 
   if (l) {
     // does this line contains point c
-    for (int ii = 0, size = l->Points.size(); ii < size && retValue == false;
-         ii++) {
+    for (int ii = 0, size = l->Points.size(); ii < size && !retValue; ii++) {
       retValue = l->Points[ii] == c;
     }
   }
@@ -2577,8 +2576,7 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
           throw - 1;
         }
 
-        if (_CollinearPoints(A, B, C) == false ||
-            _CollinearPoints(A, B, D) == false) {
+        if (!_CollinearPoints(A, B, C) || !_CollinearPoints(A, B, D)) {
           // create ep_parallel conjecture
           vpConjectures.push_back(
               CGCLCProverExpression(ep_parallel, eA->GetName(), eB->GetName(),

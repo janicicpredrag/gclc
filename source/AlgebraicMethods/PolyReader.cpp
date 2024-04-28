@@ -348,7 +348,7 @@ void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
 
 void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
                                  bool tabular) {
-  if (Log::LogEnabledForLevel(level) == false) {
+  if (!Log::LogEnabledForLevel(level)) {
     return;
   }
 
@@ -432,7 +432,7 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
       }
 
       bool found = false;
-      while (found == false) {
+      while (!found) {
         if (pos == posb) {
           found = true;
         } else {
@@ -450,7 +450,7 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
             found = (diff == 0);
           }
         }
-        if (found == false) {
+        if (!found) {
           pos--;
         }
       }

@@ -191,7 +191,7 @@ std::map<int, int> GraphUtil::getDummyMap(std::map<int, std::vector<int> > neigh
 }
 
 std::string GraphUtil::printbool(bool argument) {
-  return ((argument == true) ? "TRUE" : "FALSE");
+  return argument ? "TRUE" : "FALSE";
 }
 
 bool **GraphUtil::allocateMatrix(bool **adjacencyMatrix, int size) {

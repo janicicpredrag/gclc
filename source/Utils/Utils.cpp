@@ -111,7 +111,7 @@ bool convert(const std::string &word, double &number) {
         if ((sign == 1 && i == 1) || (sign == -1 && i == 2))
           return false;
 
-        if (exponent == false) {
+        if (!exponent) {
           decimal = true;
           if (!convert(word.substr(i), exp))
             return false;
@@ -122,14 +122,14 @@ bool convert(const std::string &word, double &number) {
           return false;
       } else {
         if (c != '.') {
-          if (decimal == false)
+          if (!decimal)
             number = 10 * number + (double)(c - '0');
           else {
             dp = dp * 10.00;
             number = number + ((double)(c - '0')) / dp;
           }
         } else {
-          if (decimal == false)
+          if (!decimal)
             decimal = true;
           else
             return false;
