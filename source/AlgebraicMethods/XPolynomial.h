@@ -3,6 +3,7 @@
 #include "Polynomial.h"
 #include "XTerm.h"
 #include <iostream>
+#include <string>
 
 class XPolynomial : public Polynomial
 {
@@ -38,7 +39,7 @@ public:
 
 	// printing
 	void PrintLatex(std::ostream &os) const override;
-	char* PrintLatex() const;
+	std::string PrintLatex() const;
 };
 
 typedef std::vector<XPolynomial*> vxp;
