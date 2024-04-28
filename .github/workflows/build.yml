@@ -33,7 +33,12 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
 
       - name: Make WASM version
-        run: make -f Makefile.web
+        run: |
+          emcmake cmake -B build -S gclcWeb
+          cmake --build build
+          cmake --build build --target install
+          cp executable/gclc.wasm gclcWeb/public/
+          cp executable/gclc.js gclcWeb/src/
 
       - name: Build web app
         working-directory: ./gclcWeb
