@@ -178,7 +178,7 @@ Power *Term::GetPower(uint index) const { return _powers[index]; }
 // degree of variable with given index
 //
 int Term::VariableDeg(int index, bool free) const {
-  if (free == true && this->Type() == XTERM) {
+  if (free && this->Type() == XTERM) {
     XTerm *xt = (XTerm *)this;
     Term *t = xt->GetUFraction()->GetNumerator()->LeadTerm(index, free);
     if (t) {

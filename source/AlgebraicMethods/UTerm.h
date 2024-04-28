@@ -15,11 +15,11 @@ public:
 
 	~UTerm();
 
-	void Dispose();
+	void Dispose() override;
 
 	UTerm* Clone() override;
 
-	TERM_TYPE Type() const;
+	TERM_TYPE Type() const override;
 
 	REAL GetCoeff() const;
 	void SetCoeff(REAL coeff);
@@ -29,17 +29,17 @@ public:
 	bool IsUnit() const;
 
 	// aritmetic operations
-	int Mul(Term* ut);
-	int Mul(REAL r);
-	int Divide(Term* ut);
-	int Inverse();
-	bool IsZero() const;
+	int Mul(Term* ut) override;
+	int Mul(REAL r) override;
+	int Divide(Term* ut) override;
+	int Inverse() override;
+	bool IsZero() const override;
 
 	// printing
-	void PrettyPrint() const;
-	void PrintLatex(std::ostream &os) const;
+	void PrettyPrint() const override;
+	void PrintLatex(std::ostream &os) const override;
 
 	// overriden methods
-	int Compare(Term* other) const;
-	void Merge(Term* t);
+	int Compare(Term* other) const override;
+	void Merge(Term* t) override;
 };

@@ -119,7 +119,7 @@ bool Reduce::ReduceLineCircleIntersection(
         Log::PrintLogF(level, "Reducing with pol %d\n\n", ii);
         PolyReader::PrintPolynomial(x, level);
 
-        if (xp12->IsZero() == false && x->LeadTerm(vecPointsIndex[1], vecPointsFree[1]))
+        if (!xp12->IsZero() && x->LeadTerm(vecPointsIndex[1], vecPointsFree[1]))
         {
             Log::PrintLogF(level, "Reducing last pol with x12 (second point) index %d:\n\n", vecPointsIndex[1]);
             polySystem[size - 1]->PseudoRemainder(x, vecPointsIndex[1], vecPointsFree[1]);
@@ -129,7 +129,7 @@ bool Reduce::ReduceLineCircleIntersection(
             polySystem[size - 2]->PseudoRemainder(x, vecPointsIndex[1], vecPointsFree[1]);
             PolyReader::PrintPolynomial(polySystem[size - 2], level);
         }
-        if (xp22->IsZero() == false && x->LeadTerm(vecPointsIndex[3], vecPointsFree[3]))
+        if (!xp22->IsZero() && x->LeadTerm(vecPointsIndex[3], vecPointsFree[3]))
         {
             Log::PrintLogF(level, "Reducing last pol with x2 (fourth point) index %d:\n\n", vecPointsIndex[3]);
             polySystem[size - 1]->PseudoRemainder(x, vecPointsIndex[3], vecPointsFree[3]);
@@ -570,12 +570,12 @@ bool Reduce::_IsTriangular(vxp& vxps, std::vector<int>& vars, int /* level */)
 			{
 				// is this variable exists in previous polynomials
 				bool varExists = false;
-				for (kk = 0, size1 = (int)vars.size(); kk < size1 && varExists == false; kk++)
+				for (kk = 0, size1 = (int)vars.size(); kk < size1 && !varExists; kk++)
 				{
 					varExists = vars[kk] == jj;
 				}
 
-				if (varExists == false)
+				if (!varExists)
 				{
 					if (hasNewVar)
 					{
@@ -594,7 +594,7 @@ bool Reduce::_IsTriangular(vxp& vxps, std::vector<int>& vars, int /* level */)
 			}
 		}
 
-		if (hasNewVar == false)
+		if (!hasNewVar)
 		{
 			// no new variable in this polynomial
 			// again, system not triangular

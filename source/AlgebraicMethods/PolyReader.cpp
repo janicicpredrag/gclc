@@ -1,5 +1,6 @@
 #include "PolyReader.h"
 #include <algorithm>
+#include <string>
 
 XPolynomial *PolyReader::ReadXPolynomial(char *stream) {
   int start = 0, end = 0;
@@ -348,7 +349,7 @@ void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
 
 void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
                                  bool tabular) {
-  if (Log::LogEnabledForLevel(level) == false) {
+  if (!Log::LogEnabledForLevel(level)) {
     return;
   }
 
@@ -365,17 +366,14 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
     return;
   }
 
-  char *ltx = xp->PrintLatex();
+  std::string ltx = xp->PrintLatex();
   static int cnt = 0;
 
   // separate chunks
   const int chunk = 122;
   const int chunkDelta = 20;
   int curChunk = chunk;
-  int size = 0;
-  while (ltx[size++])
-    ;
-  size--; // added on 10.2015
+  const int size = ltx.size();
 
   // failed to print too large polynomials
   if (size > 1000) {
@@ -394,7 +392,6 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
       Log::PrintLogF(1, "\\ldots \\\\ \n ");
       Log::PrintLogF(2, "\n\n");
     }
-    delete[] ltx;
     return;
   }
 
@@ -432,7 +429,7 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
       }
 
       bool found = false;
-      while (found == false) {
+      while (!found) {
         if (pos == posb) {
           found = true;
         } else {
@@ -450,7 +447,7 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
             found = (diff == 0);
           }
         }
-        if (found == false) {
+        if (!found) {
           pos--;
         }
       }
@@ -493,9 +490,9 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
     char ct = ltx[pos];
     ltx[pos] = 0;
 
-    Log::PrintLogF(level, "%s", &ltx[posb]);
+    Log::PrintLogF(level, "%s", &ltx.data()[posb]);
     if (level == 1) {
-      Log::PrintLogF(2, "%s", &ltx[posb]);
+      Log::PrintLogF(2, "%s", &ltx.data()[posb]);
     }
     if (tabular) {
       Log::PrintLogF(level, "\\\\");
@@ -510,6 +507,4 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
   if (level == 1) {
     Log::PrintLogF(2, "</polynomial>\n");
   }
-
-  delete[] ltx;
 }

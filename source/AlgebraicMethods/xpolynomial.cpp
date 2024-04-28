@@ -1,6 +1,5 @@
 #include "PolyReader.h"
 #include "XPolynomial.h"
-#include <cstring>
 #include <iostream>
 #include <memory>
 #include <new>
@@ -412,7 +411,7 @@ void XPolynomial::SimpleReduction() {
 //
 // latex output
 //
-char *XPolynomial::PrintLatex() const {
+std::string XPolynomial::PrintLatex() const {
   std::ostringstream ss;
 
   uint size = this->GetTermCount();
@@ -427,26 +426,24 @@ char *XPolynomial::PrintLatex() const {
     ss << '0';
   }
 
-  const std::string str = ss.str();
-  char *res = new char[str.size() + 1];
-  memcpy(res, str.c_str(), str.size() + 1);
+  std::string str = ss.str();
 
   // +- => -
   // -+ => -
   // N1x => Nx
   // N1u => Nu
   // where N is non-number char
-  _ResReplace(res, '+', '-', '-', false);
-  _ResReplace(res, '-', '+', '-', false);
+  _ResReplace(str.data(), '+', '-', '-', false);
+  _ResReplace(str.data(), '-', '+', '-', false);
 
 #if 1
   // not safe for short latex output!
   // u_1x_2
-  _ResReplace(res, '1', 'x', 'x', true);
-  _ResReplace(res, '1', 'u', 'u', true);
+  _ResReplace(str.data(), '1', 'x', 'x', true);
+  _ResReplace(str.data(), '1', 'u', 'u', true);
 #endif
 
-  return res;
+  return str;
 }
 
 void XPolynomial::PrintLatex(std::ostream & /* sb */) const {}
@@ -463,7 +460,7 @@ void XPolynomial::_ResReplace(char *res, char l1, char l2, char r1,
 
     // search pattern
     int ii = 0;
-    while (replaced == false && res[ii]) {
+    while (!replaced && res[ii]) {
       if (res[ii] == l1 && res[ii + 1] == l2) {
         // check non-number condition
         if (!(nnCond && ii > 0 &&

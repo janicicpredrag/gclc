@@ -101,11 +101,10 @@ struct Line {
 
     // add point to the list
     bool containPoint = false;
-    for (int ii = 0, size = Points.size(); ii < size && containPoint == false;
-         ii++) {
+    for (int ii = 0, size = Points.size(); ii < size && !containPoint; ii++) {
       containPoint = Points[ii] == p;
     }
-    if (containPoint == false) {
+    if (!containPoint) {
       Points.push_back(p);
     }
   }

@@ -3,6 +3,7 @@
 #include "Polynomial.h"
 #include "XTerm.h"
 #include <iostream>
+#include <string>
 
 class XPolynomial : public Polynomial
 {
@@ -18,7 +19,7 @@ public:
 	XPolynomial(bool free, int index);
 	XPolynomial* Clone() override;
 
-	TERM_TYPE Type() const;
+	TERM_TYPE Type() const override;
 
 	static int maxt();
 
@@ -37,8 +38,8 @@ public:
 	void PseudoRemainder(XPolynomial* xp, int index, bool free = false, XPolynomial* xpDivisionResult = NULL);
 
 	// printing
-	void PrintLatex(std::ostream &os) const;
-	char* PrintLatex() const;
+	void PrintLatex(std::ostream &os) const override;
+	std::string PrintLatex() const;
 };
 
 typedef std::vector<XPolynomial*> vxp;
