@@ -126,20 +126,6 @@ struct Circle {
   ~Circle() {}
 };
 
-//
-// Conic structure
-// Conic is given with five parameters (halfpoints)
-//
-struct Conic {
-  HalfPoint H1, H2, H3, H4, H5;
-  std::string Name;
-
-  Conic(const std::string &name) : H1(true), H2(true), H3(true), H4(true), H5(true) {
-    Name = name;
-  }
-  ~Conic() {}
-};
-
 class CAlgMethod : public CTheoremProver {
 private:
   uint _maxt;
@@ -157,9 +143,6 @@ private:
 
   // construction circles
   std::vector<Circle *> _circles;
-
-  // construction conics
-  std::vector<Conic *> _conics;
 
   // constants
   std::vector<Constant *> _constants;
@@ -193,14 +176,12 @@ private:
   Line *_FindLine(const std::string &name);
   Line *_FindLine(Point *p1, Point *p2);
   Circle *_FindCircle(const std::string &name);
-  Conic *_FindConic(const std::string &name);
   bool _FindLinesCircles();
   bool _ExistsPoint(const std::string &name);
   void _PrintPoints();
   void _PrintPoint(Point *p);
   void _PrintLine(Line *l);
   void _PrintCircle(Circle *c);
-  void _PrintConic(Conic *c);
   Constant *_FindConstant(const std::string &name);
   Line *_CreateLine(Point *p1, Point *p2);
   Circle *_CreateCircle(Point *p1, Point *p2);
@@ -257,7 +238,6 @@ private:
                                        Point *q2);
   XPolynomial *_EqualSegmentCondition(Point *p1, Point *p2, Point *q1,
                                       Point *q2);
-  XPolynomial *_PointOnConicCondition(Conic *h, Point *p);
   XPolynomial *_ParallelCondition(Point *p1, Point *p2, Point *q1, Point *q2);
   XPolynomial *_HelperCondition(HalfPoint *h1, HalfPoint *h2, HalfPoint *h3,
                                 HalfPoint *h4, HalfPoint *h5, HalfPoint *h6,
