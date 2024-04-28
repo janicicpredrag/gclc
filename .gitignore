@@ -1,8 +1,6 @@
 .vscode/*
 
-build/**/*.o
-build/**/*.cpp
-build/**/*.h
+build/*
 
 executable/gclc
 executable/gclc-gui
