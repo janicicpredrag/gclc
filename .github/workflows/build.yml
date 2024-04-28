@@ -246,20 +246,3 @@ jobs:
             windows.zip
             web.zip
           tag_name: ${{ github.ref_name }}
-
-      - name: Move
-        run: |
-          cp gclc_man.pdf source/manual/gclc_man.pdf
-          mv gclc_man.pdf manual/gclc_man.pdf
-          mv gclc-gui.exe executable/pre-built/windows/gclc-gui.exe
-          mv gclc.exe executable/pre-built/windows/gclc.exe
-          mv gclc-gui executable/pre-built/linux/gclc-gui
-          mv gclc executable/pre-built/linux/gclc
-
-      - name: Commit
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: Build executables and manual
-          default_author: github_actions
-          add: "manual/gclc_man.pdf source/manual/gclc_man.pdf executable/pre-built/*"
-          push: origin HEAD:master

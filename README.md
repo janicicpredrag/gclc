@@ -51,17 +51,11 @@ For more information see [manual](manual/gclc_man.pdf).
 
 ## Executables
 
-Pre-built executables (both the command line version and the version
-with graphical user interface, both for Windows and for Linux) are
-available in the folder 'executable'. Running these executables may
-require installing some libraries (as `qt6`).
-
-You can download latest executables (without code) from
+You can download latest executables from the
 [Github Release page](https://github.com/janicicpredrag/gclc/releases).
-Package `windows.zip` contains Qt DLLs that can help you
-with running GUI version of GCLC.
 
-Executables also can be built from the available source code.
+Executables also can be built from the available source code following instructions
+provided below.
 
 ## Web version
 
