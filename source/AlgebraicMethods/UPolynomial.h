@@ -13,10 +13,10 @@ public:
 	UPolynomial(REAL cf);
 	UPolynomial* Clone() override;
 
-	TERM_TYPE Type() const;
+	TERM_TYPE Type() const override;
 
 	bool IsUnit() const;
 
 	// printint
-	void PrintLatex(std::ostream &os) const;
+	void PrintLatex(std::ostream &os) const override;
 };

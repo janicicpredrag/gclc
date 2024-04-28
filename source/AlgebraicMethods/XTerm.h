@@ -17,7 +17,7 @@ public:
 	XTerm* Clone() override;
 	XTerm* ClonePowers();
 
-	TERM_TYPE Type() const;
+	TERM_TYPE Type() const override;
 
 	static XTerm* CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint index2);
 
@@ -26,18 +26,18 @@ public:
 	void AddPower(Power* xp);
 
 	// aritmetic operations
-	int Mul(Term* ut);
-	int Mul(REAL r);
-	int Divide(Term* ut);
+	int Mul(Term* ut) override;
+	int Mul(REAL r) override;
+	int Divide(Term* ut) override;
     void DivideMonoms(XTerm* t);
-	int Inverse();
-	bool IsZero() const;
+	int Inverse() override;
+	bool IsZero() const override;
 
 	// printing
-	void PrettyPrint() const;
-	void PrintLatex(std::ostream &os) const;
+	void PrettyPrint() const override;
+	void PrintLatex(std::ostream &os) const override;
 
 	// overriden methods
-	int Compare(Term* t) const;
-	void Merge(Term* t);
+	int Compare(Term* t) const override;
+	void Merge(Term* t) override;
 };

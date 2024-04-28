@@ -18,7 +18,7 @@ public:
 	XPolynomial(bool free, int index);
 	XPolynomial* Clone() override;
 
-	TERM_TYPE Type() const;
+	TERM_TYPE Type() const override;
 
 	static int maxt();
 
@@ -37,7 +37,7 @@ public:
 	void PseudoRemainder(XPolynomial* xp, int index, bool free = false, XPolynomial* xpDivisionResult = NULL);
 
 	// printing
-	void PrintLatex(std::ostream &os) const;
+	void PrintLatex(std::ostream &os) const override;
 	char* PrintLatex() const;
 };
 
