@@ -36,9 +36,7 @@ jobs:
         run: |
           emcmake cmake -B build -S gclcWeb
           cmake --build build
-          cmake --build build --target install
-          cp executable/gclc.wasm gclcWeb/public/
-          cp executable/gclc.js gclcWeb/src/
+          cp build/gclc.wasm build/gclc.js gclcWeb/src/
 
       - name: Build web app
         working-directory: ./gclcWeb
@@ -48,7 +46,7 @@ jobs:
 
       - name: Zip web app
         working-directory: ./gclcWeb/dist
-        run: zip web.zip *
+        run: zip -r web.zip *
 
       - name: Upload web app
         uses: actions/upload-artifact@v4

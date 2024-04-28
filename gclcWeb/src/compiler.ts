@@ -1,4 +1,4 @@
-import { createModule } from "./gclc.js";
+import createModule from "./gclc.js";
 
 interface Pointer {}
 
