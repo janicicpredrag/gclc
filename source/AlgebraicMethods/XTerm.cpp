@@ -5,18 +5,12 @@
 #include <memory>
 
 XTerm::XTerm()
-: _frac(NULL)
 {
 	COSTR("xterm");
 }
 
 XTerm::~XTerm()
 {
-	if (_frac)
-	{
-		_frac->Dispose();
-	}
-
 	DESTR("xterm");
 }
 
@@ -25,9 +19,8 @@ XTerm* XTerm::Clone()
 	XTerm* xtClone = new XTerm();
 
 	// fraction
-	UPolynomialFraction* ufClone = _frac->Clone();
+	std::shared_ptr<UPolynomialFraction> ufClone = _frac->Clone();
 	xtClone->SetUFraction(ufClone);
-	ufClone->Dispose();
 
 	// powers
 	for (uint ii = 0; ii < this->GetPowerCount(); ii++)
@@ -75,11 +68,11 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 
 	XTerm* xt = new XTerm();
 
-	UPolynomialFraction* upf;
+	std::shared_ptr<UPolynomialFraction> upf;
 	if (f1 || f2)
 	{
 		// there will be non-empty fraction
-		upf = new UPolynomialFraction();
+		upf = std::make_shared<UPolynomialFraction>();
 		UPolynomial* up = new UPolynomial();
 		upf->SetNumerator(up);
 		up->Dispose();
@@ -90,10 +83,9 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	else
 	{
 		// unit fraction
-		upf = new UPolynomialFraction(1);
+		upf = std::make_shared<UPolynomialFraction>(1);
 	}
 	xt->SetUFraction(upf);
-	upf->Dispose();
 
 	auto p1 = std::make_shared<Power>(index1, 1, f1 ? VAR_TYPE_U : VAR_TYPE_X);
 	auto p2 = std::make_shared<Power>(index2, 1, f2 ? VAR_TYPE_U : VAR_TYPE_X);
@@ -162,19 +154,11 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 
 UPolynomialFraction* XTerm::GetUFraction() const
 {
-	return _frac;
+	return _frac.get();
 }
 
-void XTerm::SetUFraction(UPolynomialFraction* uf)
+void XTerm::SetUFraction(std::shared_ptr<UPolynomialFraction> uf)
 {
-	if (uf)
-	{
-		uf->AddRef();
-	}
-	if (_frac)
-	{
-		_frac->Dispose();
-	}
 	_frac = uf;
 }
 

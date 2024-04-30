@@ -1,7 +1,8 @@
 #include "UPolynomial.h"
 #include <iostream>
+#include <memory>
 
-class UPolynomialFraction : public Object
+class UPolynomialFraction
 {
 	// numerator
 	UPolynomial* _num;
@@ -15,7 +16,7 @@ public:
 
 	~UPolynomialFraction();
 
-	UPolynomialFraction* Clone();
+	std::shared_ptr<UPolynomialFraction> Clone();
 
 	UPolynomial* GetNumerator() const;
 	void SetNumerator(UPolynomial* up);

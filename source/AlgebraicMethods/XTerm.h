@@ -9,7 +9,7 @@
 class XTerm : public Term
 {
 	// U fraction (analouge to real factor of U term)
-	UPolynomialFraction* _frac;
+	std::shared_ptr<UPolynomialFraction> _frac;
 
 public:
 	XTerm();
@@ -23,7 +23,7 @@ public:
 	static XTerm* CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint index2);
 
 	UPolynomialFraction* GetUFraction() const;
-	void SetUFraction(UPolynomialFraction* uf);
+	void SetUFraction(std::shared_ptr<UPolynomialFraction> uf);
 	void AddPower(std::shared_ptr<Power> xp);
 
 	// aritmetic operations

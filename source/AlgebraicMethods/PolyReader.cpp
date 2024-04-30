@@ -69,9 +69,8 @@ XTerm *PolyReader::_ReadXTerm(char *stream, int s, int e) {
     e1 = _GotoCloseBracket(stream, s1 + 1, e);
     _Assert(e1 >= 0, "Right bracket missing!");
 
-    UPolynomialFraction *uf = _ReadUFraction(stream, s1, e1);
+    std::shared_ptr<UPolynomialFraction> uf = _ReadUFraction(stream, s1, e1);
     xt->SetUFraction(uf);
-    uf->Dispose();
   } else {
     // type 2
 
@@ -79,9 +78,8 @@ XTerm *PolyReader::_ReadXTerm(char *stream, int s, int e) {
     REAL cf;
     sscanf(&stream[e1 + 1], "%lf", &cf);
 
-    UPolynomialFraction *uf = new UPolynomialFraction(cf);
+    auto uf = std::make_shared<UPolynomialFraction>(cf);
     xt->SetUFraction(uf);
-    uf->Dispose();
   }
 
   // read xmonoms
@@ -105,7 +103,7 @@ XTerm *PolyReader::_ReadXTerm(char *stream, int s, int e) {
 // the first is numerator and the second is denominator
 // {N, D}
 //
-UPolynomialFraction *PolyReader::_ReadUFraction(char *stream, int s, int e) {
+std::shared_ptr<UPolynomialFraction> PolyReader::_ReadUFraction(char *stream, int s, int e) {
 #if DESER_DBG
   // debug
   Log::PrintLogF(0, "uf: ");
@@ -132,7 +130,7 @@ UPolynomialFraction *PolyReader::_ReadUFraction(char *stream, int s, int e) {
   UPolynomial *up2 = _ReadUPolynomial(stream, s1, e1);
 
   // create UFraction
-  UPolynomialFraction *uf = new UPolynomialFraction();
+  auto uf = std::make_shared<UPolynomialFraction>();
 
   uf->SetNumerator(up1);
   up1->Dispose();

@@ -1,5 +1,6 @@
 #include "UPolynomialFraction.h"
 #include <iostream>
+#include <memory>
 
 UPolynomialFraction::UPolynomialFraction()
 : _num(NULL), _den(NULL)
@@ -32,9 +33,9 @@ UPolynomialFraction::~UPolynomialFraction()
 	DESTR("upolyf");
 }
 
-UPolynomialFraction* UPolynomialFraction::Clone()
+std::shared_ptr<UPolynomialFraction> UPolynomialFraction::Clone()
 {
-	UPolynomialFraction* ufClone = new UPolynomialFraction();
+	auto ufClone = std::make_shared<UPolynomialFraction>();
 
 	UPolynomial* upNumClone = this->GetNumerator()->Clone();
 	UPolynomial* upDenClone = this->GetDenominator()->Clone();
