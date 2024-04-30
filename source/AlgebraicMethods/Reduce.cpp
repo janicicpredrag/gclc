@@ -1,6 +1,7 @@
 #include "Reduce.h"
 #include "PolyReader.h"
 #include <algorithm>
+#include <utility>
 
 // points are in following order:
 // 0,1 : first point on circle
@@ -357,9 +358,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
 					// swap vxps[ii] and vxps[jj]
 					if (ii != jj)
 					{
-						XPolynomial* xp = vxps[ii];
-						vxps[ii] = vxps[jj];
-						vxps[jj] = xp;
+						std::swap(vxps[ii], vxps[jj]);
 					}
 					else
 					{
@@ -434,9 +433,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
                 }
 
 				// move it to the next pos and reduce all remaining with it
-				XPolynomial* xp = vxps[ii];
-				vxps[ii] = vxps[pos1];
-				vxps[pos1] = xp;
+				std::swap(vxps[ii], vxps[pos1]);
 
 				for (jj = 0; jj < ii; jj++)
 				{

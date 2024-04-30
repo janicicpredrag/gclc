@@ -1,6 +1,7 @@
 #include "UPolynomialFraction.h"
 #include <iostream>
 #include <memory>
+#include <utility>
 
 UPolynomialFraction::UPolynomialFraction()
 : _num(NULL), _den(NULL)
@@ -105,9 +106,7 @@ int UPolynomialFraction::Mul(UPolynomialFraction* uf)
 int UPolynomialFraction::Inverse()
 {
 	// just switch numerator and denominator
-	UPolynomial* up = _num;
-	_num = _den;
-	_den = up;
+	std::swap(_num, _den);
 	return 0;
 }
 
