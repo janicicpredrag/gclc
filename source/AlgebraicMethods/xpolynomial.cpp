@@ -41,16 +41,14 @@ XPolynomial::XPolynomial(bool free, int index) {
     UPolynomialFraction *uf = new UPolynomialFraction(1);
 
     if (free) {
-      Power *up = new Power(index, 1, VAR_TYPE_U);
+      auto up = std::make_shared<Power>(index, 1, VAR_TYPE_U);
 
       UTerm *ut = (UTerm *)uf->GetNumerator()->GetTerm(0);
       ut->AddPower(up);
-      up->Dispose();
     } else {
-      Power *xpow = new Power(index, 1, VAR_TYPE_X);
+      auto xpow = std::make_shared<Power>(index, 1, VAR_TYPE_X);
 
       xt->AddPower(xpow);
-      xpow->Dispose();
     }
 
     xt->SetUFraction(uf);

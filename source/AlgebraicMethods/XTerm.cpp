@@ -2,6 +2,7 @@
 #include "XPolynomial.h"
 #include "PolyReader.h"
 #include <iostream>
+#include <memory>
 
 XTerm::XTerm()
 : _frac(NULL)
@@ -31,9 +32,8 @@ XTerm* XTerm::Clone()
 	// powers
 	for (uint ii = 0; ii < this->GetPowerCount(); ii++)
 	{
-		Power* xwClone = this->GetPower(ii)->Clone();
+		std::shared_ptr<Power> xwClone = this->GetPower(ii)->Clone();
 		xtClone->AddPower(xwClone);
-		xwClone->Dispose();
 	}
 
 	return xtClone;
@@ -46,9 +46,8 @@ XTerm* XTerm::ClonePowers()
 	// powers
 	for (uint ii = 0; ii < this->GetPowerCount(); ii++)
 	{
-		Power* xwClone = this->GetPower(ii)->Clone();
+		std::shared_ptr<Power> xwClone = this->GetPower(ii)->Clone();
 		xtClone->AddPower(xwClone);
-		xwClone->Dispose();
 	}
 
 	return xtClone;
@@ -75,7 +74,6 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	}
 
 	XTerm* xt = new XTerm();
-	Power *p1, *p2;
 
 	UPolynomialFraction* upf;
 	if (f1 || f2)
@@ -97,22 +95,8 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	xt->SetUFraction(upf);
 	upf->Dispose();
 
-	if (f1)
-	{
-		p1 = new Power(index1, 1, VAR_TYPE_U);
-	}
-	else
-	{
-		p1 = new Power(index1, 1, VAR_TYPE_X);
-	}
-	if (f2)
-	{
-		p2 = new Power(index2, 1, VAR_TYPE_U);
-	}
-	else
-	{
-		p2 = new Power(index2, 1, VAR_TYPE_X);
-	}
+	auto p1 = std::make_shared<Power>(index1, 1, f1 ? VAR_TYPE_U : VAR_TYPE_X);
+	auto p2 = std::make_shared<Power>(index2, 1, f2 ? VAR_TYPE_U : VAR_TYPE_X);
 
 	if (!f1)
 	{
@@ -172,15 +156,6 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	}
 #endif
 
-	if (p1)
-	{
-		p1->Dispose();
-	}
-	if (p2)
-	{
-		p2->Dispose();
-	}
-
 	return xt;
 }
 
@@ -207,9 +182,8 @@ void XTerm::SetUFraction(UPolynomialFraction* uf)
 // add xpower at the end
 // deserialization method
 //
-void XTerm::AddPower(Power* xp)
+void XTerm::AddPower(std::shared_ptr<Power> xp)
 {
-	xp->AddRef();
 	_powers.push_back(xp);
 }
 

@@ -2,6 +2,7 @@
 
 #include "stdinc.h"
 #include "XPolynomial.h"
+#include <memory>
 
 class PolyReader
 {
@@ -21,8 +22,8 @@ private:
 	static UPolynomialFraction* _ReadUFraction(char* stream, int s, int e);
 	static UPolynomial* _ReadUPolynomial(char* stream, int s, int e);
 	static UTerm* _ReadUTerm(char* stream, int s, int e);
-	static Power* _ReadUPower(char* stream, int s, int e);
-	static Power* _ReadXPower(char* stream, int s, int e);
+	static std::shared_ptr<Power> _ReadUPower(char* stream, int s, int e);
+	static std::shared_ptr<Power> _ReadXPower(char* stream, int s, int e);
 
 
 public:

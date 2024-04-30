@@ -1,5 +1,7 @@
+#include "Log.h"
 #include "Power.h"
 #include <iostream>
+#include <memory>
 
 Power::Power(uint index, uint degree, VAR_TYPE varType)
 : _index(index), _degree(degree), _vType(varType)
@@ -22,19 +24,9 @@ Power::~Power()
 	DESTR("power");
 }
 
-Power* Power::Clone()
+std::shared_ptr<Power> Power::Clone()
 {
-	return new Power(_index, _degree, _vType);
-}
-
-void Power::Dispose()
-{
-	_refCount --;
-
-	if (_refCount == 0)
-	{
-		delete this;
-	}
+	return std::make_shared<Power>(_index, _degree, _vType);
 }
 
 uint Power::GetIndex() const

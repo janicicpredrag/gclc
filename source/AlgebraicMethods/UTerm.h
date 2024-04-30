@@ -3,6 +3,7 @@
 #include "Power.h"
 #include "Term.h"
 #include <iostream>
+#include <memory>
 
 class UTerm : public Term
 {
@@ -24,7 +25,7 @@ public:
 	REAL GetCoeff() const;
 	void SetCoeff(REAL coeff);
 
-	void AddPower(Power* power);
+	void AddPower(std::shared_ptr<Power> power);
 
 	bool IsUnit() const;
 

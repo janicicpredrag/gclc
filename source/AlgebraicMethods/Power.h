@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Object.h"
+#include "stdinc.h"
 #include <iostream>
+#include <memory>
 
 /*************************************************************
 *
@@ -18,7 +19,7 @@ enum VAR_TYPE
 	VAR_TYPE_X = 2
 };
 
-class Power : public Object
+class Power
 {
 protected:
 	// index of variable
@@ -35,9 +36,8 @@ public:
 	void Construct(uint index, uint degree, VAR_TYPE varType);
 
 	~Power();
-	void Dispose();
 
-	Power* Clone();
+	std::shared_ptr<Power> Clone();
 
 	uint GetIndex() const;
 	void SetDegree(uint degree);
