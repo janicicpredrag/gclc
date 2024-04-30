@@ -101,8 +101,11 @@ jobs:
       - name: Make CLI and GUI version
         run: |
           /qtStatic/bin/qt-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
-          /qtStatic/bin/qt-cmake --build build
-          /qtStatic/bin/qt-cmake --build build --target install
+          cd build
+          make
+          cd ..
+          cp build/gclc executable/
+          cp build/source/gclc-gui executable/
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
