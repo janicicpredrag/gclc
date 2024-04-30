@@ -2,6 +2,7 @@
 #include "TermStorageAvl.h"
 #include "ITimeout.h"
 #include <algorithm>
+#include <memory>
 
 // ----------------------------------------------------------------------------- Definitions
 
@@ -44,14 +45,6 @@ void AvlNode::Construct(Term* item)
 
 AvlNode::~AvlNode(void) 
 {
-	if (mySubtree[LEFT])
-	{
-		mySubtree[LEFT]->Dispose();
-	}
-	if (mySubtree[RIGHT])
-	{
-		mySubtree[RIGHT]->Dispose();
-	}
 	if (myData)
 	{
 		myData->Dispose();
@@ -61,24 +54,14 @@ AvlNode::~AvlNode(void)
 	DESTR("avl node");
 }
 
-void AvlNode::Dispose()
-{
-	_refCount --;
-	if (_refCount == 0)
-	{
-		delete this;
-	}
-}
-
-
 // ------------------------------------------------- Rotating and Re-Balancing
 
 
 int
-AvlNode::RotateOnce(AvlNode * & root, dir_t dir)
+AvlNode::RotateOnce(std::shared_ptr<AvlNode> &root, dir_t dir)
 {
    dir_t  otherDir = Opposite(dir);
-   AvlNode * oldRoot = root;
+   std::shared_ptr<AvlNode> oldRoot = root;
 
       // See if otherDir subtree is balanced. If it is, then this
       // rotation will *not* change the overall tree height.
@@ -102,11 +85,11 @@ AvlNode::RotateOnce(AvlNode * & root, dir_t dir)
 
 
 int
-AvlNode::RotateTwice(AvlNode * & root, dir_t dir)
+AvlNode::RotateTwice(std::shared_ptr<AvlNode> &root, dir_t dir)
 {
    dir_t  otherDir = Opposite(dir);
-   AvlNode * oldRoot = root;
-   AvlNode * oldOtherDirSubtree = root->mySubtree[otherDir];
+   std::shared_ptr<AvlNode> oldRoot = root;
+   std::shared_ptr<AvlNode> oldOtherDirSubtree = root->mySubtree[otherDir];
 
       // assign new root
    root = oldRoot->mySubtree[otherDir]->mySubtree[dir];
@@ -130,7 +113,7 @@ AvlNode::RotateTwice(AvlNode * & root, dir_t dir)
 
 
 int
-AvlNode::ReBalance(AvlNode * & root) {
+AvlNode::ReBalance(std::shared_ptr<AvlNode> &root) {
    int  heightChange = HEIGHT_NOCHANGE;
 
    if (LEFT_IMBALANCE(root->myBal)) {
@@ -186,15 +169,14 @@ AvlNode::Search(TermKeyType key, AvlNode * root, cmp_t cmp)
 {
    cmp_t result;
    while (root  &&  (result = root->Compare(key, cmp))) {
-      root = root->mySubtree[(result < 0) ? LEFT : RIGHT];
+      root = root->mySubtree[(result < 0) ? LEFT : RIGHT].get();
    }
    return  (root) ? root->myData : NULL;
 }
 
 
 Term*
-AvlNode::Insert(Term*   item,
-                         AvlNode    * & root)
+AvlNode::Insert(Term *item, std::shared_ptr<AvlNode> &root)
 {
    int  change;
    return  Insert(item, root, change);
@@ -202,7 +184,7 @@ AvlNode::Insert(Term*   item,
 
 
 Term*
-AvlNode::Delete(TermKeyType key, AvlNode * & root, cmp_t cmp)
+AvlNode::Delete(TermKeyType key, std::shared_ptr<AvlNode> &root, cmp_t cmp)
 {
    int  change;
    return  Delete(key, root, change, cmp);
@@ -211,7 +193,7 @@ AvlNode::Delete(TermKeyType key, AvlNode * & root, cmp_t cmp)
 
 Term*
 AvlNode::Insert(Term*   item,
-				AvlNode* &root,
+				std::shared_ptr<AvlNode> &root,
 				int& change)
 {
 	ITimeout::CheckTimeout();
@@ -220,7 +202,7 @@ AvlNode::Insert(Term*   item,
    if (root == NULL)
    {
 	   // Insert new node here 
-	   root = new AvlNode(item);
+	   root = std::make_shared<AvlNode>(item);
 	   change =  HEIGHT_CHANGE;
 	   return  NULL;
    }
@@ -269,7 +251,7 @@ AvlNode::Insert(Term*   item,
 
 Term*
 AvlNode::Delete(TermKeyType              key,
-                         AvlNode * & root,
+                         std::shared_ptr<AvlNode> &root,
                          int                & change,
                          cmp_t                cmp)
 {
@@ -315,21 +297,14 @@ AvlNode::Delete(TermKeyType              key,
       if ((root->mySubtree[LEFT] == NULL) &&
           (root->mySubtree[RIGHT] == NULL)) {
              // We have a leaf -- remove it
-			  //delete root;
-			  root->Dispose();
 			  root = NULL;
 			  change = HEIGHT_CHANGE;    // height changed from 1 to 0
 			  return  found;
       } else if ((root->mySubtree[LEFT] == NULL) ||
                  (root->mySubtree[RIGHT] == NULL)) {
             // We have one child -- only child becomes new root 
-         AvlNode * toDelete = root;
          root = root->mySubtree[(root->mySubtree[RIGHT]) ? RIGHT : LEFT];
          change = HEIGHT_CHANGE;    // We just shortened the subtree
-            // Null-out the subtree pointers so we dont recursively delete
-         toDelete->mySubtree[LEFT] = toDelete->mySubtree[RIGHT] = NULL;
-         //delete  toDelete;
-		 toDelete->Dispose();
 		 return  found;
       } else {
             // We have two children -- find successor and replace our current
