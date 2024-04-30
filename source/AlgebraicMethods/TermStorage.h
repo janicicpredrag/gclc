@@ -2,6 +2,7 @@
 
 #include "Term.h"
 #include "ITimeout.h"
+#include <memory>
 
 //
 // Abstract terms container class
@@ -14,7 +15,7 @@ class TermStorage
 {
 public:
 
-	virtual int AddTerm(Term* term) = 0;
+	virtual int AddTerm(std::shared_ptr<Term> term) = 0;
 	virtual void RemoveTerm(Term* term) = 0;
 	virtual uint Count() const = 0;
 

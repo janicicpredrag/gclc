@@ -1,22 +1,13 @@
 #include "Log.h"
 #include "TermStorageVector.h"
+#include <memory>
 
 TermStorageVector::TermStorageVector()
 {
 }
 
-TermStorageVector::~TermStorageVector()
+int TermStorageVector::AddTerm(std::shared_ptr<Term> term)
 {
-	uint size = (uint)_terms.size();
-	for (uint ii = 0; ii < size; ii++)
-	{
-		_terms[ii]->Dispose();
-	}
-}
-
-int TermStorageVector::AddTerm(Term* term)
-{
-	term->AddRef();
 	_terms.push_back(term);
 	return 0;
 }
@@ -34,7 +25,7 @@ Term* TermStorageVector::GetTerm(uint index) const
 		throw -1;
 	}
 
-	return _terms[index];
+	return _terms[index].get();
 }
 
 // enumeration
@@ -57,5 +48,5 @@ Term* TermStorageVector::EnumGetCurrent() const
 		throw -1;
 	}
 
-	return _terms[_enumIndex];
+	return _terms[_enumIndex].get();
 }

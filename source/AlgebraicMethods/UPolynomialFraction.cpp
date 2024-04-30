@@ -132,7 +132,8 @@ void UPolynomialFraction::SimpleReduction()
 		return;
 	}
 
-	UTerm* gcd = (UTerm*)_num->GetTerm(0)->Clone();
+	std::shared_ptr<UTerm> gcd =
+	  std::dynamic_pointer_cast<UTerm>(_num->GetTerm(0)->Clone());
 	gcd->SetCoeff(1);
 
 	// gcd of all terms in numerator
@@ -157,18 +158,16 @@ void UPolynomialFraction::SimpleReduction()
 		ii = 0;
 		while (ii < s1)
 		{
-			_num->GetTerm(ii++)->Divide(gcd);
+			_num->GetTerm(ii++)->Divide(gcd.get());
 		}
 
 		// denominator
 		ii = 0;
 		while (ii < s2)
 		{
-			_den->GetTerm(ii++)->Divide(gcd);
+			_den->GetTerm(ii++)->Divide(gcd.get());
 		}
 	}
-
-	gcd->Dispose();
 }
 
 // printing

@@ -15,13 +15,12 @@ XPolynomial::~XPolynomial() { DESTR("xpoly"); }
 //
 XPolynomial::XPolynomial(REAL x) {
   if (x != 0) {
-    XTerm *xt = new XTerm();
+    std::shared_ptr<XTerm> xt = std::make_shared<XTerm>();
     std::shared_ptr<UPolynomialFraction> uf =
       std::make_shared<UPolynomialFraction>(x);
     xt->SetUFraction(uf);
 
     this->AddTerm(xt);
-    xt->Dispose();
   }
 
   COSTR("xpoly");
@@ -34,7 +33,7 @@ XPolynomial::XPolynomial(bool free, int index) {
   if (free && index == 0) {
     // empty polynomial, ie zero polynomial
   } else {
-    XTerm *xt = new XTerm();
+    std::shared_ptr<XTerm> xt = std::make_shared<XTerm>();
     std::shared_ptr<UPolynomialFraction> uf =
       std::make_shared<UPolynomialFraction>(1);
 
@@ -51,7 +50,6 @@ XPolynomial::XPolynomial(bool free, int index) {
 
     xt->SetUFraction(uf);
     this->AddTerm(xt);
-    xt->Dispose();
   }
 
   COSTR("xpoly");
@@ -70,10 +68,10 @@ XPolynomial *XPolynomial::CreatePolynomialCondition(bool f1, uint index1,
                                                     bool f4, uint index4) {
   XPolynomial *xp = new XPolynomial();
 
-  XTerm *xt = XTerm::CreatePolynomialConditionTerm(f1, index1, f3, index3);
+  std::shared_ptr<XTerm> xt = XTerm::CreatePolynomialConditionTerm(f1, index1,
+                                                                   f3, index3);
   if (xt) {
     xp->AddTerm(xt);
-    xt->Dispose();
     // PolyReader::PrintPolynomial(xp);
   }
 
@@ -81,7 +79,6 @@ XPolynomial *XPolynomial::CreatePolynomialCondition(bool f1, uint index1,
   if (xt) {
     xt->Inverse();
     xp->AddTerm(xt);
-    xt->Dispose();
     // PolyReader::PrintPolynomial(xp);
   }
 
@@ -89,14 +86,12 @@ XPolynomial *XPolynomial::CreatePolynomialCondition(bool f1, uint index1,
   if (xt) {
     xt->Inverse();
     xp->AddTerm(xt);
-    xt->Dispose();
     // PolyReader::PrintPolynomial(xp);
   }
 
   xt = XTerm::CreatePolynomialConditionTerm(f2, index2, f4, index4);
   if (xt) {
     xp->AddTerm(xt);
-    xt->Dispose();
     // PolyReader::PrintPolynomial(xp);
   }
 
@@ -108,9 +103,8 @@ XPolynomial *XPolynomial::Clone() {
 
   _terms->EnumReset();
   while (_terms->EnumMoveNext()) {
-    XTerm *xtClone = ((XTerm *)_terms->EnumGetCurrent())->Clone();
+    std::shared_ptr<Term> xtClone = ((XTerm *)_terms->EnumGetCurrent())->Clone();
     xpClone->AddTerm(xtClone);
-    xtClone->Dispose();
   }
 
   return xpClone;
@@ -145,7 +139,7 @@ uint XPolynomial::GetTotalTermCount() {
 // spol = c2s1f1 - c1s2f2
 //
 void XPolynomial::SPol(XPolynomial *xp) {
-  XTerm *lt1, *lt2, *s1c2, *s2c1, *t;
+  XTerm *lt1, *lt2;
   uint i;
 
   if (this->IsZero() || xp->IsZero()) {
@@ -158,13 +152,13 @@ void XPolynomial::SPol(XPolynomial *xp) {
   lt2 = (XTerm *)xp->GetTerm(0);
 
   // s1 * c2
-  s1c2 = lt2->Clone();
+  std::shared_ptr<XTerm> s1c2 = std::dynamic_pointer_cast<XTerm>(lt2->Clone());
   // s1c2->SetUFraction(lt2->GetUFraction()->Clone());
   // safe division
   s1c2->DivideMonoms(lt1);
 
   // s2 * c1
-  s2c1 = lt1->Clone();
+  std::shared_ptr<XTerm> s2c1 = std::dynamic_pointer_cast<XTerm>(lt1->Clone());
   // s2c1->SetUFraction(lt1->GetUFraction()->Clone());
   // safe division
   s2c1->DivideMonoms(lt2);
@@ -177,23 +171,18 @@ void XPolynomial::SPol(XPolynomial *xp) {
   // c2 * s1 * f1
   uint size = this->GetTermCount();
   for (i = 1; i < size; i++) {
-    t = s1c2->Clone();
+    std::shared_ptr<Term> t = s1c2->Clone();
     t->Mul(this->GetTerm(i));
     tmpTerms->AddTerm(t);
-    t->Dispose();
   }
 
   // - c1 * s2 * f2
   size = xp->GetTermCount();
   for (i = 1; i < size; i++) {
-    t = s2c1->Clone();
+    std::shared_ptr<Term> t = s2c1->Clone();
     t->Mul(xp->GetTerm(i));
     tmpTerms->AddTerm(t);
-    t->Dispose();
   }
-
-  s1c2->Dispose();
-  s2c1->Dispose();
 
   // now replace term storages
   _terms = tmpTerms;
@@ -295,7 +284,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
 
     // add only terms where degree of variable index match it highest degree
     if (xt->VariableDeg(index, free) == varDeg1) {
-      XTerm *xtClone = NULL;
+      std::shared_ptr<XTerm> xtClone = NULL;
 
       // iterate sub terms if free variable is in question
       if (free) {
@@ -305,20 +294,18 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
         for (int jj = 0 /*, size1 = pp->GetTermCount()*/; jj < size; jj++) {
           Term *tt = pp->GetTerm(jj);
           if (tt->VariableDeg(index, free) == varDeg1) {
-            Term *ttc = tt->Clone();
+            std::shared_ptr<Term> ttc = tt->Clone();
             xtClone->GetUFraction()->GetNumerator()->AddTerm(ttc);
-            ttc->Dispose();
           }
         }
       } else {
         // remove degree
-        xtClone = xt->Clone();
+        xtClone = std::dynamic_pointer_cast<XTerm>(xt->Clone());
         xtClone->ChangePowerDegree(index, -deg);
       }
 
       // add it to the polynomial
       p->AddTerm(xtClone);
-      xtClone->Dispose();
     }
   }
 
@@ -332,21 +319,19 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
       // add only terms where degree of variable index match it highest degree
       if (xt->VariableDeg(index, free) == varDeg2) {
         // remove degree
-        XTerm *xtClone = xt->Clone();
+        std::shared_ptr<Term> xtClone = xt->Clone();
         xtClone->ChangePowerDegree(index, -deg);
 
         // add it to the polynomial
         q->AddTerm(xtClone);
-        xtClone->Dispose();
       }
     }
   } else {
-    XTerm *unit = new XTerm();
+    std::shared_ptr<XTerm> unit = std::make_shared<XTerm>();
     std::shared_ptr<UPolynomialFraction> unitFraction =
       std::make_shared<UPolynomialFraction>(1);
     unit->SetUFraction(unitFraction);
     q->AddTerm(unit);
-    unit->Dispose();
   }
 
   Log::PrintLogF(logLevel,

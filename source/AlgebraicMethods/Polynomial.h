@@ -39,7 +39,7 @@ public:
 	uint GetTermCount() const;
 	Term* GetTerm(uint index) const;
 
-	int AddTerm(Term* t);
+	int AddTerm(std::shared_ptr<Term> t);
 	void RemoveTerm(Term* t);
 
 	// aritmetic operations

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TermStorage.h"
+#include <memory>
 
 //
 // TermStorage class implemented as a vector
@@ -10,14 +11,14 @@
 class TermStorageVector : public TermStorage
 {
 private:
-	std::vector<Term*> _terms;
+	std::vector<std::shared_ptr<Term>> _terms;
 	int _enumIndex;
 
 public:
 	TermStorageVector();
-	virtual ~TermStorageVector();
+	virtual ~TermStorageVector() = default;
 
-	int AddTerm(Term* term);
+	int AddTerm(std::shared_ptr<Term> term);
 	uint Count() const;
 
 	Term* GetTerm(uint index) const;

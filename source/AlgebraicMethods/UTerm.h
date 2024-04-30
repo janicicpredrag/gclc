@@ -16,9 +16,7 @@ public:
 
 	~UTerm();
 
-	void Dispose() override;
-
-	UTerm* Clone() override;
+	std::shared_ptr<Term> Clone() override;
 
 	TERM_TYPE Type() const override;
 

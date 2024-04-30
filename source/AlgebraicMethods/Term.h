@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Object.h"
 #include "Power.h"
 #include <iostream>
 #include <memory>
@@ -24,7 +23,7 @@ enum TERM_TYPE
 	XTERM
 };
 
-class Term : public Object
+class Term
 {
 protected:
 	// list of powers
@@ -37,7 +36,7 @@ public:
 	// comparison of two terms
 	virtual int Compare(Term* other) const;
 
-	virtual Term* Clone() = 0;
+	virtual std::shared_ptr<Term> Clone() = 0;
 
 	virtual TERM_TYPE Type() const = 0;
 

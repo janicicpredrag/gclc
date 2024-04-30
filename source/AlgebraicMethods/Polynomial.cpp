@@ -31,7 +31,7 @@ bool Polynomial::IsZero() const
 // add at the end
 // deserialization method
 //
-int Polynomial::AddTerm(Term* t)
+int Polynomial::AddTerm(std::shared_ptr<Term> t)
 {
 	if (t->Type() != this->Type())
 	{
@@ -47,7 +47,6 @@ int Polynomial::AddTerm(Term* t)
 void Polynomial::RemoveTerm(Term* t)
 {
 	_terms->RemoveTerm(t);
-	t->Dispose();
 }
 
 // aritmetic operations
@@ -81,11 +80,10 @@ int Polynomial::Mul(Polynomial* p)
 		uint cnt2 = p->GetTermCount();
 		for (uint jj = 0; jj < cnt2 && status == 0; jj++)
 		{
-			Term* t2clone = p->GetTerm(jj)->Clone();
+			std::shared_ptr<Term> t2clone = p->GetTerm(jj)->Clone();
 
 			t2clone->Mul(t1);
 			status = tmpTerms->AddTerm(t2clone);
-			t2clone->Dispose();
 		}
 	}
 
@@ -148,9 +146,8 @@ int Polynomial::Add(Polynomial* p)
 
 	for (uint ii = 0; ii < count && status == 0; ii ++)
 	{
-		Term* t = p->GetTerm(ii)->Clone();
+		std::shared_ptr<Term> t = p->GetTerm(ii)->Clone();
 		status = this->AddTerm(t);
-		t->Dispose();
 	}
 
 	return status;

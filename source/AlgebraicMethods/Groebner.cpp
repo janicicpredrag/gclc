@@ -165,16 +165,14 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
         continue;
       }
 
-      m1 = m1->Clone();
-      m1->GCDWith(m2);
-      if (m1->GetPowerCount() == 0) {
+      std::shared_ptr<Term> m1s = m1->Clone();
+      m1s->GCDWith(m2);
+      if (m1s->GetPowerCount() == 0) {
         Log::PrintLogF(1, "Polynomial will be reduced to zero because "
                           "$GCD(p_{%d}, p_{%d}) = 1$.\n\n",
                        i, k);
-        m1->Dispose();
         continue;
       }
-      m1->Dispose();
 
       xp = vxps[i]->Clone();
       xp->SPol(vxps[k]);
@@ -462,7 +460,7 @@ bool Groebner::Reduce(XPolynomial* xp1, XPolynomial* xp2)
 //   c2p1 - c1gp2 = c2c1f1g + c2q - c2c1gf2 - c1gr =
 //                = c2q - c1gr
 bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
-  XTerm *c1f1 = NULL, *c2f2 = NULL, *g = NULL;
+  XTerm *c1f1 = NULL, *c2f2 = NULL;
   // UPolynomialFraction *c1 = NULL, *c2 = NULL;
   int ii;
 
@@ -486,24 +484,22 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   }
 
   // divide f1/f2
-  g = c1f1->Clone();
+  std::shared_ptr<Term> g = c1f1->Clone();
   g->Divide(c2f2);
 
   // multiply first with c2 (must create c2 first)
   XPolynomial *pc2 = new XPolynomial();
-  XTerm *tc2 = new XTerm();
+  std::shared_ptr<XTerm> tc2 = std::make_shared<XTerm>();
   std::shared_ptr<UPolynomialFraction> c2Clone = c2f2->GetUFraction()->Clone();
   tc2->SetUFraction(c2Clone);
   pc2->AddTerm(tc2);
-  tc2->Dispose();
 
   // multiply second with c1g (create c1 and g)
   XPolynomial *pc1g = new XPolynomial();
-  XTerm *tc1g = g->Clone();
+  std::shared_ptr<XTerm> tc1g = std::dynamic_pointer_cast<XTerm>(g->Clone());
   std::shared_ptr<UPolynomialFraction> c1Clone = c1f1->GetUFraction()->Clone();
   tc1g->SetUFraction(c1Clone);
   pc1g->AddTerm(tc1g);
-  tc1g->Dispose();
   XPolynomial *xp2Clone = xp2->Clone();
   xp2Clone->Mul(pc1g);
   pc1g->Dispose();
@@ -514,7 +510,6 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   // subtract
   xp1->Subtract(xp2Clone);
   xp2Clone->Dispose();
-  g->Dispose();
 
   _maxt = std::max(_maxt, xp1->GetTotalTermCount());
 
@@ -626,10 +621,9 @@ bool Groebner::GCDCondition(XPolynomial *xp1, XPolynomial *xp2) {
   XTerm *m2 = (XTerm *)xp2->GetTerm(0);
 
   if (m1 && m2) {
-    m1 = m1->Clone();
-    m1->GCDWith(m2);
-    cond = (m1->GetPowerCount() == 0);
-    m1->Dispose();
+    std::shared_ptr<Term> m1s = m1->Clone();
+    m1s->GCDWith(m2);
+    cond = (m1s->GetPowerCount() == 0);
   }
 
   return cond;

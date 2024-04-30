@@ -27,9 +27,8 @@ XPolynomial *PolyReader::_ReadXPolynomial(char *stream, int start, int end) {
       _Assert(e1 >= 0, "Right bracket missing!");
 
       // create XTerm and add it to the xpol
-      XTerm *xt = _ReadXTerm(stream, s1, e1);
+      std::shared_ptr<XTerm> xt = _ReadXTerm(stream, s1, e1);
       xpol->AddTerm(xt);
-      xt->Dispose();
     }
   } while (s1 > 0);
 
@@ -45,8 +44,8 @@ XPolynomial *PolyReader::_ReadXPolynomial(char *stream, int start, int end) {
 // Alternatively, it could start with a real coefficient
 // {C, XM1, XM2, ...} : type2
 //
-XTerm *PolyReader::_ReadXTerm(char *stream, int s, int e) {
-  XTerm *xt = new XTerm();
+std::shared_ptr<XTerm> PolyReader::_ReadXTerm(char *stream, int s, int e) {
+  std::shared_ptr<XTerm> xt = std::make_shared<XTerm>();
 
 #if DESER_DBG
   // debug
@@ -164,9 +163,8 @@ UPolynomial *PolyReader::_ReadUPolynomial(char *stream, int s, int e) {
       _Assert(e1 >= 0, "Right bracket missing!");
 
       // create UTerm and add it to the xpol
-      UTerm *ut = _ReadUTerm(stream, s1, e1);
+      std::shared_ptr<UTerm> ut = _ReadUTerm(stream, s1, e1);
       upol->AddTerm(ut);
-      ut->Dispose();
     }
   } while (s1 > 0);
 
@@ -177,14 +175,14 @@ UPolynomial *PolyReader::_ReadUPolynomial(char *stream, int s, int e) {
 // UTerm is a structure where first item is a real coefficient
 // and then there is a list of Powers
 //
-UTerm *PolyReader::_ReadUTerm(char *stream, int s, int e) {
+std::shared_ptr<UTerm> PolyReader::_ReadUTerm(char *stream, int s, int e) {
 #if DESER_DBG
   // debug
   Log::PrintLogF(0, "ut: ");
   _Print(stream, s, e);
 #endif
 
-  UTerm *ut = new UTerm();
+  std::shared_ptr<UTerm> ut = std::make_shared<UTerm>();
 
   // read real coefficient
   int s1 = s + 1, e1;
