@@ -233,7 +233,7 @@ jobs:
           name: linux-dynamic-build-artifact
 
       - name: Zip Linux dynamic package
-        run: zip -r linux.dynamic.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
+        run: zip -r linux.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
 
       - name: Download windows build
         uses: actions/download-artifact@v4
@@ -253,7 +253,7 @@ jobs:
         with:
           files: |
             linux.static.zip
-            linux.dynamic.zip
+            linux.zip
             windows.zip
             web.zip
           tag_name: ${{ github.ref_name }}
