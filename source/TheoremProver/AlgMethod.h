@@ -83,7 +83,6 @@ struct Line {
     Name = name;
     implicit = false;
   }
-  ~Line() {}
 
   // put point on line
   // only if line is not yet resolved
