@@ -8,6 +8,7 @@
 #include "../AlgebraicMethods/Prover.h"
 #include "TheoremProver.h"
 #include "stdarg.h"
+#include <memory>
 
 //
 // Constant
@@ -23,8 +24,6 @@ struct Constant {
     Name = name;
     Index = index;
   }
-
-  ~Constant() {}
 };
 
 //
@@ -84,7 +83,6 @@ struct Line {
     Name = name;
     implicit = false;
   }
-  ~Line() {}
 
   // put point on line
   // only if line is not yet resolved
@@ -123,7 +121,6 @@ struct Circle {
   Circle(const std::string &name, Point *cc, Point *pp) : c(cc), p(pp) {
     Name = name;
   }
-  ~Circle() {}
 };
 
 //
@@ -137,7 +134,6 @@ struct Conic {
   Conic(const std::string &name) : H1(true), H2(true), H3(true), H4(true), H5(true) {
     Name = name;
   }
-  ~Conic() {}
 };
 
 class CAlgMethod : public CTheoremProver {
@@ -152,14 +148,14 @@ private:
   bool _pointsResolved;
 
   // construction lines
-  std::vector<Line *> _lines;
+  std::vector<std::unique_ptr<Line>> _lines;
   bool _linesResolved;
 
   // construction circles
-  std::vector<Circle *> _circles;
+  std::vector<std::unique_ptr<Circle>> _circles;
 
   // construction conics
-  std::vector<Conic *> _conics;
+  std::vector<std::unique_ptr<Conic>> _conics;
 
   // constants
   std::vector<Constant *> _constants;
@@ -198,9 +194,9 @@ private:
   bool _ExistsPoint(const std::string &name);
   void _PrintPoints();
   void _PrintPoint(Point *p);
-  void _PrintLine(Line *l);
-  void _PrintCircle(Circle *c);
-  void _PrintConic(Conic *c);
+  void _PrintLine(Line &l);
+  void _PrintCircle(Circle &c);
+  void _PrintConic(Conic &c);
   Constant *_FindConstant(const std::string &name);
   Line *_CreateLine(Point *p1, Point *p2);
   Circle *_CreateCircle(Point *p1, Point *p2);
