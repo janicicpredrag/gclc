@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <memory>
 
 UTerm::UTerm(REAL coeff)
 : _coeff(coeff)
@@ -39,9 +40,8 @@ UTerm* UTerm::Clone()
 	uint count = this->GetPowerCount();
     for (unsigned int ii = 0; ii < count; ii++)
 	{
-		Power* uwClone = this->GetPower(ii)->Clone();
+		std::shared_ptr<Power> uwClone = this->GetPower(ii)->Clone();
 		utClone->AddPower(uwClone);
-		uwClone->Dispose();
 	}
 
 	return utClone;
@@ -65,9 +65,8 @@ void UTerm::SetCoeff(REAL coeff)
 // add on the end
 // this method is used in deserialization
 //
-void UTerm::AddPower(Power* power)
+void UTerm::AddPower(std::shared_ptr<Power> power)
 {
-	power->AddRef();
 	_powers.push_back(power);
 }
 

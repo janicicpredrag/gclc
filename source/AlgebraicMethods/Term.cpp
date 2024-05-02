@@ -27,10 +27,6 @@ Term::~Term() {
 	static int cnt = 0;
 	//Log::PrintLogF(0, "D:%d:%x\n", cnt++, this);
 #endif
-  for (int ii = 0, size = (int)_powers.size(); ii < size; ii++) {
-    _powers[ii]->Dispose();
-  }
-
   DESTR("term");
 }
 
@@ -74,8 +70,8 @@ void Term::MergePowers(Term *t, bool add) {
   int op = add ? 1 : -1;
 
   while (ii < cnt1 && jj < cnt2) {
-    Power *w1 = _powers[ii];
-    Power *w2 = t->_powers[jj];
+    Power *w1 = _powers[ii].get();
+    Power *w2 = t->_powers[jj].get();
 
     if (w1->GetIndex() == w2->GetIndex()) {
       // case 1, w1 == w2
@@ -87,7 +83,6 @@ void Term::MergePowers(Term *t, bool add) {
 
       if (degree == 0) {
         // remove power
-        w1->Dispose();
         _powers.erase(_powers.begin() + ii);
 
         cnt1--;
@@ -134,7 +129,7 @@ void Term::MergePowers(Term *t, bool add) {
     }
 
     // add remaining powers
-    Power *w2 = t->_powers[jj];
+    Power *w2 = t->_powers[jj].get();
     _powers.push_back(w2->Clone());
     jj++;
   }
@@ -172,7 +167,7 @@ bool Term::Divisible(Term *t) const {
 
 uint Term::GetPowerCount() const { return (uint)_powers.size(); }
 
-Power *Term::GetPower(uint index) const { return _powers[index]; }
+Power *Term::GetPower(uint index) const { return _powers[index].get(); }
 
 //
 // degree of variable with given index
@@ -247,7 +242,6 @@ void Term::ChangePowerDegree(int index, int change) {
 // Remove power at index
 //
 void Term::RemovePower(uint index) {
-  _powers[index]->Dispose();
   _powers.erase(_powers.begin() + index);
 }
 

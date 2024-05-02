@@ -1,5 +1,6 @@
 #include "PolyReader.h"
 #include <algorithm>
+#include <memory>
 #include <string>
 
 XPolynomial *PolyReader::ReadXPolynomial(char *stream) {
@@ -91,9 +92,8 @@ XTerm *PolyReader::_ReadXTerm(char *stream, int s, int e) {
       _Assert(e1 >= 0, "Right bracket missing!");
 
       // create Power and add it to the xpol
-      Power *xp = _ReadXPower(stream, s1, e1);
+      std::shared_ptr<Power> xp = _ReadXPower(stream, s1, e1);
       xt->AddPower(xp);
-      xp->Dispose();
     }
   } while (s1 > 0);
 
@@ -208,9 +208,8 @@ UTerm *PolyReader::_ReadUTerm(char *stream, int s, int e) {
       _Assert(e1 >= 0, "Right bracket missing!");
 
       // create UTerm and add it to the xpol
-      Power *up = _ReadUPower(stream, s1, e1);
+      std::shared_ptr<Power> up = _ReadUPower(stream, s1, e1);
       ut->AddPower(up);
-      up->Dispose();
     }
   } while (s1 > 0);
 
@@ -221,7 +220,7 @@ UTerm *PolyReader::_ReadUTerm(char *stream, int s, int e) {
 // Power is a pair of index and degree
 // {1, 2}
 //
-Power *PolyReader::_ReadUPower(char *stream, int s, int /*e*/) {
+std::shared_ptr<Power> PolyReader::_ReadUPower(char *stream, int s, int /*e*/) {
 #if DESER_DBG
   // debug
   Log::PrintLogF(0, "uw: ");
@@ -237,16 +236,14 @@ Power *PolyReader::_ReadUPower(char *stream, int s, int /*e*/) {
   Log::PrintLogF(0, "  index = %d, degree = %d\n", index, degree);
 #endif
 
-  Power *up = new Power(index, degree, VAR_TYPE_U);
-
-  return up;
+  return std::make_shared<Power>(index, degree, VAR_TYPE_U);
 }
 
 //
 // Power is a pair of index and degree
 // {1, 2}
 //
-Power *PolyReader::_ReadXPower(char *stream, int s, int /*e*/) {
+std::shared_ptr<Power> PolyReader::_ReadXPower(char *stream, int s, int /*e*/) {
 #if DESER_DBG
   // debug
   Log::PrintLogF(0, "xw: ");
@@ -262,9 +259,7 @@ Power *PolyReader::_ReadXPower(char *stream, int s, int /*e*/) {
   Log::PrintLogF(0, "  index = %d, degree = %d\n", index, degree);
 #endif
 
-  Power *xp = new Power(index, degree, VAR_TYPE_X);
-
-  return xp;
+  return std::make_shared<Power>(index, degree, VAR_TYPE_X);
 }
 
 void PolyReader::_Print(char *stream, int s, int e) {

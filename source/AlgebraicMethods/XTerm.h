@@ -4,6 +4,7 @@
 #include "Power.h"
 #include "UPolynomialFraction.h"
 #include <iostream>
+#include <memory>
 
 class XTerm : public Term
 {
@@ -23,7 +24,7 @@ public:
 
 	UPolynomialFraction* GetUFraction() const;
 	void SetUFraction(UPolynomialFraction* uf);
-	void AddPower(Power* xp);
+	void AddPower(std::shared_ptr<Power> xp);
 
 	// aritmetic operations
 	int Mul(Term* ut) override;
