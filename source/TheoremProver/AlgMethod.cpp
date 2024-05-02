@@ -1050,18 +1050,15 @@ bool CAlgMethod::_FindLinesCircles() {
   // A(0, 0), B(0, u1), C online AB
   // then C should be set to (0, u2)
   // this code must be tested better!
-  int ii, size;
-  for (ii = 0, size = _lines.size(); ii < size; ii++) {
-    l = _lines[ii];
+  for (Line *l : _lines) {
     if (l->Angle == 0 || l->Angle == 90) {
       // check are all points on line has equal Y coordinates
       // first find minimal coordinate
       bool minFree = false;
       int minIndex = -1;
 
-      int jj, size1;
-      for (jj = 0, size1 = l->Points.size(); jj < size1; jj++) {
-        HalfPoint *hp = l->Angle == 0 ? &l->Points[jj]->Y : &l->Points[jj]->X;
+      for (Point *p : l->Points) {
+        HalfPoint *hp = l->Angle == 0 ? &p->Y : &p->X;
 
         if (hp->Free && !minFree) {
           minFree = true;
@@ -1073,9 +1070,9 @@ bool CAlgMethod::_FindLinesCircles() {
       }
 
       // set minimal index to all points on line
-      for (jj = 0, size1 = l->Points.size(); jj < size1; jj++) {
-        HalfPoint *hp = l->Angle == 0 ? &l->Points[jj]->Y : &l->Points[jj]->X;
-        HalfPoint *hp1 = l->Angle == 0 ? &l->Points[jj]->X : &l->Points[jj]->Y;
+      for (Point *p : l->Points) {
+        HalfPoint *hp = l->Angle == 0 ? &p->Y : &p->X;
+        HalfPoint *hp1 = l->Angle == 0 ? &p->X : &p->Y;
 
         if (hp->Free != minFree || hp->Index != minIndex) {
           // special case - online point with dependant variable
@@ -1099,14 +1096,14 @@ bool CAlgMethod::_FindLinesCircles() {
 
   // print objects
   Log::OutputEnumBegin("itemize");
-  for (ii = 0, size = _lines.size(); ii < size; ii++) {
-    _PrintLine(_lines[ii]);
+  for (Line *l : _lines) {
+    _PrintLine(l);
   }
-  for (ii = 0, size = _circles.size(); ii < size; ii++) {
-    _PrintCircle(_circles[ii]);
+  for (Circle *c : _circles) {
+    _PrintCircle(c);
   }
-  for (ii = 0, size = _conics.size(); ii < size; ii++) {
-    _PrintConic(_conics[ii]);
+  for (Conic *c : _conics) {
+    _PrintConic(c);
   }
   Log::OutputEnumEnd("itemize");
 
