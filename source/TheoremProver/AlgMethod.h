@@ -23,8 +23,6 @@ struct Constant {
     Name = name;
     Index = index;
   }
-
-  ~Constant() {}
 };
 
 //
