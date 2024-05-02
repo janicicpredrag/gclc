@@ -154,7 +154,7 @@ private:
   bool _linesResolved;
 
   // construction circles
-  std::vector<Circle *> _circles;
+  std::vector<std::unique_ptr<Circle>> _circles;
 
   // construction conics
   std::vector<std::unique_ptr<Conic>> _conics;
@@ -197,7 +197,7 @@ private:
   void _PrintPoints();
   void _PrintPoint(Point *p);
   void _PrintLine(Line *l);
-  void _PrintCircle(Circle *c);
+  void _PrintCircle(Circle &c);
   void _PrintConic(Conic &c);
   Constant *_FindConstant(const std::string &name);
   Line *_CreateLine(Point *p1, Point *p2);

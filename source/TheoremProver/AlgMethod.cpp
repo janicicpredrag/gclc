@@ -55,9 +55,6 @@ void CAlgMethod::CleanUp() {
   }
   _lines.clear();
   // circles
-  for (ii = 0, size = _circles.size(); ii < size; ii++) {
-    delete _circles[ii];
-  }
   _circles.clear();
   // conics
   _conics.clear();
@@ -455,7 +452,7 @@ void CAlgMethod::_PrintLine(Line *l) {
 
 // ----------------------------------------------------------------------------
 
-void CAlgMethod::_PrintCircle(Circle * /* c */) {}
+void CAlgMethod::_PrintCircle(Circle & /* c */) {}
 
 // ----------------------------------------------------------------------------
 
@@ -734,9 +731,9 @@ Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
 Circle *CAlgMethod::_FindCircle(const std::string &name) {
   Circle *c = NULL;
 
-  for (int ii = 0, size = _circles.size(); ii < size && c == NULL; ii++) {
-    if (_circles[ii]->Name == name) {
-      c = _circles[ii];
+  for (std::unique_ptr<Circle> &circle : _circles) {
+    if (circle->Name == name) {
+      c = circle.get();
     }
   }
 
@@ -920,7 +917,7 @@ bool CAlgMethod::_FindLinesCircles() {
       q = _FindPoint(it->arg[2]);
 
       k = new Circle(it->arg[0], p, q);
-      _circles.push_back(k);
+      _circles.emplace_back(k);
       break;
     case p_pratio:
       // p_pratio P A B C r
@@ -1097,8 +1094,8 @@ bool CAlgMethod::_FindLinesCircles() {
   for (Line *l : _lines) {
     _PrintLine(l);
   }
-  for (Circle *c : _circles) {
-    _PrintCircle(c);
+  for (std::unique_ptr<Circle> &c : _circles) {
+    _PrintCircle(*c);
   }
   for (std::unique_ptr<Conic> &c : _conics) {
     _PrintConic(*c);
@@ -1190,7 +1187,7 @@ Line *CAlgMethod::_CreateLine(Point *p1, Point *p2) {
 Circle *CAlgMethod::_CreateCircle(Point *p1, Point *p2) {
   std::string lName = p1->Name + p2->Name;
   Circle *k = new Circle(lName, p1, p2);
-  _circles.push_back(k);
+  _circles.emplace_back(k);
 
   return k;
 }
