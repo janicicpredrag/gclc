@@ -149,7 +149,7 @@ private:
   bool _pointsResolved;
 
   // construction lines
-  std::vector<Line *> _lines;
+  std::vector<std::unique_ptr<Line>> _lines;
   bool _linesResolved;
 
   // construction circles

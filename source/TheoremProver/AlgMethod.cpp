@@ -50,9 +50,6 @@ void CAlgMethod::CleanUp() {
   }
   _points.clear();
   // lines
-  for (ii = 0, size = _lines.size(); ii < size; ii++) {
-    delete _lines[ii];
-  }
   _lines.clear();
   // circles
   _circles.clear();
@@ -686,9 +683,9 @@ Point *CAlgMethod::_FindOrAddPoint(const std::string &name) {
 //
 Line *CAlgMethod::_FindLine(const std::string &name) {
   Line *l = NULL;
-  for (int ii = 0, size = _lines.size(); ii < size && l == NULL; ii++) {
-    if (_lines[ii]->Name == name)
-      l = _lines[ii];
+  for (std::unique_ptr<Line> &line : _lines) {
+    if (line->Name == name)
+      l = line.get();
   }
 
   return l;
@@ -705,10 +702,10 @@ Line *CAlgMethod::_FindLine(const std::string &name) {
 Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
   Line *l = NULL;
 
-  for (int ii = 0, size = _lines.size(); ii < size && l == NULL; ii++) {
+  for (std::unique_ptr<Line> &line : _lines) {
     bool containp1 = false;
     bool containp2 = false;
-    l = _lines[ii];
+    l = line.get();
     for (int jj = 0, size1 = l->Points.size();
          jj < size1 && (!containp1 || !containp2); jj++) {
       containp1 = containp1 || l->Points[jj] == p1;
@@ -788,7 +785,7 @@ bool CAlgMethod::_FindLinesCircles() {
       l = _FindLine(it->arg[0]);
       if (l == NULL) {
         l = new Line(it->arg[0]);
-        _lines.push_back(l);
+        _lines.emplace_back(l);
       }
       break;
     case midpoint:
@@ -835,7 +832,7 @@ bool CAlgMethod::_FindLinesCircles() {
       l = _FindLine(it->arg[0]);
       if (l == NULL) {
         l = new Line(it->arg[0]);
-        _lines.push_back(l);
+        _lines.emplace_back(l);
       }
 
       if (it->type != p_bis) {
@@ -858,14 +855,14 @@ bool CAlgMethod::_FindLinesCircles() {
         l = _FindLine(it->arg[1]);
         if (l == NULL) {
           l = new Line(it->arg[1]);
-          _lines.push_back(l);
+          _lines.emplace_back(l);
         }
         l->AddPoint(p);
 
         l = _FindLine(it->arg[2]);
         if (l == NULL) {
           l = new Line(it->arg[2]);
-          _lines.push_back(l);
+          _lines.emplace_back(l);
         }
         l->AddPoint(p);
       } else {
@@ -901,14 +898,14 @@ bool CAlgMethod::_FindLinesCircles() {
       l = _FindLine(it->arg[0]);
       if (l == NULL) {
         l = new Line(it->arg[0]);
-        _lines.push_back(l);
+        _lines.emplace_back(l);
       }
       l->AddPoint(p);
 
       l = _FindLine(it->arg[2]);
       if (l == NULL) {
         l = new Line(it->arg[2]);
-        _lines.push_back(l);
+        _lines.emplace_back(l);
       }
       break;
     case p_circle:
@@ -1045,7 +1042,7 @@ bool CAlgMethod::_FindLinesCircles() {
   // A(0, 0), B(0, u1), C online AB
   // then C should be set to (0, u2)
   // this code must be tested better!
-  for (Line *l : _lines) {
+  for (std::unique_ptr<Line> &l : _lines) {
     if (l->Angle == 0 || l->Angle == 90) {
       // check are all points on line has equal Y coordinates
       // first find minimal coordinate
@@ -1091,7 +1088,7 @@ bool CAlgMethod::_FindLinesCircles() {
 
   // print objects
   Log::OutputEnumBegin("itemize");
-  for (Line *l : _lines) {
+  for (std::unique_ptr<Line> &l : _lines) {
     _PrintLine(*l);
   }
   for (std::unique_ptr<Circle> &c : _circles) {
@@ -1170,7 +1167,7 @@ bool CAlgMethod::_HalfPointsEquals(Point *p1, Point *p2, bool xAxis) {
 Line *CAlgMethod::_CreateLine(Point *p1, Point *p2) {
   std::string lName = p1->Name + p2->Name;
   Line *l = new Line(lName);
-  _lines.push_back(l);
+  _lines.emplace_back(l);
   l->AddPoint(p1);
   l->AddPoint(p2);
   l->implicit = true;
