@@ -36,9 +36,7 @@ jobs:
         run: |
           emcmake cmake -B build -S gclcWeb
           cmake --build build
-          cmake --build build --target install
-          cp executable/gclc.wasm gclcWeb/public/
-          cp executable/gclc.js gclcWeb/src/
+          cp build/gclc.wasm build/gclc.js gclcWeb/src/
 
       - name: Build web app
         working-directory: ./gclcWeb
@@ -48,7 +46,7 @@ jobs:
 
       - name: Zip web app
         working-directory: ./gclcWeb/dist
-        run: zip web.zip *
+        run: zip -r web.zip *
 
       - name: Upload web app
         uses: actions/upload-artifact@v4
@@ -56,7 +54,7 @@ jobs:
           name: web-build-artifact
           path: gclcWeb/dist/web.zip
 
-  buildLinux:
+  buildLinuxStatic:
     runs-on: ubuntu-latest
     needs: [buildManual]
     steps:
@@ -73,29 +71,50 @@ jobs:
           rm source/manual/gclc_man.pdf
           mv gclc_man.pdf source/manual/gclc_man.pdf
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3.3.0
-        with:
-          version: "6.6.0"
-          host: "linux"
-          target: "desktop"
-          arch: "gcc_64"
-          cache: "false"
+      - name: Install Qt and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3 ninja-build cmake git gcc \
+            libc6-dev perl build-essential libdrm-dev \
+            libgles2-mesa-dev libgl1-mesa-dev libegl1-mesa-dev libglu1-mesa-dev libglfw3-dev  \
+            libfreetype6-dev libfreetype-dev libfontconfig1 libfontconfig1-dev fontconfig libfontconfig-dev \
+            libx11-xcb-dev libxrender-dev libxi-dev libxcb-xinerama0 libglx-dev \
+            libxcb-render-util0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-xfixes0-dev libxcb-xkb-dev \
+            libxcb-sync-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-image0-dev \
+            libxcb-util-dev libxcb-cursor-dev libxkbcommon-dev libxkbcommon-x11-dev libxext-dev  \
+            libx11-dev clang-15 clang-tools-15 clang-format-15 clang-tidy-15 \
+            llvm-15-dev llvm-15-linker-tools llvm-15-tools llvm-15-runtime libclang-15-dev
+
+      - name: Configure and install Qt
+        run: |
+          cd ..
+          git clone --depth 1 -b 6.5.2 https://github.com/qt/qt5.git qt6
+          cd qt6
+          ./init-repository --module-subset=essential,qtwayland
+          mkdir build
+          cd build
+          ../configure -static -release -no-pch -skip webengine -nomake tests -nomake examples -fontconfig -prefix '/qtStatic' -xcb-xlib
+          cmake --build . --parallel
+          sudo cmake --install .
 
       - name: Make CLI and GUI version
         run: |
-          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
-          cmake --build build
-          cmake --build build --target install
+          /qtStatic/bin/qt-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cd build
+          make
+          cd ..
+          cp build/gclc executable/
+          cp build/source/gclc-gui executable/
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
         with:
-          name: linux-build-artifact
+          name: linux-static-build-artifact
           path: executable/
 
-  buildWindows:
-    runs-on: windows-2022
+  buildLinuxDynamic:
+    runs-on: ubuntu-latest
     needs: [buildManual]
     steps:
       - name: Checkout repository
@@ -111,14 +130,15 @@ jobs:
           rm source/manual/gclc_man.pdf
           mv gclc_man.pdf source/manual/gclc_man.pdf
 
-      - name: Install QT
-        uses: jurplel/install-qt-action@v3.3.0
-        with:
-          version: "6.6.0"
-          host: "windows"
-          target: "desktop"
-          arch: "win64_mingw"
-          cache: "false"
+      - name: Install Qt and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            qt6-base-dev libqt6opengl6-dev \
+            cmake gcc \
+            libgles2-mesa-dev libgl1-mesa-dev libegl1-mesa-dev libglu1-mesa-dev libglfw3-dev  \
+            libx11-xcb-dev libxrender-dev libxi-dev libxcb-xinerama0 libglx-dev \
+            libxkbcommon-dev libxkbcommon-x11-dev libxcb-xkb-dev
 
       - name: Make CLI and GUI version
         run: |
@@ -126,14 +146,59 @@ jobs:
           cmake --build build
           cmake --build build --target install
 
-      - name: Move DLLs
+      - name: Upload executables
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-dynamic-build-artifact
+          path: executable/
+
+  buildWindows:
+    runs-on: ubuntu-latest
+    needs: [buildManual]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download manual
+        uses: actions/download-artifact@v4
+        with:
+          name: manual-build-artifact
+
+      - name: Move manual
         run: |
-          cp ../Qt/6.6.0/mingw_64/bin/Qt6Core.dll executable/
-          cp ../Qt/6.6.0/mingw_64/bin/Qt6Gui.dll executable/
-          cp ../Qt/6.6.0/mingw_64/bin/Qt6PrintSupport.dll executable/
-          cp ../Qt/6.6.0/mingw_64/bin/Qt6Widgets.dll executable/
-          mkdir -p executable/platforms/
-          cp ../Qt/6.6.0/mingw_64/plugins/platforms/qwindows.dll executable/platforms/
+          rm source/manual/gclc_man.pdf
+          mv gclc_man.pdf source/manual/gclc_man.pdf
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+              autoconf automake autopoint bash bison build-essential bzip2 flex \
+              g++ g++-multilib gettext git gperf intltool iputils-ping libc6-dev-i386 \
+              libffi-dev libgdk-pixbuf2.0-dev libltdl-dev libssl-dev libtool-bin \
+              libxml-parser-perl lzip make nano openssl p7zip-full patch perl \
+              pkg-config ruby scons sed unzip wget xz-utils libgl-dev \
+              python3 python3-mako python3-pkg-resources python3-setuptools python-is-python3
+          sudo apt -y autoremove 
+          sudo apt -y autoclean
+          sudo apt -y clean
+          sudo rm -rf /var/lib/apt/lists/*
+
+      - name: Install MXE
+        run: |
+          cd ..
+          git clone https://github.com/mxe/mxe.git
+          cd mxe
+          git checkout 1fba476c
+          make MXE_TARGETS=x86_64-w64-mingw32.static -j$(nproc) qt6-qtbase
+          echo "$(pwd)/usr/bin" >> $GITHUB_PATH
+
+      - name: Compile gclc
+        run: |
+          x86_64-w64-mingw32.static-cmake -B build -S .
+          x86_64-w64-mingw32.static-cmake --build build
+          cp build/gclc.exe executable/
+          cp build/source/gclc-gui.exe executable/
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
@@ -143,7 +208,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    needs: [buildManual, buildLinux, buildWindows, buildWeb]
+    needs:
+      [buildManual, buildLinuxDynamic, buildLinuxStatic, buildWindows, buildWeb]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -153,49 +219,41 @@ jobs:
         with:
           name: manual-build-artifact
 
-      - name: Download linux build
+      - name: Download Linux static build
         uses: actions/download-artifact@v4
         with:
-          name: linux-build-artifact
+          name: linux-static-build-artifact
+
+      - name: Zip Linux static package
+        run: zip -r linux.static.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
+
+      - name: Download Linux dynamic build
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-dynamic-build-artifact
+
+      - name: Zip Linux dynamic package
+        run: zip -r linux.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
 
       - name: Download windows build
         uses: actions/download-artifact@v4
         with:
           name: windows-build-artifact
 
+      - name: Zip Windows package
+        run: zip -r windows.zip gclc.exe gclc-gui.exe gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support *.dll platforms/
+
       - name: Download web build
         uses: actions/download-artifact@v4
         with:
           name: web-build-artifact
 
-      - name: Zip Linux package
-        run: zip -r linux.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
-
-      - name: Zip Windows package
-        run: zip -r windows.zip gclc.exe gclc-gui.exe gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support *.dll platforms/
-
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            linux.static.zip
             linux.zip
             windows.zip
             web.zip
           tag_name: ${{ github.ref_name }}
-
-      - name: Move
-        run: |
-          cp gclc_man.pdf source/manual/gclc_man.pdf
-          mv gclc_man.pdf manual/gclc_man.pdf
-          mv gclc-gui.exe executable/pre-built/windows/gclc-gui.exe
-          mv gclc.exe executable/pre-built/windows/gclc.exe
-          mv gclc-gui executable/pre-built/linux/gclc-gui
-          mv gclc executable/pre-built/linux/gclc
-
-      - name: Commit
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: Build executables and manual
-          default_author: github_actions
-          add: "manual/gclc_man.pdf source/manual/gclc_man.pdf executable/pre-built/*"
-          push: origin HEAD:master

@@ -51,17 +51,11 @@ For more information see [manual](manual/gclc_man.pdf).
 
 ## Executables
 
-Pre-built executables (both the command line version and the version
-with graphical user interface, both for Windows and for Linux) are
-available in the folder 'executable'. Running these executables may
-require installing some libraries (as `qt6`).
-
-You can download latest executables (without code) from
+You can download latest executables from the
 [Github Release page](https://github.com/janicicpredrag/gclc/releases).
-Package `windows.zip` contains Qt DLLs that can help you
-with running GUI version of GCLC.
 
-Executables also can be built from the available source code.
+Executables also can be built from the available source code following instructions
+provided below.
 
 ## Web version
 
@@ -117,35 +111,38 @@ The executable `gclc-gui` will be created in the folder 'build/source'.
 
 You can also load 'CMakeLists.txt' in QTCreator and build project from there.
 
-### Building web version
+### Building the web version
 
-Web version is build in three steps:
+The web version is build in two steps:
 
-1.  **Compiling the GCLC to a WASM file**. This step is done via `emcc`,
-    and described 'Makefile.web'.
-2.  **Compiling the Typescript code** This is step is done via `npm`
+1.  **Compiling the GCLC to a WASM file**. This step is done via Emscripten
+2.  **Compiling the Typescript code** This step is done via `npm`
     (using [Vite](https://vitejs.dev/)).
-3.  Adding assets and deploying.
 
 First, you will need to setup locally
 [`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and
 [`emcc`](https://emscripten.org/docs/getting_started/downloads.html). Once you have `emcc` available,
-in the project root directory run:
+in the project root directory configure project with `emcmake` provided by Emscripten, and compile it:
 
 ```bash
-make -f Makefile.web
+emcmake cmake -B build -S gclcWeb
+cmake --build build
 ```
 
-This step produces 'gclc.wasm' and 'gclc.js' inside 'gclcWeb/'.
+This step produces 'gclc.wasm' and 'gclc.js' inside 'build/'. Copy those two files to the 'src' directory:
 
-Now you have to install `npm` dependencies (only need to be done the first time).
+```bash
+cp build/gclc.js build/gclc.wasm gclcWeb/src/
+```
+
+This concludes the first step. Now you have to install `npm` dependencies (only need to be done the first time).
 Inside 'gclcWeb/' run:
 
 ```bash
 npm install
 ```
 
-After that run
+After that, run
 
 ```bash
 npm run build
@@ -166,8 +163,8 @@ npx lezer-generator gclc.grammar -o lang.js
 #### Development server
 
 While developing, you can start a development server with `npm run dev`. Dev server
-reloads only when one of `ts` (`js`) files is changed.
-`.wasm` and `.grammar` are not tracked.
+reloads when one of `ts` (`js`) files is changed.
+Changes to `.wasm` and `.grammar` files are not tracked.
 
 ## License
 

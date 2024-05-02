@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-public/*.wasm
-public/gclc.js
+src/*.wasm
 src/lang.js
 src/lang.terms.js

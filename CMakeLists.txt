@@ -107,12 +107,6 @@ add_executable(gclc
 # require ISO C++11
 target_compile_features(gclc PRIVATE cxx_std_11)
 
-if(MINGW)
-  target_link_options(gclc
-    PRIVATE "LINKER:-s LINKER:-subsystem,console LINKER:-mthreads"
-  )
-endif()
-
 install(TARGETS gclc
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}
 )

@@ -7,7 +7,7 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     "installation prefix" FORCE)
 endif()
 
-add_executable(gclcjs
+add_executable(gclc
   ../source/wGCLCmain.cpp
   ../source/Export/TikZOutput.cpp
   ../source/Export/SVGOutput.cpp
@@ -76,22 +76,17 @@ add_executable(gclcjs
 )
 
 # require C++17
-target_compile_features(gclcjs PRIVATE cxx_std_17)
+target_compile_features(gclc PRIVATE cxx_std_17)
 
-target_link_options(gclcjs PRIVATE -sWASM=1)
-target_link_options(gclcjs PRIVATE -sMODULARIZE=1)
-target_link_options(gclcjs PRIVATE -sENVIRONMENT=web)
-target_link_options(gclcjs PRIVATE "-sEXPORTED_FUNCTIONS=[_render, _malloc, _free, _calloc]")
-target_link_options(gclcjs PRIVATE "-sEXPORTED_RUNTIME_METHODS=[cwrap, AsciiToString, stringToUTF8, lengthBytesUTF8, UTF8ToString, stringToUTF8, getValue, FS]")
-target_link_options(gclcjs PRIVATE -sEXPORT_NAME=createModule)
-
-add_custom_target(gclc ALL
-  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/tweak-js.sh gclcjs.js gclc.js
-  COMMAND ${CMAKE_COMMAND} -E copy gclcjs.wasm gclc.wasm
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-  COMMENT "patching JavaScript lines"
-)
-add_dependencies(gclc gclcjs)
+target_link_options(gclc PRIVATE -sWASM=1)
+target_link_options(gclc PRIVATE -sMODULARIZE=1)
+target_link_options(gclc PRIVATE -sENVIRONMENT=web)
+target_link_options(gclc PRIVATE "-sEXPORTED_FUNCTIONS=[_render, _malloc, _free, _calloc]")
+target_link_options(gclc PRIVATE "-sEXPORTED_RUNTIME_METHODS=[cwrap, AsciiToString, stringToUTF8, lengthBytesUTF8, UTF8ToString, stringToUTF8, getValue, FS]")
+target_link_options(gclc PRIVATE -sEXPORT_NAME=createModule)
+target_link_options(gclc PRIVATE -s EXPORT_ES6=1)
+target_link_options(gclc PRIVATE -O2)
+target_link_options(gclc PRIVATE -o gclc.js)
 
 install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/gclc.js
