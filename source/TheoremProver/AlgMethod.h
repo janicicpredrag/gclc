@@ -122,7 +122,6 @@ struct Circle {
   Circle(const std::string &name, Point *cc, Point *pp) : c(cc), p(pp) {
     Name = name;
   }
-  ~Circle() {}
 };
 
 //
