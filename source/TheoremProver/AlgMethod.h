@@ -8,6 +8,7 @@
 #include "../AlgebraicMethods/Prover.h"
 #include "TheoremProver.h"
 #include "stdarg.h"
+#include <memory>
 
 //
 // Constant
@@ -157,7 +158,7 @@ private:
   std::vector<Circle *> _circles;
 
   // construction conics
-  std::vector<Conic *> _conics;
+  std::vector<std::unique_ptr<Conic>> _conics;
 
   // constants
   std::vector<Constant *> _constants;
@@ -198,7 +199,7 @@ private:
   void _PrintPoint(Point *p);
   void _PrintLine(Line *l);
   void _PrintCircle(Circle *c);
-  void _PrintConic(Conic *c);
+  void _PrintConic(Conic &c);
   Constant *_FindConstant(const std::string &name);
   Line *_CreateLine(Point *p1, Point *p2);
   Circle *_CreateCircle(Point *p1, Point *p2);

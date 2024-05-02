@@ -6,6 +6,7 @@
 #include "../AlgebraicMethods/PolyReader.h"
 #include <algorithm>
 #include <assert.h>
+#include <memory>
 
 // ----------------------------------------------------------------------------
 
@@ -59,9 +60,6 @@ void CAlgMethod::CleanUp() {
   }
   _circles.clear();
   // conics
-  for (ii = 0, size = _conics.size(); ii < size; ii++) {
-    delete _conics[ii];
-  }
   _conics.clear();
 
   /*	for (ii = 0, size = vpConjectures.size(); ii < size; ii++)
@@ -461,7 +459,7 @@ void CAlgMethod::_PrintCircle(Circle * /* c */) {}
 
 // ----------------------------------------------------------------------------
 
-void CAlgMethod::_PrintConic(Conic * /* c */) {}
+void CAlgMethod::_PrintConic(Conic & /* c */) {}
 
 // ----------------------------------------------------------------------------
 
@@ -753,9 +751,9 @@ Circle *CAlgMethod::_FindCircle(const std::string &name) {
 Conic *CAlgMethod::_FindConic(const std::string &name) {
   Conic *c = NULL;
 
-  for (int ii = 0, size = _conics.size(); ii < size && c == NULL; ii++) {
-    if (_conics[ii]->Name == name) {
-      c = _conics[ii];
+  for (std::unique_ptr<Conic> &conic : _conics) {
+    if (conic->Name == name) {
+      c = conic.get();
     }
   }
 
@@ -1102,8 +1100,8 @@ bool CAlgMethod::_FindLinesCircles() {
   for (Circle *c : _circles) {
     _PrintCircle(c);
   }
-  for (Conic *c : _conics) {
-    _PrintConic(c);
+  for (std::unique_ptr<Conic> &c : _conics) {
+    _PrintConic(*c);
   }
   Log::OutputEnumEnd("itemize");
 
