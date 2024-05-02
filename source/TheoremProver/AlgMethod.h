@@ -195,7 +195,7 @@ private:
   bool _ExistsPoint(const std::string &name);
   void _PrintPoints();
   void _PrintPoint(Point *p);
-  void _PrintLine(Line *l);
+  void _PrintLine(Line &l);
   void _PrintCircle(Circle &c);
   void _PrintConic(Conic &c);
   Constant *_FindConstant(const std::string &name);
