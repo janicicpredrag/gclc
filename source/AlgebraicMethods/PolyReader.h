@@ -19,7 +19,7 @@ private:
 
 	static XPolynomial* _ReadXPolynomial(char* stream, int start, int end);
 	static XTerm* _ReadXTerm(char* stream, int s, int e);
-	static UPolynomialFraction* _ReadUFraction(char* stream, int s, int e);
+	static std::shared_ptr<UPolynomialFraction> _ReadUFraction(char* stream, int s, int e);
 	static UPolynomial* _ReadUPolynomial(char* stream, int s, int e);
 	static UTerm* _ReadUTerm(char* stream, int s, int e);
 	static std::shared_ptr<Power> _ReadUPower(char* stream, int s, int e);

@@ -1,6 +1,7 @@
 #include "Groebner.h"
 #include "PolyReader.h"
 #include <algorithm>
+#include <memory>
 
 const std::string Groebner::Description() { return "Buchberger's method"; }
 
@@ -395,7 +396,6 @@ bool Groebner::Reduce(XPolynomial* xp1, XPolynomial* xp2)
 {
   int i, j;
   XTerm *lmp, *jm, *m1;
-  UPolynomialFraction *ct1 = NULL, *ct2 = NULL;
   int status = 0;
 
   uint s1 = xp1->GetTermCount(), s2 = xp2->GetTermCount();
@@ -492,18 +492,16 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   // multiply first with c2 (must create c2 first)
   XPolynomial *pc2 = new XPolynomial();
   XTerm *tc2 = new XTerm();
-  UPolynomialFraction *c2Clone = c2f2->GetUFraction()->Clone();
+  std::shared_ptr<UPolynomialFraction> c2Clone = c2f2->GetUFraction()->Clone();
   tc2->SetUFraction(c2Clone);
-  c2Clone->Dispose();
   pc2->AddTerm(tc2);
   tc2->Dispose();
 
   // multiply second with c1g (create c1 and g)
   XPolynomial *pc1g = new XPolynomial();
   XTerm *tc1g = g->Clone();
-  UPolynomialFraction *c1Clone = c1f1->GetUFraction()->Clone();
+  std::shared_ptr<UPolynomialFraction> c1Clone = c1f1->GetUFraction()->Clone();
   tc1g->SetUFraction(c1Clone);
-  c1Clone->Dispose();
   pc1g->AddTerm(tc1g);
   tc1g->Dispose();
   XPolynomial *xp2Clone = xp2->Clone();

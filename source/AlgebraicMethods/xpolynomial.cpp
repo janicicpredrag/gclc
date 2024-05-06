@@ -19,9 +19,8 @@ int XPolynomial::maxt() { return _maxt; }
 XPolynomial::XPolynomial(REAL x) {
   if (x != 0) {
     XTerm *xt = new XTerm();
-    UPolynomialFraction *uf = new UPolynomialFraction(x);
+    auto uf = std::make_shared<UPolynomialFraction>(x);
     xt->SetUFraction(uf);
-    uf->Dispose();
 
     this->AddTerm(xt);
     xt->Dispose();
@@ -38,7 +37,7 @@ XPolynomial::XPolynomial(bool free, int index) {
     // empty polynomial, ie zero polynomial
   } else {
     XTerm *xt = new XTerm();
-    UPolynomialFraction *uf = new UPolynomialFraction(1);
+    auto uf = std::make_shared<UPolynomialFraction>(1);
 
     if (free) {
       auto up = std::make_shared<Power>(index, 1, VAR_TYPE_U);
@@ -52,7 +51,6 @@ XPolynomial::XPolynomial(bool free, int index) {
     }
 
     xt->SetUFraction(uf);
-    uf->Dispose();
     this->AddTerm(xt);
     xt->Dispose();
   }
@@ -349,9 +347,8 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
     }
   } else {
     XTerm *unit = new XTerm();
-    UPolynomialFraction *unitFraction = new UPolynomialFraction(1);
+    auto unitFraction = std::make_shared<UPolynomialFraction>(1);
     unit->SetUFraction(unitFraction);
-    unitFraction->Dispose();
     q->AddTerm(unit);
     unit->Dispose();
   }

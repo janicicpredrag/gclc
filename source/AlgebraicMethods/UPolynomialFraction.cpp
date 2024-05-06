@@ -1,5 +1,7 @@
 #include "UPolynomialFraction.h"
 #include <iostream>
+#include <memory>
+#include <utility>
 
 UPolynomialFraction::UPolynomialFraction()
 : _num(NULL), _den(NULL)
@@ -32,9 +34,9 @@ UPolynomialFraction::~UPolynomialFraction()
 	DESTR("upolyf");
 }
 
-UPolynomialFraction* UPolynomialFraction::Clone()
+std::shared_ptr<UPolynomialFraction> UPolynomialFraction::Clone()
 {
-	UPolynomialFraction* ufClone = new UPolynomialFraction();
+	auto ufClone = std::make_shared<UPolynomialFraction>();
 
 	UPolynomial* upNumClone = this->GetNumerator()->Clone();
 	UPolynomial* upDenClone = this->GetDenominator()->Clone();
@@ -104,9 +106,7 @@ int UPolynomialFraction::Mul(UPolynomialFraction* uf)
 int UPolynomialFraction::Inverse()
 {
 	// just switch numerator and denominator
-	UPolynomial* up = _num;
-	_num = _den;
-	_den = up;
+	std::swap(_num, _den);
 	return 0;
 }
 
