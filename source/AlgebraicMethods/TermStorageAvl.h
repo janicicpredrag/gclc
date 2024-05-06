@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TermStorage.h"
+#include <memory>
 
 // Indices into a subtree array
 //     NOTE: I would place this inside the AvlNode class but 
@@ -20,7 +21,7 @@ enum  cmp_t {
 
 // AvlNode -- Class to implement an AVL Tree
 //
-class AvlNode  : public Object
+class AvlNode
 {
 public:
 	// Max number of subtrees per node
@@ -37,7 +38,6 @@ public:
    AvlNode(Term* item=NULL);
    void Construct(Term* item=NULL);
    ~AvlNode(void);
-   void Dispose();
 
    // ----- Query attributes:
 
@@ -61,7 +61,7 @@ public:
    // item (the result may be NULL if there is no such item).
    //
    AvlNode *
-   Subtree(dir_t dir) const { return  mySubtree[dir]; }
+   Subtree(dir_t dir) const { return  mySubtree[dir].get(); }
 
    // ----- Search/Insert/Delete
    //
@@ -81,12 +81,12 @@ public:
    // Insert the given key, return NULL if it was inserted,
    // otherwise return the existing item with the same key.
    static Term*
-   Insert(Term* item, AvlNode * & root);
+   Insert(Term* item, std::shared_ptr<AvlNode> &root);
 
    // Delete the given key from the tree. Return the corresponding
    // node, or return NULL if it was not found.
    static Term*
-   Delete(TermKeyType key, AvlNode * & root, cmp_t cmp=EQ_CMP);
+   Delete(TermKeyType key, std::shared_ptr<AvlNode> &root, cmp_t cmp=EQ_CMP);
 
    // Verification 
 
@@ -108,7 +108,7 @@ private:
    // ----- Private data
 
    Term* myData;  // Data field
-   AvlNode    * mySubtree[MAX_SUBTREES];   // Pointers to subtrees
+   std::shared_ptr<AvlNode> mySubtree[MAX_SUBTREES];   // Pointers to subtrees
    short      myBal;   // Balance factor
 
    // Reset all subtrees to null and clear the balance factor
@@ -126,9 +126,7 @@ private:
    // parameter will be '1' if the tree height changed as a result
    // of the insertion (otherwise "change" will be 0).
    static Term*
-   Insert(Term* item,
-             AvlNode * & root,
-             int & change);
+   Insert(Term *item, std::shared_ptr<AvlNode> &root, int &change);
 
    // Delete the given key from the given tree. Return NULL if the
    // key is not found in the tree. Otherwise return a pointer to the
@@ -137,7 +135,7 @@ private:
    // of the deletion (otherwise "change" will be 0).
    static Term*
    Delete(TermKeyType key,
-             AvlNode * & root,
+             std::shared_ptr<AvlNode> &root,
              int & change,
              cmp_t cmp=EQ_CMP);
 
@@ -147,17 +145,17 @@ private:
    // Return 1 if the tree height changes due to rotation,
    // otherwise return 0.
    static int
-   RotateOnce(AvlNode * & root, dir_t dir);
+   RotateOnce(std::shared_ptr<AvlNode> &root, dir_t dir);
 
    // Perform an XY rotation for the given direction 'X'
    // Return 1 if the tree height changes due to rotation,
    // otherwise return 0.
    static int
-   RotateTwice(AvlNode * & root, dir_t dir);
+   RotateTwice(std::shared_ptr<AvlNode> &root, dir_t dir);
 
    // Rebalance a (sub)tree if it has become imbalanced
    static int
-   ReBalance(AvlNode * & root);
+   ReBalance(std::shared_ptr<AvlNode> &root);
 
    // Perform a comparison of the given key against the given
    // item using the given criteria (min, max, or equivalence
@@ -188,7 +186,7 @@ private:
    TermStorageAvlTree & operator=(const TermStorageAvlTree &);
 
    // Member data
-   AvlNode * myRoot;   // The root of the tree
+   std::shared_ptr<AvlNode> myRoot;   // The root of the tree
 
    // enumeration
    int _enumIndex;
@@ -201,10 +199,6 @@ public:
    };
    ~TermStorageAvlTree() 
    { 
-	   if (myRoot)
-	   {
-		   myRoot->Dispose();
-	   }
 	   DESTR("avl tree");
    }
    void Construct();
@@ -218,7 +212,7 @@ public:
    // Search, Insert, Delete, and Check
    Term*
    Search(TermKeyType key, cmp_t cmp=EQ_CMP) {
-      return  AvlNode::Search(key, myRoot, cmp);
+      return  AvlNode::Search(key, myRoot.get(), cmp);
    }
 
    Term*
