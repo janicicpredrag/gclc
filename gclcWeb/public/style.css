@@ -80,6 +80,12 @@ main {
   justify-content: space-between;
   gap: 1rem;
   grid-area: 1 / 1 / 2 / 2;
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 0%,
+    var(--color-bg) 11rem,
+    var(--color-bg) 100%
+  );
 }
 
 button {
@@ -555,6 +561,15 @@ input[type="number"]:focus {
   color: var(--color-blue2);
 }
 
+#gclc {
+  align-self: center;
+  font-weight: bold;
+  font-size: x-large;
+  color: #ffffff;
+  user-select: none;
+  text-shadow: 0 0 2px var(--color-blue3);
+}
+
 @keyframes Rotate {
   from {
     transform: rotate(0deg);
@@ -564,7 +579,7 @@ input[type="number"]:focus {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
   #bar button span {
     display: none;
   }
@@ -582,5 +597,15 @@ input[type="number"]:focus {
   #terminalPane {
     overflow-x: scroll;
     max-width: calc(100vw - 5rem);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #bar {
+    background: var(--color-bg);
+  }
+
+  #gclc {
+    display: none;
   }
 }
