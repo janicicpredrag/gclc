@@ -578,4 +578,9 @@ input[type="number"]:focus {
   #buttonPlay {
     width: initial;
   }
+
+  #terminalPane {
+    overflow-x: scroll;
+    max-width: calc(100vw - 5rem);
+  }
 }
