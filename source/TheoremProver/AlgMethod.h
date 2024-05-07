@@ -158,7 +158,7 @@ private:
   std::vector<std::unique_ptr<Conic>> _conics;
 
   // constants
-  std::vector<Constant *> _constants;
+  std::vector<std::unique_ptr<Constant>> _constants;
 
   // polynomial system
   vxp vxps;
