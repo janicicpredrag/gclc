@@ -40,9 +40,6 @@ void CAlgMethod::CleanUp() {
   vxpConjectures.clear();
 
   // constants
-  for (ii = 0, size = _constants.size(); ii < size; ii++) {
-    delete _constants[ii];
-  }
   _constants.clear();
   // points
   for (ii = 0, size = _points.size(); ii < size; ii++) {
@@ -626,18 +623,16 @@ bool CAlgMethod::_AddFreePoint(const std::string &name, bool addCommand,
 // Find constant with given name
 //
 Constant *CAlgMethod::_FindConstant(const std::string &name) {
-  Constant *c = NULL;
   if (name.empty()) {
-    return c;
+    return NULL;
   }
 
-  int ii, size;
-  for (ii = 0, size = _constants.size(); ii < size && c == NULL; ii++) {
-    if (_constants[ii]->Name == name)
-      c = _constants[ii];
+  for (std::unique_ptr<Constant> &c : _constants) {
+    if (c->Name == name)
+      return c.get();
   }
 
-  return c;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
@@ -2135,7 +2130,7 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     if (c == NULL) {
       // create constant
       c = new Constant(e->GetName(), ++lastFreeIndex);
-      _constants.push_back(c);
+      _constants.emplace_back(c);
     }
     return new XPolynomial(true, c->Index);
     break;

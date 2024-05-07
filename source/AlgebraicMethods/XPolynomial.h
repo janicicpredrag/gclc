@@ -9,7 +9,6 @@ class XPolynomial : public Polynomial
 {
 	void _ResReplace(char* res, char l1, char l2, char r1, bool nnCond) const;
 	bool _PseudoRemainder(XPolynomial* xp, int index, bool free, XPolynomial* xpDivisionResult);
-	static int _maxt;
     friend class Reduce;
 
 public:

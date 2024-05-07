@@ -10,9 +10,6 @@ XPolynomial::XPolynomial() { COSTR("xpoly"); }
 
 XPolynomial::~XPolynomial() { DESTR("xpoly"); }
 
-int XPolynomial::_maxt = 0;
-int XPolynomial::maxt() { return _maxt; }
-
 //
 // Create polynomial of the real number
 //
@@ -126,10 +123,6 @@ uint XPolynomial::GetTotalTermCount() {
   while (_terms->EnumMoveNext()) {
     XTerm *xt = (XTerm *)_terms->EnumGetCurrent();
     cnt += xt->GetUFraction()->GetNumerator()->GetTermCount();
-  }
-
-  if (cnt > (uint)_maxt) {
-    _maxt = cnt;
   }
 
   return cnt;
