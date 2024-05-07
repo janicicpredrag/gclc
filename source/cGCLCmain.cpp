@@ -11,6 +11,7 @@
 #include "Input/StringInput.h"
 #include "Logging/FileLog.h"
 #include "Utils/Utils.h"
+#include "Utils/Version.h"
 #include <cstdlib>
 #include <cstring>
 #include <memory>
@@ -379,7 +380,7 @@ void PrintHelp() {
 // ----------------------------------------------------------------------------
 
 void PrintVersion() {
-  Print(std::cout, "GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
+  Print(std::cout, "GCLC " GCLC_VERSION "\n");
   Print(std::cout, "Copyright (c) 1995-2024 by Predrag Janicic, University "
                    "of Belgrade.\n");
   Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");

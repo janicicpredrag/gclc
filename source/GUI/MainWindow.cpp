@@ -1,6 +1,7 @@
 #include "MainWindow.h"
-#include "ui_MainWindow.h"
 #include "Import/JavaView.h"
+#include "Utils/Version.h"
+#include "ui_MainWindow.h"
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QLineEdit>
@@ -703,10 +704,11 @@ void MainWindow::onEnableHighlighting() {
 // --------------------------------------------------------------------------------------------
 
 void MainWindow::displayAbout() {
-  QMessageBox::about(this, tr("About"),
-                     tr("This is GCLC 2024 \n Developed and copyright "
-                        "(c) 1995-2024 by \n Predrag Janicic, University of "
-                        "Belgrade.\nLicensed under the Creative Commons licence CC BY-ND."));
+  QMessageBox::about(
+      this, tr("About"),
+      tr("This is GCLC " GCLC_VERSION "\nDeveloped and copyright "
+         "(c) 1995-2024 by \nPredrag Janicic, University of "
+         "Belgrade.\nLicensed under the Creative Commons licence CC BY-ND."));
 }
 
 // --------------------------------------------------------------------------------------------

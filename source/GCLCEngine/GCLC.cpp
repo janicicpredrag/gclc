@@ -5,6 +5,7 @@
 #include "GCLC.h"
 #include "../Input/StringInput.h"
 #include "../Logging/GCLCLog.h"
+#include "../Utils/Version.h"
 #include <assert.h>
 #include <iomanip>
 #include <iostream>
@@ -440,7 +441,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   assert(!m_bWhileBlockOrProcedureCall);
   m_iErrorCode = rvGCLCNoError;
   ResetLog();
-  AddToLog("GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
+  AddToLog("GCLC 2024 " GCLC_VERSION "\n");
   AddToLog("Copyright (c) 1995-2024 by Predrag Janicic, University of "
            "Belgrade.\n");
   AddToLog("Licensed under the Creative Commons licence CC BY-ND.\n");
