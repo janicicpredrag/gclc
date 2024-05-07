@@ -17,10 +17,13 @@
 #include <fstream>
 #include <iostream>
 
-GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstream &hl,
-                          std::ofstream &ho, int iCounter);
-bool TakeNextGCLCBlock(CGCLCInput &Input, std::ofstream &ho, std::string &block_text,
-                       int &new_lines, int &start_new_lines);
+GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi,
+                          std::ofstream &hl, std::ofstream &ho, int iCounter);
+void PrintHelp();
+void PrintVersion();
+bool TakeNextGCLCBlock(CGCLCInput &Input, std::ofstream &ho,
+                       std::string &block_text, int &new_lines,
+                       int &start_new_lines);
 
 // ----------------------------------------------------------------------------
 
@@ -31,13 +34,17 @@ int main(int argc, char *argv[]) {
   setlocale(LC_ALL, "en_GB");
   srand((unsigned)time(NULL));
 
-  Print(std::cout, "\n");
-  Print(std::cout, "GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
-  Print(
-      std::cout,
-      "Copyright (c) 1995-2024 by Predrag Janicic, University of Belgrade.\n");
-  Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
-  Print(std::cout, "\n");
+  for (i = 1; i < argc; i++) {
+    if (!strcmp(argv[i], "-version")) {
+      PrintVersion();
+      return 0;
+    }
+
+    if (!strcmp(argv[i], "-help")) {
+      PrintHelp();
+      return 0;
+    }
+  }
 
   if (argc < 2) {
     Print(std::cout, "Error in command line. Input file not specified.\n");
@@ -346,8 +353,44 @@ GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstr
 
 // ----------------------------------------------------------------------------
 
-bool TakeNextGCLCBlock(CGCLCInput &Input, std::ofstream &ho, std::string &block_text,
-                       int &new_lines, int &start_new_lines) {
+void PrintHelp() {
+  Print(std::cout, "Usage: gclc FILENAME... [-a|w|g] [-d] "
+                   "[-pic|tikz|pst|eps|svg|xml] [-help] [-version]\n");
+  Print(std::cout, "\n");
+  Print(std::cout, "Theorem prover options:\n");
+  Print(std::cout, "  -a,       use prover based on the area method\n");
+  Print(std::cout, "  -w,       use prover based on Wu's method\n");
+  Print(std::cout, "  -g,       use prover based on the Grobner "
+                   "bases method\n");
+  Print(std::cout, "  -d,       enable deduction control\n");
+  Print(std::cout, "\n");
+  Print(std::cout, "Output format options:\n");
+  Print(std::cout, "  -pic,     simple LaTeX\n");
+  Print(std::cout, "  -tikz,    LaTeX TikZ\n");
+  Print(std::cout, "  -pst,     LaTeX PStrics\n");
+  Print(std::cout, "  -eps,     encapsulated postScript\n");
+  Print(std::cout, "  -svg,     scalable vector graphics\n");
+  Print(std::cout, "  -xml,\n");
+  Print(std::cout, "\n");
+  Print(std::cout, "  -help,    print this help\n");
+  Print(std::cout, "  -version, print version info\n");
+}
+
+// ----------------------------------------------------------------------------
+
+void PrintVersion() {
+  Print(std::cout, "GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
+  Print(std::cout, "Copyright (c) 1995-2024 by Predrag Janicic, University "
+                   "of Belgrade.\n");
+  Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
+  Print(std::cout, "\n");
+}
+
+// ----------------------------------------------------------------------------
+
+bool TakeNextGCLCBlock(CGCLCInput &Input, std::ofstream &ho,
+                       std::string &block_text, int &new_lines,
+                       int &start_new_lines) {
   unsigned char c;
   unsigned int i;
   const std::string sStartBlockKeyword = "\\begin{gclc}";
