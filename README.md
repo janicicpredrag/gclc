@@ -5,18 +5,20 @@ illustrations, for teaching mathematics, and for automated proving of
 geometry theorems.
 
 GCLC has been developed, with some idle years, since 1995. Its first
-release made public (web) was built in 1996. There were several substantial
+release was made public in 1996. There were several substantial
 code revisions. The original version was written in pure C, and over time it
-turned into C++ (while some C remains are still there). The current version
-with graphical user interface uses Qt libraries.
+turned into C++ (while some C remains are still there).
 
 The application was open-sourced in 2020, 25 years after its very first version.
+In 2024, GCLC got ported to the web.
 
-GCLC has a command-line and a graphical version.
+GCLC has a command line and a graphical (GUI) version. The standalone graphical
+version is based on the Qt framework, while the web graphical version is custom-built.
 
-The source code and executables for Windows and Linux are available from
+GCLC source code is available on the [GitHub](https://github.com/janicicpredrag/gclc).
+Executables for Windows and Linux are available on
 the [GCLC web page](http://www.matf.bg.ac.rs/~janicic/gclc/)
-or from the [Github Release page](https://github.com/janicicpredrag/gclc/releases).
+and [Github Release page](https://github.com/janicicpredrag/gclc/releases).
 
 ## Input
 
@@ -32,10 +34,11 @@ Proofs by the automated theorem provers are generated in LaTeX form.
 ## Usage with command line
 
 ```
-gclc filename -a|w|g -d -pic|tikz|pst|eps|svg|xml
+gclc FILE [-b] [-a|-w|-g] [-d] [-pic|-tikz|-pst|-eps|-svg|-xml] [-help] [-version]
 ```
 
-- `filename` the name of the input file
+- `FILE` the name of the input file
+- `-b` enables batch mode
 - `-a` selects the theorem prover based on the area method
 - `-w` selects the theorem prover based on Wu's method
 - `-g` selects the theorem prover based on the Gröbner bases method
@@ -45,36 +48,48 @@ gclc filename -a|w|g -d -pic|tikz|pst|eps|svg|xml
 - `-pst` selects the LaTeX PStrics format
 - `-eps` selects EPS format for the output
 - `-svg` selects SVG format for the output
-- `-xml` selects XML for the output.
+- `-xml` selects XML for the output
+- `-help` list command line options and explanations
+- `-version` print GCLC version and exit
 
 For more information see [manual](manual/gclc_man.pdf).
 
 ## Executables
 
-You can download latest executables from the
-[Github Release page](https://github.com/janicicpredrag/gclc/releases).
+You can download releases from the
+[Release page](https://github.com/janicicpredrag/gclc/releases).
 
-Executables also can be built from the available source code following instructions
-provided below.
+Currently, there are four builds provided:
+
+- `linux.dynamic.zip` - Linux version, dynamically linked to the Qt libraries
+- `linux.static.zip` - Linux version with statically linked Qt libraries
+- `windows.zip` - Windows version with statically linked Qt libraries
+- `web.zip` - web version with all assets required
+
+Linux and Windows releases contain command line and GUI executables, as well as
+documentation, samples and packages for LaTeX support.
+
+Executables also can be built from the available source code following the
+instructions provided below.
 
 ## Web version
 
-Since 2024, GCLC can be run inside web browser.
+Since 2024, GCLC can be run inside a web browser.
 GCLC web version works thanks to the [Emscripten](https://emscripten.org/)
 compiler which can compile C/C++ code to a [WASM](https://webassembly.org/)
 binary. WASM then can be run inside any major browser.
 
-The web graphical interface mimics Qt graphical interface, but it is
-independent form it. The web interface is written from scratch in Typescript.
-This graphical interface communicates with console version of GCLC compiled to WASM.
-However, web interface leans heavily on [Codemirror](https://codemirror.net/) for
+The web graphical interface mimics the Qt graphical interface, but it is
+independent of it. The web interface is written from scratch in Typescript.
+This graphical interface communicates with the console version of GCLC compiled to WASM.
+However, the web interface leans heavily on [Codemirror](https://codemirror.net/) for
 code input and code completion.
 
-Typescript code available in 'gclcWeb/' directory. File 'source/wGCLCmain.cpp'
-is the main file for WASM build.
+Typescript code is available in the 'gclcWeb/' directory. File 'source/wGCLCmain.cpp'
+is the main file for the WASM build.
 
-Web interface currently doesn't support export to raster formats, import from JavaView,
-free points, watch window, deduction control, `animation_frames` and `trace` commands.
+The web interface currently doesn't support export to raster formats, import from JavaView,
+free points, watch window, `animation_frames` and `trace` commands.
 
 ## Building from source code
 
@@ -98,6 +113,8 @@ The executable `gclc` will be created in the folder 'build'.
 
 ### Building the GUI version
 
+For the GUI version you will have to have `Qt >=6.2` available on your system.
+
 Inside the project root directory run:
 
 ```bash
@@ -107,9 +124,15 @@ cmake --build build
 
 The executable `gclc-gui` will be created in the folder 'build/source'.
 
+You can move executables `gclc` and `gclc-gui` to the 'executable/' directory by running
+
+```bash
+cmake --build build --target install
+```
+
 ### Using QTCreator
 
-You can also load 'CMakeLists.txt' in QTCreator and build project from there.
+You can also load 'CMakeLists.txt' in QtCreator and build project from there.
 
 ### Building the web version
 

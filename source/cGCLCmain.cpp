@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 
   if (argc < 2) {
     Print(std::cout, "Error in command line. Input file not specified.\n");
+    PrintHelp();
     return -1;
   }
 
@@ -355,7 +356,7 @@ GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstr
 // ----------------------------------------------------------------------------
 
 void PrintHelp() {
-  Print(std::cout, "Usage: gclc FILENAME... [-a|w|g] [-d] "
+  Print(std::cout, "Usage: gclc FILENAME [-a|w|g] [-d] "
                    "[-pic|tikz|pst|eps|svg|xml] [-help] [-version]\n");
   Print(std::cout, "\n");
   Print(std::cout, "Theorem prover options:\n");
@@ -373,6 +374,9 @@ void PrintHelp() {
   Print(std::cout, "  -svg,     scalable vector graphics\n");
   Print(std::cout, "  -xml,\n");
   Print(std::cout, "\n");
+  Print(std::cout, "Input format options:\n");
+  Print(std::cout, "  -b,       batch mode\n");
+  Print(std::cout, "\n");
   Print(std::cout, "  -help,    print this help\n");
   Print(std::cout, "  -version, print version info\n");
 }
@@ -380,7 +384,8 @@ void PrintHelp() {
 // ----------------------------------------------------------------------------
 
 void PrintVersion() {
-  Print(std::cout, "GCLC " GCLC_VERSION "\n");
+  Print(std::cout,
+        "GCLC (GC language (R) -> LaTeX Converter) " GCLC_VERSION "\n");
   Print(std::cout, "Copyright (c) 1995-2024 by Predrag Janicic, University "
                    "of Belgrade.\n");
   Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");

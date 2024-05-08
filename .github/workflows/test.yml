@@ -33,7 +33,7 @@ jobs:
           mkdir testFiles/
           mv build/gclc testFiles/gclc-pr
           mv latest/gclc testFiles/gclc-latest
-          mv test/* testFiles/
+          mv regression_testing/* testFiles/
           mv samples testFiles/
 
       - name: Upload test files
