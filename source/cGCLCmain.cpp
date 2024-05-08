@@ -356,7 +356,7 @@ GReturnValue BatchProcess(export_type eOutputType, std::ifstream &hi, std::ofstr
 // ----------------------------------------------------------------------------
 
 void PrintHelp() {
-  Print(std::cout, "Usage: gclc FILENAME... [-a|w|g] [-d] "
+  Print(std::cout, "Usage: gclc FILENAME [-a|w|g] [-d] "
                    "[-pic|tikz|pst|eps|svg|xml] [-help] [-version]\n");
   Print(std::cout, "\n");
   Print(std::cout, "Theorem prover options:\n");
@@ -373,6 +373,9 @@ void PrintHelp() {
   Print(std::cout, "  -eps,     encapsulated postScript\n");
   Print(std::cout, "  -svg,     scalable vector graphics\n");
   Print(std::cout, "  -xml,\n");
+  Print(std::cout, "\n");
+  Print(std::cout, "Input format options:\n");
+  Print(std::cout, "  -b,       batch mode\n");
   Print(std::cout, "\n");
   Print(std::cout, "  -help,    print this help\n");
   Print(std::cout, "  -version, print version info\n");
