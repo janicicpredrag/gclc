@@ -32,6 +32,11 @@ jobs:
       - name: Install Emscripten
         uses: mymindstorm/setup-emsdk@v14
 
+      - name: Write version info
+        run: |
+          echo "#pragma once" > source/Utils/Version.h
+          echo "#define GCLC_VERSION \"$(git describe --tags)\"" >> source/Utils/Version.h
+
       - name: Make WASM version
         run: |
           emcmake cmake -B build -S gclcWeb
@@ -98,6 +103,11 @@ jobs:
           cmake --build . --parallel
           sudo cmake --install .
 
+      - name: Write version info
+        run: |
+          echo "#pragma once" > source/Utils/Version.h
+          echo "#define GCLC_VERSION \"$(git describe --tags)\"" >> source/Utils/Version.h
+
       - name: Make CLI and GUI version
         run: |
           /qtStatic/bin/qt-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
@@ -139,6 +149,11 @@ jobs:
             libgles2-mesa-dev libgl1-mesa-dev libegl1-mesa-dev libglu1-mesa-dev libglfw3-dev  \
             libx11-xcb-dev libxrender-dev libxi-dev libxcb-xinerama0 libglx-dev \
             libxkbcommon-dev libxkbcommon-x11-dev libxcb-xkb-dev
+
+      - name: Write version info
+        run: |
+          echo "#pragma once" > source/Utils/Version.h
+          echo "#define GCLC_VERSION \"$(git describe --tags)\"" >> source/Utils/Version.h
 
       - name: Make CLI and GUI version
         run: |
@@ -192,6 +207,11 @@ jobs:
           git checkout 1fba476c
           make MXE_TARGETS=x86_64-w64-mingw32.static -j$(nproc) qt6-qtbase
           echo "$(pwd)/usr/bin" >> $GITHUB_PATH
+
+      - name: Write version info
+        run: |
+          echo "#pragma once" > source/Utils/Version.h
+          echo "#define GCLC_VERSION \"$(git describe --tags)\"" >> source/Utils/Version.h
 
       - name: Compile gclc
         run: |

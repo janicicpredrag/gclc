@@ -5,6 +5,7 @@
 #include "GCLC.h"
 #include "../Input/StringInput.h"
 #include "../Logging/GCLCLog.h"
+#include "../Utils/Version.h"
 #include <assert.h>
 #include <iomanip>
 #include <iostream>
@@ -282,7 +283,8 @@ CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
   m_bWhileBlockOrProcedureCall = true;
   m_bSupressWarnings = true;
   m_bProcedureCall = (pTable == NULL);
-  m_pSymbolTable = (m_bProcedureCall ? new std::map<std::string, GCLC_object> : pTable);
+  m_pSymbolTable =
+      (m_bProcedureCall ? new std::map<std::string, GCLC_object> : pTable);
   Init();
   InitXML();
 }
@@ -440,7 +442,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   assert(!m_bWhileBlockOrProcedureCall);
   m_iErrorCode = rvGCLCNoError;
   ResetLog();
-  AddToLog("GCLC 2024 (GC language (R) -> LaTeX Converter)\n");
+  AddToLog("GCLC " GCLC_VERSION "\n");
   AddToLog("Copyright (c) 1995-2024 by Predrag Janicic, University of "
            "Belgrade.\n");
   AddToLog("Licensed under the Creative Commons licence CC BY-ND.\n");
@@ -482,8 +484,8 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
           /* GReturnValue r = */ Prove(sProofLaTeXOutput, sProofXMLOutput, Time,
                                        "Deduction check conjecture",
                                        prover_output);
-          AddToLog("\n\nTime spent by the prover: " + d2s(Time/(double)1000, 3) +
-                   " seconds");
+          AddToLog("\n\nTime spent by the prover: " +
+                   d2s(Time / (double)1000, 3) + " seconds");
           if (prover_output == e_proved)
             AddToLog("\nThe conjecture successfully proved - the critical "
                      "property always holds.");
@@ -536,9 +538,10 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
         CleanUpProver();
         return rvG_CannotOpenOutputFile;
       }
-      AddToLog("\n\nTime spent by the prover: " + d2s(prover_time/(double)1000, 3) +
-               " seconds.");
-      if (prover_output != e_conjecture_out_of_scope && prover_output != e_construction_out_of_scope) {
+      AddToLog("\n\nTime spent by the prover: " +
+               d2s(prover_time / (double)1000, 3) + " seconds.");
+      if (prover_output != e_conjecture_out_of_scope &&
+          prover_output != e_construction_out_of_scope) {
         AddToLog(GetMethodSpecificOutput());
       }
 
@@ -619,8 +622,8 @@ GReturnValue CGCLC::Import() {
 
 // ----------------------------------------------------------------------------////
 
-GReturnValue CGCLC::GetError(int &iErrorCode, std::string &sErrMessage, int &line,
-                             int &pos) {
+GReturnValue CGCLC::GetError(int &iErrorCode, std::string &sErrMessage,
+                             int &line, int &pos) {
   if ((m_iErrorCode == rvGCLCNoError) || (m_iErrorCode == rvGCLCOK)) {
     pos = m_iWarnPos;
     line = m_iWarnLine;
@@ -1449,7 +1452,8 @@ int CGCLC::view() {
   std::string sLogText;
 
   AddToLog("\nObjects:");
-  for (std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->begin();
+  for (std::map<std::string, GCLC_object>::iterator it =
+           m_pSymbolTable->begin();
        it != m_pSymbolTable->end(); it++) {
     AddToLog("\n" + it->first + ":");
 
@@ -1492,12 +1496,13 @@ int CGCLC::view() {
 
 // ----------------------------------------------------------------------------////
 
-GCLCError CGCLC::Let(const std::string &sVarName, int type, double p1, double p2,
-                     double p3, double p4, double p5, double p6)
+GCLCError CGCLC::Let(const std::string &sVarName, int type, double p1,
+                     double p2, double p3, double p4, double p5, double p6)
 /* returns rvGCLCOK if variable already exist, warning otherwise */
 {
   GCLC_object s;
-  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+  std::map<std::string, GCLC_object>::iterator it =
+      m_pSymbolTable->find(sVarName);
   if (it == m_pSymbolTable->end()) // wasn't there already
   {
     s.name = sVarName;
@@ -1532,7 +1537,8 @@ GCLCError CGCLC::Let(const std::string &sVarName, int type, double p1, double p2
    rvGCLCUndefinedVariable otherwise
    (variable name is not copied to o.name) */
 GCLCError CGCLC::Value(const std::string &sVarName, GCLC_object &o) {
-  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+  std::map<std::string, GCLC_object>::iterator it =
+      m_pSymbolTable->find(sVarName);
   if (it != m_pSymbolTable->end()) {
     o = (it->second);
     return rvGCLCOK;
@@ -1543,7 +1549,8 @@ GCLCError CGCLC::Value(const std::string &sVarName, GCLC_object &o) {
 // ----------------------------------------------------------------------------////
 
 GReturnValue CGCLC::GetValue(const std::string &sVarName, std::string &sValue) {
-  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+  std::map<std::string, GCLC_object>::iterator it =
+      m_pSymbolTable->find(sVarName);
   if (it == m_pSymbolTable->end())
     return rvG_InvalidInput;
 
@@ -1578,7 +1585,8 @@ GReturnValue CGCLC::GetValue(const std::string &sVarName, std::string &sValue) {
 
 GReturnValue CGCLC::GetPointValue(const std::string &sVarName, double &x,
                                   double &y) {
-  std::map<std::string, GCLC_object>::iterator it = m_pSymbolTable->find(sVarName);
+  std::map<std::string, GCLC_object>::iterator it =
+      m_pSymbolTable->find(sVarName);
   if (it != m_pSymbolTable->end() && it->second.type == GCLC_POINT) {
     x = it->second.p[0];
     y = it->second.p[1];
