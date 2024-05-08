@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 
   if (argc < 2) {
     Print(std::cout, "Error in command line. Input file not specified.\n");
+    PrintHelp();
     return -1;
   }
 
@@ -380,7 +381,8 @@ void PrintHelp() {
 // ----------------------------------------------------------------------------
 
 void PrintVersion() {
-  Print(std::cout, "GCLC " GCLC_VERSION "\n");
+  Print(std::cout,
+        "GCLC (GC language (R) -> LaTeX Converter) " GCLC_VERSION "\n");
   Print(std::cout, "Copyright (c) 1995-2024 by Predrag Janicic, University "
                    "of Belgrade.\n");
   Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
