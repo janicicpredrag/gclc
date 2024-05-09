@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <memory>
+#include <utility>
 
 // ----------------------------------------------------------------------------
 
@@ -773,8 +774,9 @@ bool CAlgMethod::_FindLinesCircles() {
     case med:
       l = _FindLine(it->arg[0]);
       if (l == NULL) {
-        l = new Line(it->arg[0]);
-        _lines.emplace_back(l);
+        std::unique_ptr<Line> line{new Line(it->arg[0])};
+        l = line.get();
+        _lines.push_back(std::move(line));
       }
       break;
     case midpoint:
@@ -820,8 +822,9 @@ bool CAlgMethod::_FindLinesCircles() {
       // probably new line is defined
       l = _FindLine(it->arg[0]);
       if (l == NULL) {
-        l = new Line(it->arg[0]);
-        _lines.emplace_back(l);
+        std::unique_ptr<Line> line{new Line(it->arg[0])};
+        l = line.get();
+        _lines.push_back(std::move(line));
       }
 
       if (it->type != p_bis) {
@@ -843,15 +846,17 @@ bool CAlgMethod::_FindLinesCircles() {
 
         l = _FindLine(it->arg[1]);
         if (l == NULL) {
-          l = new Line(it->arg[1]);
-          _lines.emplace_back(l);
+          std::unique_ptr<Line> line{new Line(it->arg[1])};
+          l = line.get();
+          _lines.push_back(std::move(line));
         }
         l->AddPoint(p);
 
         l = _FindLine(it->arg[2]);
         if (l == NULL) {
-          l = new Line(it->arg[2]);
-          _lines.emplace_back(l);
+          std::unique_ptr<Line> line{new Line(it->arg[2])};
+          l = line.get();
+          _lines.push_back(std::move(line));
         }
         l->AddPoint(p);
       } else {
@@ -886,15 +891,17 @@ bool CAlgMethod::_FindLinesCircles() {
 
       l = _FindLine(it->arg[0]);
       if (l == NULL) {
-        l = new Line(it->arg[0]);
-        _lines.emplace_back(l);
+        std::unique_ptr<Line> line{new Line(it->arg[0])};
+        l = line.get();
+        _lines.push_back(std::move(line));
       }
       l->AddPoint(p);
 
       l = _FindLine(it->arg[2]);
       if (l == NULL) {
-        l = new Line(it->arg[2]);
-        _lines.emplace_back(l);
+        std::unique_ptr<Line> line{new Line(it->arg[2])};
+        l = line.get();
+        _lines.push_back(std::move(line));
       }
       break;
     case p_circle:
@@ -1155,8 +1162,9 @@ bool CAlgMethod::_HalfPointsEquals(Point *p1, Point *p2, bool xAxis) {
 //
 Line *CAlgMethod::_CreateLine(Point *p1, Point *p2) {
   std::string lName = p1->Name + p2->Name;
-  Line *l = new Line(lName);
-  _lines.emplace_back(l);
+  std::unique_ptr<Line> line{new Line(lName)};
+  Line *l = line.get();
+  _lines.push_back(std::move(line));
   l->AddPoint(p1);
   l->AddPoint(p2);
   l->implicit = true;
