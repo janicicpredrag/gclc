@@ -738,15 +738,14 @@ Circle *CAlgMethod::_FindCircle(const std::string &name) {
 // Find conic with given name
 //
 Conic *CAlgMethod::_FindConic(const std::string &name) {
-  Conic *c = NULL;
 
   for (std::unique_ptr<Conic> &conic : _conics) {
     if (conic->Name == name) {
-      c = conic.get();
+      return conic.get();
     }
   }
 
-  return c;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
