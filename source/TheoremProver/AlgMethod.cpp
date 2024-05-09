@@ -641,16 +641,15 @@ Constant *CAlgMethod::_FindConstant(const std::string &name) {
 // Returns NULL if point does not exists.
 //
 Point *CAlgMethod::_FindPoint(const std::string &name) {
-  Point *p = NULL;
   if (name.empty()) {
-    return p;
+    return NULL;
   }
 
-  for (int ii = 0, size = _points.size(); ii < size && p == NULL; ii++) {
-    if (_points[ii]->Name == name)
-      p = _points[ii];
+  for (Point *p : _points) {
+    if (p->Name == name)
+      return p;
   }
-  return p;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
