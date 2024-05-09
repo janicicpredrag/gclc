@@ -342,12 +342,11 @@ bool CAlgMethod::AddProverCommand(eGCLC_prover_command type, const std::string &
 // Is point with given name already created
 //
 bool CAlgMethod::_ExistsPoint(const std::string &name) {
-  bool retValue = false;
-  for (int ii = 0, size = _points.size(); ii < size && retValue == false;
-       ii++) {
-    retValue = (_points[ii]->Name == name);
+  for (const Point *p : _points) {
+    if (p->Name == name)
+      return true;
   }
-  return retValue;
+  return false;
 }
 
 // ----------------------------------------------------------------------------
