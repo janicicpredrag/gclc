@@ -677,13 +677,12 @@ Point *CAlgMethod::_FindOrAddPoint(const std::string &name) {
 // Find line with given name
 //
 Line *CAlgMethod::_FindLine(const std::string &name) {
-  Line *l = NULL;
   for (std::unique_ptr<Line> &line : _lines) {
     if (line->Name == name)
-      l = line.get();
+      return line.get();
   }
 
-  return l;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
@@ -695,24 +694,23 @@ Line *CAlgMethod::_FindLine(const std::string &name) {
 //         keep the list of all points on the line!?
 //
 Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
-  Line *l = NULL;
 
   for (std::unique_ptr<Line> &line : _lines) {
     bool containp1 = false;
     bool containp2 = false;
-    l = line.get();
+    Line *l = line.get();
     for (int jj = 0, size1 = l->Points.size();
          jj < size1 && (!containp1 || !containp2); jj++) {
       containp1 = containp1 || l->Points[jj] == p1;
       containp2 = containp2 || l->Points[jj] == p2;
     }
 
-    if (!containp1 || !containp2) {
-      l = NULL;
+    if (containp1 && containp2) {
+      return l;
     }
   }
 
-  return l;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
@@ -721,15 +719,14 @@ Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
 // Find circle with given name
 //
 Circle *CAlgMethod::_FindCircle(const std::string &name) {
-  Circle *c = NULL;
 
   for (std::unique_ptr<Circle> &circle : _circles) {
     if (circle->Name == name) {
-      c = circle.get();
+      return circle.get();
     }
   }
 
-  return c;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
@@ -738,15 +735,14 @@ Circle *CAlgMethod::_FindCircle(const std::string &name) {
 // Find conic with given name
 //
 Conic *CAlgMethod::_FindConic(const std::string &name) {
-  Conic *c = NULL;
 
   for (std::unique_ptr<Conic> &conic : _conics) {
     if (conic->Name == name) {
-      c = conic.get();
+      return conic.get();
     }
   }
 
-  return c;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
