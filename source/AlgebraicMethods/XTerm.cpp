@@ -87,8 +87,10 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	}
 	xt->SetUFraction(upf);
 
-	auto p1 = std::make_shared<Power>(index1, 1, f1 ? VAR_TYPE_U : VAR_TYPE_X);
-	auto p2 = std::make_shared<Power>(index2, 1, f2 ? VAR_TYPE_U : VAR_TYPE_X);
+	std::shared_ptr<Power> p1 =
+	  std::make_shared<Power>(index1, 1, f1 ? VAR_TYPE_U : VAR_TYPE_X);
+	std::shared_ptr<Power> p2 =
+	  std::make_shared<Power>(index2, 1, f2 ? VAR_TYPE_U : VAR_TYPE_X);
 
 	if (!f1)
 	{

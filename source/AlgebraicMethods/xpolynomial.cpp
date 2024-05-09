@@ -16,7 +16,8 @@ XPolynomial::~XPolynomial() { DESTR("xpoly"); }
 XPolynomial::XPolynomial(REAL x) {
   if (x != 0) {
     XTerm *xt = new XTerm();
-    auto uf = std::make_shared<UPolynomialFraction>(x);
+    std::shared_ptr<UPolynomialFraction> uf =
+      std::make_shared<UPolynomialFraction>(x);
     xt->SetUFraction(uf);
 
     this->AddTerm(xt);
@@ -34,15 +35,16 @@ XPolynomial::XPolynomial(bool free, int index) {
     // empty polynomial, ie zero polynomial
   } else {
     XTerm *xt = new XTerm();
-    auto uf = std::make_shared<UPolynomialFraction>(1);
+    std::shared_ptr<UPolynomialFraction> uf =
+      std::make_shared<UPolynomialFraction>(1);
 
     if (free) {
-      auto up = std::make_shared<Power>(index, 1, VAR_TYPE_U);
+      std::shared_ptr<Power> up = std::make_shared<Power>(index, 1, VAR_TYPE_U);
 
       UTerm *ut = (UTerm *)uf->GetNumerator()->GetTerm(0);
       ut->AddPower(up);
     } else {
-      auto xpow = std::make_shared<Power>(index, 1, VAR_TYPE_X);
+      std::shared_ptr<Power> xpow = std::make_shared<Power>(index, 1, VAR_TYPE_X);
 
       xt->AddPower(xpow);
     }
@@ -340,7 +342,8 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
     }
   } else {
     XTerm *unit = new XTerm();
-    auto unitFraction = std::make_shared<UPolynomialFraction>(1);
+    std::shared_ptr<UPolynomialFraction> unitFraction =
+      std::make_shared<UPolynomialFraction>(1);
     unit->SetUFraction(unitFraction);
     q->AddTerm(unit);
     unit->Dispose();

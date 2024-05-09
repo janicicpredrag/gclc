@@ -36,7 +36,8 @@ UPolynomialFraction::~UPolynomialFraction()
 
 std::shared_ptr<UPolynomialFraction> UPolynomialFraction::Clone()
 {
-	auto ufClone = std::make_shared<UPolynomialFraction>();
+	std::shared_ptr<UPolynomialFraction> ufClone =
+	  std::make_shared<UPolynomialFraction>();
 
 	UPolynomial* upNumClone = this->GetNumerator()->Clone();
 	UPolynomial* upDenClone = this->GetDenominator()->Clone();

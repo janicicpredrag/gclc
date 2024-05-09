@@ -1439,7 +1439,7 @@ enum GCLCError CGCLC::Execute() {
 // ///////////////////////////////////////////////////////////////
 
 enum GCLCcommands CGCLC::choose_command(const std::string &word) {
-  auto c = KeyWords.find(word);
+  std::map<std::string, enum GCLCcommands>::iterator c = KeyWords.find(word);
   if (c == KeyWords.end())
     return gclc_unknowncommand;
   else

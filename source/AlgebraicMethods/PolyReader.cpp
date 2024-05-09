@@ -78,7 +78,8 @@ XTerm *PolyReader::_ReadXTerm(char *stream, int s, int e) {
     REAL cf;
     sscanf(&stream[e1 + 1], "%lf", &cf);
 
-    auto uf = std::make_shared<UPolynomialFraction>(cf);
+    std::shared_ptr<UPolynomialFraction> uf =
+      std::make_shared<UPolynomialFraction>(cf);
     xt->SetUFraction(uf);
   }
 
@@ -130,7 +131,8 @@ std::shared_ptr<UPolynomialFraction> PolyReader::_ReadUFraction(char *stream, in
   UPolynomial *up2 = _ReadUPolynomial(stream, s1, e1);
 
   // create UFraction
-  auto uf = std::make_shared<UPolynomialFraction>();
+  std::shared_ptr<UPolynomialFraction> uf =
+    std::make_shared<UPolynomialFraction>();
 
   uf->SetNumerator(up1);
   up1->Dispose();
