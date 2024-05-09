@@ -721,15 +721,14 @@ Line *CAlgMethod::_FindLine(Point *p1, Point *p2) {
 // Find circle with given name
 //
 Circle *CAlgMethod::_FindCircle(const std::string &name) {
-  Circle *c = NULL;
 
   for (std::unique_ptr<Circle> &circle : _circles) {
     if (circle->Name == name) {
-      c = circle.get();
+      return circle.get();
     }
   }
 
-  return c;
+  return NULL;
 }
 
 // ----------------------------------------------------------------------------
