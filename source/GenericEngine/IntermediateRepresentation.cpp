@@ -15,10 +15,6 @@ void clip_arc_y(bool bBottom, double y, GCLC_area &area, GCLC_Arc *arcs,
 
 // ----------------------------------------------------------------------------
 
-CGCLCPrimitive::CGCLCPrimitive() {}
-
-// ----------------------------------------------------------------------------
-
 CIntermediateRepresentation::CIntermediateRepresentation() {
   for(unsigned i = 0; i < NUMBER_OF_LAYERS; i++)
     m_aSkipLayer[i] = false;

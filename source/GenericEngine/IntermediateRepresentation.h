@@ -49,9 +49,6 @@ class CGCLCOutput;
 class CGCLCPrimitive {
   friend class CIntermediateRepresentation;
 
-public:
-  CGCLCPrimitive();
-
 private:
   GCLCprimitivecommands type;
   double arg[6];
