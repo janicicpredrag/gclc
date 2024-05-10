@@ -271,8 +271,7 @@ void Log::FormatXMLString() {
   const char *rules[] = {"$", "",     "\\{",     "{",          "\\}",
                          "}", "\\ni", "&#8715;", "\\emptyset", "&#8709;"};
 
-  int ii;
-  for (ii = 0; ii < rule_pairs; ii++) {
+  for (int ii = 0; ii < rule_pairs; ii++) {
     FormatXMLStringHelper(rules[2 * ii], rules[2 * ii + 1]);
   }
 }
