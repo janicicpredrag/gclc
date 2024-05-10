@@ -2302,8 +2302,7 @@ void CAreaMethod::OutputStep(const CGCLCProverExpression &exp,
   // LaTeX output
   OutputLaTeXStep(exp, explanation, type);
 
-  if (m_hXMLOutputProof.is_open())
-    OutputXMLStep(exp, explanation, type);
+  OutputXMLStep(exp, explanation, type);
 }
 
 // ----------------------------------------------------------------------------
@@ -2486,7 +2485,7 @@ void CAreaMethod::OutputXMLStep(const CGCLCProverExpression &exp,
 
     // exp.PrettyPrintXML(m_hXMLOutputProof, sValue, 2 * m_iProofDepth + 2);
     PrintXML(make_indent(2 * m_iProofDepth + 2) + "<proof_step>\n");
-    exp.PrintXML(m_hXMLOutputProof, 2 * m_iProofDepth + 3);
+    exp.PrintXML(*XMLOutputProofStream, 2 * m_iProofDepth + 3);
 
     PrintXML(make_indent(2 * m_iProofDepth + 3) + "<explanation>" +
              explanation + "</explanation>\n");

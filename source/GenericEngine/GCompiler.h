@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include <ostream>
 #if !defined(GCOMPILER_H)
 #define GCOMPILER_H
 
@@ -167,7 +168,7 @@ public:
   int GetProofLimit();
   void SetProverTimeout(int timeout);
   int GetProverTimeout();
-  GReturnValue Prove(const std::string &sLaTeXProof, const std::string &sXMLProof,
+  GReturnValue Prove(std::ostream *sLaTeXProof, std::ostream *sXMLProof,
                      double &Time, const std::string &sTheoremName,
                      eGCLC_conjecture_status &Status);
   void CleanUpProver();

@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include <ostream>
 #if !defined(THEOREMPROVER_H)
 #define THEOREMPROVER_H
 
@@ -108,7 +109,7 @@ public:
   virtual ~CTheoremProver();
   virtual void CleanUp();
 
-  bool Prove(const std::string &sLaTeXProof, const std::string &sXMLProof, double &Time,
+  bool Prove(std::ostream *LaTeXOutputProof, std::ostream *XMLOutputProof, double &Time,
              const std::string &theorem, eGCLC_conjecture_status &Status);
   virtual bool AddProverCommand(eGCLC_prover_command type,
                                 const std::string &a1 = "", const std::string &a2 = "",
@@ -169,7 +170,7 @@ protected:
   std::list<CGCLCProverCommand> m_ProverCommands;
 
   std::list<CNDGC> m_NDGCs;
-  std::ofstream m_hLaTeXOutputProof, m_hXMLOutputProof;
+  std::ostream *LaTeXOutputProofStream, *XMLOutputProofStream;
 
   int m_iProofLevel;
   int m_iProofLimit;

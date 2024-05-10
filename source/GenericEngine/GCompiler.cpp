@@ -8,6 +8,7 @@
 #include "../TheoremProver/GroebnerMethod.h"
 #include "../TheoremProver/WuMethod.h"
 #include "IntermediateRepresentation.h"
+#include <ostream>
 
 // ----------------------------------------------------------------------------
 
@@ -289,15 +290,17 @@ bool CGCompiler::GetPointsOnLine(const std::string &sLineName, std::string &P1,
 
 // ----------------------------------------------------------------------------
 
-GReturnValue CGCompiler::Prove(const std::string &sLaTeXProof,
-                               const std::string &sXMLProof, double &Time,
+GReturnValue CGCompiler::Prove(std::ostream *sLaTeXProof,
+                               std::ostream *sXMLProof, double &Time,
                                const std::string &sTheoremName,
                                eGCLC_conjecture_status &Status) {
   if (!m_pTheoremProver->Prove(sLaTeXProof, sXMLProof, Time, sTheoremName,
                                Status))
-    return rvG_CannotOpenOutputFile;
+    return rvG_ProverFailed;
+
   if (Status == e_proved)
     return rvG_OK;
+
   return rvG_ProverFailed;
 }
 

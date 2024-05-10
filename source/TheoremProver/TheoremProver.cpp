@@ -9,7 +9,7 @@
 #include "ProverExpression.h"
 #include "TheoremProver.h"
 #include "../Utils/Utils.h"
-#include <sstream>
+#include <ostream>
 #include <string>
 
 #define EPSILON 0.000005
@@ -97,21 +97,13 @@ void CTheoremProver::CleanUp() {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::Prove(const std::string &sLaTeXProof, const std::string &sXMLProof,
-                           double &Time, const std::string &theorem,
+bool CTheoremProver::Prove(std::ostream *LaTeXOutputProof,
+                           std::ostream *XMLOutputProof, double &Time,
+                           const std::string &theorem,
                            eGCLC_conjecture_status &Status) {
 
-  if (!sLaTeXProof.empty()) {
-    m_hLaTeXOutputProof.open(sLaTeXProof.c_str());
-    if (!m_hLaTeXOutputProof.good())
-      return false;
-  }
-
-  if (!sXMLProof.empty()) {
-    m_hXMLOutputProof.open(sXMLProof.c_str());
-    if (!m_hXMLOutputProof.good())
-      return false;
-  }
+  LaTeXOutputProofStream = LaTeXOutputProof;
+  XMLOutputProofStream = XMLOutputProof;
 
   if (!m_bValidConjecture) {
     CleanUp();
@@ -142,12 +134,6 @@ bool CTheoremProver::Prove(const std::string &sLaTeXProof, const std::string &sX
 
   Time = m_Timer.ElapsedTime();
   PrintProofFooter(Status);
-
-  if (m_hLaTeXOutputProof.is_open())
-    m_hLaTeXOutputProof.close();
-
-  if (m_hXMLOutputProof.is_open())
-    m_hXMLOutputProof.close();
 
   return true;
 }
@@ -1251,15 +1237,15 @@ bool CTheoremProver::Timeout() {
 // ----------------------------------------------------------------------------
 
 void CTheoremProver::PrintLaTeX(const std::string &s) {
-  if (m_hLaTeXOutputProof.is_open())
-    Print(m_hLaTeXOutputProof, s);
+  if (LaTeXOutputProofStream != NULL)
+    Print(*LaTeXOutputProofStream, s);
 }
 
 // ----------------------------------------------------------------------------
 
 void CTheoremProver::PrintXML(const std::string &s) {
-  if (m_hXMLOutputProof.is_open())
-    Print(m_hXMLOutputProof, s);
+  if (XMLOutputProofStream != NULL)
+    Print(*XMLOutputProofStream, s);
 }
 
 // **************************************************************************
