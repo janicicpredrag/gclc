@@ -43,7 +43,6 @@ double HeronArea(double x1, double y1, double x2, double y2, double x3,
 
 std::string make_indent(int indent);
 
-void Print(std::ofstream &h, std::string s);
 void Print(std::ostream &h, std::string s);
 void Print(std::ostream &h, char c);
 
