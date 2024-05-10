@@ -19,10 +19,6 @@ CGCLCPrimitive::CGCLCPrimitive() {}
 
 // ----------------------------------------------------------------------------
 
-CGCLCPrimitive::~CGCLCPrimitive() {}
-
-// ----------------------------------------------------------------------------
-
 CIntermediateRepresentation::CIntermediateRepresentation() {
   for(unsigned i = 0; i < NUMBER_OF_LAYERS; i++)
     m_aSkipLayer[i] = false;

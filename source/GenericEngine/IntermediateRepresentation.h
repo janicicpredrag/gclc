@@ -51,7 +51,6 @@ class CGCLCPrimitive {
 
 public:
   CGCLCPrimitive();
-  virtual ~CGCLCPrimitive();
 
 private:
   GCLCprimitivecommands type;
