@@ -52,7 +52,6 @@ class CGCLCPrimitive {
 public:
   CGCLCPrimitive();
   virtual ~CGCLCPrimitive();
-  void CleanUp();
 
 private:
   GCLCprimitivecommands type;
