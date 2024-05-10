@@ -14,8 +14,8 @@
 
 class Log {
   static int _maxLevel;
-  static std::ofstream *_outFileLatex;
-  static std::ofstream *_outFileXML;
+  static std::ostream *_outFileLatex;
+  static std::ostream *_outFileXML;
   static bool _standardOutput;
   static bool _lockOutputFiles;
   static std::ofstream *_outFiles[5];
@@ -43,9 +43,8 @@ public:
   static bool LogEnabledLatex();
   static bool LogEnabledXML();
 
-  static void InitOutputFile(char *path);
-  static void SetLatexOutputFile(std::ofstream *outFile);
-  static void SetXMLOutputFile(std::ofstream *outFile);
+  static void SetLatexOutputFile(std::ostream *outFile);
+  static void SetXMLOutputFile(std::ostream *outFile);
 
   static void SetStandardOutput(bool standardOutput);
   static bool GetStandardOutput();

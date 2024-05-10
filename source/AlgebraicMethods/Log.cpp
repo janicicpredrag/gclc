@@ -7,8 +7,8 @@
 static char __log_msg[1000];
 
 int Log::_maxLevel = 3;
-std::ofstream *Log::_outFileLatex = NULL;
-std::ofstream *Log::_outFileXML = NULL;
+std::ostream *Log::_outFileLatex;
+std::ostream *Log::_outFileXML;
 bool Log::_standardOutput = false;
 int Log::StopAfterMaxT = -1;
 std::ofstream *Log::_outFiles[5];
@@ -81,28 +81,17 @@ void Log::PrintLogF(int level, const char *msg, ...) {
 
 void Log::SetLoggingLevel(int level) { _maxLevel = level; }
 
-void Log::InitOutputFile(char *path) {
-  if (path) {
-    _outFileLatex->open(path);
-    if (!_outFileLatex) {
-      fprintf(stderr, "Failed to open file %s\n", path);
-      throw - 1;
-    }
-  } else {
-    _outFileLatex = NULL;
-  }
-}
 
-void Log::SetLatexOutputFile(std::ofstream *outFileLatex) {
+void Log::SetLatexOutputFile(std::ostream *outFileLatex) {
   if (_outFileLatex && _outFileLatex != outFileLatex) {
-    _outFileLatex->close();
+    _outFileLatex->flush();
   }
   _outFileLatex = outFileLatex;
 }
 
-void Log::SetXMLOutputFile(std::ofstream *outFileXML) {
+void Log::SetXMLOutputFile(std::ostream *outFileXML) {
   if (_outFileXML && _outFileXML != outFileXML) {
-    _outFileXML->close();
+    _outFileXML->flush();
   }
   _outFileXML = outFileXML;
 }
