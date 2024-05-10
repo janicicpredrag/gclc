@@ -640,13 +640,7 @@ double HeronArea(double x1, double y1, double x2, double y2, double x3,
 
 // ----------------------------------------------------------------------------////
 
-std::string make_indent(int indent) {
-  int i;
-  std::string s;
-  for (i = 0; i < indent; i++)
-    s += "\t";
-  return s;
-}
+std::string make_indent(int indent) { return std::string(indent, '\t'); }
 
 // ----------------------------------------------------------------------------////
 

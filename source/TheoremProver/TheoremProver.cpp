@@ -8,6 +8,7 @@
 
 #include "ProverExpression.h"
 #include "TheoremProver.h"
+#include "../Utils/Utils.h"
 #include <sstream>
 #include <string>
 
@@ -43,21 +44,21 @@ std::string CNDGC::sPrintLaTeX() {
 std::string CNDGC::sPrintXML(int indent) {
   std::string s;
 
-  s += std::string(indent + 1, '\t');
+  s += make_indent(indent + 1);
   if (m_type == ep_equality)
     s += "<equality>\n";
   else
     s += "<inequality>\n";
 
-  s += std::string(indent + 2, '\t') + "<expression>\n";
+  s += make_indent(indent + 2) + "<expression>\n";
   s += m_Left.sPrintXML(indent + 3);
-  s += std::string(indent + 2, '\t') + "</expression>\n";
+  s += make_indent(indent + 2) + "</expression>\n";
 
-  s += std::string(indent + 2, '\t') + "<expression>\n";
+  s += make_indent(indent + 2) + "<expression>\n";
   s += m_Right.sPrintXML(indent + 3);
-  s += std::string(indent + 2, '\t') + "</expression>\n";
+  s += make_indent(indent + 2) + "</expression>\n";
 
-  s += std::string(indent + 1, '\t');
+  s += make_indent(indent + 1);
   if (m_type == ep_equality)
     s += "</equality>\n";
   else

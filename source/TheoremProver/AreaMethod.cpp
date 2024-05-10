@@ -38,9 +38,9 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       PrintLaTeX("\n\nProving lemma...(level " + i2s(m_iProofDepth) + ")");
       PrintLaTeX("\n\n\\begin{displayproof}\n");
 
-      PrintXML(std::string(2 * m_iProofDepth, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth));
       PrintXML("<lemma level=\"" + i2s(m_iProofDepth) + "\">\n");
-      PrintXML(std::string(2 * m_iProofDepth, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth));
       PrintXML("<proof>\n");
     }
   } else {
@@ -97,7 +97,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
                    "procedure was stopped.");
       PrintLaTeX("\n\n\\proveddisproved{2}\n"); // Failed to prove or disprove
 
-      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth + 1));
       PrintXML("</proof>\n\n");
       if (bTimeOut)
         PrintXML("\n\nTimeout; the proving procedure was stopped.");
@@ -105,7 +105,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
         PrintXML("Too many proof steps (more than the "
                  "given proof limit); the proving "
                  "procedure was stopped.");
-      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth + 1));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
       Pop();
@@ -148,7 +148,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
       PrintLaTeX("\n\nThe conjecture out of scope of the prover.");
       PrintLaTeX("\n\n\\proveddisproved{2}\n"); // Failed to prove or disprove
 
-      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth + 1));
       PrintXML("</proof>\n\n");
       PrintXML("\n\nThe conjecture out of scope of the prover.");
       PrintXML("\t");
@@ -169,7 +169,7 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
                      "the conjecture (required elimination "
                      "not available).\n\n");
 
-          PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+          PrintXML(make_indent(2 * m_iProofDepth + 1));
           PrintXML("</proof>\n\n");
           PrintXML("Unable to eliminate the point $" + it->arg[0] + "$.\n\n");
           PrintXML("Failed to prove (or disprove) the "
@@ -239,26 +239,26 @@ CAreaMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
 
   if ((m_iProofDepth == 0) || ((m_iProofDepth > 0) && (m_iProofLevel >= 3))) {
     PrintLaTeX("\\end{displayproof}\n\n");
-    PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+    PrintXML(make_indent(2 * m_iProofDepth + 1));
     PrintXML("</proof>\n\n");
 
     if (s == e_proved) {
       PrintLaTeX("\n\\proveddisproved{1}\n"); // Proved
-      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth + 1));
       PrintXML("<status value=\"proved\"></status>\n"); // Proved
     } else if (s == e_disproved) {
       PrintLaTeX("\n\\proveddisproved{0}\n"); // Disproved
-      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth + 1));
       PrintXML("<status value=\"disproved\"></status>\n"); // Disproved
     } else {
       PrintLaTeX("\n\\proveddisproved{2}\n"); // Failed to prove or disprove
-      PrintXML(std::string(2 * m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(2 * m_iProofDepth + 1));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
     }
 
     // XML output
-    PrintXML(std::string(2 * m_iProofDepth, '\t'));
+    PrintXML(make_indent(2 * m_iProofDepth));
     if (m_iProofDepth > 0)
       PrintXML("</lemma>\n\n");
     if (m_iProofDepth > 0 && m_iProofLevel >= 3) {
@@ -341,7 +341,7 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
                    "procedure was stopped.");
       PrintLaTeX("\n\n\\proveddisproved{2}\n"); // Failed to prove or disprove
 
-      PrintXML(std::string(m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(m_iProofDepth + 1));
       PrintXML("</proof>\n\n");
       if (bTimeOut)
         PrintXML("\n\nTimeout; the proving procedure was stopped.");
@@ -349,7 +349,7 @@ bool CAreaMethod::AlgebraicSimplification(int exceptlast,
         PrintXML("Too many proof steps (more than the "
                  "given proof limit); the proving "
                  "procedure was stopped.");
-      PrintXML(std::string(m_iProofDepth + 1, '\t'));
+      PrintXML(make_indent(m_iProofDepth + 1));
       PrintXML("<status value=\"failed\"></status>\n"); // Failed to prove or
                                                         // disprove
       PrintXML("</main_proof>\n\n");
@@ -2485,7 +2485,7 @@ void CAreaMethod::OutputXMLStep(const CGCLCProverExpression &exp,
     double e2 = EvaluateExpression(exp.GetArg(1));
 
     // exp.PrettyPrintXML(m_hXMLOutputProof, sValue, 2 * m_iProofDepth + 2);
-    PrintXML(std::string(2 * m_iProofDepth + 2, '\t') + "<proof_step>\n");
+    PrintXML(make_indent(2 * m_iProofDepth + 2) + "<proof_step>\n");
     exp.PrintXML(m_hXMLOutputProof, 2 * m_iProofDepth + 3);
 
     PrintXML(make_indent(2 * m_iProofDepth + 3) + "<explanation>" +
@@ -2497,7 +2497,7 @@ void CAreaMethod::OutputXMLStep(const CGCLCProverExpression &exp,
                     d2s(e2, 6) + "</value></semantics>\n";
     PrintXML(sValue);
 
-    PrintXML(std::string(2 * m_iProofDepth + 2, '\t') + "</proof_step>\n\n");
+    PrintXML(make_indent(2 * m_iProofDepth + 2) + "</proof_step>\n\n");
   }
 }
 
