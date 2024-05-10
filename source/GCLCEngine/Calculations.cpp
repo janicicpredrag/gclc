@@ -52,8 +52,7 @@ GCLCError CGCLC::get_distance() {
   if ((iRv = ReadObject(GCLC_POINT, o2)) != rvGCLCOK)
     return iRv;
 
-  d = sqrt((o1.p[0] - o2.p[0]) * (o1.p[0] - o2.p[0]) +
-           (o1.p[1] - o2.p[1]) * (o1.p[1] - o2.p[1]));
+  d = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
   return Let(sNumberName, GCLC_NUMBER, d, 0.00, 0.00, 0.00, 0.00, 0.00);
 }
 
@@ -74,12 +73,9 @@ GCLCError CGCLC::get_angle(bool orientation) {
   if ((iRv = ReadObject(GCLC_POINT, o3)) != rvGCLCOK)
     return iRv;
 
-  c = sqrt((o1.p[0] - o2.p[0]) * (o1.p[0] - o2.p[0]) +
-           (o1.p[1] - o2.p[1]) * (o1.p[1] - o2.p[1]));
-  a = sqrt((o3.p[0] - o2.p[0]) * (o3.p[0] - o2.p[0]) +
-           (o3.p[1] - o2.p[1]) * (o3.p[1] - o2.p[1]));
-  b = sqrt((o3.p[0] - o1.p[0]) * (o3.p[0] - o1.p[0]) +
-           (o3.p[1] - o1.p[1]) * (o3.p[1] - o1.p[1]));
+  c = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  a = hypot(o3.p[0] - o2.p[0], o3.p[1] - o2.p[1]);
+  b = hypot(o3.p[0] - o1.p[0], o3.p[1] - o1.p[1]);
 
   if (a < EPS) {
     if (ProvingTheorem()) {

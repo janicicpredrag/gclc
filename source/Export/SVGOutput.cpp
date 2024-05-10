@@ -144,7 +144,7 @@ GReturnValue CSVGOutput::DrawSegment(double x1, double y1, double x2,
 
 GReturnValue CSVGOutput::DrawArc(double x1, double y1, double x2, double y2,
                                  double phi, int /* precision */) {
-  double r = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  double r = hypot(x1 - x2, y1 - y2);
 
   if (phi == 360) {
     PrintToOutput("<circle cx=\"" + d2s(x1 * SCALE, 2) + "\" cy=\"" +

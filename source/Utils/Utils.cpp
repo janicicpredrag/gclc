@@ -207,9 +207,9 @@ double compute_angle_in_degrees(double x1, double y1, double xc, double yc,
                                 double x2, double y2) {
   double a, b, c, ee, angle;
 
-  c = sqrt((x1 - xc) * (x1 - xc) + (y1 - yc) * (y1 - yc));
-  a = sqrt((x2 - xc) * (x2 - xc) + (y2 - yc) * (y2 - yc));
-  b = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  c = hypot(x1 - xc, y1 - yc);
+  a = hypot(x2 - xc, y2 - yc);
+  b = hypot(x2 - x1, y2 - y1);
 
   ee = (a * a + c * c - b * b) / (2 * a * c);
   if (ee <= -1)
@@ -626,9 +626,9 @@ double HeronArea(double x1, double y1, double x2, double y2, double x3,
   else
     sign = 1;
 
-  a = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-  b = sqrt((x1 - x3) * (x1 - x3) + (y1 - y3) * (y1 - y3));
-  c = sqrt((x3 - x2) * (x3 - x2) + (y3 - y2) * (y3 - y2));
+  a = hypot(x1 - x2, y1 - y2);
+  b = hypot(x1 - x3, y1 - y3);
+  c = hypot(x3 - x2, y3 - y2);
   p = (a + b + c) / 2;
 
   s = p * (p - a) * (p - b) * (p - c);

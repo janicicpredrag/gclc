@@ -163,7 +163,7 @@ GReturnValue CEPSOutput::DrawArc(double x1, double y1, double x2, double y2,
   y1 = (Y_OFFSET + y1) * SCALE;
   x2 = (X_OFFSET + x2) * SCALE;
   y2 = (Y_OFFSET + y2) * SCALE;
-  r = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  r = hypot(x1 - x2, y1 - y2);
   PrintToOutput("newpath " + d2s(x1, 2) + " " + d2s(y1, 2) + " " +
                 d2s(r, 2) + " " + d2s(phi1, 2) + " " +
                 d2s(phi1 + phi, 2) + " arc \n");

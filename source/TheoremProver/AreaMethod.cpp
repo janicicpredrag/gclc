@@ -2206,7 +2206,7 @@ double CAreaMethod::EvaluateExpression(const CGCLCProverExpression &exp) const {
   case ep_segment:
     GetPointCoordinates(exp.GetArgName(0), x1, y1);
     GetPointCoordinates(exp.GetArgName(1), x2, y2);
-    return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    return hypot(x1 - x2, y1 - y2);
 
   case ep_s3:
     GetPointCoordinates(exp.GetArgName(0), x1, y1);
@@ -2232,8 +2232,7 @@ double CAreaMethod::EvaluateExpression(const CGCLCProverExpression &exp) const {
         sign = -1;
     }
 
-    return sign * (sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) /
-                   sqrt((x3 - x4) * (x3 - x4) + (y3 - y4) * (y3 - y4)));
+    return sign * (hypot(x1 - x2, y1 - y2) / hypot(x3 - x4, y3 - y4));
 
   case ep_p3:
     GetPointCoordinates(exp.GetArgName(0), x1, y1);

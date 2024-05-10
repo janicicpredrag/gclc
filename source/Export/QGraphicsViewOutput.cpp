@@ -1,6 +1,6 @@
 #include "QGraphicsViewOutput.h"
 #include "Utils/Utils.h"
-#include "math.h"
+#include <cmath>
 #include <QGraphicsEllipseItem>
 #include <QPolygon>
 
@@ -212,7 +212,7 @@ GReturnValue QGraphicsViewOutput::DrawArc(double x1, double y1, double x2,
                                           double y2, double phi,
                                           int /* precision */) {
   double angle1;
-  double r = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  double r = hypot(x2 - x1, y2 - y1);
   angle1 = atan2(y2 - y1, x2 - x1);
   angle1 = 180.0 * angle1 / PI;
   while (angle1 > 360)
@@ -224,7 +224,7 @@ GReturnValue QGraphicsViewOutput::DrawArc(double x1, double y1, double x2,
   y1 *= m_ScaleY;
   x2 *= m_ScaleX;
   y2 *= m_ScaleY;
-  r = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  r = hypot(x2 - x1, y2 - y1);
 
   QGraphicsArcItem *item = new QGraphicsArcItem(
       x1 - r, (y1 - r), 2 * r, 2 * r, m_ScaleX * m_Xmax, m_ScaleY * m_Ymax);

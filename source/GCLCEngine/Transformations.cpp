@@ -111,7 +111,7 @@ GCLCError CGCLC::get_rotateonellipse() {
   y3 = o3.p[1];
   x4 = o4.p[0];
   y4 = o4.p[1];
-  a = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  a = hypot(x2 - x1, y2 - y1);
 
   if (a < EPS)
     return rvGCLCBadEllipse;
@@ -252,7 +252,7 @@ GCLCError CGCLC::get_turtle() {
   y1 = o1.p[1];
   x2 = o2.p[0];
   y2 = o2.p[1];
-  d0 = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+  d0 = hypot(x1 - x2, y1 - y2);
 
   return Let(sPointName, GCLC_POINT,
              ((x1 - x2) * cosn - (y1 - y2) * sinn) * (d / d0) + x2,

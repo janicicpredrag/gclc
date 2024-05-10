@@ -176,7 +176,7 @@ GCLCError CGCLC::get_intersec2() {
     x2 = o2.p[0];
     y2 = o2.p[1];
     r2 = o2.p[2];
-    d = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    d = hypot(x1 - x2, y1 - y2);
     if (r1 >= r2) {
       if ((d < r1 - r2) || (d > r1 + r2)) {
         // TODO: perform deductive check
@@ -422,10 +422,8 @@ GCLCError CGCLC::get_bis() {
   if ((iRv = ReadObject(GCLC_POINT, o3)) != rvGCLCOK)
     return iRv;
 
-  d1 = sqrt((o1.p[0] - o2.p[0]) * (o1.p[0] - o2.p[0]) +
-            (o1.p[1] - o2.p[1]) * (o1.p[1] - o2.p[1]));
-  d2 = sqrt((o3.p[0] - o2.p[0]) * (o3.p[0] - o2.p[0]) +
-            (o3.p[1] - o2.p[1]) * (o3.p[1] - o2.p[1]));
+  d1 = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  d2 = hypot(o3.p[0] - o2.p[0], o3.p[1] - o2.p[1]);
 
   if (d1 <= EPS) {
     if (ProvingTheorem()) {
