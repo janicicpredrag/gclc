@@ -294,9 +294,8 @@ GReturnValue CGCompiler::Prove(std::ostream *sLaTeXProof,
                                std::ostream *sXMLProof, double &Time,
                                const std::string &sTheoremName,
                                eGCLC_conjecture_status &Status) {
-  if (!m_pTheoremProver->Prove(sLaTeXProof, sXMLProof, Time, sTheoremName,
-                               Status))
-    return rvG_ProverFailed;
+  m_pTheoremProver->Prove(sLaTeXProof, sXMLProof, Time, sTheoremName,
+                               Status);
 
   if (Status == e_proved)
     return rvG_OK;

@@ -97,7 +97,7 @@ void CTheoremProver::CleanUp() {
 
 // ----------------------------------------------------------------------------
 
-bool CTheoremProver::Prove(std::ostream *LaTeXOutputProof,
+void CTheoremProver::Prove(std::ostream *LaTeXOutputProof,
                            std::ostream *XMLOutputProof, double &Time,
                            const std::string &theorem,
                            eGCLC_conjecture_status &Status) {
@@ -108,7 +108,7 @@ bool CTheoremProver::Prove(std::ostream *LaTeXOutputProof,
   if (!m_bValidConjecture) {
     CleanUp();
     Status = e_conjecture_out_of_scope;
-    return true;
+    return;
   }
 
   m_Timer.StartMeasuringTime();
@@ -135,7 +135,7 @@ bool CTheoremProver::Prove(std::ostream *LaTeXOutputProof,
   Time = m_Timer.ElapsedTime();
   PrintProofFooter(Status);
 
-  return true;
+  return;
 }
 
 // ----------------------------------------------------------------------------

@@ -109,7 +109,7 @@ public:
   virtual ~CTheoremProver();
   virtual void CleanUp();
 
-  bool Prove(std::ostream *LaTeXOutputProof, std::ostream *XMLOutputProof, double &Time,
+  void Prove(std::ostream *LaTeXOutputProof, std::ostream *XMLOutputProof, double &Time,
              const std::string &theorem, eGCLC_conjecture_status &Status);
   virtual bool AddProverCommand(eGCLC_prover_command type,
                                 const std::string &a1 = "", const std::string &a2 = "",
