@@ -49,11 +49,6 @@ class CGCLCOutput;
 class CGCLCPrimitive {
   friend class CIntermediateRepresentation;
 
-public:
-  CGCLCPrimitive();
-  virtual ~CGCLCPrimitive();
-  void CleanUp();
-
 private:
   GCLCprimitivecommands type;
   double arg[6];

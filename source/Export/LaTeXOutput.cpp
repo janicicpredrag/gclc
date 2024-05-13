@@ -85,7 +85,7 @@ GReturnValue CLaTeXOutput::DrawArc(double x1, double y1, double x2, double y2,
   int i;
   GReturnValue iRv;
 
-  r = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  r = hypot(x2 - x1, y2 - y1);
 
   int num = (int)((precision * r) / 10);
   if (num < precision)
