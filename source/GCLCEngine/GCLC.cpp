@@ -7,6 +7,7 @@
 #include "../Logging/GCLCLog.h"
 #include "../Utils/Version.h"
 #include <assert.h>
+#include <cstddef>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -481,7 +482,27 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
           if (m_ProverConfig.bXML)
             sProofXMLOutput = "error-proof.xml";
           double Time;
-          /* GReturnValue r = */ Prove(sProofLaTeXOutput, sProofXMLOutput, Time,
+          std::ofstream m_hLaTeXOutputProof;
+          if (!sProofLaTeXOutput.empty()) {
+            m_hLaTeXOutputProof.open(sProofLaTeXOutput.c_str());
+            if (!m_hLaTeXOutputProof.is_open()) {
+              AddToLog("File error. Cannot open output file " +
+                       sProofLaTeXOutput + " for the proof.\n");
+              CleanUpProver();
+              return rvG_CannotOpenOutputFile;
+            }
+          }
+          std::ofstream m_hXMLOutputProof;
+          if (!sProofXMLOutput.empty()) {
+            m_hXMLOutputProof.open(sProofXMLOutput.c_str());
+            if (!m_hXMLOutputProof.is_open()) {
+              AddToLog("File error. Cannot open output file " +
+                       sProofXMLOutput + " for the proof.\n");
+              CleanUpProver();
+              return rvG_CannotOpenOutputFile;
+            }
+          }
+          Prove(&m_hLaTeXOutputProof, &m_hXMLOutputProof, Time,
                                        "Deduction check conjecture",
                                        prover_output);
           AddToLog("\n\nTime spent by the prover: " +
@@ -530,14 +551,32 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
       if (m_ProverConfig.m_sTheoremName.size() == 0)
         m_ProverConfig.m_sTheoremName = m_ProverConfig.sTheoremFileName;
 
-      GReturnValue r = Prove(sLaTeXFile, sXMLFile, prover_time,
-                             m_ProverConfig.m_sTheoremName, prover_output);
-      if (r == rvG_CannotOpenOutputFile) {
-        AddToLog("File error. Cannot open output file (" + sLaTeXFile + " or " +
-                 sXMLFile + ") for the proof.\n");
-        CleanUpProver();
-        return rvG_CannotOpenOutputFile;
+      std::ofstream m_hLaTeXOutputProof;
+      if (!sLaTeXFile.empty()) {
+        m_hLaTeXOutputProof.open(sLaTeXFile.c_str());
+        if (!m_hLaTeXOutputProof.is_open()) {
+          AddToLog("File error. Cannot open output file " + sLaTeXFile +
+                   " for the proof.\n");
+          CleanUpProver();
+          return rvG_CannotOpenOutputFile;
+        }
       }
+
+      std::ofstream m_hXMLOutputProof;
+      if (!sXMLFile.empty()) {
+        m_hXMLOutputProof.open(sXMLFile.c_str());
+        if (!m_hXMLOutputProof.is_open()) {
+          AddToLog("File error. Cannot open output file " + sXMLFile +
+                   " for the proof.\n");
+          CleanUpProver();
+          return rvG_CannotOpenOutputFile;
+        }
+      }
+
+      GReturnValue r =
+          Prove(&m_hLaTeXOutputProof, &m_hXMLOutputProof, prover_time,
+                m_ProverConfig.m_sTheoremName, prover_output);
+
       AddToLog("\n\nTime spent by the prover: " +
                d2s(prover_time / (double)1000, 3) + " seconds.");
       if (prover_output != e_conjecture_out_of_scope &&

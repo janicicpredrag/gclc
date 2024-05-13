@@ -192,10 +192,10 @@ void CAlgMethod::_PrintCommand(CGCLCProverCommand &Command) {
 enum eGCLC_conjecture_status
 CAlgMethod::ProveConjecture(const CGCLCProverExpression &Conj) {
   // set or unset latexoutput
-  Log::SetLatexOutputFile(&m_hLaTeXOutputProof);
+  Log::SetLatexOutputFile(LaTeXOutputProofStream);
 
   // set or unset xmloutput
-  Log::SetXMLOutputFile(&m_hXMLOutputProof);
+  Log::SetXMLOutputFile(XMLOutputProofStream);
 
   Log::OutputBegins();
 
@@ -2835,7 +2835,7 @@ void CAlgMethod::PrintProofTitleXML(const std::string &theoremName) {
                      (!theoremName.empty() ? theoremName
                                            : (std::string) "[not named] (" +
                                                  GetName() + " method used)");
-  Print(m_hXMLOutputProof, "\n<proof_title>" + name + +"</proof_title>\n\n");
+  PrintXML("\n<proof_title>" + name + +"</proof_title>\n\n");                        
 }
 
 // ----------------------------------------------------------------------------

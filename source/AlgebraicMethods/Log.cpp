@@ -7,11 +7,10 @@
 static char __log_msg[1000];
 
 int Log::_maxLevel = 3;
-std::ofstream *Log::_outFileLatex = NULL;
-std::ofstream *Log::_outFileXML = NULL;
+std::ostream *Log::_outFileLatex;
+std::ostream *Log::_outFileXML;
 bool Log::_standardOutput = false;
 int Log::StopAfterMaxT = -1;
-bool Log::_lockOutputFiles = false;
 std::ofstream *Log::_outFiles[5];
 
 bool Log::_sectionStarted = false;
@@ -48,8 +47,6 @@ void Log::SetOutputFile(std::ofstream *outFile, int index) {
 
 bool Log::GetStandardOutput() { return _standardOutput; }
 
-void Log::LockOutputFiles(bool lock) { _lockOutputFiles = lock; }
-
 void Log::PrintLogF(int level, const char *msg, ...) {
   if (level <= _maxLevel) {
     // fetch parameters and print result
@@ -84,36 +81,17 @@ void Log::PrintLogF(int level, const char *msg, ...) {
 
 void Log::SetLoggingLevel(int level) { _maxLevel = level; }
 
-void Log::InitOutputFile(char *path) {
-  if (path) {
-    _outFileLatex->open(path);
-    if (!_outFileLatex) {
-      fprintf(stderr, "Failed to open file %s\n", path);
-      throw - 1;
-    }
-  } else {
-    _outFileLatex = NULL;
-  }
-}
 
-void Log::SetLatexOutputFile(std::ofstream *outFileLatex) {
-  if (_lockOutputFiles) {
-    return;
-  }
-
+void Log::SetLatexOutputFile(std::ostream *outFileLatex) {
   if (_outFileLatex && _outFileLatex != outFileLatex) {
-    _outFileLatex->close();
+    _outFileLatex->flush();
   }
   _outFileLatex = outFileLatex;
 }
 
-void Log::SetXMLOutputFile(std::ofstream *outFileXML) {
-  if (_lockOutputFiles) {
-    return;
-  }
-
+void Log::SetXMLOutputFile(std::ostream *outFileXML) {
   if (_outFileXML && _outFileXML != outFileXML) {
-    _outFileXML->close();
+    _outFileXML->flush();
   }
   _outFileXML = outFileXML;
 }
@@ -271,8 +249,7 @@ void Log::FormatXMLString() {
   const char *rules[] = {"$", "",     "\\{",     "{",          "\\}",
                          "}", "\\ni", "&#8715;", "\\emptyset", "&#8709;"};
 
-  int ii;
-  for (ii = 0; ii < rule_pairs; ii++) {
+  for (int ii = 0; ii < rule_pairs; ii++) {
     FormatXMLStringHelper(rules[2 * ii], rules[2 * ii + 1]);
   }
 }

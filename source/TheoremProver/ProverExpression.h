@@ -186,9 +186,9 @@ public:
   bool ApplyOneAlgebraicRule(GCLCalgebraic_rule rule);
 
   void PrettyPrint() const;
-  void PrintLaTeX(std::ofstream &h) const;
+  void PrintLaTeX(std::ostream &h) const;
   std::string sPrintLaTeX(bool hasFractions = true) const;
-  void PrintXML(std::ofstream &h, int indent) const;
+  void PrintXML(std::ostream &h, int indent) const;
   std::string sPrintXML(int indent) const;
 
   int Size();

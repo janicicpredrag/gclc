@@ -1541,7 +1541,7 @@ void CGCLCProverExpression::PrettyPrint() const {
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::PrintLaTeX(ofstream &h) const {
+void CGCLCProverExpression::PrintLaTeX(ostream &h) const {
   Print(h, sPrintLaTeX(true));
 }
 
@@ -1737,7 +1737,7 @@ std::string CGCLCProverExpression::sPrintLaTeX(bool hasFractions) const {
 
 // --------------------------------------------------------------------------
 
-void CGCLCProverExpression::PrintXML(ofstream &h, int indent) const {
+void CGCLCProverExpression::PrintXML(ostream &h, int indent) const {
   Print(h, sPrintXML(indent));
 }
 
