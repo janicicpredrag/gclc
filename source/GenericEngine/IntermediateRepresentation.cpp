@@ -387,7 +387,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
         x2 = it->arg[2];
         y2 = it->arg[3];
 
-        d = hypot(x1 - x2, y1 - y2);
+        d = distance2d(x1, y1, x2, y2);
 
         if ((it->area.x_lb != 0) || (it->area.x_rt != 0) ||
             (it->area.y_lb != 0) || (it->area.y_rt != 0)) {
@@ -448,7 +448,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
 
         if (ClipSegmentByArea(x1, y1, x2, y2, area) == rvG_OK) {
           if (it->dashed) {
-            d = hypot(x1 - x2, y1 - y2);
+            d = distance2d(x1, y1, x2, y2);
 
             if (d < EPS)
               return rvG_OK;
@@ -564,7 +564,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
             x2_start = x2;
             y2_start = y2;
 
-            d = hypot(x1 - x2, y1 - y2);
+            d = distance2d(x1, y1, x2, y2);
 
             if (d < EPS)
               return rvG_OK;
@@ -644,7 +644,7 @@ GReturnValue CIntermediateRepresentation::Export(CGCLCOutput &Out) {
         else
           area = Default_Area;
 
-        r = hypot(x2 - x1, y2 - y1);
+        r = distance2d(x1, y1, x2, y2);
 
         if (it->dashed) {
           num = (int)((it->precision * r) / 10);
@@ -945,7 +945,7 @@ GReturnValue CIntermediateRepresentation::ClipSegmentByEmptyCircles(
     y = it->arg[1];
     xx = it->arg[2];
     yy = it->arg[3];
-    r = hypot(xx - x, yy - y);
+    r = distance2d(x, y, xx, yy);
 
     c = c + a * x + b * y;
 
@@ -1061,15 +1061,15 @@ GReturnValue CIntermediateRepresentation::ClipArcByEmptyCircles(
   while (it != m_EmptyCircles.end()) {
     bIntersect = true;
 
-    r1 = hypot(x1 - xr1, y1 - yr1);
+    r1 = distance2d(x1, y1, xr1, yr1);
 
     x2 = it->arg[0];
     y2 = it->arg[1];
     xr2 = it->arg[2];
     yr2 = it->arg[3];
-    r2 = hypot(x2 - xr2, y2 - yr2);
+    r2 = distance2d(x2, y2, xr2, yr2);
 
-    d = hypot(x1 - x2, y1 - y2);
+    d = distance2d(x1, y1, x2, y2);
 
     if (r1 >= r2) {
       if ((d < r1 - r2) || (d > r1 + r2))
@@ -1201,17 +1201,15 @@ GReturnValue CIntermediateRepresentation::ClipPixelByEmptyCircles(
     double x1, double y1, CGCLCOutput &Out, std::list<CGCLCPrimitive>::iterator it) {
   // new, non-recursive version - 08.06.2008.
   double x, xx, y, yy, r;
-  int ii = 0;
 
   while (it != m_EmptyCircles.end()) {
 
-    ii++;
     if (it->type == emptycircle) {
       x = it->arg[0];
       y = it->arg[1];
       xx = it->arg[2];
       yy = it->arg[3];
-      r = hypot(xx - x, yy - y);
+      r = distance2d(x, y, xx, yy);
 
       if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) <= r * r)
         return rvG_OK;
@@ -1286,7 +1284,7 @@ void clip_arc_x(bool bLeft, double x, GCLC_area & /*area*/, GCLC_Arc *arcs,
     yr = arcs[i].y1;
     angle = arcs[i].angle;
 
-    r = hypot(xr - xc, yr - yc);
+    r = distance2d(xc, yc, xr, yr);
 
     D = r * r - (x - xc) * (x - xc);
     if (D > 0) {
@@ -1414,7 +1412,7 @@ void clip_arc_y(bool bBottom, double y, GCLC_area & /*area*/, GCLC_Arc *arcs,
     yr = arcs[i].y1;
     angle = arcs[i].angle;
 
-    r = hypot(xr - xc, yr - yc);
+    r = distance2d(xc, yc, xr, yr);
 
     D = r * r - (y - yc) * (y - yc);
     if (D > 0) {

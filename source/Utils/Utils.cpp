@@ -207,9 +207,9 @@ double compute_angle_in_degrees(double x1, double y1, double xc, double yc,
                                 double x2, double y2) {
   double a, b, c, ee, angle;
 
-  c = hypot(x1 - xc, y1 - yc);
-  a = hypot(x2 - xc, y2 - yc);
-  b = hypot(x2 - x1, y2 - y1);
+  c = distance2d(xc, yc, x1, y1);
+  a = distance2d(xc, yc, x2, y2);
+  b = distance2d(x1, y1, x2, y2);
 
   ee = (a * a + c * c - b * b) / (2 * a * c);
   if (ee <= -1)
@@ -616,6 +616,12 @@ int solve(double a, double b, double c, double &x1, double &x2, int &r) {
 
 // ----------------------------------------------------------------------------////
 
+double distance2d(double x1, double y1, double x2, double y2) {
+    return hypot(x1 - x2, y1 - y2);
+}
+
+// ----------------------------------------------------------------------------////
+
 double HeronArea(double x1, double y1, double x2, double y2, double x3,
                  double y3) {
   double a, b, c, p, s;
@@ -626,9 +632,9 @@ double HeronArea(double x1, double y1, double x2, double y2, double x3,
   else
     sign = 1;
 
-  a = hypot(x1 - x2, y1 - y2);
-  b = hypot(x1 - x3, y1 - y3);
-  c = hypot(x3 - x2, y3 - y2);
+  a = distance2d(x1, y1, x2, y2);
+  b = distance2d(x1, y1, x3, y3);
+  c = distance2d(x2, y2, x3, y3);
   p = (a + b + c) / 2;
 
   s = p * (p - a) * (p - b) * (p - c);

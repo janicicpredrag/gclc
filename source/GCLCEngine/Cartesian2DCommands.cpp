@@ -1296,7 +1296,7 @@ GCLCError CGCLC::ang_2D_3D_arrow(double x1, double y1, double x2, double y2,
   o2.p[0] = x2;
   o2.p[1] = y2;
 
-  d = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  d = distance2d(o1, o2);
   x0 = (o1.p[0] - o2.p[0]) / d + o2.p[0];
   y0 = (o1.p[1] - o2.p[1]) / d + o2.p[1];
 

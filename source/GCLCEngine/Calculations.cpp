@@ -4,7 +4,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <fstream>
-#include <streambuf>
 #include <string>
 
 // ----------------------------------------------------------------------------
@@ -52,7 +51,7 @@ GCLCError CGCLC::get_distance() {
   if ((iRv = ReadObject(GCLC_POINT, o2)) != rvGCLCOK)
     return iRv;
 
-  d = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  d = distance2d(o1, o2);
   return Let(sNumberName, GCLC_NUMBER, d, 0.00, 0.00, 0.00, 0.00, 0.00);
 }
 
@@ -73,9 +72,9 @@ GCLCError CGCLC::get_angle(bool orientation) {
   if ((iRv = ReadObject(GCLC_POINT, o3)) != rvGCLCOK)
     return iRv;
 
-  c = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
-  a = hypot(o3.p[0] - o2.p[0], o3.p[1] - o2.p[1]);
-  b = hypot(o3.p[0] - o1.p[0], o3.p[1] - o1.p[1]);
+  c = distance2d(o1, o2);
+  a = distance2d(o2, o3);
+  b = distance2d(o1, o3);
 
   if (a < EPS) {
     if (ProvingTheorem()) {

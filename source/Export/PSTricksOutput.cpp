@@ -79,7 +79,7 @@ GReturnValue CPSTricksOutput::DrawSegment(double x1, double y1, double x2,
 GReturnValue CPSTricksOutput::DrawArc(double x1, double y1, double x2,
                                       double y2, double phi,
                                       int /*precision*/) {
-  double r = hypot(x2 - x1, y2 - y1);
+  double r = distance2d(x1, y1, x2, y2);
 
   if (phi == 360) {
     PrintToOutput("\\pscircle (" + d2s(x1, 2) + "," + d2s(y1, 2) + "){" +

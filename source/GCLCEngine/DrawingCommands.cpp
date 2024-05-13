@@ -4,9 +4,6 @@
 
 #include "../GraphDrawing/arclayereddrawing.h"
 #include "../GraphDrawing/barycenterdrawing.h"
-#include <iomanip>
-#include <iostream>
-#include <sstream>
 
 // ----------------------------------------------------------------------------
 
@@ -151,7 +148,7 @@ GCLCError CGCLC::draw_vector() {
                   m_Basic_Area) != rvG_OK)
     return rvCannotExport;
 
-  d = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  d = distance2d(o1, o2);
   x0 = (o1.p[0] - o2.p[0]) / d + o2.p[0];
   y0 = (o1.p[1] - o2.p[1]) / d + o2.p[1];
 
@@ -204,7 +201,7 @@ GCLCError CGCLC::draw_arrow() {
 
   o2.p[0] = (o2.p[0] - o1.p[0]) * q + o1.p[0];
   o2.p[1] = (o2.p[1] - o1.p[1]) * q + o1.p[1];
-  d = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  d = distance2d(o1, o2);
 
   if (d < EPS)
     return rvGCLCOK;
@@ -404,7 +401,7 @@ GCLCError CGCLC::draw_ellipse(bool dashed) {
   y2 = o2.p[1];
   x3 = o3.p[0];
   y3 = o3.p[1];
-  a = hypot(x2 - x1, y2 - y1);
+  a = distance2d(o1, o2);
 
   num = (int)((CIRCLE_PRECISION * a) / 10);
 
@@ -491,7 +488,7 @@ GCLCError CGCLC::draw_ellipsearc(bool dashed, bool bFourGivenPoints,
   y2 = o2.p[1];
   x3 = o3.p[0];
   y3 = o3.p[1];
-  a = hypot(x2 - x1, y2 - y1);
+  a = distance2d(o1, o2);
 
   if (a < EPS)
     return rvGCLCBadEllipse;
@@ -1476,7 +1473,7 @@ GCLCError CGCLC::fill_circle() {
   if (PrintComment(sComment) != rvG_OK)
     return rvCannotExport;
 
-  double r = hypot(o2.p[0] - o1.p[0], o2.p[1] - o1.p[1]);
+  double r = distance2d(o1, o2);
   if (FillEllipseArc(o1.p[0], o1.p[1], r, r, 0, 360, m_Basic_Area, true) !=
       rvG_OK)
     return rvCannotExport;
@@ -1526,7 +1523,7 @@ GCLCError CGCLC::fill_arc(bool bFillTriangle) {
                    d2s(n, 2)) != rvG_OK)
     return rvCannotExport;
 
-  double r = hypot(o2.p[0] - o1.p[0], o2.p[1] - o1.p[1]);
+  double r = distance2d(o1, o2);
 
   double phi1 = atan2(o2.p[1] - o1.p[1], o2.p[0] - o1.p[0]);
   phi1 = phi1 * 180 / PI;

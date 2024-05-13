@@ -38,6 +38,7 @@ bool MakeArcPath(double x1, double y1, double a, double b, double phi1,
                  double phi2, std::string &sPath);
 
 int solve(double a, double b, double c, double &x1, double &x2, int &r);
+double distance2d(double x1, double y1, double x2, double y2);
 double HeronArea(double x1, double y1, double x2, double y2, double x3,
                  double y3);
 

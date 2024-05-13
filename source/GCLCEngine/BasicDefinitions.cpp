@@ -192,7 +192,7 @@ GCLCError CGCLC::get_circle() {
   if (ProvingTheorem())
     AddProverCommand(p_circle, sCircleName, o1.name, o2.name);
 
-  k = hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
+  k = distance2d(o1, o2);
 
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good()) {

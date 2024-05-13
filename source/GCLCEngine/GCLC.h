@@ -7,7 +7,6 @@
 
 #include "../GenericEngine/GCompiler.h"
 #include <fstream>
-#include <iostream>
 #include <map>
 #include <string>
 
@@ -396,6 +395,7 @@ private:
   GCLCError Let(const std::string &sVarName, int type, double p1, double p2,
                 double p3, double p4, double p5, double p6);
   GCLCError Value(const std::string &sVarName, GCLC_object &o);
+  double distance2d(GCLC_object &o1, GCLC_object &o2);
   int warning(int w);
 
   bool EndOfInputData();

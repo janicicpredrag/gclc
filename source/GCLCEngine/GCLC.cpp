@@ -7,10 +7,9 @@
 #include "../Logging/GCLCLog.h"
 #include "../Utils/Version.h"
 #include <assert.h>
-#include <iomanip>
-#include <iostream>
-#include <sstream>
 #include <string>
+#include <cmath>
+
 
 /*
 GCLC_area CGCLC::m_Basic_Area = {0, 0, 0, 0};
@@ -1544,6 +1543,13 @@ GCLCError CGCLC::Value(const std::string &sVarName, GCLC_object &o) {
     return rvGCLCOK;
   }
   return rvGCLCUndefinedVariable;
+}
+
+// ----------------------------------------------------------------------------////
+
+/* returns distance between two objects of the type GCLC_POINT or centers of GCLC_CIRCLE */
+double CGCLC::distance2d(GCLC_object &o1, GCLC_object &o2) {
+  return hypot(o1.p[0] - o2.p[0], o1.p[1] - o2.p[1]);
 }
 
 // ----------------------------------------------------------------------------////
