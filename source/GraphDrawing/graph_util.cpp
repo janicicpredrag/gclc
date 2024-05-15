@@ -208,7 +208,7 @@ void GraphUtil::printAdjacencyMatrix(
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++)
       std::cout << adjacencyMatrix[i][j] << " ";
-    std::cout << std::endl;
+    std::cout << '\n';
   }
 }
 
@@ -238,7 +238,7 @@ void GraphUtil::deleteCanonicalOrderStructure(struct CanonicalOrder &costruct) {
 void GraphUtil::printVector(std::vector<int> vec) {
   for (unsigned int i = 0; i < vec.size(); i++)
     std::cout << vec[i] << " ";
-  std::cout << std::endl;
+  std::cout << '\n';
 }
 
 void GraphUtil::printCoordinates(std::map<int, struct Point> straightLineMap) {
@@ -253,7 +253,7 @@ void GraphUtil::printSetL(std::map<int, std::vector<int> > L) {
     std::cout << it->first << ": ";
     for (unsigned int i = 0; i < it->second.size(); i++)
       std::cout << it->second[i] << " ";
-    std::cout << std::endl;
+    std::cout << '\n';
   }
 }
 
@@ -263,12 +263,12 @@ void GraphUtil::Error(const std::string &message) {
 }
 
 void GraphUtil::writeLayers(std::vector<std::vector<int> > layers) {
-  std::cout << "number of layers: " << layers.size() << std::endl;
+  std::cout << "number of layers: " << layers.size() << '\n';
   for (unsigned int i = 0; i < layers.size(); i++) {
     std::cout << "layer " << i << ":\t";
     for (unsigned int j = 0; j < layers[i].size(); j++)
       std::cout << layers[i][j] << " ";
-    std::cout << std::endl;
+    std::cout << '\n';
   }
 }
 
