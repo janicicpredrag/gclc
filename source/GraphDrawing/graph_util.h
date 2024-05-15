@@ -20,7 +20,7 @@ struct Point {
  * \brief GraphUtil is a class that's used for all sorts of helper functions
  * needed for drawing methods and working with graphs.
  *
- * This class consits only of static member functions, that are used as helper
+ * This class consists only of static member functions, that are used as helper
  * functions for drawing methods and
  * other graph related stuff.
  */
@@ -209,8 +209,8 @@ public:
    * \return int highest number of vertices with same neighbours
    */
   static int getMostSameNeighbours(std::map<int, std::vector<int> >);
-  //! Gets bouding box
-  /*! Gets bouding box of fixed vertices
+  //! Gets bounding box
+  /*! Gets bounding box of fixed vertices
    * \param map<int, struct Point> fixed vertices
    * \param struct Point& left bottom (this is out argument)
    * \param struct Point& right top (this is out argument)
@@ -264,7 +264,7 @@ public:
    * \param int size of the adjacency matrix
    */
   static void printAdjacencyMatrix(const std::vector<std::vector<bool>> &, int);
-  //! Prints all data memebers from CanonicalOrder structure
+  //! Prints all data members from CanonicalOrder structure
   /*! \param struct CanonicalOrder CanonicalOrder structure
    */
   static void printCanonicalOrderStructure(struct CanonicalOrder);
