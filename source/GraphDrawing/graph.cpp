@@ -371,10 +371,8 @@ void Graph::getAdjacencyMatrix(bool **adjacencyMatrix) {
 
 bool Graph::isUnDirected() {
   // allocate memmory for adjacency matrix
-  bool **adjacencyMatrix = new bool *[getNodesNumber()];
+  bool **adjacencyMatrix = GraphUtil::allocateMatrix(nullptr, getNodesNumber());
   int i;
-  for (i = 0; i < getNodesNumber(); i++)
-    adjacencyMatrix[i] = new bool[getNodesNumber()];
   // get adjacency matrix
   getAdjacencyMatrix(adjacencyMatrix);
 
