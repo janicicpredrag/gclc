@@ -1,6 +1,7 @@
 #include "graph_util.h"
 #include <cmath>
 #include <cstdlib>
+#include <vector>
 
 bool GraphUtil::isElementInVector(std::vector<int> vec, int el) {
   for (unsigned int i = 0; i < vec.size(); i++)
@@ -194,18 +195,11 @@ std::string GraphUtil::printbool(bool argument) {
   return argument ? "TRUE" : "FALSE";
 }
 
-bool **GraphUtil::allocateMatrix(bool **adjacencyMatrix, int size) {
-  adjacencyMatrix = new bool *[size];
-  for (int i = 0; i < size; i++)
-    adjacencyMatrix[i] = new bool[size];
+std::vector<std::vector<bool>> GraphUtil::allocateMatrix(int size) {
+  std::vector<std::vector<bool>> adjacencyMatrix(size);
+  for (std::vector<bool> &i : adjacencyMatrix)
+    i.resize(size, false);
   return adjacencyMatrix;
-}
-
-void GraphUtil::deallocateMatrix(bool **adjacencyMatrix, int size) {
-  // delete adjacency matrix
-  for (int i = 0; i < size; i++)
-    delete[] adjacencyMatrix[i];
-  delete[] adjacencyMatrix;
 }
 
 void GraphUtil::printAdjacencyMatrix(bool **adjacencyMatrix, int size) {

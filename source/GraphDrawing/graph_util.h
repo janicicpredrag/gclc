@@ -3,7 +3,7 @@
 
 #include "graph.h"
 #include "settings.h"
-
+#include <vector>
 
 /*! \brief This structure is used for representing points for drawing.
  *
@@ -255,19 +255,10 @@ public:
    * that returns adjacency matrix. Memory should be allocated for matrix of the
    * size
    * [n x n], where n is number of nodes of the given graph.
-   * \param bool** adjacency matrix
    * \param int size (n) of the adjacency matrix
    * \return bool** address of the adjacency matrix
    */
-  static bool **allocateMatrix(bool **, int);
-  //! Deallocate memory for adjacency matrix
-  /*! After client is done with using adjacency matrix memory should be
-   * deallocated
-   * using this function.
-   * \param bool** adjacency matrix
-   * \param int size (n) of the adjacency matrix
-   */
-  static void deallocateMatrix(bool **, int);
+  static std::vector<std::vector<bool>> allocateMatrix(int);
   //! Prints adjacency matrix
   /*! \param bool** adjacency matrix
    * \param int size of the adjacency matrix

@@ -173,13 +173,14 @@ public:
    */
   bool is2Connected();
   //! Gets adjacency matrix
-  /*!\param bool** adjacency matrix (this is out argument). It is very important
+  /*!\param std::vector<std::vector<bool>>& adjacency matrix
+   * adjacency matrix (this is out argument). It is very important
    * to proparly allocate memory for adjacency matrix [number_of_nodes x
    * number_of_nodes],
    * since there is no checking from this member function if memory is properly
-   * allocated. Also, client code should deallocate memory.
+   * allocated.
    */
-  void getAdjacencyMatrix(bool **);
+  void getAdjacencyMatrix(std::vector<std::vector<bool>> &);
   //! Tests if graph is undirected
   /*!\return boolean value indicating if graph is undirected
    */
