@@ -260,10 +260,10 @@ public:
    */
   static std::vector<std::vector<bool>> allocateMatrix(int);
   //! Prints adjacency matrix
-  /*! \param bool** adjacency matrix
+  /*! \param const std::vector<std::vector<bool>>& adjacency matrix
    * \param int size of the adjacency matrix
    */
-  static void printAdjacencyMatrix(bool **, int);
+  static void printAdjacencyMatrix(const std::vector<std::vector<bool>> &, int);
   //! Prints all data memebers from CanonicalOrder structure
   /*! \param struct CanonicalOrder CanonicalOrder structure
    */

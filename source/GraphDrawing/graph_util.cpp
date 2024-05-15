@@ -202,7 +202,8 @@ std::vector<std::vector<bool>> GraphUtil::allocateMatrix(int size) {
   return adjacencyMatrix;
 }
 
-void GraphUtil::printAdjacencyMatrix(bool **adjacencyMatrix, int size) {
+void GraphUtil::printAdjacencyMatrix(
+    const std::vector<std::vector<bool>> &adjacencyMatrix, int size) {
   // print adjacency matrix
   for (int i = 0; i < size; i++) {
     for (int j = 0; j < size; j++)
