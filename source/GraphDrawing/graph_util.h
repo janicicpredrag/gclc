@@ -3,7 +3,7 @@
 
 #include "graph.h"
 #include "settings.h"
-
+#include <vector>
 
 /*! \brief This structure is used for representing points for drawing.
  *
@@ -20,7 +20,7 @@ struct Point {
  * \brief GraphUtil is a class that's used for all sorts of helper functions
  * needed for drawing methods and working with graphs.
  *
- * This class consits only of static member functions, that are used as helper
+ * This class consists only of static member functions, that are used as helper
  * functions for drawing methods and
  * other graph related stuff.
  */
@@ -209,8 +209,8 @@ public:
    * \return int highest number of vertices with same neighbours
    */
   static int getMostSameNeighbours(std::map<int, std::vector<int> >);
-  //! Gets bouding box
-  /*! Gets bouding box of fixed vertices
+  //! Gets bounding box
+  /*! Gets bounding box of fixed vertices
    * \param map<int, struct Point> fixed vertices
    * \param struct Point& left bottom (this is out argument)
    * \param struct Point& right top (this is out argument)
@@ -255,25 +255,16 @@ public:
    * that returns adjacency matrix. Memory should be allocated for matrix of the
    * size
    * [n x n], where n is number of nodes of the given graph.
-   * \param bool** adjacency matrix
    * \param int size (n) of the adjacency matrix
    * \return bool** address of the adjacency matrix
    */
-  static bool **allocateMatrix(bool **, int);
-  //! Deallocate memory for adjacency matrix
-  /*! After client is done with using adjacency matrix memory should be
-   * deallocated
-   * using this function.
-   * \param bool** adjacency matrix
-   * \param int size (n) of the adjacency matrix
-   */
-  static void deallocateMatrix(bool **, int);
+  static std::vector<std::vector<bool>> allocateMatrix(int);
   //! Prints adjacency matrix
-  /*! \param bool** adjacency matrix
+  /*! \param const std::vector<std::vector<bool>>& adjacency matrix
    * \param int size of the adjacency matrix
    */
-  static void printAdjacencyMatrix(bool **, int);
-  //! Prints all data memebers from CanonicalOrder structure
+  static void printAdjacencyMatrix(const std::vector<std::vector<bool>> &, int);
+  //! Prints all data members from CanonicalOrder structure
   /*! \param struct CanonicalOrder CanonicalOrder structure
    */
   static void printCanonicalOrderStructure(struct CanonicalOrder);

@@ -1,6 +1,7 @@
 #include "graph.h"
 #include "../Utils/Utils.h"
 #include "graph_util.h"
+#include <vector>
 
 Graph::Graph() {}
 
@@ -344,7 +345,8 @@ bool Graph::is2Connected() {
   return true;
 }
 
-void Graph::getAdjacencyMatrix(bool **adjacencyMatrix) {
+void Graph::getAdjacencyMatrix(
+    std::vector<std::vector<bool>> &adjacencyMatrix) {
   unsigned int numberOfNodes = getNodesNumber();
   // set every element of adjacency matrix to false
   unsigned int i, j;
@@ -371,10 +373,9 @@ void Graph::getAdjacencyMatrix(bool **adjacencyMatrix) {
 
 bool Graph::isUnDirected() {
   // allocate memmory for adjacency matrix
-  bool **adjacencyMatrix = new bool *[getNodesNumber()];
+  std::vector<std::vector<bool>> adjacencyMatrix =
+    GraphUtil::allocateMatrix(getNodesNumber());
   int i;
-  for (i = 0; i < getNodesNumber(); i++)
-    adjacencyMatrix[i] = new bool[getNodesNumber()];
   // get adjacency matrix
   getAdjacencyMatrix(adjacencyMatrix);
 
@@ -385,11 +386,6 @@ bool Graph::isUnDirected() {
       if (adjacencyMatrix[i][j] != adjacencyMatrix[j][i])
         graphIsUndirected = false;
 
-  // deallocate memmory that adjacency matrix occupied
-  for (i = 0; i < getNodesNumber(); i++)
-    delete[] adjacencyMatrix[i];
-  delete[] adjacencyMatrix;
-
   return graphIsUndirected;
 }
 
@@ -399,10 +395,9 @@ void Graph::makeUndirected() {
     return;
 
   // allocate memory for adjacency matrix
-  bool **adjacencyMatrix = new bool *[getNodesNumber()];
+  std::vector<std::vector<bool>> adjacencyMatrix =
+    GraphUtil::allocateMatrix(getNodesNumber());
   int i;
-  for (i = 0; i < getNodesNumber(); i++)
-    adjacencyMatrix[i] = new bool[getNodesNumber()];
   // get adjacency matrix
   getAdjacencyMatrix(adjacencyMatrix);
 
@@ -421,11 +416,6 @@ void Graph::makeUndirected() {
       }
     }
   }
-
-  // deallocate memmory that adjacency matrix occupied
-  for (i = 0; i < getNodesNumber(); i++)
-    delete[] adjacencyMatrix[i];
-  delete[] adjacencyMatrix;
 }
 
 bool Graph::getOuterCycle(std::vector<int> &outerCycle) {

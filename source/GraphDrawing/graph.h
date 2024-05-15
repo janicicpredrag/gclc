@@ -59,7 +59,7 @@ public:
    */
   std::vector<GraphNode> getNodes();
   //! Updates node labels
-  /*! Updates node labels in case that they are not allready set. For instance,
+  /*! Updates node labels in case that they are not already set. For instance,
    * if node number is 1, then node label will be set to "1" in this
    * function.
    */
@@ -74,7 +74,7 @@ public:
   //! Adds new node (GraphNode version)
   /*! Specified graph node will be added.
    *\param GraphNode graph node to add
-   *\return boolean value indicating if graph node was succesffully added.
+   *\return boolean value indicating if graph node was successfully added.
    */
   bool addNode(GraphNode);
   //! Adds new node (int, const string& version)
@@ -115,7 +115,7 @@ public:
    */
   int nodeIndex(int);
   //! Adds new edge
-  /*! Tries to add new edge. If edge allready exists, this request will be
+  /*! Tries to add new edge. If edge already exists, this request will be
    *ignored.
    *\param int originating edge node number
    *\param int destination edge node number
@@ -127,7 +127,7 @@ public:
    * will be ignored.
    * \param int source end
    * \param int destination end
-   * \return boolean value indicating if (directed) edge was succesfully removed
+   * \return boolean value indicating if (directed) edge was successfully removed
    */
   bool removeEdge(int, int);
   //! Removes given (undirected) edge
@@ -138,7 +138,7 @@ public:
    * (source or destination) since edge should be undirected.
    * \param int first node
    * \param int second node
-   * \return boolean value indicating if (undirected) edge was succesfully
+   * \return boolean value indicating if (undirected) edge was successfully
    * removed
    */
   bool removeEdge2(int, int);
@@ -146,7 +146,7 @@ public:
   /*! Tries to remove given node and all edges that lead to it and
    * from it.
    * \param int node number
-   * \return boolean velue indicating if node was succesfully removed
+   * \return boolean value indicating if node was successfully removed
    */
   bool removeNode(int);
   //! Gets neighbours of a given node
@@ -173,13 +173,14 @@ public:
    */
   bool is2Connected();
   //! Gets adjacency matrix
-  /*!\param bool** adjacency matrix (this is out argument). It is very important
-   * to proparly allocate memory for adjacency matrix [number_of_nodes x
+  /*!\param std::vector<std::vector<bool>>& adjacency matrix
+   * adjacency matrix (this is out argument). It is very important
+   * to properly allocate memory for adjacency matrix [number_of_nodes x
    * number_of_nodes],
    * since there is no checking from this member function if memory is properly
-   * allocated. Also, client code should deallocate memory.
+   * allocated.
    */
-  void getAdjacencyMatrix(bool **);
+  void getAdjacencyMatrix(std::vector<std::vector<bool>> &);
   //! Tests if graph is undirected
   /*!\return boolean value indicating if graph is undirected
    */
@@ -194,7 +195,7 @@ public:
   /*! Returns outer cycle of the (internally triangulated) graph. This can be
    * changed in the future.
    * \param vector<int>& reference to outer cycle vector
-   * \return boolean value indicating if graph is internaly triangulated
+   * \return boolean value indicating if graph is internally triangulated
    */
   bool getOuterCycle(std::vector<int> &);
   //! Computes canonical ordering of the graph
