@@ -349,7 +349,8 @@ class CGCLC : public CGCompiler {
 public:
   CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
         bool bXMLoutput, std::ofstream &hXML);
-  CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
+  CGCLC(CGCLCInput &input, CGCLCLog &Log,
+        std::shared_ptr<CIntermediateRepresentation> pL,
         std::shared_ptr<std::map<std::string, GCLCprocedure>> procedures,
         std::map<std::string, GCLC_object> *pTable, bool bXMLOutput,
         std::ofstream &hXMLOutput);

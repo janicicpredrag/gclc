@@ -273,7 +273,8 @@ CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
 
 //----------------------------------------------------------------------------
 
-CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
+CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log,
+             std::shared_ptr<CIntermediateRepresentation> pL,
              std::shared_ptr<std::map<std::string, GCLCprocedure>> procedures,
              std::map<std::string, GCLC_object> *pTable, bool bXMLoutput,
              std::ofstream &hXMLOutput)
