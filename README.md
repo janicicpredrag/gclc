@@ -22,14 +22,14 @@ and [Github Release page](https://github.com/janicicpredrag/gclc/releases).
 
 ## Input
 
-GCLC accepts files in GCL language, but can also import [JavaView](http://www.javaview.de/) files.
+GCLC accepts files in GC (Geometry Constructions) language, but can also import [JavaView](http://www.javaview.de/) files.
 
 ## Output
 
 GCLC processes GCL files and can export generated illustrations in several
 formats: simple LaTeX, LaTeX TikZ, LaTeX PSTricks, EPS, SVG and XML (textual specification).
 
-Proofs by the automated theorem provers are generated in LaTeX form.
+Proofs by the automated theorem provers are generated in a LaTeX form.
 
 ## Usage with command line
 
@@ -66,8 +66,11 @@ Currently, there are four builds provided:
 - `windows.zip` - Windows version with statically linked Qt libraries
 - `web.zip` - web version with all assets required
 
-Linux and Windows releases contain command line and GUI executables, as well as
-documentation, samples and packages for LaTeX support.
+The Linux and Windows releases contain the command line and GUI executables, as well as
+a documentation, samples, and packages for LaTeX support.
+
+The Linux version that uses dynamic linking is smaller in size, but requires
+dynamic Qt libraries to be available on the system.
 
 Executables also can be built from the available source code following the
 instructions provided below.
@@ -93,9 +96,10 @@ free points, watch window, `animation_frames` and `trace` commands.
 
 ## Building from source code
 
-GCLC is written in the C++ programming language and uses Qt libraries.
-A C++ compiler is needed. Building GCLC with the
-graphical user interface requires [Qt Library](https://www.qt.io/)
+GCLC is written in the C++ programming language, so a C++ compiler is needed.
+
+GCLC with the graphical user interface uses Qt libraries, so
+building from source code requires [Qt Library](https://www.qt.io/)
 version 6.2 or higher.
 
 In the following, it is assumed that `cmake` is available.
@@ -124,7 +128,7 @@ cmake --build build
 
 The executable `gclc-gui` will be created in the folder 'build/source'.
 
-You can move executables `gclc` and `gclc-gui` to the 'executable/' directory by running
+The executables `gclc` and `gclc-gui` will be stored into the directory 'executable/' by running:
 
 ```bash
 cmake --build build --target install
