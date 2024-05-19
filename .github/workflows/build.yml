@@ -110,7 +110,7 @@ jobs:
 
       - name: Make CLI and GUI version
         run: |
-          /qtStatic/bin/qt-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          /qtStatic/bin/qt-cmake -B build -S .
           cd build
           make
           cd ..
@@ -157,7 +157,7 @@ jobs:
 
       - name: Make CLI and GUI version
         run: |
-          cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
+          cmake -B build -S .
           cmake --build build
           cmake --build build --target install
 
