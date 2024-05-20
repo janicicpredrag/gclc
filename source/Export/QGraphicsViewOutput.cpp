@@ -269,13 +269,12 @@ GReturnValue QGraphicsViewOutput::SetThickness(double uThickness) {
 GReturnValue QGraphicsViewOutput::PrintText(double x, double y,
                                             const std::string &sPosition,
                                             const std::string &sText) {
-  QGraphicsSimpleTextItem *gts = new QGraphicsSimpleTextItem;
-  gts->setFont(m_Font);
-  gts->setText(QString::fromStdString(sText));
-  gts->setBrush(m_OutlinePen.brush());
-  qreal w = gts->boundingRect().width();
-  qreal h = gts->boundingRect().height();
-  delete gts;
+  QGraphicsSimpleTextItem gts;
+  gts.setFont(m_Font);
+  gts.setText(QString::fromStdString(sText));
+  gts.setBrush(m_OutlinePen.brush());
+  qreal w = gts.boundingRect().width();
+  qreal h = gts.boundingRect().height();
 
   QClippedTextItem *gt =
       new QClippedTextItem(m_ScaleX * m_Xmax, m_ScaleY * m_Ymax);
