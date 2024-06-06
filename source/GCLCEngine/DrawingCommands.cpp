@@ -1341,11 +1341,10 @@ GCLCError CGCLC::draw_graph_b() {
     return rvGCLCLInvalidGraphRepresentation;
 
   Settings settingsBarycenter01(BARYCENTER, DEFAULT, GCLC, 1, 0);
-  Drawing *canvas =
-      new BarycenterDrawing(graph, settingsBarycenter01, fixedVertices);
-  canvas->draw();
+  BarycenterDrawing canvas{graph, settingsBarycenter01, fixedVertices};
+  canvas.draw();
 
-  std::map<int, struct Point> coordinates = canvas->getCoordinates();
+  std::map<int, struct Point> coordinates = canvas.getCoordinates();
 
   std::map<std::string, int>::iterator it;
   for (it = Nodes.begin(); it != Nodes.end(); it++) {
@@ -1371,7 +1370,7 @@ GCLCError CGCLC::draw_graph_b() {
   for (i = 1; i <= graph.getNodesNumber(); i++)
     for (j = i + 1; j <= graph.getNodesNumber(); j++) {
       if (graph.containsEdge(i, j)) {
-        if (canvas->isArc(i, j)) {
+        if (canvas.isArc(i, j)) {
           double x = (coordinates[i].x + coordinates[j].x) / 2;
           double y = (coordinates[i].y + coordinates[j].y) / 2;
           double x1 = coordinates[i].x;
@@ -1398,7 +1397,6 @@ GCLCError CGCLC::draw_graph_b() {
     }
 
   coordinates.clear();
-  delete canvas;
 
   return rvGCLCOK;
 }
