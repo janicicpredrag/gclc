@@ -8,6 +8,7 @@
 #include "OutputHighlighter.h"
 #include "WatchWindow.h"
 #include "ui_ChildForm.h"
+#include <memory>
 #include <QGraphicsSceneMouseEvent>
 #include <QMdiSubWindow>
 #include <QTextEdit>
@@ -167,7 +168,7 @@ private:
 
   bool m_bFileSaved;
   bool m_bCompiled;
-  CGCompiler *m_pCompiler;
+  std::unique_ptr<CGCompiler> m_pCompiler;
 
   int m_nFrames;
   int m_nSpeed;
