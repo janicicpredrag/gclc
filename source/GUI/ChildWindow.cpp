@@ -55,7 +55,6 @@ ChildWindow::ChildWindow(QWidget *parent) : QMdiSubWindow(parent) {
 
   m_nTotalTracedPoints = 0;
   m_bWatchWindowShown = false;
-  m_pCompiler = NULL;
 
   m_bFileSaved = true;
   m_bCompiled = false;
@@ -72,8 +71,6 @@ ChildWindow::~ChildWindow() {
   delete m_Watch;
   delete m_ChildForm;
   emit(removeMenuAction(getAction()));
-  if (m_pCompiler)
-    delete m_pCompiler;
 }
 
 // --------------------------------------------------------------------------------------------
@@ -407,13 +404,10 @@ bool ChildWindow::Build(prover_config &Prover_params) {
   int nRet;
   QEditorInput Input(getEditor());
   QOutputLog Log(getTextOutput());
-  if (m_pCompiler)
-    delete m_pCompiler;
   QFileInfo fileInfo(getFileName());
   Prover_params.sTheoremFileName = fileInfo.baseName().toStdString();
   std::ofstream XMLoutput;
-  CGCLC *pc = new CGCLC(Input, Log, Prover_params, false, XMLoutput);
-  m_pCompiler = pc;
+  m_pCompiler.reset(new CGCLC{Input, Log, Prover_params, false, XMLoutput});
 
   //  if (Prover_params.TheoremProvingMethod == tpNone)
   // nRet = m_pCompiler->Import("", NULL, NULL);
@@ -478,7 +472,7 @@ bool ChildWindow::Build(prover_config &Prover_params) {
   if (nRet == rvG_OK)
     m_pCompiler->Export(*m_pQGraphicsViewOutput);
   m_pQGraphicsViewOutput->Update();
-  updateWatchWindow(m_pCompiler);
+  updateWatchWindow(m_pCompiler.get());
 
   return true;
 }
