@@ -5,7 +5,11 @@
 \usepackage{tikz}
 \usepackage{xspace}
 \usepackage{xcolor}
+\usepackage{longtable}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,serbian]{babel}
 \usepackage{hyperref}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 
@@ -14,9 +18,7 @@
 
 \newcommand{\gclc}{{\bfseries GCLC}\xspace}
 \newcommand{\wingclc}{{\bfseries WinGCLC}\xspace}
-\newcommand{\gclcgui}{{\bfseries gclc-gui}\xspace}
-
-\usepackage{longtable}
+\newcommand{\gclcgui}{{\bfseries GCLC-gui}\xspace}
 
 \newcounter{proofstepnum}
 \setcounter{proofstepnum}{-1}
@@ -26,15 +28,15 @@
 \parbox{1em}{$\displaystyle #3$} &
 \parbox{10em}{#4} (\theproofstepnum) \\ \\}
 
-
 \newcommand{\todayMonth}{\ifcase \month \or January\or February\or March\or %
 April\or May \or June\or July\or August\or September\or October\or November\or %
 December\fi} 
 
 
-\title{\gclc \number \year{} \\ {\it (Geometry Constructions $\rightarrow$ \LaTeX{} Converter)} \\ 
+\title{\gclc \number \year{} \\
+{\it (Geometry Constructions $\rightarrow$ \LaTeX{} Converter)} \\
 {\bf Manual}}
-\author{Predrag Jani\v{c}i\'c \\
+\author{Predrag Janičić \\
 Faculty of Mathematics \\
 Studentski trg 16 \\
 11000 Belgrade \\
@@ -44,7 +46,7 @@ e-mail:  {\tt janicic@matf.bg.ac.rs} \\ \\
 \gclc page:  \url{www.matf.bg.ac.rs/~janicic/gclc}}
 \date{\todayMonth{} \number \year \\ \vspace*{7cm}
 \includegraphics[width=0.15\textwidth]{figures/CC-BY-ND.png} \\ 
-\copyright{} 1995-\number \year {} Predrag Jani\v{c}i\'c}
+\copyright{} 1995-\number \year {} Predrag Janičić}
 \makeindex
 
 \begin{document}
@@ -129,63 +131,62 @@ and from EMIS (The European Mathematical Information Service) servers:
 \index{import!from JavaView}
 
 \item[Implementation and platforms:]
-There are command-line versions and versions with graphical user 
-interface (GUI) of \gclc for Windows and for Linux.
-The version with graphical user interface provides a
+There is a command-line version and a version with graphical user
+interface (GUI) of \gclc. The (pre-buexecutables are available for Windows and for Linux.
+The version with the graphical user interface provides a
 range of additional functionalities, including interactive work,
 animations, traces, ``watch window'', etc. It gives \gclc a new,
 graphic user-friendly interface, and introduces some new features
 which are not available in the command-line version. It is a kind
 of an ``Integrated Development Environment'' or IDE for \gclc.
+The version of \gclc with GUI is called \gclcgui,
+An earlier version of \gclc with GUI for Windows was called \wingclc.
 \index{wingclc@\wingclc}
-The version of \gclc with GUI for Windows is called \wingclc
-or \gclcgui,
-the version of \gclc with GUI for Linux is called \gclcgui.
 \index{gclc-gui@\gclcgui}
 
-\gclc can be also used via {\bf GeoThms} (joint work with Pedro
-Quaresma, University of Coimbra), a web-based framework for
-constructive geometry (\url{http://hilbert.mat.uc.pt/~geothms}).
+There is a web-based interface to \gclc (authored by Nikola Ubavić):
+\url{http://www.matf.bg.ac.rs/~janicic/gclc/gclc-web/}
 
-\gclc program is implemented in the C++ programming language.
+\gclc program is implemented in the C++ programming language
+and is open-source: \url{https://github.com/janicicpredrag/gclc}.
 
 \item[Authors:]
 \gclc is being developed at the Faculty of Mathematics,
-University of Belgrade, by Predrag Jani\v{c}i\'c and, in some
-parts, by Predrag Jani\v{c}i\'c and his collaborators:
+University of Belgrade, by Predrag Janičić and, in some
+parts, by Predrag Janičić and his collaborators:
 \begin{itemize}
-\item Ivan Trajkovi\'c (University of Belgrade, Serbia)
+\item Ivan Trajković (University of Belgrade, Serbia)
 --- a co-author of the graphical interface for \wingclc 2003;
 \item prof.~Pedro Quaresma (University of Coimbra, Portugal) ---
 a co-author of the theorem prover based on the area method built into \gclc.
 
-\item Goran Predovi\'c (University of Belgrade, Serbia) --- the main 
+\item Goran Predović (University of Belgrade, Serbia) --- the main
 author of the theorem prover based on the Wu's method and Gr\"obner 
 based method built into \gclc.
 
 \item prof.~Pedro Quaresma (University of Coimbra, Portugal),
-Jelena To\-ma\-\v{s}e\-vi\'c (University of Belgrade, Serbia), and
-Milena Vujo\v{s}evi\'c-Jani\v{c}i\'c (University of Belgrade, Serbia)
+Jelena Tomašević (University of Belgrade, Serbia), and
+Milena Vujošević-Janičić (University of Belgrade, Serbia)
 --- co-authors of the {\sc xml} support for \gclc.
 
-\item Luka Toma\v{s}evi\'c (University of Belgrade, Serbia) --- the
+\item Luka Tomašević (University of Belgrade, Serbia) --- the
 main author of the support for graph drawing.
 
 \item prof.~Konrad Polthier and Klaus Hildebrandt (Technical University,
 Berlin, Germany) --- coauthors of JavaView $\rightarrow$ \gclc converter).
 
-\item Nikola Ubavi\'c (University of Belgrade, Serbia) --
+\item Nikola Ubavić (University of Belgrade, Serbia) --
 the author of the web-based version of GCLC;
 
 \item Matthew Fernandez (USA) --- the author of the CMAKE system,
-also for improved different parts of the GCLC code.
+and a number of improvements across the code base.
 \end{itemize}
 
 \item[Version history:]
 \gclc programs is under development since 1995.~and had several releases 
 since then. It has thousands of users and has been used for producing 
 digital illustrations for a number of books and journal volumes and in 
-a number of different high-school and university courses.
+a number of different high-school and university courses worldwide.
 
 \item[What others said about \gclc/\wingclc:]
 ``... program \wingclc ... is a very useful, impressive professional
@@ -200,20 +201,31 @@ More on the background of \gclc can be found in
 
 
 %----------------------------------------------------------------
-\section{Comments and Bugs Report}
+\section{Feedback Welcome}
 %----------------------------------------------------------------
 
-Please send your comments and/or noticed bugs to the following
+Please send your comments and/or observed bugs to the following
 e-mail address: \verb|janicic@matf.bg.ac.rs|. Your feedback would
-be very much appreciated and would help in improving the future
+be very much appreciated and would help in improving future
 releases of \gclc.
+
+If you use \gclc, please let me know by sending an e-mail to
+Predrag Janičić (\verb|janicic@matf.bg.ac.rs|). You
+will be included in the \gclc mailing list and be informed about
+new releases of \gclc.
+
+If you used \gclc for producing figures for your book, article,
+thesis, I would be happy to hear about that.
+
+Your feedback would be very much appreciated and would help in
+improving the future releases of \gclc.
 
 
 %----------------------------------------------------------------
 \section{Copyright Notice}
 %----------------------------------------------------------------
 
-The software \gclc is protected by the
+The software \gclc is licenced by the
 
 \begin{center}
 \includegraphics[width=0.15\textwidth]{figures/CC-BY-ND.png}
@@ -245,17 +257,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-If you use \gclc, please let me know by sending an e-mail to 
-Predrag Jani\v{c}i\'c (\verb|janicic@matf.bg.ac.rs|). You
-will be put on the \gclc mailing list and be informed about 
-new releases of \gclc.
-
-If you used \gclc for producing figures for your book, article, 
-thesis, I would be happy to hear about that.
-
-Your feedback would be very much appreciated and would help in 
-improving the future releases of \gclc.
-
 
 %----------------------------------------------------------------
 \chapter{Quick Start}
@@ -286,10 +287,10 @@ so you can always open them with \gclc.
 \index{latexpackage@\LaTeX!package}
 When the archive is unpacked, in the root folder there will be
 executable programs -- a command line version (\verb|gclc|) and 
-a version with GUI (\verb|GCLC|), and \LaTeX{} packages \verb|gclc.sty| 
-and \verb|gclcproofs.sty| for processing figures and proofs generated 
-by \gclc (in a simple \LaTeX{} format). In addition, there will be the 
-following folders:
+a version with GUI (\gclcgui), and \LaTeX{} packages \verb|gclc.sty|
+and \verb|gclcproofs.sty| for processing figures
+(in a simple \LaTeX{} format) and proofs generated by \gclc.
+In addition, there will be the following folders:
 
 \begin{itemize}
 \item \verb|manual| with the manual file and additional reference papers;
@@ -438,7 +439,7 @@ They are represented in the following manner:
 \end{tabular}
 
 \index{log file}
-While processing an input file, \gclc generates the transcript
+While processing an input file, \gclc generates a transcript
 file \verb|gclc.log| (in the current directory) with the list
 of all warnings and the list of all defined objects (with
 their names and parameters). Instead of writing to the log file,
@@ -1367,7 +1368,7 @@ The current area can be changed by the \verb|area| command.
 
         Generates commands for drawing the graph using the arc-layered
         method.\footnote{The main author of support for graph drawing is
-        Luka Toma\v{s}evi\'c (University of Belgrade).} The given reference
+        Luka Tomašević (University of Belgrade).} The given reference
         point \verb|<p_id>| will be the center of the graph image. The
         numerical parameter \verb|<n1>| gives the width of the graph image,
         while \verb|<n2>| gives a rotation angle (in degrees) with the
@@ -2376,7 +2377,7 @@ The current area can be changed by the \verb|area| command.
 \section{Support for Animations}
 \label{subsec:animations}
 
-Animations are supported in GUI version of \gclc version only.
+Animations are supported in the GUI version of \gclc only.
 
 Within animations, the entire \verb|gcl| descriptions runs for
 every frame. The only difference between frames occurs with moving
@@ -2474,18 +2475,22 @@ Chapter \ref{chapter:prover}.
 
 
 %----------------------------------------------------------------
-\chapter{Graphical User Interface}
+\chapter{Graphical User Interface and Web-based Interface}
 \label{chapter:GUI}
 %----------------------------------------------------------------
 
 \index{wingclc@\wingclc}
 \index{gclc-gui@\gclcgui}
-The graphical user interface for \gclc does not provide only a
-a new, user-friendly interface, but also introduces some features which
-are not available in command-line version (e.g.,~moving points,
+The graphical user interface for \gclc, via a desktop GUI application
+or via a web-based interface
+provides a user-friendly interface and introduces some features that
+are not available in the command-line version (e.g.,~moving points,
 building and playing animations, tracing points, watch window etc).
 It is a kind of an ``Integrated Development Environment'' or IDE for \gclc.
 
+The following description applies to the desktop version with GUI,
+but most of the described features are also available via
+the web-based interface (with similar layout).
 
 %----------------------------------------------------------------
 \section{An Overview of the Graphical Interface}
@@ -2715,7 +2720,7 @@ For PSTricks \LaTeX{} format, \verb|-pst| is used,
 for Ti{\em k}Z \LaTeX{} format, \verb|-tikz| is used,
 for {\sc eps}, \verb|-eps| is used, for {\sc svg}, \verb|-svg| is
 used, and for {\sc xml}, the option \verb|-xml| is used.
-Command line version of \gclc does not support export to bitmap.
+The command line version of \gclc does not support export to bitmap.
 \index{latex@\LaTeX}
 \index{tikz@Ti{\em k}Z}
 \index{PSTricks}
@@ -2727,7 +2732,7 @@ Command line version of \gclc does not support export to bitmap.
 Within the GUI version of \gclc, a picture exported in some of 
 supported formats can be obtained by selecting one of the option 
 available in the group {\it File/Export to...} (see Chapter 
-\ref{chapter:GUI}). When exporting a particular frame from an 
+\ref{chapter:GUI}). When exporting a particular frame of an
 animation, traces are also saved to output files.
 
 \index{comments}
@@ -2751,7 +2756,7 @@ document, and then finally, convert the {\sc ps} to a {\sc eps} file.
 
 \index{latex@\LaTeX}
 \index{export!to \LaTeX{}}
-When exported to \LaTeX{}, the text is printed in math mode and
+When exported to \LaTeX{}, the text is printed in the math mode and
 in the size \verb|footnotesize|.
 
 
@@ -3118,10 +3123,10 @@ The batch processing is used as in the following example:
 %----------------------------------------------------------------
 
 \index{export!to bitmap}
-Within \wingclc/\gclcgui, there is available export to bitmap format
-(option File/Export to.../LaTeX). The picture can be generated
+Within \gclcgui, there is available export to bitmap format
+(option {\it File/Export to.../LaTeX}). The picture can be generated
 for the following resolutions 75, 150, 300 and 600 {\sc dpi}.
-The new GUI version supports also export to JPEG and PNG formats.
+There is also support for export to JPEG and PNG formats.
 
 Within the GUI version, an animation can be exported to a sequence of
 bitmaps (option File/Export to...) which can be further used for 
@@ -3249,7 +3254,7 @@ and then, finally, to {\sc pdf} (by some {\sc PostScript} to
 
 
 %----------------------------------------------------------------
-\chapter{Theorem Prover}
+\chapter{Theorem Proving}
 \label{chapter:prover}
 %----------------------------------------------------------------
 
@@ -3273,7 +3278,7 @@ terms of higher-level geometry lemmas and expression simplifications.
 \item theorem provers based on the Wu's method \cite{wu1978,chou} and 
 on the Gr\"obner bases method 
 \cite{buchbergerPhd,groebner_bases_and_applications};\footnote{The main 
-author of these theorem provers is Goran Predovi\'c (University of
+author of these theorem provers is Goran Predović (University of
 Belgrade).} these provers are algebraic theorem provers; they are based 
 on manipulating polynomials and they do not produce traditional geometrical 
 proofs.
@@ -3746,7 +3751,7 @@ $$\frac{\overrightarrow{AY}}{\overrightarrow{CD}} =
 
 Full details about all used lemmas and rewrite rules are given in
 the technical report ``Framework for constructive geometry (based
-on the area method)'' (written by Pedro Quaresma and Predrag Jani\v{c}i\'c)
+on the area method)'' (written by Pedro Quaresma and Predrag Janičić)
 \cite{Quaresma06}. This technical report is a part of \gclc{} distribution.
 
 
@@ -4188,8 +4193,8 @@ generally handled by the area method and the built-in theorem prover.
 \gclc has {\sc xml} support, both for processing figures
 and proofs.\footnote{{\sc xml} support was developed in collaboration
 with prof.~Pedro Quaresma, Department of Mathematics, University of
-Coimbra, Portugal, Jelena Toma\v{s}evi\'c (University of Belgrade, Serbia),
-and Milena Vujo\v{s}evi\'c-Jani\v{c}i\'c (University of Belgrade, Serbia).}
+Coimbra, Portugal, Jelena Tomašević (University of Belgrade, Serbia),
+and Milena Vujošević-Janičić (University of Belgrade, Serbia).}
 {\scshape xml} is format suitable for storing descriptions
 of geometrical constructions and proofs and as interchange format:
 
@@ -4263,11 +4268,11 @@ describing two-dimensional graphics and graphical applications in
 
 
 % --------------------------------------------------------------------------------
-\section{{\sc xml} Suite}
+\section{{\sc xml}{} Suite}
 % --------------------------------------------------------------------------------
 
 \index{xmlvalidation@{\sc xml} validation}
-\gclc {\scshape xml} suite for geometrical constructions and
+\gclc{} {\scshape xml} suite for geometrical constructions and
 geometrical proofs consists of the following components and tools:
 
 \begin{itemize}
@@ -4480,10 +4485,9 @@ Warning: Changing variable type
 %----------------------------------------------------------------
 
 \begin{description}
-\item[1995] First version of \gclc (\copyright{} 1995-2022
-Predrag Jani\v{c}i\'c);
+\item[1995] First version of \gclc;
 
-\item[1996] First public release of \gclc (\gclc v1.0) ;
+\item[1996] First public (internet) release of \gclc (\gclc v1.0) ;
 
 \item[1998] \gclc v2.0 : Cartesian commands
 (including conics) added. Full vertical compatibility.
@@ -4514,12 +4518,13 @@ added. Full vertical compatibility (for input format). New export format and new
 \verb|cmark| do not have to precede other drawing commands.
 
 \wingclc --- first release (graphical interface: \copyright{}
-2003-2009 Ivan Trajkovi\'c, Predrag Jani\v{c}i\'c);
+2003-2009 Ivan Trajković, Predrag Janičić); only for Windows,
+uses Microsoft Foundation Class Library;
 
 \item[2004] \gclc v3.1: Several small bugs fixed.
 
 \index{JavaView}
-\wingclc 2004: export now supports exporting an animation to
+\wingclc 2004: support for exporting an animation to
 a sequence of bitmaps, which can then be used for generating animated
 gif (by some other tool) or the animation in some other format. Import
 from JavaView \verb|.jvx| format is integrated in \wingclc.
@@ -4835,18 +4840,24 @@ The following commands were added:
 
 New version of support for hyperbolic geometry (through Poincar\'e disc model)
 is given via a new version of the sample file \verb|sample21_hyp.gcl|
-(co-authored with Zoran Lu\v{c}i\'c).
+(co-authored with Zoran Lučić).
 
 \wingclc 2009: no changes in the Windows interface.
 
-\item[2015] Completely new versions of graphical user interfaces for Windows
-and Linux. Only minor bug-fixes in the engine, vertical compatibility kept.
+\item[2015] A completely new versions of graphical user interfaces for Windows
+and Linux, using Qt library. \wingclc is not maintained nor distributed anymore.
+Only minor bug-fixes in the engine, vertical compatibility kept.
 
 \item[2020] Code revision, speed-ups, minor bugs fixed, minor changes in 
 output in the PSTricks and {\sc svg} formats, and in the output of algebraic
-based automated theore provers. The code turns open-source.
+based automated theore provers. The code turns open-source and available on
+\verb|github|: \url{https://github.com/janicicpredrag/gclc}.
 
 \item[2022] Minor changes and fixes.
+
+\item[2024] A web-based interface to \gclc released (authored by Nikola Ubavić):
+\url{http://www.matf.bg.ac.rs/~janicic/gclc/gclc-web/}. A new \verb|cmake| system
+(authored by Matthew Fernandez).
 \end{description}
 
 
@@ -4864,7 +4875,7 @@ program:
 \label{p:view}
 \index{view}
 \item Simple previewer {\sc view} for \gclc output files (there
-is no need to ``latex'' them) (\copyright{} 1996-2003 Predrag Jani\v{c}i\'c).
+is no need to ``latex'' them) (\copyright{} 1996-2003 Predrag Janičić).
 Supports both output formats (old, based on \verb|emlines.sty| and
 new, based on \verb|gclc.sty|). A picture \verb|out.pic| generated
 by \gclc can be seen by:
@@ -4888,7 +4899,7 @@ commands in \TeX{} viewers):
 
 \index{JavaView}
 \item {\sc JavaView} to \gclc converter {\sc jv2gcl} (\copyright{}
-2002 Predrag Jani\v{c}i\'c): converts files from {\sc JavaView} to
+2002 Predrag Janičić): converts files from {\sc JavaView} to
 \gclc format.\footnote{This program was developed in collaboration
 with prof.~Konrad Polthier and Klaus Hildebrandt from Mathematical
 Institute, Technical University, Berlin. This work was partially
@@ -4905,10 +4916,10 @@ supported by {\sc daad} grant form my visit to Technical University, Berlin (200
 I am grateful to:
 
 \begin{itemize}
-\item Prof.~Mirjana Djori\'c for the initial discussion
+\item Prof.~Mirjana Đorić for the initial discussion
 which led to the first version of \gclc (1995);
 
-\item Ivan Trajkovi\'c, the main author of the first version of Windows 
+\item Ivan Trajković, the main author of the first version of Windows
 graphical interface in \wingclc (2003);
 
 \item Prof.~Neda Bokan and other members of the Group
@@ -4928,8 +4939,8 @@ used for developing the geometry theorem prover built into \gclc. I also
 thank prof.~Pedro Quaresma for his warm hospitality and his collaboration
 in developing this prover;
 
-\item Prof.~Pedro Quaresma (University of Coimbra), Jelena Toma\v{s}evi\'c, and
-Milena Vujo\v{s}evi\'c-Jani\v{c}i\'c, coauthors of the {\sc xml} support for \gclc
+\item Prof.~Pedro Quaresma (University of Coimbra), Jelena Tomašević, and
+Milena Vujošević-Janičić, coauthors of the {\sc xml} support for \gclc
 (2006);
 
 \item Prof.~Bruno Buchberger (RISC, University of Linz, Austria), for
@@ -4943,14 +4954,14 @@ and other {\sc emis} locations.
 the \gclc/\-\wingclc manual and help file and for many useful insights
 and comments (2005);
 
-\item Goran Predovi\'c (University of Belgrade, Serbia and Microsoft
+\item Goran Predović (University of Belgrade, Serbia and Microsoft
 Development Center Belgrade) --- the main author of the theorem provers
 based on the Wu's method and Gr\"obner based method (2008).
 
-\item Luka Toma\v{s}evi\'c (University of Belgrade, Serbia) --- the
+\item Luka Tomašević (University of Belgrade, Serbia) --- the
 main author of the support for graph drawing (2008).
 
-\item Nikola Ubavi\'c (University of Belgrade, Serbia) --
+\item Nikola Ubavić (University of Belgrade, Serbia) --
 the author of the web-based version of GCLC (2024);
 
 \item Matthew Fernandez (USA) --- the author of the CMAKE system,
@@ -4960,20 +4971,20 @@ also for improving different parts of the GCLC code.
 inviting me to visit the University ,,La Sapienza`` and to present \gclc there (2008).
 
 \item Colleagues who gave useful comments and certain contributions and 
-influenced development of \gclc: Nenad Dedi\'c, Milo\v{s}
-Utvi\'c, Nikola Begovi\'c, Ivan El\v{c}i\'c, Jelena Grmu\v{s}a,
-Aleksandra Nenadi\'c, Marijana Luki\'c, Srdjan Vukmirovi\'c,
-Goran Terzi\'c, Milica Labus, Aleksandar Gogi\'c, Aleksandar
-Samard\v{z}i\'c, Ivan \v{C}uki\'c, Nikola Ubavi\'c (1999/2022);
+influenced development of \gclc: Nenad Dedić, Miloš
+Utvić, Nikola Begović, Ivan Elčić, Jelena Grmuša,
+Aleksandra Nenadić, Marijana Lukić, Srđan Vukmirović,
+Goran Terzić, Milica Labus, Aleksandar Gogić, Aleksandar
+Samardžić, Ivan Čukić, Nikola Ubavić (1999/2022);
 
 \item Konrad Polthier (TU Berlin), Zach (Temple University, USA),
-Vladimir Balti\'c (University of Belgrade), Hristos Bitos (Greece),
-Aleksandar Gogi\'c (DTA, Belgrade), Bob Schumacher (Cedarville
+Vladimir Baltić (University of Belgrade), Hristos Bitos (Greece),
+Aleksandar Gogić (DTA, Belgrade), Bob Schumacher (Cedarville
 University, Ohio, USA), Pedro Quaresma (University of Coimbra,
-Portugal), Zoran Lu\v{c}i\'c (University of Belgrade), Biljana
-Radovanovi\'c (University of Belgrade), Nedeljko Stefanovi\'c
-(University of Belgrade), Milan Mitrovi\'c (Slovenia), Thomas
-Speziale (USA), Ania Piktas (Poland), Bojan Radusinovi\'c (Serbia),
+Portugal), Zoran Lučić (University of Belgrade), Biljana
+Radovanović (University of Belgrade), Nedeljko Stefanović
+(University of Belgrade), Milan Mitrović (Slovenia), Thomas
+Speziale (USA), Ania Piktas (Poland), Bojan Radusinović (Serbia),
 Pierre Larochelle (Florida Institute of Technology, USA),
 Robert Hartmann (TU Clausthal, Clausthal-Zellerfeld, Germany), and
 Xavier Allamigeon for useful feedback and suggestions on different
@@ -5630,13 +5641,13 @@ S.-C. Chou, X.-S. Gao, and J.-Z. Zhang.
   Society Press, June 1993.
 
 \bibitem{constructions-teamat}
-M.~Djori\'c and P.~Jani\v{c}i\'c.
+M.~Đorić and P.~Janičić.
 \newblock {Constructions, instructions, interactions }.
 \newblock {\em {Teaching Mathematics and its Applications}}, 23(2):69--88,
   2004.
 
 \bibitem{gclc}
-P.~Jani{\v c}i{\'c}.
+P.~Janičić.
 \newblock {GCLC -- A Tool for Constructive Euclidean Geometry and More than
   That}.
 \newblock In N.~Takayama, A.~Iglesias, and J.~Gutierrez, editors, {\em
@@ -5645,26 +5656,26 @@ P.~Jani{\v c}i{\'c}.
   Springer-Verlag, 2006.
 
 \bibitem{gclc-ijcar}
-P.~Jani{\v c}i{\'c} and P.~Quaresma.
+P.~Janičić and P.~Quaresma.
 \newblock {System description: Gclcprover + GeoThms}.
 \newblock In U.~Furbach and N.~Shankar, editors, {\em International Joint
   Conference on Automated Reasoning (IJCAR-2006)}, volume 4130 of {\em Lecture
   Notes in Artificial Intelligence}, pages 145--150. Springer-Verlag, 2006.
 
 \bibitem{gclc-jar}
-P.~Jani\v{c}i\'c.
+P.~Janičić.
 \newblock {Geometry Constructions Language}.
 \newblock {\em Journal of Automated Reasoning}, 44(1-2):3--24, 2010.
 
 \bibitem{wingclc}
-P.~Jani\v{c}i\'c and I.~Trajkovi\'c.
+P.~Janičić and I.~Trajković.
 \newblock {WinGCLC --- a Workbench for Formally Describing Figures}.
 \newblock In {\em {Proceedings of the 19 mth Spring Conference on Computer
   Graphics (SCCG 2003)}}, pages 251--256, Budmerice, Slovakia, April, 24-26
   2003. ACM Press, New York, USA.
 
 \bibitem{gclc-mkm}
-P.~Quaresma and P.~Jani{\v c}i{\'c}.
+P.~Quaresma and P.~Janičić.
 \newblock Integrating dynamic geometry software, deduction systems, and theorem
   repositories.
 \newblock In J.~Borwein and W.~Farmer, editors, {\em Mathematical Knowledge
@@ -5672,7 +5683,7 @@ P.~Quaresma and P.~Jani{\v c}i{\'c}.
   Intelligence}, pages 280--294. Springer-Verlag, 2006.
 
 \bibitem{Quaresma06}
-P.~Quaresma and P.~Jani\v{c}i\'c.
+P.~Quaresma and P.~Janičić.
 \newblock {Framework for the Constructive Geometry}.
 \newblock Technical Report TR2006/001, Center for Informatics and Systems of
   the University of Coimbra, 2006.
