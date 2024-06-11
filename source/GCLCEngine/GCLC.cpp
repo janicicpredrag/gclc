@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <string>
 #include <cmath>
-
+#include <memory>
 
 /*
 GCLC_area CGCLC::m_Basic_Area = {0, 0, 0, 0};
@@ -263,7 +263,7 @@ CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
   m_bWhileBlockOrProcedureCall = false;
   m_bProcedureCall = false;
   m_pSymbolTable = new std::map<std::string, GCLC_object>;
-  m_pProcedures = new std::map<std::string, GCLCprocedure>;
+  m_pProcedures = std::make_shared<std::map<std::string, GCLCprocedure>>();
   m_bSupressWarnings = false;
   Init();
   InitTheoremProver(ProverConfig.TheoremProvingMethod);
@@ -274,7 +274,7 @@ CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
 //----------------------------------------------------------------------------
 
 CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
-             std::map<std::string, GCLCprocedure> *procedures,
+             std::shared_ptr<std::map<std::string, GCLCprocedure>> procedures,
              std::map<std::string, GCLC_object> *pTable, bool bXMLoutput,
              std::ofstream &hXMLOutput)
     : CGCompiler(pL), m_Input(&input), m_Log(Log), m_pProcedures(procedures),
@@ -429,7 +429,7 @@ void CGCLC::GetEnv(GCLC_env &e) const {
 void CGCLC::CleanUp() {
   CGCompiler::CleanUp();
   if (!m_bWhileBlockOrProcedureCall)
-    delete m_pProcedures;
+    m_pProcedures = nullptr;
   if (!m_bWhileBlockOrProcedureCall || m_bProcedureCall)
     delete m_pSymbolTable;
 }

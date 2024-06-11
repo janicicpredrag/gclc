@@ -8,6 +8,7 @@
 #include "../GenericEngine/GCompiler.h"
 #include <fstream>
 #include <map>
+#include <memory>
 #include <string>
 
 /* ********************************************************
@@ -349,7 +350,7 @@ public:
   CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
         bool bXMLoutput, std::ofstream &hXML);
   CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
-        std::map<std::string, GCLCprocedure> *procedures,
+        std::shared_ptr<std::map<std::string, GCLCprocedure>> procedures,
         std::map<std::string, GCLC_object> *pTable, bool bXMLOutput,
         std::ofstream &hXMLOutput);
   virtual ~CGCLC();
@@ -418,7 +419,7 @@ private:
   void AddToLog(const std::string &pText);
 
   std::map<std::string, GCLC_object> *m_pSymbolTable;
-  std::map<std::string, GCLCprocedure> *m_pProcedures;
+  std::shared_ptr<std::map<std::string, GCLCprocedure>> m_pProcedures;
 
   bool m_bXMLOutput;
   std::ofstream &m_hXMLOutput;
