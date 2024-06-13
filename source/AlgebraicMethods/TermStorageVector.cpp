@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "TermStorageVector.h"
 
 TermStorageVector::TermStorageVector()
