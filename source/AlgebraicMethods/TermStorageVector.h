@@ -15,7 +15,7 @@ private:
 
 public:
 	TermStorageVector();
-	~TermStorageVector();
+	virtual ~TermStorageVector();
 
 	int AddTerm(Term* term);
 	uint Count() const;

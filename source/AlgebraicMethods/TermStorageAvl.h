@@ -197,7 +197,7 @@ public:
    {
 	   COSTR("avl tree");
    };
-   ~TermStorageAvlTree() 
+   virtual ~TermStorageAvlTree()
    { 
 	   DESTR("avl tree");
    }
