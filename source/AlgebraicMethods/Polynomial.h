@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Object.h"
 #include "Term.h"
 #include "TermStorage.h"
 #include "ITimeout.h"
