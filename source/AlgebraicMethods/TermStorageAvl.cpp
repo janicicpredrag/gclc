@@ -161,19 +161,7 @@ AvlNode::Compare(TermKeyType key, cmp_t cmp) const
    }
 }
 
-// ------------------------------------------------------- Search/Insert/Delete
-
-
-Term*
-AvlNode::Search(TermKeyType key, AvlNode * root, cmp_t cmp)
-{
-   cmp_t result;
-   while (root  &&  (result = root->Compare(key, cmp))) {
-      root = root->mySubtree[(result < 0) ? LEFT : RIGHT].get();
-   }
-   return  (root) ? root->myData : NULL;
-}
-
+// ------------------------------------------------------- Insert/Delete
 
 Term*
 AvlNode::Insert(Term *item, std::shared_ptr<AvlNode> &root)

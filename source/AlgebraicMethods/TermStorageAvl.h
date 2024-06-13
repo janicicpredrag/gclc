@@ -63,7 +63,7 @@ public:
    AvlNode *
    Subtree(dir_t dir) const { return  mySubtree[dir].get(); }
 
-   // ----- Search/Insert/Delete
+   // ----- Insert/Delete
    //
    //   NOTE: These are all static functions instead of member functions
    //         because most of them need to modify the given tree root
@@ -73,11 +73,6 @@ public:
    //         functions that are static and which take an AVL tree
    //         pointer as a parameter are static for this reason.
    
-   // Look for the given key, return NULL if not found,
-   // otherwise return the item's address.
-   static Term*
-   Search(TermKeyType key, AvlNode * root, cmp_t cmp=EQ_CMP);
-
    // Insert the given key, return NULL if it was inserted,
    // otherwise return the existing item with the same key.
    static Term*
@@ -209,12 +204,7 @@ public:
       return  (myRoot == NULL);
    }
 
-   // Search, Insert, Delete, and Check
-   Term*
-   Search(TermKeyType key, cmp_t cmp=EQ_CMP) {
-      return  AvlNode::Search(key, myRoot.get(), cmp);
-   }
-
+   // Insert, Delete, and Check
    Term*
    Insert(Term* item) {
       return  AvlNode::Insert(item, myRoot);
