@@ -17,6 +17,8 @@ jobs:
 
       - name: Make CLI version
         run: |
+          echo "#pragma once" > source/Utils/Version.h
+          echo "#define GCLC_VERSION \"$(git describe --tags)\"" >> source/Utils/Version.h
           cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S .
           cmake --build build
 
