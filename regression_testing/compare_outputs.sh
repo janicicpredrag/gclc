@@ -87,6 +87,11 @@ fi
 
 touch "$LOG_FILE"
 
+VER1=$("./$1" "-version" | head -n 1 | cut -c 43-)
+VER2=$("./$2" "-version" | head -n 1 | cut -c 43-)
+
+echo "Comparing '$VER1' to '$VER2'"
+
 if [ -d "$3" ]; then
     find "$3" -maxdepth 1 -type f -name "*.gcl" | while read -r file; do
         compare_outputs "$1" "$2" "$file"
