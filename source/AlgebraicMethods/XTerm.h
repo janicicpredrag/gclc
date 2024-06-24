@@ -15,12 +15,15 @@ public:
 	XTerm();
 	~XTerm();
 
-	XTerm* Clone() override;
-	XTerm* ClonePowers();
+	std::shared_ptr<Term> Clone() override;
+	std::shared_ptr<XTerm> ClonePowers();
 
 	TERM_TYPE Type() const override;
 
-	static XTerm* CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint index2);
+	static std::shared_ptr<XTerm> CreatePolynomialConditionTerm(bool f1,
+	                                                            uint index1,
+	                                                            bool f2,
+	                                                            uint index2);
 
 	UPolynomialFraction* GetUFraction() const;
 	void SetUFraction(std::shared_ptr<UPolynomialFraction> uf);

@@ -26,7 +26,7 @@ RIGHT_IMBALANCE(short bal) {
 
 // ----------------------------------------------- Constructors and Destructors
 
-AvlNode::AvlNode(Term* item)
+AvlNode::AvlNode(std::shared_ptr<Term> item)
    : myData(item), myBal(0)
 {
    Reset();
@@ -34,7 +34,7 @@ AvlNode::AvlNode(Term* item)
    COSTR("avl node");
 }
 
-void AvlNode::Construct(Term* item)
+void AvlNode::Construct(std::shared_ptr<Term> item)
 {
 	myData = item;
 	myBal = 0;
@@ -45,12 +45,6 @@ void AvlNode::Construct(Term* item)
 
 AvlNode::~AvlNode(void) 
 {
-	if (myData)
-	{
-		myData->Dispose();
-		myData = NULL;
-	}
-
 	DESTR("avl node");
 }
 
@@ -161,38 +155,24 @@ AvlNode::Compare(TermKeyType key, cmp_t cmp) const
    }
 }
 
-// ------------------------------------------------------- Search/Insert/Delete
+// ------------------------------------------------------- Insert/Delete
 
-
-Term*
-AvlNode::Search(TermKeyType key, AvlNode * root, cmp_t cmp)
-{
-   cmp_t result;
-   while (root  &&  (result = root->Compare(key, cmp))) {
-      root = root->mySubtree[(result < 0) ? LEFT : RIGHT].get();
-   }
-   return  (root) ? root->myData : NULL;
-}
-
-
-Term*
-AvlNode::Insert(Term *item, std::shared_ptr<AvlNode> &root)
+std::shared_ptr<Term>
+AvlNode::Insert(std::shared_ptr<Term> item, std::shared_ptr<AvlNode> &root)
 {
    int  change;
    return  Insert(item, root, change);
 }
 
-
-Term*
+std::shared_ptr<Term>
 AvlNode::Delete(TermKeyType key, std::shared_ptr<AvlNode> &root, cmp_t cmp)
 {
    int  change;
    return  Delete(key, root, change, cmp);
 }
 
-
-Term*
-AvlNode::Insert(Term*   item,
+std::shared_ptr<Term>
+AvlNode::Insert(std::shared_ptr<Term> item,
 				std::shared_ptr<AvlNode> &root,
 				int& change)
 {
@@ -208,7 +188,7 @@ AvlNode::Insert(Term*   item,
    }
 
    // Initialize
-   Term* found = NULL;
+   std::shared_ptr<Term> found = NULL;
    int  increase = 0;
 
    // Compare items and determine which direction to search
@@ -225,9 +205,8 @@ AvlNode::Insert(Term*   item,
    else
    {   
 	   // merge terms
-	   root->myData->Merge(item);
+	   root->myData->Merge(item.get());
 	   ITimeout::CheckTimeout(); // in a case of exception, item is disposed later
-	   item->Dispose();
 
 	   // key already in tree at this node
 	   increase = HEIGHT_NOCHANGE;
@@ -247,9 +226,7 @@ AvlNode::Insert(Term*   item,
    return  NULL;
 }
 
-
-
-Term*
+std::shared_ptr<Term>
 AvlNode::Delete(TermKeyType              key,
                          std::shared_ptr<AvlNode> &root,
                          int                & change,
@@ -263,7 +240,7 @@ AvlNode::Delete(TermKeyType              key,
    }
 
       // Initialize
-   Term* found = NULL;
+   std::shared_ptr<Term> found = NULL;
    int  decrease = 0;
 
       // Compare items and determine which direction to search
@@ -277,7 +254,6 @@ AvlNode::Delete(TermKeyType              key,
       decrease = result * change;    // set balance factor decrement
    } else  {   // Found key at this node
       found = root->myData;  // set return value
-	  found->AddRef();
       // ----------------------------------------------------------------------------------
       // At this point we know "result" is zero and "root" points to
       // the node that we need to delete.  There are three cases:
@@ -309,11 +285,6 @@ AvlNode::Delete(TermKeyType              key,
       } else {
             // We have two children -- find successor and replace our current
             // data item with that of the successor
-
-		  // not disposing this term is a huge memory leak
-		  // strange thing is that program runs twice as fast
-		  // when term is not dispose!?
-		  root->myData->Dispose();
 
 		  root->myData = Delete(key, root->mySubtree[RIGHT],
 			  decrease, MIN_CMP);
@@ -409,22 +380,19 @@ void TermStorageAvlTree::Construct()
 	COSTR("reused avl tree");
 }
 
-int TermStorageAvlTree::AddTerm(Term* term)
+int TermStorageAvlTree::AddTerm(std::shared_ptr<Term> term)
 {
-	term->AddRef();
 	try
 	{
-		Term* t = Insert(term);
+		std::shared_ptr<Term> t = Insert(term);
 
 		if (t && t->IsZero())
 		{
-			Delete(t, EQ_CMP);
-			t->Dispose();
+			Delete(t.get(), EQ_CMP);
 		}
 	}
 	catch (int e)
 	{
-		term->Dispose();
 		return e;
 	}
 
@@ -500,7 +468,7 @@ Term* AvlNode::GetTerm(uint index) const
 
 	if (index == 0)
 	{
-		return this->Data();
+		return this->Data().get();
 	}
 
 	if (this->Subtree(RIGHT))

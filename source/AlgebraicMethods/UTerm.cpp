@@ -1,3 +1,4 @@
+#include "Object.h"
 #include "UTerm.h"
 #include <cstddef>
 #include <cstdio>
@@ -23,19 +24,9 @@ UTerm::~UTerm()
 	DESTR("uterm");
 }
 
-void UTerm::Dispose()
+std::shared_ptr<Term> UTerm::Clone()
 {
-	_refCount --;
-
-	if (_refCount == 0)
-	{
-		delete this;
-	}
-}
-
-UTerm* UTerm::Clone()
-{
-	UTerm* utClone = new UTerm(this->GetCoeff());
+	std::shared_ptr<UTerm> utClone = std::make_shared<UTerm>(this->GetCoeff());
 
 	uint count = this->GetPowerCount();
     for (unsigned int ii = 0; ii < count; ii++)

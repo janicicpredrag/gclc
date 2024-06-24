@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Log.h"
 #include "TermStorage.h"
 #include <memory>
 
@@ -35,14 +36,14 @@ public:
 
    // ----- Constructors and destructors: 
 
-   AvlNode(Term* item=NULL);
-   void Construct(Term* item=NULL);
+   AvlNode(std::shared_ptr<Term> item=NULL);
+   void Construct(std::shared_ptr<Term> item=NULL);
    ~AvlNode(void);
 
    // ----- Query attributes:
 
    // Get this node's data
-   Term*
+   std::shared_ptr<Term>
    Data() const { return  myData; }
 
    // Get this node's key field
@@ -63,7 +64,7 @@ public:
    AvlNode *
    Subtree(dir_t dir) const { return  mySubtree[dir].get(); }
 
-   // ----- Search/Insert/Delete
+   // ----- Insert/Delete
    //
    //   NOTE: These are all static functions instead of member functions
    //         because most of them need to modify the given tree root
@@ -73,19 +74,14 @@ public:
    //         functions that are static and which take an AVL tree
    //         pointer as a parameter are static for this reason.
    
-   // Look for the given key, return NULL if not found,
-   // otherwise return the item's address.
-   static Term*
-   Search(TermKeyType key, AvlNode * root, cmp_t cmp=EQ_CMP);
-
    // Insert the given key, return NULL if it was inserted,
    // otherwise return the existing item with the same key.
-   static Term*
-   Insert(Term* item, std::shared_ptr<AvlNode> &root);
+   static std::shared_ptr<Term>
+   Insert(std::shared_ptr<Term> item, std::shared_ptr<AvlNode> &root);
 
    // Delete the given key from the tree. Return the corresponding
    // node, or return NULL if it was not found.
-   static Term*
+   static std::shared_ptr<Term>
    Delete(TermKeyType key, std::shared_ptr<AvlNode> &root, cmp_t cmp=EQ_CMP);
 
    // Verification 
@@ -107,7 +103,7 @@ private:
 
    // ----- Private data
 
-   Term* myData;  // Data field
+   std::shared_ptr<Term> myData;  // Data field
    std::shared_ptr<AvlNode> mySubtree[MAX_SUBTREES];   // Pointers to subtrees
    short      myBal;   // Balance factor
 
@@ -125,15 +121,15 @@ private:
    // the key was successfully inserted.  Upon return, the "change"
    // parameter will be '1' if the tree height changed as a result
    // of the insertion (otherwise "change" will be 0).
-   static Term*
-   Insert(Term *item, std::shared_ptr<AvlNode> &root, int &change);
+   static std::shared_ptr<Term>
+   Insert(std::shared_ptr<Term> item, std::shared_ptr<AvlNode> &root, int &change);
 
    // Delete the given key from the given tree. Return NULL if the
    // key is not found in the tree. Otherwise return a pointer to the
    // node that was removed from the tree.  Upon return, the "change"
    // parameter will be '1' if the tree height changed as a result
    // of the deletion (otherwise "change" will be 0).
-   static Term*
+   static std::shared_ptr<Term>
    Delete(TermKeyType key,
              std::shared_ptr<AvlNode> &root,
              int & change,
@@ -197,7 +193,7 @@ public:
    {
 	   COSTR("avl tree");
    };
-   ~TermStorageAvlTree() 
+   virtual ~TermStorageAvlTree()
    { 
 	   DESTR("avl tree");
    }
@@ -209,18 +205,13 @@ public:
       return  (myRoot == NULL);
    }
 
-   // Search, Insert, Delete, and Check
-   Term*
-   Search(TermKeyType key, cmp_t cmp=EQ_CMP) {
-      return  AvlNode::Search(key, myRoot.get(), cmp);
-   }
-
-   Term*
-   Insert(Term* item) {
+   // Insert, Delete, and Check
+   std::shared_ptr<Term>
+   Insert(std::shared_ptr<Term> item) {
       return  AvlNode::Insert(item, myRoot);
    }
 
-   Term*
+   std::shared_ptr<Term>
    Delete(TermKeyType key, cmp_t cmp=EQ_CMP) {
       return  AvlNode::Delete(key, myRoot, cmp);
    }
@@ -231,7 +222,7 @@ public:
    }
 
    // interface methods
-   int AddTerm(Term* term);
+   int AddTerm(std::shared_ptr<Term> term);
    void RemoveTerm(Term* term);
    uint Count() const;
 

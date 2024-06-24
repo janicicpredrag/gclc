@@ -14,9 +14,9 @@ XTerm::~XTerm()
 	DESTR("xterm");
 }
 
-XTerm* XTerm::Clone()
+std::shared_ptr<Term> XTerm::Clone()
 {
-	XTerm* xtClone = new XTerm();
+	std::shared_ptr<XTerm> xtClone = std::make_shared<XTerm>();
 
 	// fraction
 	std::shared_ptr<UPolynomialFraction> ufClone = _frac->Clone();
@@ -32,9 +32,9 @@ XTerm* XTerm::Clone()
 	return xtClone;
 }
 
-XTerm* XTerm::ClonePowers()
+std::shared_ptr<XTerm> XTerm::ClonePowers()
 {
-	XTerm* xtClone = new XTerm();
+	std::shared_ptr<XTerm> xtClone = std::make_shared<XTerm>();
 
 	// powers
 	for (uint ii = 0; ii < this->GetPowerCount(); ii++)
@@ -54,8 +54,10 @@ TERM_TYPE XTerm::Type() const
 //
 // return p1p2
 //
-XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint index2)
-{
+std::shared_ptr<XTerm> XTerm::CreatePolynomialConditionTerm(bool f1,
+                                                            uint index1,
+                                                            bool f2,
+                                                            uint index2) {
 	if ((f1 && index1 == 0) || (f2 && index2 == 0))
 	{
 		return NULL;
@@ -66,7 +68,7 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 		return CreatePolynomialConditionTerm(f2, index2, f1, index1);
 	}
 
-	XTerm* xt = new XTerm();
+	std::shared_ptr<XTerm> xt = std::make_shared<XTerm>();
 
 	std::shared_ptr<UPolynomialFraction> upf;
 	if (f1 || f2)
@@ -98,10 +100,9 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 	}
 	else
 	{
-		UTerm* ut = new UTerm();
+		std::shared_ptr<UTerm> ut = std::make_shared<UTerm>();
 		ut->AddPower(p1);
 		xt->GetUFraction()->GetNumerator()->AddTerm(ut);
-		ut->Dispose();
 	}
 	if (!f2)
 	{
@@ -132,10 +133,9 @@ XTerm* XTerm::CreatePolynomialConditionTerm(bool f1, uint index1, bool f2, uint 
 		else
 		{
 			// add term
-			UTerm* ut = new UTerm();
+			std::shared_ptr<UTerm> ut = std::make_shared<UTerm>();
 			ut->AddPower(p2);
 			xt->GetUFraction()->GetNumerator()->AddTerm(ut);
-			ut->Dispose();
 		}
 	}
 
