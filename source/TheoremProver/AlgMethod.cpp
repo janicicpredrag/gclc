@@ -2741,6 +2741,8 @@ bool CAlgMethod::SetProverConjecture(const std::string &strConjecture) {
     Log::PrintLogF(1, "Failed to Get Expression from input string!\n");
     return false;
   }
+  if (!GetExpression(strConjecture, nInputPos, m_NaturalExpressedConjecture))
+      return false;
   m_InitialConjecture.ToGeometricQuantities();
 
   CGCLCProverExpression orig_conjecture = m_InitialConjecture;

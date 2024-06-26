@@ -954,7 +954,13 @@ bool CTheoremProver::SetProverConjecture(const std::string &conjecture) {
   if (!GetExpression(conjecture, nInputPos, m_InitialConjecture))
     return false;
 
+  // Natural, original formulation (e.g. "parallel" instead of
+  // a formulation in terms of geometric quantities
+  if (!GetExpression(conjecture, nInputPos, m_NaturalExpressedConjecture))
+      return false;
+
   m_pConjecture = &m_InitialConjecture;
+
   // 13.07. conjectures in natural form added
   m_pConjecture->ToGeometricQuantities();
 

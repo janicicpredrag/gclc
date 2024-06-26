@@ -126,6 +126,7 @@ public:
 
   bool ValidConjecture() { return (m_bValidConjecture); }
   const CGCLCProverExpression* GetConjecture() { return m_pConjecture; }
+  const CGCLCProverExpression* GetNaturalConjecture() { return &m_NaturalExpressedConjecture; }
 
   bool Timeout();
 
@@ -161,7 +162,7 @@ protected:
   bool GetExpression(const std::string &conjecture, int &nPos,
                      CGCLCProverExpression &exp);
 
-  CGCLCProverExpression m_InitialConjecture;
+  CGCLCProverExpression m_InitialConjecture, m_NaturalExpressedConjecture;
   CGCLCProverExpression* m_pConjecture;
   bool m_bValidConjecture;
   std::list<CNewDef> m_NewDefs;

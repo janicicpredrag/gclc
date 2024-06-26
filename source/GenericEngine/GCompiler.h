@@ -177,6 +177,9 @@ public:
   const CGCLCProverExpression* GetConjecture() {
     return m_pTheoremProver->GetConjecture();
   }
+  const CGCLCProverExpression* GetNaturalConjecture() {
+      return m_pTheoremProver->GetNaturalConjecture();
+  }
   std::string GetMethodSpecificOutput();
 
 protected:

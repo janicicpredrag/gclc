@@ -1848,7 +1848,7 @@ std::string CGCLCProverExpression::sPrintXML(int indent) const {
     break;
 
   case ep_collinear:
-    s += "<collinear>" + GetArg(0).sPrintXML(indent + 1) +
+    s += make_indent(indent) + "<collinear>" + GetArg(0).sPrintXML(indent + 1) +
          GetArg(1).sPrintXML(indent + 1) + GetArg(2).sPrintXML(indent + 1) +
          "</collinear>\n";
     break;
@@ -1864,19 +1864,19 @@ std::string CGCLCProverExpression::sPrintXML(int indent) const {
     break;
 
   case ep_harmonic:
-    s += "<harmonic>" + GetArg(0).sPrintXML(indent + 1) +
+    s += make_indent(indent) + "<harmonic>" + GetArg(0).sPrintXML(indent + 1) +
          GetArg(1).sPrintXML(indent + 1) + GetArg(2).sPrintXML(indent + 1) +
          GetArg(3).sPrintXML(indent + 1) + "</harmonic>\n";
     break;
 
   case ep_parallel:
-    s += "<parallel>" + GetArg(0).sPrintXML(indent + 1) +
+    s += make_indent(indent) + "<parallel>" + GetArg(0).sPrintXML(indent + 1) +
          GetArg(1).sPrintXML(indent + 1) + GetArg(2).sPrintXML(indent + 1) +
          GetArg(3).sPrintXML(indent + 1) + "</parallel>\n";
     break;
 
   case ep_perpendicular:
-    s += "<perpendicular>" + GetArg(0).sPrintXML(indent + 1) +
+    s += make_indent(indent) + "<perpendicular>" + GetArg(0).sPrintXML(indent + 1) +
          GetArg(1).sPrintXML(indent + 1) + GetArg(2).sPrintXML(indent + 1) +
          GetArg(3).sPrintXML(indent + 1) + "</perpendicular>\n";
     break;
