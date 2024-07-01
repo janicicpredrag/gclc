@@ -305,7 +305,7 @@ GCLCError CGCLC::printat(int dir) {
     std::string sdir;
     switch (dir) {
     case 0:
-      sdir = "0 distance=\"0\"";
+      sdir = "0\" distance=\"0";
       break;
     case GCLC_DIR_LT:
       sdir = "135";
@@ -455,7 +455,7 @@ GCLCError CGCLC::printvalueat(int dir) {
     std::string sdir;
     switch (dir) {
     case 0:
-      sdir = "0 distance=\"0\"";
+      sdir = "0\" distance=\"0\"";
       break;
     case GCLC_DIR_LT:
       sdir = "135";
