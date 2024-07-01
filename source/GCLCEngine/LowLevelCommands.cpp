@@ -61,10 +61,10 @@ GCLCError CGCLC::get_area() {
   //-------- Support for input exported to XML form ---------
   if (m_bXMLOutput && m_hXMLOutput.good()) {
     ChangeCurrentXMLGroup(eXMLdraw);
-    Print(m_hXMLOutput, "\t\t<area x1=\"" + d2s(m_Basic_Area.x_lb, -1) +
-                            "\" y1=\"" + d2s(m_Basic_Area.y_lb, -1) +
-                            "\" x2=\"" + d2s(m_Basic_Area.x_rt, -1) +
-                            "\" y2=\"" + d2s(m_Basic_Area.y_rt, -1) +
+    Print(m_hXMLOutput, "\t\t<area x1=\"" + d2s(m_Basic_Area.x_lb, -1) + "\" " +
+                            "y1=\"" + d2s(m_Basic_Area.y_lb, -1) + "\" " +
+                            "x2=\"" + d2s(m_Basic_Area.x_rt, -1) + "\" " +
+                            "y2=\"" + d2s(m_Basic_Area.y_rt, -1) + "\"" +
                             "></area>\n");
     m_CurrentXMLgroup = eXMLdraw;
   }
