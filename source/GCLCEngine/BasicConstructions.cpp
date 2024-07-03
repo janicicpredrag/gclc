@@ -748,6 +748,17 @@ GCLCError CGCLC::get_oncircle() {
   x = (x2 - x1) * cos(k) - (y2 - y1) * sin(k) + x1,
   y = (y2 - y1) * cos(k) + (x2 - x1) * sin(k) + y1;
 
+  //-------- Support for input exported to XML form ---------
+  if (m_bXMLOutput && m_hXMLOutput.good()) {
+      ChangeCurrentXMLGroup(eXMLconstruct);
+      Print(m_hXMLOutput, "\t\t<random_point_on_circle><new_point>" + sPointName +
+                              "</new_point><point>" + o1.name +
+                              "</point><point>" + o2.name +
+                              "</point></random_point_on_circle>\n");
+      m_CurrentXMLgroup = eXMLconstruct;
+  }
+  //-------- End of support for XML form ---------
+
   return Let(sPointName, GCLC_POINT, x, y, 0.00, 0.00, 0.00, 0.00);
 }
 

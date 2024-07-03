@@ -1,21 +1,27 @@
 #include "../Input/GCLCInput.h"
 #include "GCLC.h"
-#include <iostream>
-#include <sstream>
 
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_comment() {
   GReturnValue iRv;
   unsigned char c;
+  std::string sXMLcomment;
   for (;;) {
     iRv = m_Input->ReadChar(c);
-    if (iRv == rvG_EndOfData)
-      return rvGCLCOK;
+    if (iRv == rvG_EndOfData || c == '\n' || c == '\r')  {
+        //-------- Support for input exported to XML form ---------
+        if (m_bXMLOutput && m_hXMLOutput.good()) {
+            ChangeCurrentXMLGroup(eXMLnone);
+            Print(m_hXMLOutput, "<!-- " + sXMLcomment + " -->\n");
+            m_CurrentXMLgroup = eXMLnone;
+        }
+        //-------- End of support for XML form ---------
+        return rvGCLCOK;
+    }
     if (iRv == rvG_InvalidInput)
       return rvGCLCInvalidInput;
-    if (c == '\n')
-      return rvGCLCOK;
+    sXMLcomment += c;
   }
 }
 
