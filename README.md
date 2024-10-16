@@ -71,6 +71,10 @@ a documentation, samples, and packages for LaTeX support.
 
 The Linux version that uses dynamic linking is smaller in size, but requires
 dynamic Qt libraries to be available on the system.
+[If your Qt6 libs have not been installed in `/lib/x86...` but in `/home/.../Qt/...` 
+and they cannot be dynamically linked, this could help:
+
+- `sudo ldconfig /home/.../Qt/6.7.0/gcc_64/lib`
 
 Executables also can be built from the available source code following the
 instructions provided below.
