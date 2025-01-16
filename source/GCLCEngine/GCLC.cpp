@@ -454,6 +454,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
     Print(m_hXMLOutput,
           "<?xml-stylesheet href=\"GeoConsHTML.xsl\" type=\"text/xsl\"?>\n\n");
     Print(m_hXMLOutput, "<figure>\n");
+    Print(m_hXMLOutput, "<filename>" + m_ProverConfig.sTheoremFileName + "</filename>\n");
   }
 
   enum GCLCError iErrorCode = Execute();

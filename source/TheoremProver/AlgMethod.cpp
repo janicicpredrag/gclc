@@ -2743,7 +2743,7 @@ bool CAlgMethod::SetProverConjecture(const std::string &strConjecture) {
   }
   if (!GetExpression(strConjecture, nInputPos, m_NaturalExpressedConjecture))
       return false;
-  m_InitialConjecture.ToGeometricQuantities();
+  // m_InitialConjecture.ToGeometricQuantities();
 
   CGCLCProverExpression orig_conjecture = m_InitialConjecture;
 
