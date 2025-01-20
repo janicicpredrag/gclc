@@ -28,7 +28,7 @@ bool GraphNode::operator==(const GraphNode &newGraphNode) const {
 }
 
 bool GraphNode::operator!=(const GraphNode &newGraphNode) const {
-  return (*this != newGraphNode);
+  return !(*this == newGraphNode);
 }
 
 bool GraphNode::operator<(const GraphNode &newGraphNode) const {
