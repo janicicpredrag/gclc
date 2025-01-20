@@ -369,7 +369,7 @@ GCLCError CGCLC::get_med() {
 
   /* err=let(name,GCLC_LINE,2*x2-2*x1,2*y2-2*y1,x1*x1+y1*y1-x2*x2-y2*y2); */
   /* changed 18.07.1997; normalisation of parameters in order        */
-  /* to prevent overflow/underflow and induced convertor errors      */
+  /* to prevent overflow/underflow and induced converter errors      */
 
   //-------- Support for the prover ---------
   if (ProvingTheorem())

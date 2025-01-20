@@ -110,7 +110,7 @@ public:
   // Point>&, map<int, vector<int> >&);
   //! Processes w_(p+1), ..., w_(q-1)
   /*! For each v in U(L(wi)), i=p+1, ..., q-1, do x(v)++
-   * \param map<int, struct Point> refernce to map of coordinate points for the
+   * \param map<int, struct Point> reference to map of coordinate points for the
    * drawing
    * \param vector<int> neighbours of vk
    * \param map<int, vector<int> > map of sets L
@@ -156,7 +156,7 @@ public:
    * canonical ordering)
    */
   // static bool canonicalOrderLess(struct CanonicalOrder, int , int);
-  //! Checks if three points are colinear
+  //! Checks if three points are collinear
   /*!
    * \param float x1
    * \param float y1
@@ -165,7 +165,7 @@ public:
    * \param float x3
    * \param float y3
    * \param float accuracy
-   * \return boolean value indicating if three points are colinear
+   * \return boolean value indicating if three points are collinear
    */
   static bool areCollinear(float, float, float, float, float, float, float);
   //! Gets dummy1 vertex

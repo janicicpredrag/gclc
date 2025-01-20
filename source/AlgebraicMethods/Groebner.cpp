@@ -22,7 +22,7 @@ PROVER_STATUS Groebner::Prove(vxp &vxps, XPolynomial *xpConclusion,
   try {
     // calculate Groebner basis
     if (GroebnerBasis2(vxps)) {
-      Log::OutputText("Groebner basis succesfully computed.\n\n");
+      Log::OutputText("Groebner basis successfully computed.\n\n");
 
       // reduce conclusion with Groebner basis
       // and check is it zero
@@ -59,7 +59,7 @@ PROVER_STATUS Groebner::Prove(vxp &vxps, XPolynomial *xpConclusion,
 // Groebner basis is computed in-place,
 // result basis is in the same container vector
 //
-// Return value is true if basis is successfuly computed
+// Return value is true if basis is successfully computed
 // false otherwise
 //
 bool Groebner::GroebnerBasis(vxp &vxps) {
@@ -91,7 +91,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
   Log::OutputText("Polynomial system after simple reduction:\n\n");
   PolyReader::PrintPolynomials(vxps, 1);
 
-  // k is the current size of Grobner basis
+  // k is the current size of Groebner basis
   // in each iteration introduce new Polynomial
   // create S-polynomial of that polynomial and
   // current base and reduce base
@@ -213,7 +213,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
   Log::PrintLogF(1, "\\end{description}\n\n");
 
   if (stopProcessing) {
-    Log::OutputText("Groebner basis calculatation stopped.\n\n");
+    Log::OutputText("Groebner basis calculation stopped.\n\n");
     return false;
   }
 
@@ -383,7 +383,7 @@ int Groebner::CanReduce(XPolynomial *xp1, XPolynomial *xp2) {
     return -1;
   }
 
-  // lowest index of reducable term
+  // lowest index of reducible term
   return i;
 }
 

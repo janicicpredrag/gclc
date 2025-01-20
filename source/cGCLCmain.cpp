@@ -362,7 +362,7 @@ void PrintHelp() {
   Print(std::cout, "Theorem prover options:\n");
   Print(std::cout, "  -a,       use prover based on the area method\n");
   Print(std::cout, "  -w,       use prover based on Wu's method\n");
-  Print(std::cout, "  -g,       use prover based on the Grobner "
+  Print(std::cout, "  -g,       use prover based on the Groebner "
                    "bases method\n");
   Print(std::cout, "  -d,       enable deduction control\n");
   Print(std::cout, "\n");

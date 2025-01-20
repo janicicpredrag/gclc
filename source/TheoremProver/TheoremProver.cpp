@@ -76,7 +76,7 @@ CTheoremProver::CTheoremProver() {
   m_iProofLevel = 1;
   m_iProofLimit = PROOF_LIMIT;
   m_iProofDepth = -1;
-  m_iProverTimeout = PROVER_TIMEOUT; // proof timeout in miliseconds; default is
+  m_iProverTimeout = PROVER_TIMEOUT; // proof timeout in milliseconds; default is
                                      // 10 seconds; -1 stands for infinite
                                      // timeout
 }
@@ -1333,5 +1333,5 @@ void take_id(const std::string &sInput, int &nInputPos, std::string &sOutput) {
 }
 
 // **************************************************************************
-// end of miscelanous
+// end of miscellaneous
 // **************************************************************************

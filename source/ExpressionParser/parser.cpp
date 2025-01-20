@@ -310,7 +310,7 @@ Parser::TokenType Parser::GetToken(const bool ignoreSign) {
       return type_ = OR;
     }
     break;
-  // single-character symboles
+  // single-character symbols
   case '=':
   case '<':
   case '>':

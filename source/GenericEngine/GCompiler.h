@@ -9,7 +9,7 @@
 The class CGCompiler provides an abstract/generic interface
 between specific geometry engine and the main application,
 through a limited set of methods. Some of them aim at
-dymanic geometry features and are not relevant for the
+dynamic geometry features and are not relevant for the
 console version. The class CGCompiler is inherited by
 the class CGCLC (which implements all methods), while it
 can be inherited by some other similar class. So, any

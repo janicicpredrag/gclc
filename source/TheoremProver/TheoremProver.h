@@ -121,8 +121,8 @@ public:
   int GetProofLimit() { return m_iProofLimit; }
   void SetProverTimeout(int n) {
     m_iProverTimeout = n;
-  }                                                   // n miliseconds timeout
-  int GetProverTimeout() { return m_iProverTimeout; } // n miliseconds timeout
+  }                                                   // n milliseconds timeout
+  int GetProverTimeout() { return m_iProverTimeout; } // n milliseconds timeout
 
   bool ValidConjecture() { return (m_bValidConjecture); }
   const CGCLCProverExpression* GetConjecture() { return m_pConjecture; }

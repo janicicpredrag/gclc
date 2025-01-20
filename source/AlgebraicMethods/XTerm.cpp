@@ -343,7 +343,7 @@ int XTerm::Compare(Term* t) const
 
 //
 // Merge with another term
-// this is actualy Sum operation
+// this is actually Sum operation
 //
 void XTerm::Merge(Term* t)
 {

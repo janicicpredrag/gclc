@@ -450,7 +450,7 @@ GCLCError CGCLC::get_call_procedure() {
 
         EvaluateIndex(sArgName);
         if ((iRv = Value(sArgName, o)) != rvGCLCOK) {
-          if (convert(sArgName, o.p[0])) // arugment is a number
+          if (convert(sArgName, o.p[0])) // argument is a number
           {
             o.type = GCLC_NUMBER;
             o.p[1] = o.p[2] = o.p[3] = o.p[4] = o.p[5] = 0;
@@ -522,7 +522,7 @@ GCLCError CGCLC::get_call_procedure() {
         }
 
         double d;
-        if (!convert(sArgName, d)) // arugment is not a number
+        if (!convert(sArgName, d)) // argument is not a number
         {
           if ((iRv = Let(sArgName, o.type, o.p[0], o.p[1], o.p[2], o.p[3],
                          o.p[4], o.p[5])) != rvGCLCOK) {

@@ -42,7 +42,7 @@ public:
 	int AddTerm(std::shared_ptr<Term> t);
 	void RemoveTerm(Term* t);
 
-	// aritmetic operations
+	// arithmetic operations
 	int Mul(Polynomial* up);
 	int Mul(Term* t);
 	int Mul(REAL r);

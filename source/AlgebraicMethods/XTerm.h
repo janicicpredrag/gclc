@@ -8,7 +8,7 @@
 
 class XTerm : public Term
 {
-	// U fraction (analouge to real factor of U term)
+	// U fraction (analogue to real factor of U term)
 	std::shared_ptr<UPolynomialFraction> _frac;
 
 public:
@@ -29,7 +29,7 @@ public:
 	void SetUFraction(std::shared_ptr<UPolynomialFraction> uf);
 	void AddPower(std::shared_ptr<Power> xp);
 
-	// aritmetic operations
+	// arithmetic operations
 	int Mul(Term* ut) override;
 	int Mul(REAL r) override;
 	int Divide(Term* ut) override;
@@ -41,7 +41,7 @@ public:
 	void PrettyPrint() const override;
 	void PrintLatex(std::ostream &os) const override;
 
-	// overriden methods
+	// overridden methods
 	int Compare(Term* t) const override;
 	void Merge(Term* t) override;
 

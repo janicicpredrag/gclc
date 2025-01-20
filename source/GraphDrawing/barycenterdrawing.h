@@ -12,7 +12,7 @@ class BarycenterDrawing:public Drawing
    * \param map<int, bool>& reference to y updating variable
    */
   void setFixedCoordinates(std::map<int, bool>&, std::map<int, bool>&);
-  //! Sets all vertices in state where every vertes needs x and y updating
+  //! Sets all vertices in state where every vertex needs x and y updating
   /*! \param map<int, bool>& reference to x updating variable
    * \param map<int, bool>& reference to y updating variable
    */
@@ -21,7 +21,7 @@ class BarycenterDrawing:public Drawing
   /*! If all values are converging then stop working, otherwise keep working.
    * To continue working it is enough that there is at least one value
    * that isn't converging. Another criteria for stop working is that
-   * current iteration is greater or equalt to maximum numbeer of iterations.
+   * current iteration is greater or equal to maximum number of iterations.
    * \param map<int, bool> x updating variable
    * \param map<int, bool> y updating variable
    * \param int current iteration
@@ -47,7 +47,7 @@ class BarycenterDrawing:public Drawing
   /*! There are two "bugs" in original barycenter method:
    * 1. when there are nodes of degree 1, which are not fixed. In this case
    * one or two dummy vertices are added
-   * 2. there are several vertices which have the same naighbours. In this case
+   * 2. there are several vertices which have the same neighbours. In this case
    * dummy vertices are added as well   
    */
   void addDummyVertices();

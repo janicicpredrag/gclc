@@ -704,7 +704,7 @@ GReturnValue CGCLC::GetError(int &iErrorCode, std::string &sErrMessage,
     line = m_iWarnLine;
     break;
   case rvGCLCNoProceduresInBlocks:
-    sErrMessage = "Syntax erros: Procedures cannot be defined within "
+    sErrMessage = "Syntax error: Procedures cannot be defined within "
                   "while-blocks or procedures.";
     pos = m_iWarnPos;
     line = m_iWarnLine;

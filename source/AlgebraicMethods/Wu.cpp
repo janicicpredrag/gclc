@@ -388,7 +388,7 @@ bool Wu::_FinalRemainder(vxp &vxps, std::vector<int> &vars,
     _maxt = std::max(_maxt, xpConclusion->GetTotalTermCount());
     if (Log::StopAfterMaxT > 0 && _maxt > (uint)Log::StopAfterMaxT) {
       Log::OutputText("Warning: Stopping wu's alg because maxt = %d has "
-                      "overriched maximum alowed value of %d\n\n",
+                      "exceeded maximum allowed value of %d\n\n",
                       _maxt, Log::StopAfterMaxT);
       throw - 1;
     }
@@ -403,7 +403,7 @@ bool Wu::_FinalRemainder(vxp &vxps, std::vector<int> &vars,
 
 //
 // System is linear if every polynomial is linear
-// in terms of every variable (i.e. there is not term
+// in terms of every variable (i.e. there is no term
 // with dependent variable which power is greater than one)
 //
 bool Wu::_IsLinearSystem(vxp &vxps) {

@@ -15,7 +15,7 @@ class Drawing
   bool isValid;                        // indicating if graph can be drawn
   //! Opens a file
   /*! \param ofstream& file stream (output argument)
-   * \return boolean value indicating if file was sucessfully opened
+   * \return boolean value indicating if file was successfully opened
    */
   bool openFile(std::ofstream&);
   //! Defines nodes in GCLC
@@ -86,7 +86,7 @@ class Drawing
    */
   virtual bool isArc(int, int){return false;}
   //! Function that does the drawing
-  /*! In Drawing class this function is defined as pure virual function, but
+  /*! In Drawing class this function is defined as pure virtual function, but
    * in every inherited class for different types of drawing, this function
    * is used for the specific drawing of the graph.
    */

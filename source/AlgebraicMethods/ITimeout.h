@@ -7,7 +7,7 @@
 * ITimeout.h
 *
 * Interface for timeout checking
-* and running syncronous timeout sessions
+* and running synchronous timeout sessions
 *
 **************************************************************/
 

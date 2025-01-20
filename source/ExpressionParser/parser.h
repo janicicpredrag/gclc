@@ -127,7 +127,7 @@ public:
   }
 
   double Evaluate();                     // get result
-  double Evaluate(const std::string program); // get result*/
+  double Evaluate(const std::string program); // get result
 
   void SetGCLC(CGCLC *pGclc) { m_pGclc = pGclc; }
 
