@@ -108,12 +108,12 @@ structure.
 
 // functions we can call from an expression
 
-double DoMin(const double arg1, const double arg2) {
+static double DoMin(const double arg1, const double arg2) {
   return (arg1 < arg2) ? arg1 : arg2;
   /*return min<double> (arg1, arg2);*/
 }
 
-double DoMax(const double arg1, const double arg2) {
+static double DoMax(const double arg1, const double arg2) {
   return (arg1 >= arg2) ? arg1 : arg2;
   /*return max<double> (arg1, arg2);*/
 }
@@ -126,9 +126,11 @@ double DoMax(const double arg1, const double arg2) {
 //  return fmod (arg1, arg2);
 //  }
 
-double DoPow(const double arg1, const double arg2) { return pow(arg1, arg2); }
+static double DoPow(const double arg1, const double arg2) {
+  return pow(arg1, arg2);
+}
 
-double DoIf(const double arg1, const double arg2, const double arg3) {
+static double DoIf(const double arg1, const double arg2, const double arg3) {
   if (arg1 != 0.0)
     return arg2;
   else
