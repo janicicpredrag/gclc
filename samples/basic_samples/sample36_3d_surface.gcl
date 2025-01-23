@@ -8,14 +8,13 @@ ang3d_scale 1 1 1
 ang3d_axes_drawing_range -12 12 -12 12 -12 12
 ang3d_drawsystem_p 2 5 5 5 1 2
 
-color 0 0 200 
+color 0 0 200
 ang3d_draw_parametric_surface u v
 {0; u<=6.43; u+0.15}
 {0; v<=6.43; v+0.15}
 { (4+2*sin(v))*cos(u); (4+2*sin(v))*sin(u); cos(v) }
 
-color 200 0 0 
+color 200 0 0
 ang3d_draw_parametric_curve u
 {0; u<=5; u+0.02}
 { u*sin(u*u); u*cos(u*u); u+2 }
-

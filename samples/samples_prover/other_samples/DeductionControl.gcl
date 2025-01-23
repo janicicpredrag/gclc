@@ -7,23 +7,18 @@ dim 120 40
 point A 20 10
 point B 40 25
 point C 70 15
- 
+
 translate D A B C
 line p A C
 line q B D
 
-drawline A B 
-drawline C D 
-cmark_lt A 
-cmark_lt B 
-cmark_lt C 
-cmark_lt D 
+drawline A B
+drawline C D
+cmark_lt A
+cmark_lt B
+cmark_lt C
+cmark_lt D
 
-intersec X p q 
-
-
-
-
-
+intersec X p q
 
 

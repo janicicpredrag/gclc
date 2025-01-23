@@ -1,14 +1,14 @@
-point P 40 90   
+point P 40 90
 
-fontsize 12     
-drawtree P 90 50 3 0                 
-{   
-    root 
+fontsize 12
+drawtree P 90 50 3 0
+{
+    root
     { left
-        { }    
+        { }
         { a }
      }
-    { right 
+    { right
         { _
             { b }
             { c }
@@ -19,17 +19,16 @@ drawtree P 90 50 3 0
     }
 }
 
-
-color 200 0 0 
-point P 100 90 
+color 200 0 0
+point P 100 90
 drawtree P 35 80 2 10
-{   
-    root 
+{
+    root
     { left
-        { }    
+        { }
         { a }
      }
-    { right 
+    { right
         { _
             { b }
             { c }
@@ -39,4 +38,3 @@ drawtree P 35 80 2 10
         { f }
     }
 }
-

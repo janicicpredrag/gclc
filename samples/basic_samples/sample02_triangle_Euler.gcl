@@ -1,10 +1,10 @@
-point A 40 80 
+point A 40 80
 point B 30 30
 point C 100 30
 
 cmark_lt A
 cmark_lt B
-cmark_rt C 
+cmark_rt C
 
 drawsegment A B
 drawsegment B C
@@ -28,7 +28,7 @@ perp hc C c
 
 intersec D ha a
 intersec E hb b
-intersec F hc c 
+intersec F hc c
 
 cmark_rb D
 cmark_rt E
@@ -54,14 +54,8 @@ line tb B B_1
 line tc C C_1
 
 intersec T ta tb
-cmark_r T 
+cmark_r T
 
 towards S H T 0.75
 cmark_l S
 drawcircle S D
-
-
-
-
-
-

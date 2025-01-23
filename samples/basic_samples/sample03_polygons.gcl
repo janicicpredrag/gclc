@@ -1,12 +1,10 @@
-point O 50 50 
+point O 50 50
 point A 70 50
 
 drawpolygon O A 6
 
-rotate O A 120 O 
+rotate O A 120 O
 drawpolygon O A 6
 
-rotate O A 120 O 
+rotate O A 120 O
 drawpolygon O A 6
-
-

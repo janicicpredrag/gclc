@@ -3,17 +3,17 @@
 
 % thmtext Upisani krug trougla $ABC$, sa centrom $I$, dodiruje stranice
 % thmtext trougla $BC$, $CA$ i $AB$ redom u
-% thmtext ta\ch kama $D$, $E$ i $F$. Prave $AD$, $BE$ i $CF$ 
+% thmtext ta\ch kama $D$, $E$ i $F$. Prave $AD$, $BE$ i $CF$
 % thmtext konkuretne i seku se u Gergonovoj ta\ch ki. Iz
 % thmtext Gergonove ta\ch ke su povu\ch ene paralele sa stranicama
 % thmtext trougla $DEF$ koje seku stranice trougla $ABC$ u ta\ch kama
 % thmtext $P$, $Q$, $R$, $S$, $T$ i $U$. Dokazati da se ovih
 % thmtext \sh est ta\ch aka nalazi na krugu sa centrom $I$.
 
-% thmtexte Assume the incircle of $\triangle ABC$ touches the 
-% thmtexte sides $BC$, $AC$ and $AB$ in points 
-% thmtexte $D$, $E$ and $F$ respectively. 
-% thmtexte The lines $AD$, $BE$ and $CF$ meet at the Gergonne 
+% thmtexte Assume the incircle of $\triangle ABC$ touches the
+% thmtexte sides $BC$, $AC$ and $AB$ in points
+% thmtexte $D$, $E$ and $F$ respectively.
+% thmtexte The lines $AD$, $BE$ and $CF$ meet at the Gergonne
 % thmtexte point $G$ of the triangle. $DEF$ is known as
 % thmtexte Gergonne triangle (and also contact triangle) of
 % thmtexte $\triangle ABC$. Suppose three lines are drawn through

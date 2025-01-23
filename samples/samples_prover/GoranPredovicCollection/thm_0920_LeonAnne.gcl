@@ -4,7 +4,7 @@
 % thmtext U ravni je dat \ch etvorouga $ABCD$. Neka su $M_1$ i $M_2$
 % thmtext sredi\sh ta dijagonala $AC$ i $BD$ i neka je $O$ proizvoljna
 % thmtext ta\ch ka na pravoj $M_1M_2$. Dokazati da je zbir povr\sh ina
-% thmtext trouglova $ABO$ i $CDO$ jednak polovini povr\sh ine 
+% thmtext trouglova $ABO$ i $CDO$ jednak polovini povr\sh ine
 % thmtext \ch etvorougla $ABCD$.
 
 % thmtexte Given quadrilateral $ABCD$, let $M_1$ and $M_2$ be
@@ -17,7 +17,7 @@ dim 110 110
 
 point A 20 20
 point B 90 20
-point C 75 85 
+point C 75 85
 point D 40 65
 
 midpoint M_1 A C

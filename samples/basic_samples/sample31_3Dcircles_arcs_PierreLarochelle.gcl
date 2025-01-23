@@ -1,4 +1,3 @@
-
 procedure circle3d { xc yc zc nx ny nz radius }
 {
 expression mag {pow((nx*nx+ny*ny+nz*nz),0.5)}
@@ -34,7 +33,6 @@ ang3d_draw_parametric_curve t
    {0; t<=6.28+0.05; t+0.05}
    {xc+radius*cos(t)*ux+radius*sin(t)*vx; yc+radius*cos(t)*uy+radius*sin(t)*vy; zc+radius*cos(t)*uz+radius*sin(t)*vz}
 }
-
 
 procedure arc3d { xc yc zc ux uy uz vx vy vz radius}
 {
@@ -83,7 +81,7 @@ number n1 10	% normal to circle
 number n2 0
 number n3 0
 ang3d_point Center x0 y0 z0
-cmark_t Center 
+cmark_t Center
 color 255 0 0
 call circle3d { x0 y0 z0 n1 n2 n3 5 }
 color 0 0 0
@@ -100,7 +98,7 @@ call circle3d { x0 y0 z0 n1 n2 n3 5 }
 color 0 0 0
 
 % Draw the 3rd Circle
-number x0 5		% center of circle 
+number x0 5		% center of circle
 number y0 5
 number z0 0
 number n1 0		% normal to circle
@@ -111,15 +109,15 @@ call circle3d { x0 y0 z0 n1 n2 n3 5 }
 color 0 0 0
 
 % Draw the 1st Arc
-number x0 5		% center of arc 
+number x0 5		% center of arc
 number y0 5
 number z0 0
 % Specify a vector u from the center towards the start of the arc
-number u1 0		
+number u1 0
 number u2 -5
 number u3 0
 % Specify a vector v from the center towards the end of the arc
-% The magnitudes of u & v don't matter since the radius of the 
+% The magnitudes of u & v don't matter since the radius of the
 % arc is explicitly prescribed in the call to the arc3d routine
 number v1 1
 number v2 -1
@@ -131,7 +129,7 @@ color 0 0 0
 normal
 
 % Draw the 2nd Arc
-number x0 5		% center of arc 
+number x0 5		% center of arc
 number y0 5
 number z0 0
 number u1 0		% start of arc
@@ -147,7 +145,7 @@ color 0 0 0
 normal
 
 % Draw the 3rd Arc
-number x0 5		% center of arc 
+number x0 5		% center of arc
 number y0 5
 number z0 0
 number u1 -1	% start of arc
@@ -160,4 +158,4 @@ color 0 0 0
 double
 call arc3d { x0 y0 z0 u1 u2 u3 v1 v2 v3 5 }
 color 0 0 0
-normal 
+normal

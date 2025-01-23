@@ -2,35 +2,35 @@ ang_picture 5 5 65 90
 ang_origin 15 25
 
 ang_scale 1 2
-ang_drawsystem_p 1 1 1 1 1 
+ang_drawsystem_p 1 1 1 1 1
 
 point X -0.5 0 0.5 0
 point O 0 0
 distance d X O
-    
-color 255 0 0 
+
+color 255 0 0
 ang_draw_parametric_curve x {-3;x<8;x+0.1}{x; pow(10,x)}
 
-color 0 0 255  
+color 0 0 255
 ang_draw_parametric_curve x {-3;x<8;x+0.1}{x; x}
 
 % -----------------------------------
 
 color 0 0 0
 ang_picture 70 5 135 90
-ang_origin  80 25
+ang_origin 80 25
 
 ang_scale 2 1
-ang_drawsystem_p 1 1 1 1 1 
+ang_drawsystem_p 1 1 1 1 1
 
 point X -0.5 0 0.5 0
 point O 0 0
 distance d X O
-    
-color 255 0 0 
+
+color 255 0 0
 ang_draw_parametric_curve x {-3;x<8;x+0.1}{x; pow(10,x)}
 
-color 0 0 255  
+color 0 0 255
 ang_draw_parametric_curve x {-3;x<8;x+0.1}{x; x}
 
 % -----------------------------------

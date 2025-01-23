@@ -29,7 +29,7 @@ online B_1' S A_1
 % skip
 point B_1 38.40 16.434
 
-point A_3 42.20 41.10 
+point A_3 42.20 41.10
 online B_3' S A_3
 % skip
 point B_3 56 48
@@ -53,7 +53,7 @@ drawline a12
 drawline a13
 drawline a23
 drawline b12
-drawline b13 
+drawline b13
 drawline b23
 
 cmark_t P

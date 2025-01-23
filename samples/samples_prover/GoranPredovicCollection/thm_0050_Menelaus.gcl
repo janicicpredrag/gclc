@@ -18,29 +18,29 @@
 % thmtext = -1$.
 
 dim 100 80
-    
+
 point A 30 20
 point B 60 20
 point C 40 50
 
 line c A B
 
-online D' B C 
-online E' A C 
+online D' B C
+online E' A C
 
 % skip
 point D 53.33 30
 % skip
 point E 36.66 40
 
-line p D E 
+line p D E
 intersec F c p
 
 drawsegment A B
 drawsegment A C
 drawsegment B C
 
-drawline D E 
+drawline D E
 drawline A B
 
 cmark_b A
@@ -50,6 +50,6 @@ cmark_t C
 cmark_rt D
 cmark_lt E
 cmark_rt F
- 
+
 % prove { equal { mult { mult { sratio A F F B } { sratio B D D C } } { sratio C E E A } } -1 }
 

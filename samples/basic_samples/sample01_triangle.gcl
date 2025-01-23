@@ -4,7 +4,7 @@ point C 90 35
 
 cmark_lt A
 cmark_lb B
-cmark_rb C 
+cmark_rb C
 
 drawsegment A B
 drawsegment B C

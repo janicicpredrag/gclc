@@ -1,21 +1,20 @@
-background 200 250 150 
+background 200 250 150
 procedure Koch {x1 y1 x2 y2 st}
 {
 	expression edx {x2-x1}
 	expression edy {y2-y1}
 	number dx edx
 	number dy edy
-	
+
 	point A x1 y1
 	point B x2 y2
-	
+
 	if_then_else {st==0}
 	{
-	    color 255 0 0 
+		color 255 0 0
 		drawsegment A B
 	}
 	{
-
 		expression ex2 {x1+dx/3}
 		expression ey2 {y1+dy/3}
 		expression est {st-1}
@@ -23,7 +22,7 @@ procedure Koch {x1 y1 x2 y2 st}
 		number ny2 ey2
 		number nst est
 		call Koch {x1 y1 nx2 ny2 nst}
-		
+
 		expression ex1 {x1+dx*2/3}
 		expression ey1 {y1+dy*2/3}
 		expression est {st-1}
@@ -31,7 +30,7 @@ procedure Koch {x1 y1 x2 y2 st}
 		number ny1 ey1
 		number nst est
 		call Koch {nx1 ny1 x2 y2 nst}
-		 
+
 		expression exx3 {(x1+x2)/2-sqrt(3)/6*dy}
 		expression eyy3 {(y1+y2)/2+sqrt(3)/6*dx}
 		expression exx4 {x1+dx*1/3}
@@ -42,12 +41,12 @@ procedure Koch {x1 y1 x2 y2 st}
 		number nyy4 eyy4
 		number nst est
 		call Koch {nxx4 nyy4 nxx3 nyy3 nst}
-		
+
 		expression exx1 {(x1+x2)/2-sqrt(3)/6*dy}
 		expression eyy1 {(y1+y2)/2+sqrt(3)/6*dx}
 		expression exx2 {x1+dx*2/3}
 		expression eyy2 {y1+dy*2/3}
-	    expression est {st-1}
+		expression est {st-1}
 		number nxx1 exx1
 		number nyy1 eyy1
 		number nxx2 exx2
@@ -55,12 +54,8 @@ procedure Koch {x1 y1 x2 y2 st}
 		number nst est
 		%rotate exx3 0 60 exx1
 		call Koch {nxx1 nyy1 nxx2 nyy2 nst}
-		
-				
 	}
-	
 }
 
-
-call Koch {10 5 130 65 6}	
+call Koch {10 5 130 65 6}
 

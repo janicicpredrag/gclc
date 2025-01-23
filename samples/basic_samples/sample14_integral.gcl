@@ -2,27 +2,26 @@ dim 120 80
 
 ang_picture 5 5 115 70
 ang_origin 45 25
-ang_drawsystem_a 
- 
-ang_draw_parametric_curve x 
+ang_drawsystem_a
+
+ang_draw_parametric_curve x
 	{-3.5;x<6.5;x+0.05}
 	{ x; sin(x) }
 
 color 200 0 0
 number x 1
-while { x<3 } 
-{ 
+while { x<3 }
+{
 	ang_picture 5 5 115 70
 	ang_origin 45 25
 
 	expression y { sin(x) }
-	ang_point A x 0 
-	ang_point B x y 
+	ang_point A x 0
+	ang_point B x y
 	drawsegment A B
 
 	expression x { x+0.02}
 }
-
 
 color 0 0 0
 
@@ -31,4 +30,3 @@ printat_t P { y = \sin(x) }
 
 ang_point P 1.75 1
 printat_t P {\int_1^{3} \sin(x)dx }
-  

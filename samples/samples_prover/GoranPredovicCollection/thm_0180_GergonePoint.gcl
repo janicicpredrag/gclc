@@ -6,11 +6,11 @@
 % thmtext ta\ch kama $D$, $E$ i $F$. Dokazati da su
 % thmtext prave $AD$, $BE$ i $CF$ konkuretne.
 
-% thmtexte Assume the incircle of $\triangle ABC$ touches the 
-% thmtexte sides $BC$, $AC$ and $AB$ in points 
-% thmtexte $D$, $E$ and $F$ respectively. 
-% thmtexte Show that lines $AD$, $BE$ and $CF$ meet at the Gergonne 
-% thmtexte point $G$ of the triangle. 
+% thmtexte Assume the incircle of $\triangle ABC$ touches the
+% thmtexte sides $BC$, $AC$ and $AB$ in points
+% thmtexte $D$, $E$ and $F$ respectively.
+% thmtexte Show that lines $AD$, $BE$ and $CF$ meet at the Gergonne
+% thmtexte point $G$ of the triangle.
 
 dim 100 100
 

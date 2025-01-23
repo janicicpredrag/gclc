@@ -1,10 +1,10 @@
-dim 180 160 
+dim 180 160
 
 number xc 90
 number yc 80
-point O xc yc 
+point O xc yc
 
-point P 0 0 
+point P 0 0
 point PP 0.5 0 1.2 0
 distance d P PP
 animation_frames 40 5
@@ -56,11 +56,11 @@ number y_max 9
 number step 0.5
 
 number x x_min
-while { x<x_max } 
-{ 
+while { x<x_max }
+{
 	number y y_min
-	while { y<y_max } 
-	{ 
+	while { y<y_max }
+	{
 	    % put your function here, instead of
 	    % sin(x)+sin(y)*cos(x)
 		expression z { sin(x)+sin(y)*cos(x) }
@@ -90,14 +90,14 @@ while { x<x_max }
 		towards Ty Tx Ty y
 		translate Tz O Z1 Ty
 		towards T2 Ty Tz z
-		
+
 		towards T3 T T2 cond
 		drawsegment T T3
-		
-		translate T_old T T T		
 
-		expression r { 250-r }		
-		color 140 r 140  
+		translate T_old T T T
+
+		expression r { 250-r }
+		color 140 r 140
 		cmark T
 		expression y { y+step }
 	}

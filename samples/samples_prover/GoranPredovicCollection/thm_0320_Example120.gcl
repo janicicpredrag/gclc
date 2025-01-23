@@ -16,7 +16,7 @@
 
 % thmtexte Three parallel lines drawn through the vertices
 % thmtexte of a triangle $ABC$ meet the respective opposite
-% thmtexte sides in the points $X$, $Y$, $Z$. Show that area ratio 
+% thmtexte sides in the points $X$, $Y$, $Z$. Show that area ratio
 % thmtexte $P_{XYZ} : P_{ABC} = 2 : 1$.
 
 dim 110 100
@@ -54,7 +54,7 @@ intersec Z cz ab
 
 cmark_t Z
 cmark_b Y
-cmark_rt X      
+cmark_rt X
 cmark_b A
 cmark_b B
 cmark_t C
@@ -70,4 +70,3 @@ drawsegment Y B
 drawsegment X Y
 
 % prove { equal { mult { 2 } { signed_area3 B A C } } { signed_area3 X Y Z } }
-

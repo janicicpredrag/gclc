@@ -6,15 +6,15 @@ dim 100 100
 % thmtext Dat je trougao $ABC$ i ta\ch ka P unutar njega.
 % thmtext Neka su $D$, $E$ i $F$ redom preseci pravih $PA$, $PB$ i $PC$
 % thmtext sa stranicama trougla $BC$, $CA$ i $AB$. Dokazati da je
-% thmtext $\frac{\overline{AF}}{\overline{FB}} \cdot 
-% thmtext \frac{\overline{BD}}{\overline{DC}} \cdot 
+% thmtext $\frac{\overline{AF}}{\overline{FB}} \cdot
+% thmtext \frac{\overline{BD}}{\overline{DC}} \cdot
 % thmtext \frac{\overline{CE}}{\overline{EA}} = 1$.
 
 % thmtexte There is a point $P$ inside of triangle $ABC$.
 % thmtexte Lines $PA$, $PB$ and $PC$ meet the triangle at three points
 % thmtexte $D$, $E$ and $F$. Show that:
-% thmtexte $\frac{\overline{AF}}{\overline{FB}} \cdot 
-% thmtexte \frac{\overline{BD}}{\overline{DC}} \cdot 
+% thmtexte $\frac{\overline{AF}}{\overline{FB}} \cdot
+% thmtexte \frac{\overline{BD}}{\overline{DC}} \cdot
 % thmtexte \frac{\overline{CE}}{\overline{EA}} = 1$.
 
 point A 60 10
@@ -49,8 +49,3 @@ cmark_r E
 cmark_rt P
 
 % prove { equal { mult { mult { sratio A F F B } { sratio B D D C } } { sratio C E E A } } 1 }
-
-
-
-
-

@@ -1,13 +1,13 @@
 ang_picture 5 5 65 90
 ang_origin 25 25
-ang_unit 10 
-ang_drawsystem_a  
- 
-ang_draw_parametric_curve x 
+ang_unit 10
+ang_drawsystem_a
+
+ang_draw_parametric_curve x
 	{-3; x<8; x+0.05}
 	{ x; sin(pow(x,2))*cos(x) }
 
-ang_draw_parametric_curve x 
+ang_draw_parametric_curve x
 	{-3; x<8; x+0.05}
 	{ x; log(x) }
 
@@ -16,16 +16,15 @@ ang_draw_parametric_curve x
 
 ang_picture 70 5 135 90
 ang_origin 110 40
-ang_unit 10 
-ang_drawsystem_a  
- 
+ang_unit 10
+ang_drawsystem_a
+
 number rho 3
 
 ang_draw_parametric_curve phi
 	{ 0 ; phi<5; phi+0.1}
 	{ cos(phi) ; sin(phi) }
- 
+
 ang_draw_parametric_curve phi
 	{ 0 ; phi<6; phi+0.1}
 	{ phi*rho*sin(phi)/5 ; rho*cos(phi) }
-

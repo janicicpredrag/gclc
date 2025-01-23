@@ -8,11 +8,11 @@
 % thmtext $R = AB \cap S_1S_2$.
 % thmtext Dokazati da su ta\ch ke $P$, $Q$ i $R$ kolinearne.
 
-% thmtexte Assume $S_1$, $S_2$, $S_3$ are the points of contact 
+% thmtexte Assume $S_1$, $S_2$, $S_3$ are the points of contact
 % thmtexte of the incircle of $ABC$: $S_1$ on side $AC$, etc.
 % thmtexte Denote the intersection of $BC$ and $S_1S_3$ as $P$,
-% thmtexte that of $AC$ and $S_2S_3$ as $Q$, and let $R$ 
-% thmtexte be the intersection of $AB$ 
+% thmtexte that of $AC$ and $S_2S_3$ as $Q$, and let $R$
+% thmtexte be the intersection of $AB$
 % thmtexte and $S_1S_2$. Then points $P$, $Q$, and $R$ are collinear.
 
 dim 130 130

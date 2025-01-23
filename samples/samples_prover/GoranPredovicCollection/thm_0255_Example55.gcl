@@ -2,7 +2,7 @@
 % thmnamee Example 55 from \cite{chou}
 
 % thmtext Dat je trougao $ABC$ i ta\ch ke $M$, $N$ i $P$
-% thmtext na stranicama $AB$, $BC$ i $CA$ redom. 
+% thmtext na stranicama $AB$, $BC$ i $CA$ redom.
 % thmtext Neka su $M_1$, $N_1$ i $P_1$ ta\ch ke na pravama
 % thmtext $CA$, $AB$ i $BC$ takve da je $MM_1 \parallel BC$,
 % thmtext $NN_1 \parallel AC$ i $PP_1 \parallel AB$.

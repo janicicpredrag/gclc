@@ -7,8 +7,8 @@
 % thmtext da je \ch etvorougao $PQRS$ paralelogram.
 
 % thmtexte If we draw line segments between the midpoints,
-% thmtexte in order, of any quadrilateral, we get a parallelogram 
-% thmtexte which has half the area of the original 
+% thmtexte in order, of any quadrilateral, we get a parallelogram
+% thmtexte which has half the area of the original
 % thmtexte quadrilateral.
 
 dim 100 100

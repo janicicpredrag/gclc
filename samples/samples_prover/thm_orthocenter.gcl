@@ -32,5 +32,3 @@ prove { perpendicular A B C H }
 % or
 % prove { equal { pythagoras_difference3 A C H  } { pythagoras_difference3 B C H } }
 %
-
-

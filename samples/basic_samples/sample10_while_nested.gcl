@@ -4,52 +4,51 @@ number left_bottom_x 30
 number left_bottom_y 40
 expression S { s*8 }
 
-point O 0 0 
-point X s 0 
-point Y 0 s 
+point O 0 0
+point X s 0
+point Y 0 s
 point M S 0
-point N 0 S 
+point N 0 S
 
-number n left_bottom_x 
-while { n<=left_bottom_x+S } 
-{ 
+number n left_bottom_x
+while { n<=left_bottom_x+S }
+{
 	point A n left_bottom_y
 	translate A' O N A
 	drawsegment A A'
 	expression n { n+s }
 }
 
-number m left_bottom_y 
-while { m<=left_bottom_y+S } 
-{ 
+number m left_bottom_y
+while { m<=left_bottom_y+S }
+{
 	point A left_bottom_x m
 	translate A' O M A
 	drawsegment A A'
 	expression m { m+s }
 }
 
-   
-number n left_bottom_x 
-while { n<left_bottom_x+S } 
-{ 
-	number m left_bottom_y 
-	while { m<left_bottom_y+S } 
-	{ 
+number n left_bottom_x
+while { n<left_bottom_x+S }
+{
+	number m left_bottom_y
+	while { m<left_bottom_y+S }
+	{
 		point A n m
-		
+
 		number f 0
-		while { f<=1 } 
-		{ 
+		while { f<=1 }
+		{
 			number p 0
 			while { p<=s }
-			{ 
-				point P p 0 
+			{
+				point P p 0
 				translate A' O P A
 				translate A'' O Y A'
 				drawsegment A' A''
 				expression p { p+0.5 }
 			}
-			expression f { f+1 } 
+			expression f { f+1 }
 			translate A O X A
 			translate A O Y A
 		}
@@ -58,8 +57,3 @@ while { n<left_bottom_x+S }
 	}
 	expression n { n+2*s }
 }
-  
-   
-
-
-

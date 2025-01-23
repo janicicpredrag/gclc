@@ -1,4 +1,4 @@
-% thmname  Leptir teorema
+% thmname Leptir teorema
 % thmnamee Butterfly theorem
 
 % thmtext Date su \ch etiri ta\ch ke na krugu $k$
@@ -10,7 +10,7 @@
 % thmtext Dokazati da je $M$ sredi\sh te du\zh i $XY$.
 
 % thmtexte $P_1$, $P_2$, $P_3$ and $P_4$ are four points on
-% thmtexte circle $k$ with a center $O$. 
+% thmtexte circle $k$ with a center $O$.
 % thmtexte $M$ is the intersection of $P_1P_3$ and
 % thmtexte $P_2P_4$. Through $M$ draw a line $l$ perpendicular
 % thmtexte to $OM$, meeting $P_2P_3$ at $X% and $P_1P_4$ at $Y$.
@@ -37,7 +37,7 @@ point P_2 35.80 25.50
 % skip
 point P_3 62.80 69.90
 % skip
-point P_4 77.80 14.80 
+point P_4 77.80 14.80
 
 line p1p3' P_1 P_3'
 % skip

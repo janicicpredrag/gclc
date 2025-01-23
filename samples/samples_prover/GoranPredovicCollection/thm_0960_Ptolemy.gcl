@@ -21,7 +21,7 @@ point B 90 30
 point C 60 80
 
 med p A B
-med q B C      
+med q B C
 intersec O p q
 circle k O A
 

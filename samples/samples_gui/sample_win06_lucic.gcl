@@ -201,23 +201,23 @@ drawellipse Ss K1s L1s
 area Dsx Dsy 120 K1sy
 drawellipse Ss K1s L1s
 area 0 0 1000 1000
-normal 
+normal
 
 %*****************************************
 
 %animacija
 animation_frames 200 10
 
-point O 0 0 
+point O 0 0
 point Da 0 0.03 51 0 % 37.44
-distance d O Da 
+distance d O Da
 
-%point P 0.05 0.05 90 0  
+%point P 0.05 0.05 90 0
 %getx ang1 P
 %rotate S1 O ang1 A'
 
 %rotirajuci trougao
-rotate D'' A' d D' %treba 37.44 
+rotate D'' A' d D' %treba 37.44
 foot Dx D'' x
 rotate Ds'' D'' alpha Dx
 towards Ds' D'' Ds'' h
@@ -230,7 +230,7 @@ towards I1s I1' I1s' h
 %krug torusa
 % M je srediste elipse
 %AsDs i E7F7 su ose elipse
-midpoint M As Ds' 
+midpoint M As Ds'
 translate E7 S' M B'
 translate F7 S' M C'
 
@@ -239,13 +239,13 @@ line e7a E7 As %e7a je osa afinosti
 midpoint E7A E7 As
 circle k7 E7A As
 perp m7 E7A e7a
-intersec2 O7' O7 m7 k7 
+intersec2 O7' O7 m7 k7
 circle o7 O7 As %o7 je afina slika elipse
 med p7 O7 M
 intersec L7 e7a p7
 circle k8 L7 O7
 intersec2 V7 U7 k8 e7a
-line u7 O7 U7 
+line u7 O7 U7
 line v7 O7 V7
 line u7' M U7 %u7' sadrzi precnik elipse
 line v7' M V7 %v7' sadrzi drugi precnik
@@ -261,7 +261,7 @@ intersec V99 v7' v9 %teme elipse
 intersec U88 u7' u8 %teme elipse
 intersec U99 u7' u9 %teme elipse
 
-%oznaka kruga l 
+%oznaka kruga l
 rotate LL7 O7 30 As
 line o7ll7 O7 LL7
 intersec LL7o o7ll7 e7a
@@ -287,7 +287,7 @@ line ak7 As K7
 foot M7 I7 ak7
 parallel m7s M7 oss7
 line aks As K
-intersec Ms m7s aks 
+intersec Ms m7s aks
 
 %obelezavanje
 
@@ -307,32 +307,29 @@ drawsegment Ds' K
 drawsegment K As
 drawsegment I1s Ms
 drawellipse M U88 V88
-%drawsegment As B4s 
+%drawsegment As B4s
 
 
-
-trace K 255 100 100 
-trace Ms 100 200 50  
+trace K 255 100 100
+trace Ms 100 200 50
 
 
 %animacija
 animation_frames 200 10
 
-point O 0 0 
-point Ba 0 0.03 135.42 0 
-distance d O Ba 
+point O 0 0
+point Ba 0 0.03 135.42 0
+distance d O Ba
 
-rotate T' O4 d B4s  
+rotate T' O4 d B4s
 line l4t O4 T'
 intersec T" l4t e4b4
 line t"m4 T" M4s
 parallel tt T' oss4
 intersec J tt t"m4
 
-drawsegment As J 
+drawsegment As J
 cmark_b J
-
-
 
 
 %********************************
@@ -346,7 +343,7 @@ line asa" As A"
 parallel jsj" Js asa"
 intersec J" jsj" x
 perp j"j' J" x
-parallel jsj' Js asa' 
+parallel jsj' Js asa'
 intersec J' j"j' jsj'
 line a'j' A' J'
 intersec2  P' Q' k a'j'
@@ -355,11 +352,11 @@ foot Q" Q' x
 rotate Qs' Q' alpha Q"
 towards Qs Q' Qs' h
 
-cmark Qs 
+cmark Qs
 perp p Qs x
 line aj As J
-intersec Q p aj 
-%trace Q 100 200 50  
+intersec Q p aj
+%trace Q 100 200 50
 drawsegment As Qs
 drawsegment J Q
 drawsegment Qs Q
@@ -369,18 +366,18 @@ foot P" P' x
 rotate Ps' P' alpha P"
 towards Ps P' Ps' h
 
-cmark Ps 
+cmark Ps
 perp p Ps x
 %line aj As J
-intersec P p aj 
-%trace Q 100 200 50  
+intersec P p aj
+%trace Q 100 200 50
 drawsegment As Ps
 drawsegment J P
 cmark P
 drawsegment Ps P
 
-%trace P 0 0 255 
-%trace Q 0 0 255 
+%trace P 0 0 255
+%trace Q 0 0 255
 
 %cmark_t P
 %cmark_t Q
@@ -397,6 +394,5 @@ point T x y
 cmark_t T
 
 trace T 0 0 255
-
 
 %end

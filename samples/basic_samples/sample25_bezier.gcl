@@ -1,6 +1,6 @@
-point X 20 50  
-point Y 60 50  
-point Z 30 90 50 20  
+point X 20 50
+point Y 60 50
+point Z 30 90 50 20
 
 cmark_t X
 cmark_t Y
@@ -8,17 +8,17 @@ cmark_t Z
 
 linethickness -3
 color 200 0 0
-drawbezier3 X Z Y  
+drawbezier3 X Z Y
 normal
 dash 1
 drawdashsegment X Z
 dashstyle 3 1 0.1 1
 drawdashsegment Y Z
 
-point A 70 50  
-point B 110 50  
-point C 80 90 100 90  
-point D 100 90 80 20  
+point A 70 50
+point B 110 50
+point C 80 90 100 90
+point D 100 90 80 20
 
 cmark_t A
 cmark_t B
@@ -26,10 +26,10 @@ cmark_t C
 cmark_t D
 
 linethickness -3
-color 0 0 200 
-drawbezier4 A C D B  
+color 0 0 200
+drawbezier4 A C D B
 normal
-drawdashsegment A C 
+drawdashsegment A C
 dashstyle 3 1 0.1 1
 drawdashsegment C D
 drawdashsegment D B

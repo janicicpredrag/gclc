@@ -1,16 +1,16 @@
-background 230 230 190    
+background 230 230 190
 
-point A 60  50 
-point B 90 50   
-point C 60  70  
+point A 60 50
+point B 90 50
+point C 60 70
 
 procedure draw_ellipse_part { X Y Z phi0 phi r g b }
 {
-	distance da X Y 
+	distance da X Y
 	distance db X Z
-	color r g b 
+	color r g b
 	fillellipsearc X da db phi0 phi
-	
+
 	expression phi1 { phi0+phi }
 	rotateonellipse Y' X Y Z phi0 Y
 	rotateonellipse Y'' X Y Z phi1 Y
@@ -18,29 +18,27 @@ procedure draw_ellipse_part { X Y Z phi0 phi r g b }
 	drawsegment X Y'
 	drawsegment X Y''
 	drawellipsearc2 X Y Z phi0 phi
-	
+
 	midpoint Ym X Y
 	midpoint Zm X Z
 	expression phim { phi0+phi/2 }
 	rotateonellipse P X Ym Zm phim Ym
 	expression amount { 100*phi/360 }
-	color 230 230 190    
-	printvalueat P amount	
+	color 230 230 190
+	printvalueat P amount
 }
-
 
 procedure print_legend { index r g b }
 {
 	color r g b
 	expression y { 80-index*10 }
-	point L1 110 y 
-	point L2 112 y 
+	point L1 110 y
+	point L2 112 y
 	fillcircle L1 L2
-	color 0 0 0 
+	color 0 0 0
 	drawcircle L1 L2
 	printvalueat_r L2 index
 }
-
 
 call draw_ellipse_part { A B C 0 50 200 0 0 }
 call print_legend { 1 200 0 0 }
@@ -53,14 +51,13 @@ call print_legend { 4 200 200 0 }
 call draw_ellipse_part { A B C 275 85 200 0 200 }
 call print_legend { 5 200 0 200 }
 
-
-point P1 20 80 
+point P1 20 80
 point P2 120 80
 point P3 120 95
 point P4 20 95
-color 220 255 200 
+color 220 255 200
 fillrectangle P1 P3
-color 0 0 0 
+color 0 0 0
 drawsegment P1 P2
 drawsegment P2 P3
 drawsegment P3 P4
@@ -68,5 +65,3 @@ drawsegment P4 P1
 midpoint X P1 P3
 fontsize 20
 printat X {Distribution of options}
-
-

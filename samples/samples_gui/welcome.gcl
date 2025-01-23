@@ -1,12 +1,12 @@
-dim 140 140 
+dim 140 140
 point Center 70 70
-point XX 70 70 135 70 
+point XX 70 70 135 70
 
 animation_frames 99 8
 
 distance d Center XX
 point X0 0 0
-point X1 d d 
+point X1 d d
 
 point X2 1 0
 line x X0 X2
@@ -17,13 +17,13 @@ line z1 Z Z1
 getx zx Center
 point Z2 0 zx
 parallel z2 Z2 z1
-intersec Z3 z2 x 
+intersec Z3 z2 x
 getx zx Z3
 point Z4 zx zx
 point ZC1 255 0
 point ZC2 -255 0
-distance zc1 Z ZC1 
-distance zc2 Z ZC2 
+distance zc1 Z ZC1
+distance zc2 Z ZC2
 sim Z5 X0 Z4
 
 color zc1 zc1 255
@@ -35,18 +35,18 @@ color 255 zc2 zc2
 fontsize 40
 printat Z5 {WinGCLC 2009}
 
-fontsize 10 
+fontsize 10
 point Xcol 255 0 180 0
 distance col Xcol X0
-color col col col  
+color col col col
 
 translate P1 X1 X0 Center
 translate P2 X0 X1 Center
 
-getx Xlb P1  
-getx Ylb P1 
-getx Xrt P2 
-gety Yrt P2  
+getx Xlb P1
+getx Ylb P1
+getx Xrt P2
+gety Yrt P2
 area Xlb Ylb Xrt Yrt
 
 point B 50 60
@@ -72,14 +72,14 @@ bis a_2 B A C
 bis b_2 A B C
 bis c_2 A C B
 
-intersec S a_2 b_2 
+intersec S a_2 b_2
 perp sa S a
 perp sb S b
 perp sc S c
 
 intersec P sa a
 intersec Q sb b
-intersec R sc c 
+intersec R sc c
 circle k S P
 
 sim P' S P
@@ -97,7 +97,7 @@ perp sb S_a b
 perp sc S_a c
 
 intersec P_a sa a
-intersec Q_a sb b 
+intersec Q_a sb b
 intersec R_a sc c
 
 circle k_a S_a P_a
@@ -107,7 +107,7 @@ perp sb S_b b
 perp sc S_b c
 
 intersec P_b sa a
-intersec Q_b sb b 
+intersec Q_b sb b
 intersec R_b sc c
 
 circle k_b S_b P_b
@@ -117,7 +117,7 @@ perp sb S_c b
 perp sc S_c c
 
 intersec P_c sa a
-intersec Q_c sb b 
+intersec Q_c sb b
 intersec R_c sc c
 
 circle k_c S_c P_c
@@ -132,9 +132,9 @@ sim P_{a}' S_a P_a
 
 cmark_lt A
 cmark_lt B
-cmark_rt C 
+cmark_rt C
 
-cmark_rt O 
+cmark_rt O
 cmark_r S
 
 cmark_rb A_1
@@ -145,16 +145,16 @@ cmark_lb N
 cmark_l M'
 cmark_l N'
 
-cmark_lt P 
+cmark_lt P
 cmark_rt Q
-cmark_l  R
+cmark_l R
 
 cmark_rt P_a
 cmark_rt Q_a
 cmark_lt R_a
 
 cmark_lt P_b
-cmark_r  Q_b
+cmark_r Q_b
 cmark_lt R_b
 
 cmark_lt P_c
@@ -191,14 +191,14 @@ drawsegment P P'
 
 drawsegment N N'
 drawsegment M M'
-drawsegment M N 
+drawsegment M N
 
 drawsegment S_c S_b
 drawsegment A S_a
 
-drawline a 
+drawline a
 drawline b
-drawline c  
+drawline c
 
 drawcircle S P
 drawcircle S_a P_a

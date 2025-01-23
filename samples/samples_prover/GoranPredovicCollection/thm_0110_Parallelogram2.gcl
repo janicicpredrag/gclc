@@ -10,7 +10,7 @@
 
 % thmtexte Given triangle $ABC$, let $p$ be line through $A$ parallel
 % thmtexte with $BC$, and let $q$ be line through $C$ parallel
-% thmtexte with $AB$. Let $p$ and $q$ intersects at $D$. 
+% thmtexte with $AB$. Let $p$ and $q$ intersects at $D$.
 % thmtexte Let $BD$ intersect $AC$ at $E$. Show that:
 % thmtexte $\overline{AE} = \overline{EC}$.
 

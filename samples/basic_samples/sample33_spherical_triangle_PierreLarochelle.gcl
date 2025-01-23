@@ -100,11 +100,11 @@ color 0 0 0
 
 % Draw the 1st Arc
 % Specify a vector u from the center towards the start of the arc
-number u1 0		
+number u1 0
 number u2 1
 number u3 0
 % Specify a vector v from the center towards the end of the arc
-% The magnitudes of u & v don't matter since the radius of the 
+% The magnitudes of u & v don't matter since the radius of the
 % arc is explicitly prescribed in the call to the arc3d routine
 number v1 1
 number v2 0
@@ -141,7 +141,7 @@ ang3d_point y_axis 0 7.5 0
 ang3d_point z_axis 0 0 7.5
 drawvector center x_axis
 drawvector center y_axis
-drawvector center z_axis 
+drawvector center z_axis
 
 ang3d_point center x0 y0 z0
 ang3d_point A 7.5 0 0
@@ -153,7 +153,7 @@ drawvector center C
 
 mark_l A
 mark_t B
-mark_r C 
+mark_r C
 
 ang3d_point fixed_label 2.9 4.8 0.0
 printat fixed_label { b }

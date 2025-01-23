@@ -1,4 +1,4 @@
-dim 160 90  
+dim 160 90
 background 50 100 50
 color 220 220 220
 
@@ -6,26 +6,25 @@ color 220 220 220
 % Drawing parametric surfaces
 % --------------------------------------
 
-ang3d_picture 5 5 105 125 
+ang3d_picture 5 5 105 125
 
-ang3d_scale 1 1 1 
+ang3d_scale 1 1 1
 ang3d_origin 15 40 1.75 0.5
-ang3d_axes_drawing_range -2 7.5 -2 7.5 -1  5.5
+ang3d_axes_drawing_range -2 7.5 -2 7.5 -1 5.5
 ang3d_unit 8
-ang3d_drawsystem_p 1 1 1 1 1 1  
-	
+ang3d_drawsystem_p 1 1 1 1 1 1
+
 color 0 0 200
 ang3d_draw_parametric_surface x y
 	{-0; x<7; x+0.5}
 	{-0; y<7; y+0.5}
 	{ x; y; 0 }
 
-color 255 50 50 
+color 255 50 50
 ang3d_draw_parametric_surface x y
 	{-0; x<7; x+0.5}
 	{-0; y<7; y+0.5}
 	{ x; y; x*y/5 }
-
 
 % --------------------------------------
 % Drawing parametric curves
@@ -33,17 +32,15 @@ ang3d_draw_parametric_surface x y
 
 color 220 220 220
 
-ang3d_picture 90 5 160 125 
-ang3d_scale 1 1 1 
-ang3d_origin 110 40 1.3  0.5
-ang3d_axes_drawing_range -2 5.5 -2 5.5 -1  5.5
+ang3d_picture 90 5 160 125
+ang3d_scale 1 1 1
+ang3d_origin 110 40 1.3 0.5
+ang3d_axes_drawing_range -2 5.5 -2 5.5 -1 5.5
 ang3d_unit 8
-ang3d_drawsystem_p 1 1 1 1 1 1  
+ang3d_drawsystem_p 1 1 1 1 1 1
 
-linethickness 0.5	
+linethickness 0.5
 color 0 200 0
 ang3d_draw_parametric_curve t
 	{ 0; t<10; t+0.1}
 	{ t*cos(t)/3; y*sin(t)/3; t/3 }
-
-

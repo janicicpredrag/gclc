@@ -1,24 +1,24 @@
-point A  30 30 
+point A 30 30
 point B 100 20
-point C  40 80
+point C 40 80
 
 med a B C
-med b A C 
-intersec O a b 
+med b A C
+intersec O a b
 
 cmark_lb A
 cmark_rb B
 cmark_lt C
-drawsegment A B 
-drawsegment B C 
-drawsegment C A 
+drawsegment A B
+drawsegment B C
+drawsegment C A
 
-drawcircle O A	
-cmark_rt O 
+drawcircle O A
+cmark_rt O
 printvalueat_rb O O
 
 drawsegment O A
-midpoint M O A 
+midpoint M O A
 printat_lt M {r=}
-distance r O A 
+distance r O A
 printvalueat_rt M r
