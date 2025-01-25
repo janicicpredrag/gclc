@@ -1,31 +1,30 @@
 point O 45 50
 point X 45 75
-circle k O X 
-drawcircle O X 
-cmark_l O 
+circle k O X
+drawcircle O X
+cmark_l O
 
 point A 85 10
 point B 105 90
 
-cmark_r A 
+cmark_r A
 cmark_r B
 drawline A B
 
-sim A' k A 
-sim B' k B 
+sim A' k A
+sim B' k B
 cmark_rb A'
 cmark_rt B'
 
 med mb A' B'
 med mo A' O
 intersec S mb mo
-drawcircle S A' 
+drawcircle S A'
 
 % image of a line p (O is not on p)
 % in any inversion with center O
 % is a circle (without O)
 midpoint C A B
 cmark_r C
-sim C' k C 
-cmark_r C' 
-
+sim C' k C
+cmark_r C'

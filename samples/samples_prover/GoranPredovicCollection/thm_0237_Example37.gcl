@@ -20,7 +20,7 @@
 dim 130 110
 
 point A 30 50
-point B 90 50 
+point B 90 50
 midpoint O A B
 circle k O A
 

@@ -39,7 +39,6 @@ ang3d_draw_parametric_curve t
    {xc+radius*cos(t)*ux+radius*sin(t)*vx; yc+radius*cos(t)*uy+radius*sin(t)*vy; zc+radius*cos(t)*uz+radius*sin(t)*vz}
 }
 
-
 procedure arc3d { xc yc zc ux uy uz vx vy vz radius}
 {
 expression mag {pow((ux*ux+uy*uy+uz*uz),0.5)}
@@ -100,11 +99,11 @@ color 0 0 0
 
 % Draw the 1st Arc FIXED LINK
 % Specify a vector u from the center towards the start of the arc
-number u1 0		
+number u1 0
 number u2 1
 number u3 0
 % Specify a vector v from the center towards the end of the arc
-% The magnitudes of u & v don't matter since the radius of the 
+% The magnitudes of u & v don't matter since the radius of the
 % arc is explicitly prescribed in the call to the arc3d routine
 number v1 1
 number v2 0
@@ -170,11 +169,11 @@ expression out_z {7.5*2/mag}
 ang3d_point B out_x out_y out_z
 drawvector center O
 drawvector center C
-drawvector center A 
+drawvector center A
 drawvector center B
 
 mark_l O
-mark_r C 
+mark_r C
 mark_l A
 mark_r B
 ang3d_point fixed_label 2.9 4.8 0.0

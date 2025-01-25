@@ -1,165 +1,165 @@
 % Illustration made in Poincare's
 % disc model of hyperbolical plane
 
-point O 60 50 
+point O 60 50
 point X 60 110
 
 point X' 60 96
-circle k O X 
+circle k O X
 circle k' O X'
 
-sim P O X 
+sim P O X
 
 point O' 60 26
 rotate A O' 250 P
 circle o O' P
 
 % paralell tetives a and b
-sim A' k A 
+sim A' k A
 med m1 A A'
 med m2 A P
-intersec Oap m1 m2 
-circle kap Oap A 
+intersec Oap m1 m2
+circle kap Oap A
 
 line z O' A
 intersec Oan z m1
 circle kan Oan A
 intersec2 N1 N kan k
 
-line n O N 
-line p O P 
+line n O N
+line p O P
 perp n N n
 perp p P p
-intersec Onp n p 
+intersec Onp n p
 circle knp Onp N
 
-sim B knp A 
+sim B knp A
 
-sim B' k B 
+sim B' k B
 med m1 B N
 med m2 B B'
-intersec Obn m1 m2 
+intersec Obn m1 m2
 circle kbn Obn B
 
-sim B' k B 
+sim B' k B
 med m1 B P
 med m2 B B'
-intersec Obp m1 m2 
+intersec Obp m1 m2
 circle kbp Obp B
 
-line n O N 
-line p O P 
+line n O N
+line p O P
 perp n N n
 perp p P p
-intersec Onp n p 
+intersec Onp n p
 circle knp Onp N
 
 sim A' k A
 med m1 A A'
-med m2 A B 
-intersec Oab m1 m2 
+med m2 A B
+intersec Oab m1 m2
 circle kab Oab A
 
 intersec2 S' S kab knp
 
-% normal tetives c and d 
+% normal tetives c and d
 rotate C O' 150 P
-sim C' k C 
+sim C' k C
 med m1 C C'
 med m2 C P
-intersec Ocp m1 m2 
-circle kcp Ocp C 
+intersec Ocp m1 m2
+circle kcp Ocp C
 
 line m2 C O'
-intersec Ock m1 m2 
+intersec Ock m1 m2
 circle kck Ock C
 
-rotate Y O 45 X 
+rotate Y O 45 X
 line y O Y
-perp y Y y 
-line x O X 
-intersec Z x y 
+perp y Y y
+line x O X
+intersec Z x y
 rotate W Z 45 Y
 circle w O W
-line c O C 
-intersec2 W1 W2 w c 
-perp c' C c 
+line c O C
+intersec2 W1 W2 w c
+perp c' C c
 intersec2 Z1 Z2 k c'
-line z1 Z1 O 
+line z1 Z1 O
 perp z1 Z1 z1
-intersec Ow z1 c 
+intersec Ow z1 c
 circle kw Ow Z1
 sim W1' kw W1
 sim W2' kw W2
-midpoint W0' W1' W2' 
-circle kw' W0' W1' 
+midpoint W0' W1' W2'
+circle kw' W0' W1'
 intersec2 K K1 kw' kck
 
 intersec2 Z1 Z2 kck k
-line z Z1 Z2 
-line p Ock K 
-perp p K p 
+line z Z1 Z2
+line p Ock K
+perp p K p
 intersec Odk z p
 circle kdk Odk K
 
 line d Odk O'
 intersec2 D D1 d o
 
-sim C' k C 
+sim C' k C
 med m1 C C'
 med m2 C D
-intersec Ocd m1 m2 
-circle kcd Ocd C 
+intersec Ocd m1 m2
+circle kcd Ocd C
 
-sim K' k K 
+sim K' k K
 med m1 K K'
 med m2 K P
-intersec Opk m1 m2 
+intersec Opk m1 m2
 circle kpk Opk K
 
-intersec2 M1 M kpk kcd 
+intersec2 M1 M kpk kcd
 
-sim C' k C 
+sim C' k C
 med m1 C C'
-med m2 C P 
-intersec Ocp m1 m2 
+med m2 C P
+intersec Ocp m1 m2
 circle kcp Ocp C
 
-sim D' k D 
+sim D' k D
 med m1 D D'
-med m2 D P 
-intersec Odp m1 m2 
+med m2 D P
+intersec Odp m1 m2
 circle kdp Odp D
 
-cmark_lb A 
-cmark_rt B 
-cmark_r S 
-cmark_l C 
-cmark_rt D 
-cmark_b M 
-cmark_t K 
+cmark_lb A
+cmark_rt B
+cmark_r S
+cmark_l C
+cmark_rt D
+cmark_b M
+cmark_t K
 
 intersec2 Z1 Z2 kap k'
-angle phi Z1 Oap Z2 
+angle phi Z1 Oap Z2
 drawarc Oap Z1 phi
 printat_b Z1 {N'}
 
 intersec2 Z1 Z2 kan k'
-angle phi Z1 Oan Z2 
+angle phi Z1 Oan Z2
 drawarc Oan Z1 phi
 
 intersec2 Z2 Z1 kbp k'
-angle phi Z1 Obp Z2 
+angle phi Z1 Obp Z2
 drawarc Obp Z1 phi
 
 intersec2 Z2 Z1 kbn k'
-angle phi Z1 Obn Z2 
+angle phi Z1 Obn Z2
 drawarc Obn Z1 phi
 
 intersec2 Z1 Z2 knp k'
-angle phi Z1 Onp Z2 
+angle phi Z1 Onp Z2
 drawarc Onp Z1 phi
-rotate N0 Onp phi Z1 
+rotate N0 Onp phi Z1
 printat_t N0 {N}
 
 intersec2 P2 P1 o k'
@@ -167,57 +167,55 @@ sim P' O' P
 angle phi P1 O' P'
 drawarc O' P1 phi
 drawarc O' P' phi
- 
+
 angle phi A Oab B
 drawarc Oab A phi
 
 angle phi C Ocd D
 drawarc Ocd C phi
 
-intersec2 Z2 Z1 kpk k' 
+intersec2 Z2 Z1 kpk k'
 angle phi Z1 Opk Z2
-drawarc Opk Z1 phi 
+drawarc Opk Z1 phi
 
-intersec2 Z2 Z1 kck k' 
+intersec2 Z2 Z1 kck k'
 angle phi Z1 Ock Z2
-drawarc Ock Z1 phi 
+drawarc Ock Z1 phi
 printat_r Z2 {c}
 
-intersec2 Z2 Z1 kdk k' 
+intersec2 Z2 Z1 kdk k'
 angle phi Z1 Odk Z2
-drawarc Odk Z1 phi 
+drawarc Odk Z1 phi
 printat_r Z2 {d}
 
-intersec2 Z2 Z1 kcp k' 
+intersec2 Z2 Z1 kcp k'
 angle phi Z1 Ocp Z2
-drawarc Ocp Z1 phi 
-rotate c' Ocp 10 C 
-mark_r c' 
+drawarc Ocp Z1 phi
+rotate c' Ocp 10 C
+mark_r c'
 
-intersec2 Z2 Z1 kdp k' 
+intersec2 Z2 Z1 kdp k'
 angle phi Z1 Odp Z2
-drawarc Odp Z1 phi 
-rotate d' Odp 18 D 
-mark_b d' 
+drawarc Odp Z1 phi
+rotate d' Odp 18 D
+mark_b d'
 
-rotate m Opk 15 M 
+rotate m Opk 15 M
 mark_r m
 
-rotate a Oan 30 A 
-mark_lt a 
+rotate a Oan 30 A
+mark_lt a
 
 rotate b Obn 347 B
 mark_t b
 
-rotate a' Oap 335 A 
+rotate a' Oap 335 A
 mark_lb a'
 
 rotate b' Obp 4 B
 mark_l b'
 
-rotate s Onp 352 S 
+rotate s Onp 352 S
 mark_l s
 
 printat_b P2 {o}
-
-

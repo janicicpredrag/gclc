@@ -2,17 +2,16 @@ procedure draw_inscribed_circle { X Y Z O }
 {
 	bis x Y X Z
 	bis y X Y Z
-	intersec O x y 
-	line p X Y 
+	intersec O x y
+	line p X Y
 	foot P O p
-	drawcircle O P	
-	drawsegment X Y 
-	drawsegment X Z 
-	drawsegment Z Y 
-} 
+	drawcircle O P
+	drawsegment X Y
+	drawsegment X Z
+	drawsegment Z Y
+}
 
-
-point A 20 10 
+point A 20 10
 point B 120 20
 point C 40 90
 
@@ -40,4 +39,3 @@ cmark_t O_c
 point O 0 0
 call draw_inscribed_circle { P Q R O }
 cmark_t O
-

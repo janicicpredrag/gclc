@@ -1,15 +1,13 @@
-point O 40 40 
+point O 40 40
 point A 55 40
 drawpolygon O A 6
 
 number n 0
-while { n<5 } 
-{ 
-	rotate O A 120 O 
+while { n<5 }
+{
+	rotate O A 120 O
 	drawpolygon O A 6
-	
-	rotate A O -60 A 
+
+	rotate A O -60 A
 	expression n { n+1}
 }
-  
-

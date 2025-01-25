@@ -22,7 +22,7 @@
 dim 110 90
 
 point A 40 10
-point B 90 10 
+point B 90 10
 online C' A B
 % skip
 point C 14.10 10
@@ -33,7 +33,7 @@ online C_1' A_1 B_1
 % skip
 point C_1 48.30 46.39
 
-line A_1B_1 A_1 B_1 
+line A_1B_1 A_1 B_1
 
 line AB_1 A B_1
 line AC_1' A C_1'
@@ -81,4 +81,3 @@ drawline A_1 C_1
 drawline A C
 
 % prove { collinear P Q S }
-

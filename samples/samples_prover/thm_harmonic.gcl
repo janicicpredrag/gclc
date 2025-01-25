@@ -41,5 +41,5 @@ drawsegment L G
 
 prove { harmonic L K F G }
 % or
-% prove { equal { sratio L F K F } { sratio L G G K }  }
+% prove { equal { sratio L F K F } { sratio L G G K } }
 %

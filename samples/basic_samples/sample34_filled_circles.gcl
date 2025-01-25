@@ -1,26 +1,25 @@
-background 230 230 190    
+background 230 230 190
 
 point color_ref0 0 0 200 0
 point color_ref1 200 0
-distance d color_ref0 color_ref1 
+distance d color_ref0 color_ref1
 
-number     r1 0 
+number r1 0
 expression g1 { 200-d }
 expression b1 { d }
 
-number     r2 200 
+number r2 200
 expression g2 { 200-d }
-number     b2 0
+number b2 0
 
+point O 0 0
+point X 40 0 % circle radius
 
-point O  0 0 
-point X 40 0 % circle radius 
-
-point O1 30 90 100 30  
+point O1 30 90 100 30
 translate P1 O X O1
 circle k1 O1 P1
 
-point O2 35 25 100 90  
+point O2 35 25 100 90
 translate P2 O X O2
 circle k2 O2 P2
 
@@ -58,4 +57,3 @@ if_then_else { alpha > 0 && alpha < 180 }
 }
 
 animation_frames 100 10
-

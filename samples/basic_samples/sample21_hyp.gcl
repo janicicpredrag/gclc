@@ -1,8 +1,8 @@
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Primitives for Poincare disk model 
+% Primitives for Poincare disk model
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
+%
 % Written by
 % Zoran Lucic and Predrag Janicic
 % University of Belgrade
@@ -26,7 +26,7 @@ procedure south { k S }
   point I -1217 -1217
   sim I' k I
   line i I I'
-  intersec2 J J' k i 
+  intersec2 J J' k i
   midpoint O J J'
 
   point X 0 -1217
@@ -46,7 +46,7 @@ procedure east { k E }
   point I -1217 -1217
   sim I' k I
   line i I I'
-  intersec2 J J' k i 
+  intersec2 J J' k i
   midpoint O J J'
 
   point X 1217 0
@@ -69,7 +69,7 @@ procedure drawabsolute {k}
   expression margine {0.7}
   getx Wx W
   gety Wy W
-  expression Wy' {Wy-margine} 
+  expression Wy' {Wy-margine}
   point W' Wx Wy'
   drawcircle O W'
 }
@@ -85,13 +85,13 @@ procedure drawabsolute {k}
 
 
 % -----------------------------------------
-% l becomes an h-line 
+% l becomes an h-line
 % through points A and B
 % l is Euclidean line or circle
 % -----------------------------------------
 procedure h-line {k l X Y}
 {
-  getcenter O k 
+  getcenter O k
   call south { k W }
   distance d X Y
   if_then_else { d<0.01 }
@@ -130,7 +130,7 @@ procedure h-line {k l X Y}
 
 
 % -----------------------------------------
-% l becomes an h-circle centered at C, 
+% l becomes an h-circle centered at C,
 % which contains point B
 % -----------------------------------------
 procedure h-circle { k l C B }
@@ -144,12 +144,12 @@ procedure h-circle { k l C B }
   {
     call h-medc { k a C }
 	sim B1 a B
-	rotate B2 O 120 B1 
-	rotate B3 O 120 B2 
+	rotate B2 O 120 B1
+	rotate B3 O 120 B2
 	sim B2' a B2
 	sim B3' a B3
-	med m1 B B2' 
-	med m2 B B3' 
+	med m1 B B2'
+	med m2 B B3'
 	intersec O' m1 m2
 	circle l O' B
   }
@@ -158,13 +158,13 @@ procedure h-circle { k l C B }
 
 %------------------------------------------
 % point X' becomes an immage of a point X
-% in a h-rotation centered at A 
+% in a h-rotation centered at A
 % by an angle phi (given in degrees)
 %------------------------------------------
 procedure h-angle { k phi A B C }
 {
   getcenter O k
-  distance d O B 
+  distance d O B
   if_then_else { d<0.001 }
   {
     angle phi A B C
@@ -188,54 +188,54 @@ procedure h-angle { k phi A B C }
 
 
 % -----------------------------------------
-% point X is intersection of 
+% point X is intersection of
 % h-lines a and b
 % -----------------------------------------
 procedure h-intersec { k X a b }
 {
   getcenter O k
-  intersec2 P1 P2 k a 
+  intersec2 P1 P2 k a
   line l P1 P2
   foot O' O l
   distance da O O'
   if_then_else { da<0.01 }
   {
-    intersec2 P1 P2 k b 
+    intersec2 P1 P2 k b
 	line l P1 P2
 	foot O' O l
 	distance db O O'
 	if_then_else { db<0.01 }
-	{ 
-	  intersec X a b 	
+	{
+	  intersec X a b
 	}
 	{
-	  intersec2 X Y b a 			
-	  distance dx O X  
-	  distance dy O Y 
+	  intersec2 X Y b a
+	  distance dx O X
+	  distance dy O Y
 	  if_then_else { dx<dy }
 	  {
 	  }
 	  {
-	    set_equal X Y 
+	    set_equal X Y
 	  }
 	}
   }
   {
-    intersec2 X Y a b 			
-	distance dx O X  
-	distance dy O Y 
+    intersec2 X Y a b
+	distance dx O X
+	distance dy O Y
 	if_then_else { dx<dy }
 	{
 	}
 	{
-	  set_equal X Y 
+	  set_equal X Y
 	}
   }
 }
 
 
 % -----------------------------------------
-% X and Y are points of intersection 
+% X and Y are points of intersection
 % of h-circles or h-lines a1 and a2
 % -----------------------------------------
 procedure h-intersec2 { k X Y a1 a2 }
@@ -267,7 +267,7 @@ procedure h-medc { k a A }
 procedure h-med { k a A B }
 {
   getcenter O k
-  distance d1 A O 
+  distance d1 A O
   if_then_else { d1<0.01 }
   {
     call h-medc { k a B }
@@ -280,7 +280,7 @@ procedure h-med { k a A B }
     sim P1 a P1
     sim P2 a P2
     line l P1 P2
-    foot O' O l 
+    foot O' O l
     distance d O O'
     if_then_else { d<0.01 }
     {
@@ -299,7 +299,7 @@ procedure h-med { k a A B }
 
 
 % -----------------------------------------
-% S is h-midpoint of an h-segment AB 
+% S is h-midpoint of an h-segment AB
 % -----------------------------------------
 procedure h-midpoint { k S A B }
 {
@@ -307,14 +307,14 @@ procedure h-midpoint { k S A B }
   call h-circle { k a A B }
   call h-circle { k b B A }
 
-  intersec2 S1 S2 a b 
+  intersec2 S1 S2 a b
   call h-line { k s S1 S2 }
   call h-intersec { k S s ab }
 }
 
 
 %------------------------------------------
-% h-line s becomes bisector of an angle BAC 
+% h-line s becomes bisector of an angle BAC
 %------------------------------------------
 procedure h-bis { k s B A C }
 {
@@ -322,23 +322,23 @@ procedure h-bis { k s B A C }
   distance d A O
   if_then_else { d<0.01}
   {
-    bis s B A C	
+    bis s B A C
   }
   {
     call h-medc { k a A }
-    sim A' a A 
-    sim B' a B 
-    sim C' a C 
+    sim A' a A
+    sim B' a B
+    sim C' a C
     bis s' B' A' C'
     intersec2 I' J' s' k
     sim I a I'
     call h-line { k s A I }
   }
-} 
+}
 
 
 % -----------------------------------------
-% l becomes an h-line through A 
+% l becomes an h-line through A
 % parallel to the oriented h-line BC
 % -----------------------------------------
 procedure h-parallel {k l A B C}
@@ -359,15 +359,15 @@ procedure h-parallel {k l A B C}
 
 
 % -----------------------------------------
-% A' becomes a h-foot of a point A to the 
-% h-line BC which contains center 
-% of the absolute 
+% A' becomes a h-foot of a point A to the
+% h-line BC which contains center
+% of the absolute
 % -----------------------------------------
-procedure h-footc {k A' A B C} 
+procedure h-footc {k A' A B C}
 {
   getcenter O k
   call south { k W }
-  call h-line { k bc B C } 
+  call h-line { k bc B C }
   foot Abc A bc
   distance d Abc O
   if_then_else { d<0.01 }
@@ -381,7 +381,7 @@ procedure h-footc {k A' A B C}
     if_then_else { abs(d1-d2)<0.01 }
     {
       line oa O A
-	  perp t A oa 
+	  perp t A oa
 	  intersec S1 bc t
 	  circle l S1 A
 	  intersec2 E1 E2 l k
@@ -402,10 +402,10 @@ procedure h-footc {k A' A B C}
 
 
 % -----------------------------------------
-% A' becomes a h-foot of a point A 
-% to the h-line BC 
+% A' becomes a h-foot of a point A
+% to the h-line BC
 % -----------------------------------------
-procedure h-foot {k A' A B C} 
+procedure h-foot {k A' A B C}
 {
   getcenter O k
   line bc B C
@@ -429,10 +429,10 @@ procedure h-foot {k A' A B C}
 % n is h-orthogonal from the point A
 % to the h-line BC
 % -----------------------------------------
-procedure h-perp {k n A B C} 
+procedure h-perp {k n A B C}
 {
   getcenter O k
-  distance d A O 
+  distance d A O
   if_then_else { d<0.01 }
   {
     call h-end { k E B C }
@@ -454,7 +454,7 @@ procedure h-perp {k n A B C}
 
 
 % -----------------------------------------
-% M and N are feet of a common 
+% M and N are feet of a common
 % perpendicular of h-lines AB and CD
 % -----------------------------------------
 procedure h-hypfeet { k M N A B C D }
@@ -471,8 +471,8 @@ procedure h-hypfeet { k M N A B C D }
 
 
 % -----------------------------------------
-% M and N are feet of a common 
-% perpendicular of h-lines p and q 
+% M and N are feet of a common
+% perpendicular of h-lines p and q
 % -----------------------------------------
 procedure h-hypfeet2 { k M N p q }
 {
@@ -490,7 +490,7 @@ procedure h-hypfeet2 { k M N p q }
     line oi O I
     perp i I oi
     med h I J
-    intersec H i h 
+    intersec H i h
     angle_o alpha I H O
     rotate A' H alpha I
     call h-towards { k B' A' I 0.5 }
@@ -503,38 +503,38 @@ procedure h-hypfeet2 { k M N p q }
       line ol O L
       perp l L ol
 	  med h' K L
-	  intersec H' l h' 
+	  intersec H' l h'
 	  angle_o beta L H' O
 	  rotate C' H' beta L
 	  call h-towards { k D' C' L 0.5 }
 	  call h-towards { k A' O I 0.5 }
-	  call h-hypfeet { k M N A' O C' D' }	
+	  call h-hypfeet { k M N A' O C' D' }
     }
     {
       line oi O I
 	  perp i I oi
 	  med h I J
-	  intersec H i h 
+	  intersec H i h
 	  angle_o alpha I H O
 	  rotate A' H alpha I
 	  call h-towards { k B' A' I 0.5 }
- 			
+
       line ol O L
 	  perp l L ol
 	  med h' K L
-	  intersec H' l h' 
+	  intersec H' l h'
 	  angle_o beta L H' O
 	  rotate C' H' beta L
 	  call h-towards { k D' C' L 0.5 }
-	  call h-hypfeet { k M N A' B' C' D' }	
-    } 
+	  call h-hypfeet { k M N A' B' C' D' }
+    }
   }
 }
 
 
 %------------------------------------------
-% ACO becomes right angled h-triangle 
-% with angles 360/2p at O and 360/2q at A  
+% ACO becomes right angled h-triangle
+% with angles 360/2p at O and 360/2q at A
 %------------------------------------------
 procedure h-triangle { k A C O p q }
 {
@@ -565,7 +565,7 @@ procedure h-triangle { k A C O p q }
 }
 
 
-%%% PROCEDURE WITH THE THE SAME EFFECTS 
+%%% PROCEDURE WITH THE THE SAME EFFECTS
 procedure h-triangle2 { k A C O p q }
 {
   getcenter O k
@@ -576,7 +576,7 @@ procedure h-triangle2 { k A C O p q }
   expression omega { 2*pi/(2*p) }
   expression omega' { 360/(2*p) }
   expression alpha { 2*pi/(2*q) }
-  expression gamma { (pi/2) - omega} 
+  expression gamma { (pi/2) - omega}
 
   expression cos2 { (pow(cos(alpha),2))/(pow(cos(gamma),2)) }
   expression r2 { (pow(R,2))/(cos2-1) }
@@ -615,7 +615,7 @@ procedure h-towards { k B' A B n }
     towards B' A B n
   }
   {
-    line oi O I 
+    line oi O I
     perp i I oi
     med h I J
     intersec H i h
@@ -636,7 +636,7 @@ procedure h-end { k E B C }
   call h-line { k bc B C }
   intersec2 I J k bc
   distance bi B I
-  distance ci C I 
+  distance ci C I
   if_then_else { bi>ci }
   {
     getx Ex I
@@ -644,7 +644,7 @@ procedure h-end { k E B C }
   }
   {
     getx Ex J
-    gety Ey J 
+    gety Ey J
   }
   point E Ex Ey
 }
@@ -658,8 +658,8 @@ procedure h-end { k E B C }
 % *****************************************
 
 % -----------------------------------------
-% A' is an immage of a point A in a 
-% central symmetry with a centre X  
+% A' is an immage of a point A in a
+% central symmetry with a centre X
 % -----------------------------------------
 procedure h-sim { k A' X A }
 {
@@ -670,15 +670,15 @@ procedure h-sim { k A' X A }
     line l O X
     sim X" k X
     midpoint O' X X"
-    circle l O' X 
+    circle l O' X
     sim A' l O
   }
   {
     call h-medc { k a A }
-    sim X' a X 
+    sim X' a X
     sim X" k X'
     midpoint O' X' X"
-    circle l O' X' 
+    circle l O' X'
     sim O" l O
     sim A' a O"
   }
@@ -687,7 +687,7 @@ procedure h-sim { k A' X A }
 
 % -----------------------------------------
 % point X' becomes an immage of a point X
-% in a h-rotation centered at A 
+% in a h-rotation centered at A
 % by an h-angle B A C
 %------------------------------------------
 procedure h-rotate3p { k X' B A C X }
@@ -702,16 +702,16 @@ procedure h-rotate3p { k X' B A C X }
 
 % -----------------------------------------
 % point X' becomes an immage of a point X
-% in a h-rotation centered at A 
+% in a h-rotation centered at A
 % by an angle phi (given in degrees)
 %------------------------------------------
 procedure h-rotate { k X A phi X' }
 {
   getcenter O k
-  distance d O A 
+  distance d O A
   if_then_else { d<0.001 }
   {
-    rotate X' O phi X   
+    rotate X' O phi X
   }
   {
     call h-med { k ao A O }
@@ -725,8 +725,8 @@ procedure h-rotate { k X A phi X' }
 
 %------------------------------------------
 % point X' becomes an immage of a point X
-% in a h-translation determined by a 
-% oriented h-segment AB 
+% in a h-translation determined by a
+% oriented h-segment AB
 %------------------------------------------
 procedure h-translate { k X' A B X }
 {
@@ -734,7 +734,7 @@ procedure h-translate { k X' A B X }
   call h-line { k ab A B }
   call h-med { k s A B }
   call h-midpoint { k S A B }
-  call h-sim { k S' A S } 
+  call h-sim { k S' A S }
   call h-med { k a S S' }
   sim X" a X
   sim X' s X"
@@ -743,13 +743,13 @@ procedure h-translate { k X' A B X }
 
 % *****************************************
 % *****************************************
-% Drawing Commands 
+% Drawing Commands
 % *****************************************
 % *****************************************
 
 
 % -----------------------------------------
-% draw h-line XY within the absolute k 
+% draw h-line XY within the absolute k
 % -----------------------------------------
 procedure h-drawline {k X Y}
 {
@@ -791,8 +791,8 @@ procedure h-drawline {k X Y}
 	    intersec2 P1 P2 k k1
 	    angle_o alpha P1 C P2
 	    drawarc C P1 alpha
-	  } 
-    } 
+	  }
+    }
   }
 }
 
@@ -824,7 +824,7 @@ procedure h-drawsegment { k A B }
     distance d O O'
     if_then_else { d<0.01 }
     {
-      drawsegment A B 
+      drawsegment A B
     }
     {
       distance d1 O W
@@ -845,7 +845,7 @@ procedure h-drawsegment { k A B }
 	    intersec Ol m1 m2
 	    angle_o phi A Ol B
 	    drawarc Ol A phi
-	  } 
+	  }
     }
   }
 }
@@ -862,7 +862,7 @@ procedure drawh-segment { k A B }
 
 
 % -----------------------------------------
-% draw h-circle with h-center C, 
+% draw h-circle with h-center C,
 % which contains point B
 % -----------------------------------------
 procedure h-drawcircle { k C B }
@@ -870,12 +870,12 @@ procedure h-drawcircle { k C B }
   getcenter O k
   call h-medc { k a C }
   sim B1 a B
-  rotate B2 O 120 B1 
-  rotate B3 O 120 B2 
+  rotate B2 O 120 B1
+  rotate B3 O 120 B2
   sim B2' a B2
   sim B3' a B3
-  med m1 B B2' 
-  med m2 B B3' 
+  med m1 B B2'
+  med m2 B B3'
   intersec O' m1 m2
   drawcircle O' B
 }
@@ -892,7 +892,7 @@ procedure drawh-circle { k C B }
 
 
 % -----------------------------------------
-% construction of an h-line through A 
+% construction of an h-line through A
 % parallel to the oriented h-line BC
 % -----------------------------------------
 procedure h-drawparallel {k A B C}
@@ -914,7 +914,7 @@ procedure h-drawparallel {k A B C}
 
 % -----------------------------------------
 % draw hyperbolic n-gon centered at S
-% where point A is a vertex of that n-gon  
+% where point A is a vertex of that n-gon
 %------------------------------------------
 procedure h-drawpolygon { k S A n }
 {
@@ -923,14 +923,14 @@ procedure h-drawpolygon { k S A n }
   expression alpha { 360/n }
   distance d O S
   if_then_else {d<0.01}
-  { 
+  {
     number s 0
     while { s<n }
     {
       rotate B O alpha A"
 	  call h-drawsegment { k A" B }
-	  set_equal A" B 
-	  expression s { s+1} 
+	  set_equal A" B
+	  expression s { s+1}
     }
   }
   {
@@ -942,8 +942,8 @@ procedure h-drawpolygon { k S A n }
 	  rotate B' O alpha A'
 	  sim B a B'
 	  call h-drawsegment { k A" B }
-	  set_equal A" B 
-	  expression s { s+1} 
+	  set_equal A" B
+	  expression s { s+1}
     }
   }
 }
@@ -968,7 +968,7 @@ procedure h-draw_tiling {k O A C p q}
   sim O' ao O
   sim C' ao C
   angle alpha O' A' C'
-		
+
   number s 0
   while { s<q }
   {
@@ -983,7 +983,7 @@ procedure h-draw_tiling {k O A C p q}
 	  expression phi' {2*t*phi}
 	  rotate AA O phi' A
 	  rotate OO O phi' O'''
-	  call h-drawpolygon { k OO AA p } 
+	  call h-drawpolygon { k OO AA p }
 	  expression t { t+1 }
 	}
 	expression s { s+1 }
@@ -1001,14 +1001,13 @@ procedure h-draw_tiling2 {k P p q}
   call h-angle { k alpha O A C }
   call h-angle { k beta A O C }
   expression beta { 2*beta }
-  distance d P O 
-		
+  distance d P O
+
   number i 0
   while { i<p }
   {
     expression beta' { i*beta }
     call h-rotate { k A O beta' A' }
-	  
     number j 0
 	while { j<q }
 	{
@@ -1019,11 +1018,11 @@ procedure h-draw_tiling2 {k P p q}
 	    call h-drawpolygon { k O' A' p }
 	  }
 	  {
-	    call h-translate { k O" O P O' }  
-	    call h-translate { k A" O P A' }  
+	    call h-translate { k O" O P O' }
+	    call h-translate { k A" O P A' }
 	    call h-drawpolygon { k O" A" p }
 	  }
-      expression j { j+1 }			
+      expression j { j+1 }
     }
     expression i { i+1 }
   }

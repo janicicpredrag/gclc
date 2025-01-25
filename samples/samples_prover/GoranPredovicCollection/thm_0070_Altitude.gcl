@@ -5,7 +5,7 @@
 % thmtext u jednoj ta\ch ki.
 
 % thmtexte Show that triangle altitudes are concurrent.
- 
+
 dim 100 85
 
 point A 20 20
@@ -42,4 +42,4 @@ drawdashsegment B B_1
 drawdashsegment A A_1
 drawdashsegment C C_1
 
-% prove { collinear  A H A_1 }
+% prove { collinear A H A_1 }

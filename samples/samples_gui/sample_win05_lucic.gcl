@@ -5,9 +5,9 @@ dim 150 90
 
 animation_frames 70 8
 
-point O 0 0 
-point Oa 0 0 360 0 
-distance d O Oa 
+point O 0 0
+point Oa 0 0 360 0
+distance d O Oa
 
 %S is the center of the pentagon
 point S 77 115
@@ -17,7 +17,7 @@ gety Sy S
 %x is the trace of the plane in which the pentago is
 point X1 0 45
 point X2 1 45
-line x X1 X2 
+line x X1 X2
 perp s S x
 
 %S' is the normal projection
@@ -35,7 +35,7 @@ point A1 50 150
 rotate A1 S d A1
 perp a1 A1 x
 intersec A1x a1 x
-circle ka1 A1x A1 
+circle ka1 A1x A1
 parallel iA1 A1x i
 intersec2 A1"' A1" ka1 iA1
 perp a1' A1" s
@@ -45,7 +45,7 @@ intersec A1' a1' a1
 rotate A2 S 72 A1
 perp a2 A2 x
 intersec A2x a2 x
-circle ka2 A2x A2 
+circle ka2 A2x A2
 parallel iA2 A2x i
 intersec2 A2"' A2" ka2 iA2
 perp a2' A2" s
@@ -55,7 +55,7 @@ intersec A2' a2' a2
 rotate A3 S 72 A2
 perp a3 A3 x
 intersec A3x a3 x
-circle ka3 A3x A3 
+circle ka3 A3x A3
 parallel iA3 A3x i
 intersec2 A3"' A3" ka3 iA3
 perp a3' A3" s
@@ -65,7 +65,7 @@ intersec A3' a3' a3
 rotate A4 S 72 A3
 perp a4 A4 x
 intersec A4x a4 x
-circle ka4 A4x A4 
+circle ka4 A4x A4
 parallel iA4 A4x i
 intersec2 A4"' A4" ka4 iA4
 perp a4' A4" s
@@ -75,7 +75,7 @@ intersec A4' a4' a4
 rotate A5 S 72 A4
 perp a5 A5 x
 intersec A5x a5 x
-circle ka5 A5x A5 
+circle ka5 A5x A5
 parallel iA5 A5x i
 intersec2 A5"' A5" ka5 iA5
 perp a5' A5" s
@@ -117,7 +117,7 @@ towards C5 A5 S 2
 
 perp c1 C1 x
 intersec C1x c1 x
-circle kc1 C1x C1 
+circle kc1 C1x C1
 parallel iC1 C1x i
 intersec2 C1"' C1" kc1 iC1
 perp c1' C1" s
@@ -126,7 +126,7 @@ intersec C1' c1' c1
 
 perp c2 C2 x
 intersec C2x c2 x
-circle kc2 C2x C2 
+circle kc2 C2x C2
 parallel iC2 C2x i
 intersec2 C2"' C2" kc2 iC2
 perp c2' C2" s
@@ -135,7 +135,7 @@ intersec C2' c2' c2
 
 perp c3 C3 x
 intersec C3x c3 x
-circle kc3 C3x C3 
+circle kc3 C3x C3
 parallel iC3 C3x i
 intersec2 C3"' C3" kc3 iC3
 perp c3' C3" s
@@ -144,7 +144,7 @@ intersec C3' c3' c3
 
 perp c4 C4 x
 intersec C4x c4 x
-circle kc4 C4x C4 
+circle kc4 C4x C4
 parallel iC4 C4x i
 intersec2 C4"' C4" kc4 iC4
 perp c4' C4" s
@@ -153,7 +153,7 @@ intersec C4' c4' c4
 
 perp c5 C5 x
 intersec C5x c5 x
-circle kc5 C5x C5 
+circle kc5 C5x C5
 parallel iC5 C5x i
 intersec2 C5"' C5" kc5 iC5
 perp c5' C5" s
@@ -184,11 +184,11 @@ intersec V2' iii1" s
 
 number thickness 0.5
 
-midpoint C12' C1' C2' 
-midpoint C23' C2' C3' 
-midpoint C34' C3' C4' 
-midpoint C45' C4' C5' 
-midpoint C51' C5' C1' 
+midpoint C12' C1' C2'
+midpoint C23' C2' C3'
+midpoint C34' C3' C4'
+midpoint C45' C4' C5'
+midpoint C51' C5' C1'
 
 towards D1 V2' C12' 0.666666
 towards D2 V2' C23' 0.666666
@@ -214,11 +214,11 @@ cmark D4
 cmark D5
 
 %**************************
-midpoint B12' B1' B2' 
-midpoint B23' B2' B3' 
-midpoint B34' B3' B4' 
-midpoint B45' B4' B5' 
-midpoint B51' B5' B1' 
+midpoint B12' B1' B2'
+midpoint B23' B2' B3'
+midpoint B34' B3' B4'
+midpoint B45' B4' B5'
+midpoint B51' B5' B1'
 
 towards D6 V1' B12' 0.666666
 towards D7 V1' B23' 0.666666

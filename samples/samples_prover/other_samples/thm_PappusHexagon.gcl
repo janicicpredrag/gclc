@@ -1,9 +1,9 @@
 point A 40 10
-point B 90 10 
+point B 90 10
 online C A B
 
 drawline A C
- 
+
 cmark_t A
 cmark_t B
 cmark_t C
@@ -12,7 +12,7 @@ point A_1 25 40
 point B_1 45 45
 online C_1 A_1 B_1
 
-line A_1B_1 A_1 B_1 
+line A_1B_1 A_1 B_1
 
 drawline A_1 C_1
 cmark_t A_1

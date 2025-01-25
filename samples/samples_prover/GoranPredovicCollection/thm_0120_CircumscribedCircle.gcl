@@ -11,12 +11,12 @@ dim 95 95
 
 point A 30 20
 point B 70 20
-point C 60 80 
+point C 60 80
 
-med b A C 
-med a C B 
+med b A C
+med a C B
 
-intersec O a b 
+intersec O a b
 
 midpoint M A B
 
@@ -32,12 +32,8 @@ cmark_b B
 cmark_t C
 
 cmark_l O
-drawcircle O A 
+drawcircle O A
 drawdashsegment O M
 cmark_b M
 
 % prove { perpendicular O M A B }
-
-
-
-  

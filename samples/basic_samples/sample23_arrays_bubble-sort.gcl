@@ -1,24 +1,24 @@
-dim 130 50 
+dim 130 50
 number NumberOfElements 12
 array A { NumberOfElements }
 
-% Initializing and printing the sequence   
+% Initializing and printing the sequence
 number i 1
 while { i<=NumberOfElements }
-{ 
-	random r 
+{
+	random r
 	expression A[i] { r*20 }
 	expression x { i*10 }
-	point X x 35 
+	point X x 35
 	cmark X
-	printvalueat_t X A[i] 
+	printvalueat_t X A[i]
 	expression i { i+1 }
 }
 
 % Bubble sort
 number bChanged 1
 while { bChanged }
-{ 
+{
 	expression bChanged { 0 }
 	expression i { 1 }
 	while { i <= NumberOfElements-1 }
@@ -39,11 +39,10 @@ while { bChanged }
 % Printing the sorted sequence
 number i 1
 while { i<=NumberOfElements }
-{ 
+{
 	expression x { i*10 }
-	point X x 20 
+	point X x 20
 	cmark X
-	printvalueat_b X A[i] 
+	printvalueat_b X A[i]
 	expression i { i+1 }
 }
-

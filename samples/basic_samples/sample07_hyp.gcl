@@ -1,23 +1,23 @@
 point O 70 50
 point X 70 10
-circle k O X 
+circle k O X
 
-rotate A O 300 X 
+rotate A O 300 X
 towards A O A 0.6
 
-rotate B O 325 X 
+rotate B O 325 X
 towards B O B 0.7
 
-% ****** circle k(A,B) 
+% ****** circle k(A,B)
 
-line a O A 
+line a O A
 perp a' A a
-intersec2 Z1 Z2 a' k 
-line z O Z1 
-perp z1 Z1 z 
-line z O Z2 
-perp z2 Z2 z 
-intersec Oa z1 z2 
+intersec2 Z1 Z2 a' k
+line z O Z1
+perp z1 Z1 z
+line z O Z2
+perp z2 Z2 z
+intersec Oa z1 z2
 circle ka Oa Z1
 intersec2 Z1' Z2' ka k
 
@@ -31,19 +31,19 @@ sim B2 ka B2
 sim B3 ka B3
 med m1 B1 B2
 med m2 B1 B3
-intersec Oa' m1 m2 
+intersec Oa' m1 m2
 circle ka' Oa' B1
 
-% ****** circle k(B,A) 
+% ****** circle k(B,A)
 
-line b O B 
+line b O B
 perp b' B b
-intersec2 Z1 Z2 b' k 
-line z O Z1 
-perp z1 Z1 z 
-line z O Z2 
-perp z2 Z2 z 
-intersec Ob z1 z2 
+intersec2 Z1 Z2 b' k
+line z O Z1
+perp z1 Z1 z
+line z O Z2
+perp z2 Z2 z
+intersec Ob z1 z2
 circle kb Ob Z1
 intersec2 Z1 Z2 kb k
 
@@ -57,14 +57,14 @@ sim A2 kb A2
 sim A3 kb A3
 med m1 A1 A2
 med m2 A1 A3
-intersec Ob' m1 m2 
+intersec Ob' m1 m2
 circle kb' Ob' A1
 
-intersec2 C_1 C_2 ka' kb' 
+intersec2 C_1 C_2 ka' kb'
 
 cmark_r O
-cmark_t A 
-cmark_rb B 
+cmark_t A
+cmark_rb B
 cmark_b B'
 cmark_b Oa
 dmc 0.1
@@ -72,15 +72,15 @@ cmark_lb C_1
 dmc 1
 cmark_r C_2
 
-double 
-drawcircle O X 
-normal 
+double
+drawcircle O X
+normal
 
 drawcircle O B'
 drawcircle Oa' B1
 drawcircle Ob' A1
 
-rotate Z Oa 355 Z1'  
+rotate Z Oa 355 Z1'
 drawarc Oa Z1' 70
 
 drawsegment Oa Z1'
@@ -91,37 +91,32 @@ drawsegment O Z2'
 drawsegment O B'
 
 linethickness 0.5
-sim A' k A 
+sim A' k A
 med m1 A A'
-med m2 A B 
-intersec Oc m1 m2 
-angle phi B Oc A 
+med m2 A B
+intersec Oc m1 m2
+angle phi B Oc A
 drawarc Oc B phi
 
 med m2 A C_1
-intersec Ob1 m1 m2 
+intersec Ob1 m1 m2
 angle phi C_1 Ob1 A
 drawarc Ob1 C_1 phi
 
 med m2 A C_2
-intersec Ob2 m1 m2 
+intersec Ob2 m1 m2
 angle phi C_2 Ob2 A
 drawarc Ob2 C_2 phi
 
-sim B' k B 
+sim B' k B
 med m1 B B'
 
 med m2 B C_2
-intersec Oa2 m1 m2 
+intersec Oa2 m1 m2
 angle phi C_2 Oa2 B
 drawarc Oa2 C_2 phi
 
 med m2 B C_1
-intersec Oa1 m1 m2 
+intersec Oa1 m1 m2
 angle phi B Oa1 C_1
 drawarc Oa1 B phi
-
-
-
-
-

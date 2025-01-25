@@ -19,7 +19,6 @@ cmark_lt A_1
 cmark_rt B_1
 
 prove { parallel A_1 B_1 A B }
-% or 
+% or
 % prove { equal { signed_area3 A_l B_l A } { signed_area3 A_l B_l B } }
-% 
-
+%

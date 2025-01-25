@@ -22,12 +22,12 @@ while {n < 18}
 
 	drawsegment LL UL
 	drawsegment LL LR
-	
+
 	drawsegment UL UR
 	drawsegment UR LR
 	drawsegment pivot pivotmirror
 	drawarc pivot pivotmirror 90
-	
+
 	translate LL LL pivotmirror LL
 	translate UL UL UR UL
 	translate UR UR LR UR

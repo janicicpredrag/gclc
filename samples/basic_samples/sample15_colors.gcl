@@ -1,23 +1,23 @@
-dim 140 118 
+dim 140 118
 
-point X 0 0 
-point Y 140 0 
+point X 0 0
+point Y 140 0
 
 number n 0
 
 linethickness 1.1
 
 while { n < 250 }
-{	
+{
 	expression m { n/2 }
-	color 0 n 0  
-	point A 0 m 
-	point B 140 m 
+	color 0 n 0
+	point A 0 m
+	point B 140 m
 	drawsegment A B
 	expression n { n+1 }
 }
 
-color 180 0 0 
+color 180 0 0
 linethickness 0.16
 
 point A 50 100
@@ -31,6 +31,4 @@ cmark_rb C
 drawsegment A B
 drawsegment B C
 drawsegment C A
-
-
 

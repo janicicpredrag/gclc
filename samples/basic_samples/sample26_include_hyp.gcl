@@ -1,29 +1,27 @@
-% include support for Poincare disk model 
+% include support for Poincare disk model
 include sample21_hyp.gcl
-  
-point O 70 50  
-point X 110 50   
-circle k O X 
+
+point O 70 50
+point X 110 50
+circle k O X
 call drawabsolute { k }
 
 % circumcircle of triangle PQR
-point P 40 70 
+point P 40 70
 point Q 50 56
 point R 40 58
-  
+
 call h-med { k a P Q }
 call h-med { k a1 P R }
 call h-intersec { k X a a1 }
- 
+
 color 0 200 0
 call h-drawcircle { k X P }
 
-color 0 0 0 
+color 0 0 0
 call h-drawsegment { k P Q }
 call h-drawsegment { k Q R }
 call h-drawsegment { k P R }
-cmark_lt  P 
+cmark_lt P
 cmark_rb Q
 cmark_lb R
-
-

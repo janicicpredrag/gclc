@@ -9,7 +9,7 @@
 % thmtext Dokazati da su $X$, $Y$ i $Z$ kolinearne.
 
 % thmtexte A tranversal curs the sides $BC$, $CA$, $AB$
-% thmtexte of triangle $ABC$ in $D$, $E$, $F$. $P$, 
+% thmtexte of triangle $ABC$ in $D$, $E$, $F$. $P$,
 % thmtexte $Q$, $R$ are the midpoints of $EF$, $FD$,
 % thmtexte $DE$ and $AP$, $BQ$, $CR$ intersec $BC$, $CA$,
 % thmtexte $AB$ in $X$, $Y$, $Z$. Show that $X$, $Y$, $Z$ are collinear.

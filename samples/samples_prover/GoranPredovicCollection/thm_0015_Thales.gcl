@@ -7,42 +7,42 @@
 % thmtext $D$ a paralelna je sa $AC$.
 % thmtext Dokazati da je odnos du\zh i $OA$ i $OB$ jednak odnosu
 % thmtext du\zh i $OC$ i $OD$, odnosno da je
-% thmtext $\frac{\overline{OA}}{\overline{OB}} = 
+% thmtext $\frac{\overline{OA}}{\overline{OB}} =
 % thmtext \frac{\overline{OC}}{\overline{OD}}$
 
 % thmtexte Two lines, $AB$ and $CD$ intersect at a point $O$.
 % thmtexte If $AC \parallel DB$, show that:
-% thmtexte $\frac{\overline{OA}}{\overline{OB}} = 
+% thmtexte $\frac{\overline{OA}}{\overline{OB}} =
 % thmtexte \frac{\overline{OC}}{\overline{OD}}$
 
 dim 80 80
 
-point O 20 30 
-point A 60 30      
-point C 40 50  
+point O 20 30
+point A 60 30
+point C 40 50
 
 online B' O A
 % skip
 point B 35 30
 
 line a A C
-line c O C 
+line c O C
 parallel b' B' a
 % skip
 parallel b B a
 intersec D' c b'
 % skip
-intersec D c b 
+intersec D c b
 
-drawline O A 
-drawline O C 
+drawline O A
+drawline O C
 drawline A C
 drawline B D
 
 cmark_t O
 cmark_t A
 cmark_t B
-cmark_t C   
-cmark_t D   
+cmark_t C
+cmark_t D
 
-% prove { equal { sratio O A O B } { sratio O C O D  } }
+% prove { equal { sratio O A O B } { sratio O C O D } }

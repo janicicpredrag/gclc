@@ -6,13 +6,13 @@
 % thmtext su $A_1$, $B_1$, $C_1$ i $D_1$ sredi\sh ta stranica
 % thmtext $AB$, $BC$, $CD$ i $DA$ redom. Neka su dalje
 % thmtext $A_2$, $B_2$, $C_2$ i $D_2$ normale spu\sh tene
-% thmtext iz $A_1$, $B_1$, $C_1$ i $D_1$ na naspramne 
+% thmtext iz $A_1$, $B_1$, $C_1$ i $D_1$ na naspramne
 % thmtext stranice $CD$, $DA$, $AB$ i $BC$ redom.
 % thmtext Dokazati da su osam ta\ch aka $A_1$, $B_1$, $C_1$, $D_1$,
 % thmtext $A_2$, $B_2$, $C_2$ i $D_2$ sve nalaze na istom krugu.
 
 % thmnote Neka je krug $k$ sa pre\ch nikom $A_1C_1$.
-% thmnote Dovoljno je dokazati da ta\ch ke $B_1$, $D_1$ i $A_2$ 
+% thmnote Dovoljno je dokazati da ta\ch ke $B_1$, $D_1$ i $A_2$
 % thmnote pripadaju krugu $k$.
 
 % thmtexte Quadrilateral $ABCD$ is given such that diagonals

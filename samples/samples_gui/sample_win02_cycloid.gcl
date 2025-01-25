@@ -35,10 +35,7 @@ cmark D
 color 150 150 0
 drawsegment C D
 
-
 animation_frames 200 20
 trace B 255 0 0 
 trace C 100 200 50  
 trace D 0 0 255
- 
-

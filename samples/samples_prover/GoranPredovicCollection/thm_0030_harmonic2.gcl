@@ -9,7 +9,7 @@
 % thmtext $\frac{\overline{LK}}{\overline{KF}} = \frac{\overline{GL}}{\overline{GF}}$.
 
 % thmtexte Given four points $A$, $B$, $C$ and $D$,
-% thmtexte points of intersections are formed: $L = AB \cap CD$, 
+% thmtexte points of intersections are formed: $L = AB \cap CD$,
 % thmtexte $K = AC \cap BC$, $F = KL \cap BD$ and $G = KL \cap AC$.
 % thmtexte Show that segment $KL$ is harmonically divided by
 % thmtexte the points $F$ and $G$, ie:

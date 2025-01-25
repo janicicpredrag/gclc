@@ -1,4 +1,4 @@
-dim 110 125 
+dim 110 125
 
 point A 30 60
 point B 80 60
@@ -75,7 +75,7 @@ filltriangle A D E
 filltriangle A AB1 E
 
 color 255 125 125
-filltriangle E AB2 B  
+filltriangle E AB2 B
 filltriangle E D B
 
 color 100 100 255
@@ -83,12 +83,12 @@ filltriangle A C AC1
 filltriangle C AC1 AC2
 
 color 255 125 125
-line FG F G 
+line FG F G
 line AC A C
-intersec X FG AC 
-line BC B C 
-sim X BC X 
-sim Y BC G 
+intersec X FG AC
+line BC B C
+sim X BC X
+sim Y BC G
 filltriangle C B Y
 filltriangle C Y X
 }
@@ -100,14 +100,14 @@ filltriangle A D E
 filltriangle A AB1 E
 
 color 255 125 125
-filltriangle E AB2 B  
+filltriangle E AB2 B
 filltriangle E D B
 }
 {
 if_then_else { ind<=70 }
 {
 color 100 100 255
-filltriangle A F AB1 
+filltriangle A F AB1
 filltriangle A F D
 filltriangle A C D
 
@@ -119,9 +119,9 @@ filltriangle F C B
 if_then_else { ind<=80 }
 {
 color 255 125 125
-line FG F G 
-line AC A C 
-intersec X FG AC 
+line FG F G
+line AC A C
+intersec X FG AC
 filltriangle C B X
 filltriangle G B X
 
@@ -138,12 +138,12 @@ filltriangle A C AC1
 filltriangle C AC1 AC2
 
 color 255 125 125
-line FG F G 
+line FG F G
 line AC A C
-intersec X FG AC 
-line BC B C 
-sim X BC X 
-sim Y BC G 
+intersec X FG AC
+line BC B C
+sim X BC X
+sim Y BC G
 filltriangle C B Y
 filltriangle C Y X
 }
@@ -156,15 +156,15 @@ filltriangle A C AC1
 filltriangle C AC1 AC2
 
 color 255 125 125
-filltriangle E AB2 B  
+filltriangle E AB2 B
 filltriangle E D B
 
-line FG F G 
+line FG F G
 line AC A C
-intersec X FG AC 
-line BC B C 
-sim X BC X 
-sim Y BC G 
+intersec X FG AC
+line BC B C
+sim X BC X
+sim Y BC G
 filltriangle C B Y
 filltriangle C Y X
 }
@@ -224,4 +224,3 @@ drawline b1
 drawline b2
 
 animation_frames 99 10
-

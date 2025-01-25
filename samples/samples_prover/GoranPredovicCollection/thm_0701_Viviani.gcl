@@ -11,9 +11,9 @@
 % thmnote nuli. Pogledati sliku.
 
 % thmtexte The sum of distances of a point inside
-% thmtexte an equilateral triangle or on 
-% thmtexte one of its sides to the three triangle segments, 
-% thmtexte equals the 
+% thmtexte an equilateral triangle or on
+% thmtexte one of its sides to the three triangle segments,
+% thmtexte equals the
 % thmtexte length of its altitude.
 
 dim 110 100

@@ -8,7 +8,7 @@ ang_conicprecision 75
 
 ang_point A1 2 2
 ang_point A2 3 2
-line l A1 A2 
+line l A1 A2
 ang_intersec2 P P2 h l
 
 cmark_t P
@@ -32,14 +32,12 @@ ang_conicprecision 50
 
 ang_point A1 2 2
 ang_point A2 3 2
-line l A1 A2 
+line l A1 A2
 ang_intersec2 P P2 h l
 
 cmark_t P
 ang_tangent p P h
 color 32 192 32
 ang_drawline p
-color 192 32 32 
+color 192 32 32
 ang_drawdashconic h
-
-

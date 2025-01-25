@@ -44,7 +44,7 @@ intersec S bc1 cb1
 line p A B
 line q A_1 B_1
 
-line r P Q   
+line r P Q
 
 cmark_b A
 cmark_b B

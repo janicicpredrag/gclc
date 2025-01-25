@@ -1,7 +1,7 @@
 % thmname Sinusna teorema
 % thmnamee Sine Theorem
 
-% thmtext Dokazati da je u  proizvoljnom trouglu
+% thmtext Dokazati da je u proizvoljnom trouglu
 % thmtext odnos stranice i pre\ch nika opisanog kruga
 % thmtext jednak sinusu naspramnog ugla, odnosno:
 % thmtext $\frac{a}{2R} = \sin \alpha$

@@ -1,22 +1,20 @@
 ang_picture 10 10 120 90
 ang_origin 45 35
-ang_drawsystem_a 
+ang_drawsystem_a
 
 linethickness 0.2
 
 point X -0.5 0 0.5 0
 point O 0 0
 distance d X O
-    
-color 255 0 0 
+
+color 255 0 0
 ang_draw_parametric_curve x {-3;x<8;x+0.1}{x;d/x}
 
-color 0 0 255  
+color 0 0 255
 ang_draw_parametric_curve x {-3;x<8;x+0.1}{x;d*x*sin(10*d*x)}
 
-color 100 200 100 
+color 100 200 100
 ang_draw_parametric_curve t {0;t<30;t+0.3}{sin(d*t)*t/6;-cos(d*t)*t/6}
 
 animation_frames 50 5
-
-

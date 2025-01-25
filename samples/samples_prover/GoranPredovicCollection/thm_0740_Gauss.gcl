@@ -3,7 +3,7 @@
 
 % thmtext Dat je \ch etvorougao $A_0A_1A_2A_3$. Neka
 % thmtext je $X$ presek pravih $A_0A_3$ i $A_1A_2$ i
-% thmtext neka je $Y$ presek pravih $A_0A_1$ i 
+% thmtext neka je $Y$ presek pravih $A_0A_1$ i
 % thmtext $A_2A_3$. Neka su $M_1$, $M_2$ i $M_3$
 % thmtext sredi\sh ta du\zh i $A_1A_3$, $A_0A_2$ i
 % thmtext $XY$ redom. Dokazati da su ta\ch ke
@@ -14,7 +14,7 @@
 % thmtexte This line is called Gauss line.
 
 dim 90 80
- 
+
 point A_0 30 10
 point A_1 70 10
 point A_2 55 40
@@ -32,7 +32,7 @@ intersec Y a01 a23
 
 midpoint M_1 A_1 A_3
 midpoint M_2 A_0 A_2
-midpoint M_3 X Y 
+midpoint M_3 X Y
 
 cmark_b A_0
 cmark_b A_1
@@ -62,10 +62,3 @@ drawdashsegment A_2 Y
 drawline M_1 M_2
 
 % prove { collinear M_1 M_2 M_3 }
-
-
-
-
-
-
-

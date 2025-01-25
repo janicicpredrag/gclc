@@ -32,7 +32,3 @@ cmark_rt E
 cmark_t P
 
 prove { equal { mult { mult { sratio A F F B } { sratio B D D C } } { sratio C E E A } } 1 }
-
-
-
-
