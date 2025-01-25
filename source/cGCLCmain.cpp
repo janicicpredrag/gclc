@@ -386,7 +386,7 @@ void PrintHelp() {
 void PrintVersion() {
   Print(std::cout,
         "GCLC (GC language (R) -> LaTeX Converter) " GCLC_VERSION "\n");
-  Print(std::cout, "Copyright (c) 1995-2024 by Predrag Janicic, University "
+  Print(std::cout, "Copyright (c) 1995-2025 by Predrag Janicic, University "
                    "of Belgrade.\n");
   Print(std::cout, "Licensed under the Creative Commons licence CC BY-ND.\n");
   Print(std::cout, "\n");
