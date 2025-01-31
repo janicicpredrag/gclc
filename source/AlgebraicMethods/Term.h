@@ -36,7 +36,7 @@ public:
 	// comparison of two terms
 	virtual int Compare(Term* other) const;
 
-	virtual std::shared_ptr<Term> Clone() = 0;
+	std::shared_ptr<Term> Clone();
 
 	virtual TERM_TYPE Type() const = 0;
 
@@ -74,4 +74,7 @@ public:
 
 	virtual void PrettyPrint() const = 0;
 	virtual void PrintLatex(std::ostream &os) const = 0;
+
+private:
+	virtual Term *Clone_impl() = 0;
 };

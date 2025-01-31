@@ -14,9 +14,14 @@ XTerm::~XTerm()
 	DESTR("xterm");
 }
 
-std::shared_ptr<Term> XTerm::Clone()
+std::shared_ptr<XTerm> XTerm::Clone()
 {
-	std::shared_ptr<XTerm> xtClone = std::make_shared<XTerm>();
+	return std::shared_ptr<XTerm>(Clone_impl());
+}
+
+XTerm *XTerm::Clone_impl()
+{
+	std::unique_ptr<XTerm> xtClone = std::unique_ptr<XTerm>(new XTerm);
 
 	// fraction
 	std::shared_ptr<UPolynomialFraction> ufClone = _frac->Clone();
@@ -29,7 +34,7 @@ std::shared_ptr<Term> XTerm::Clone()
 		xtClone->AddPower(xwClone);
 	}
 
-	return xtClone;
+	return xtClone.release();
 }
 
 std::shared_ptr<XTerm> XTerm::ClonePowers()

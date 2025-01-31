@@ -39,6 +39,10 @@ Term::~Term() {
 //
 int Term::Compare(Term * /* other */) const { return -1; }
 
+std::shared_ptr<Term> Term::Clone() {
+  return std::shared_ptr<Term>(Clone_impl());
+}
+
 //
 // Merge two equal terms
 //
