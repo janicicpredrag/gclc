@@ -103,7 +103,7 @@ XPolynomial *XPolynomial::Clone() {
 
   _terms->EnumReset();
   while (_terms->EnumMoveNext()) {
-    std::shared_ptr<Term> xtClone = ((XTerm *)_terms->EnumGetCurrent())->Clone();
+    std::shared_ptr<XTerm> xtClone = ((XTerm *)_terms->EnumGetCurrent())->Clone();
     xpClone->AddTerm(xtClone);
   }
 
@@ -152,13 +152,13 @@ void XPolynomial::SPol(XPolynomial *xp) {
   lt2 = (XTerm *)xp->GetTerm(0);
 
   // s1 * c2
-  std::shared_ptr<XTerm> s1c2 = std::dynamic_pointer_cast<XTerm>(lt2->Clone());
+  std::shared_ptr<XTerm> s1c2 = lt2->Clone();
   // s1c2->SetUFraction(lt2->GetUFraction()->Clone());
   // safe division
   s1c2->DivideMonoms(lt1);
 
   // s2 * c1
-  std::shared_ptr<XTerm> s2c1 = std::dynamic_pointer_cast<XTerm>(lt1->Clone());
+  std::shared_ptr<XTerm> s2c1 = lt1->Clone();
   // s2c1->SetUFraction(lt1->GetUFraction()->Clone());
   // safe division
   s2c1->DivideMonoms(lt2);
@@ -171,7 +171,7 @@ void XPolynomial::SPol(XPolynomial *xp) {
   // c2 * s1 * f1
   uint size = this->GetTermCount();
   for (i = 1; i < size; i++) {
-    std::shared_ptr<Term> t = s1c2->Clone();
+    std::shared_ptr<XTerm> t = s1c2->Clone();
     t->Mul(this->GetTerm(i));
     tmpTerms->AddTerm(t);
   }
@@ -179,7 +179,7 @@ void XPolynomial::SPol(XPolynomial *xp) {
   // - c1 * s2 * f2
   size = xp->GetTermCount();
   for (i = 1; i < size; i++) {
-    std::shared_ptr<Term> t = s2c1->Clone();
+    std::shared_ptr<XTerm> t = s2c1->Clone();
     t->Mul(xp->GetTerm(i));
     tmpTerms->AddTerm(t);
   }
@@ -300,7 +300,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
         }
       } else {
         // remove degree
-        xtClone = std::dynamic_pointer_cast<XTerm>(xt->Clone());
+        xtClone = xt->Clone();
         xtClone->ChangePowerDegree(index, -deg);
       }
 
@@ -319,7 +319,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
       // add only terms where degree of variable index match it highest degree
       if (xt->VariableDeg(index, free) == varDeg2) {
         // remove degree
-        std::shared_ptr<Term> xtClone = xt->Clone();
+        std::shared_ptr<XTerm> xtClone = xt->Clone();
         xtClone->ChangePowerDegree(index, -deg);
 
         // add it to the polynomial

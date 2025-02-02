@@ -24,9 +24,15 @@ UTerm::~UTerm()
 	DESTR("uterm");
 }
 
-std::shared_ptr<Term> UTerm::Clone()
+std::shared_ptr<UTerm> UTerm::Clone()
 {
-	std::shared_ptr<UTerm> utClone = std::make_shared<UTerm>(this->GetCoeff());
+	return std::shared_ptr<UTerm>(Clone_impl());
+}
+
+UTerm *UTerm::Clone_impl()
+{
+	std::unique_ptr<UTerm> utClone =
+	  std::unique_ptr<UTerm>(new UTerm(this->GetCoeff()));
 
 	uint count = this->GetPowerCount();
     for (unsigned int ii = 0; ii < count; ii++)
@@ -35,7 +41,7 @@ std::shared_ptr<Term> UTerm::Clone()
 		utClone->AddPower(uwClone);
 	}
 
-	return utClone;
+	return utClone.release();
 }
 
 TERM_TYPE UTerm::Type() const

@@ -16,7 +16,7 @@ public:
 
 	~UTerm();
 
-	std::shared_ptr<Term> Clone() override;
+	std::shared_ptr<UTerm> Clone();
 
 	TERM_TYPE Type() const override;
 
@@ -41,4 +41,7 @@ public:
 	// overriden methods
 	int Compare(Term* other) const override;
 	void Merge(Term* t) override;
+
+private:
+	UTerm *Clone_impl() override;
 };

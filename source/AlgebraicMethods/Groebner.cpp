@@ -484,7 +484,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   }
 
   // divide f1/f2
-  std::shared_ptr<Term> g = c1f1->Clone();
+  std::shared_ptr<XTerm> g = c1f1->Clone();
   g->Divide(c2f2);
 
   // multiply first with c2 (must create c2 first)
@@ -496,7 +496,7 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
 
   // multiply second with c1g (create c1 and g)
   XPolynomial *pc1g = new XPolynomial();
-  std::shared_ptr<XTerm> tc1g = std::dynamic_pointer_cast<XTerm>(g->Clone());
+  std::shared_ptr<XTerm> tc1g = g->Clone();
   std::shared_ptr<UPolynomialFraction> c1Clone = c1f1->GetUFraction()->Clone();
   tc1g->SetUFraction(c1Clone);
   pc1g->AddTerm(tc1g);
