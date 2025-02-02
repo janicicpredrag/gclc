@@ -178,7 +178,7 @@ Power *Term::GetPower(uint index) const { return _powers[index].get(); }
 //
 int Term::VariableDeg(int index, bool free) const {
   if (free && this->Type() == XTERM) {
-    XTerm *xt = (XTerm *)this;
+    const XTerm *xt = (const XTerm *)this;
     Term *t = xt->GetUFraction()->GetNumerator()->LeadTerm(index, free);
     if (t) {
       return t->VariableDeg(index, free);
