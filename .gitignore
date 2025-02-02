@@ -4,3 +4,7 @@ build/*
 
 executable/gclc
 executable/gclc-gui
+
+*.log
+
+samples/*/*.svg
