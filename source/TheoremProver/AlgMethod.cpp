@@ -2619,6 +2619,8 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
       int index;
       bool b = exprToRationalize.GetParentIndex(*conjecture, parent, index);
       assert(b);
+      // squash -Wunused-variable warning in release mode
+      (void)b;
       parent->SetArg(index, eNum);
 
       // propagate eDen
