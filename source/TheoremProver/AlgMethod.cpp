@@ -2617,8 +2617,7 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
       // replace it with eNum
       CGCLCProverExpression *parent;
       int index;
-      [[maybe_unused]] bool b =
-        exprToRationalize.GetParentIndex(*conjecture, parent, index);
+      bool b = exprToRationalize.GetParentIndex(*conjecture, parent, index);
       assert(b);
       parent->SetArg(index, eNum);
 
