@@ -2837,7 +2837,7 @@ void CAlgMethod::PrintProofTitleXML(const std::string &theoremName) {
                      (!theoremName.empty() ? theoremName
                                            : (std::string) "[not named] (" +
                                                  GetName() + " method used)");
-  PrintXML("\n<proof_title>" + name + +"</proof_title>\n\n");                        
+  PrintXML("\n<proof_title>" + name + "</proof_title>\n\n");
 }
 
 // ----------------------------------------------------------------------------
