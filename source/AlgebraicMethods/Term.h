@@ -36,7 +36,7 @@ public:
 	// comparison of two terms
 	virtual int Compare(Term* other) const;
 
-	std::shared_ptr<Term> Clone();
+	std::shared_ptr<Term> Clone() const;
 
 	virtual TERM_TYPE Type() const = 0;
 

@@ -16,7 +16,7 @@ public:
 
 	~UTerm();
 
-	std::shared_ptr<UTerm> Clone();
+	std::shared_ptr<UTerm> Clone() const;
 
 	TERM_TYPE Type() const override;
 

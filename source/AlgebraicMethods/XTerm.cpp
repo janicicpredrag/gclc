@@ -14,7 +14,7 @@ XTerm::~XTerm()
 	DESTR("xterm");
 }
 
-std::shared_ptr<XTerm> XTerm::Clone()
+std::shared_ptr<XTerm> XTerm::Clone() const
 {
 	return std::shared_ptr<XTerm>(Clone_impl());
 }

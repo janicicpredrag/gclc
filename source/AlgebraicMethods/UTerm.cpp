@@ -24,7 +24,7 @@ UTerm::~UTerm()
 	DESTR("uterm");
 }
 
-std::shared_ptr<UTerm> UTerm::Clone()
+std::shared_ptr<UTerm> UTerm::Clone() const
 {
 	return std::shared_ptr<UTerm>(Clone_impl());
 }
