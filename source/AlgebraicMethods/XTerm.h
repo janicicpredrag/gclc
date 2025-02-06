@@ -46,5 +46,5 @@ public:
 	void Merge(Term* t) override;
 
 private:
-	XTerm *Clone_impl() override;
+	XTerm *Clone_impl() const override;
 };

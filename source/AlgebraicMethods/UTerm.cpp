@@ -29,7 +29,7 @@ std::shared_ptr<UTerm> UTerm::Clone()
 	return std::shared_ptr<UTerm>(Clone_impl());
 }
 
-UTerm *UTerm::Clone_impl()
+UTerm *UTerm::Clone_impl() const
 {
 	std::unique_ptr<UTerm> utClone =
 	  std::unique_ptr<UTerm>(new UTerm(this->GetCoeff()));

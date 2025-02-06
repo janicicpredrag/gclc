@@ -43,5 +43,5 @@ public:
 	void Merge(Term* t) override;
 
 private:
-	UTerm *Clone_impl() override;
+	UTerm *Clone_impl() const override;
 };

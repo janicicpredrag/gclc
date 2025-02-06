@@ -76,5 +76,5 @@ public:
 	virtual void PrintLatex(std::ostream &os) const = 0;
 
 private:
-	virtual Term *Clone_impl() = 0;
+	virtual Term *Clone_impl() const = 0;
 };

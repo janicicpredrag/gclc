@@ -19,7 +19,7 @@ std::shared_ptr<XTerm> XTerm::Clone()
 	return std::shared_ptr<XTerm>(Clone_impl());
 }
 
-XTerm *XTerm::Clone_impl()
+XTerm *XTerm::Clone_impl() const
 {
 	std::unique_ptr<XTerm> xtClone = std::unique_ptr<XTerm>(new XTerm);
 
