@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "XTerm.h"
 #include "XPolynomial.h"
 #include "PolyReader.h"
