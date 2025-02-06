@@ -214,9 +214,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
                 Log::PrintLogF(1, "\\item[Polynomial with linear degree:] Removing variable $x_{%d}$ from all other polynomials by reducing them with polynomial $p_{%d}$.\n\n", var, ii);
 
 				// move it to the next pos and reduce all remaining with it
-				XPolynomial* xp = vxps[ii];
-				vxps[ii] = vxps[pos1];
-				vxps[pos1] = xp;
+				std::swap(vxps[ii], vxps[pos1]);
 
 				for (jj = 0; jj < ii; jj++)
 				{
