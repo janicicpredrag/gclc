@@ -2,6 +2,7 @@
 #include "PolyReader.h"
 #include "Reduce.h"
 #include <algorithm>
+#include <utility>
 
 const std::string Wu::Description() { return "Wu's method"; }
 
@@ -153,9 +154,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
 					// swap vxps[ii] and vxps[jj]
 					if (ii != jj)
 					{
-						XPolynomial* xp = vxps[ii];
-						vxps[ii] = vxps[jj];
-						vxps[jj] = xp;
+						std::swap(vxps[ii], vxps[jj]);
 					}
 					else
 					{
