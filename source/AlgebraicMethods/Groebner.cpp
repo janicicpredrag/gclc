@@ -1,4 +1,5 @@
 #include "Groebner.h"
+#include "Log.h"
 #include "PolyReader.h"
 #include <algorithm>
 #include <memory>

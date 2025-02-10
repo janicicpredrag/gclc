@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "UPolynomial.h"
 #include <memory>
 

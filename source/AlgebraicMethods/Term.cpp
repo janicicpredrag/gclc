@@ -39,7 +39,7 @@ Term::~Term() {
 //
 int Term::Compare(Term * /* other */) const { return -1; }
 
-std::shared_ptr<Term> Term::Clone() {
+std::shared_ptr<Term> Term::Clone() const {
   return std::shared_ptr<Term>(Clone_impl());
 }
 
