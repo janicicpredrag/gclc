@@ -366,7 +366,6 @@ public:
   GReturnValue GetError(int &iErrorCode, std::string &sErrMessage, int &line,
                         int &pos);
   GReturnValue GetValue(const std::string &sVarName, std::string &sValue);
-  GReturnValue GetPointValue(const std::string &sVarName, double &x, double &y);
 
   bool GetAnimationFrames(int &iFrames, int &iSpeed);
 

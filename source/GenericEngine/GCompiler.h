@@ -140,8 +140,6 @@ public:
   GReturnValue Export(CGCLCOutput &Output);
 
   virtual GReturnValue GetValue(const std::string &sVarName, std::string &sValue) = 0;
-  virtual GReturnValue GetPointValue(const std::string &sVarName, double &x,
-                                     double &y) = 0;
   bool FixedPointExists(const std::string &sName);
 
   virtual bool GetAnimationFrames(int &iFrames, int &iSpeed) = 0;
