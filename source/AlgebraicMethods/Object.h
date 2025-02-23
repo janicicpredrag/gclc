@@ -29,6 +29,4 @@ public:
 
 	int GetObjectId() const;
 	void SetObjectId(int objId);
-
-	static void PrintREAL(REAL f);
 };

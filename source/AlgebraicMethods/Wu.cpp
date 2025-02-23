@@ -1,7 +1,9 @@
+#include "Log.h"
 #include "Wu.h"
 #include "PolyReader.h"
 #include "Reduce.h"
 #include <algorithm>
+#include <utility>
 
 const std::string Wu::Description() { return "Wu's method"; }
 
@@ -153,9 +155,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
 					// swap vxps[ii] and vxps[jj]
 					if (ii != jj)
 					{
-						XPolynomial* xp = vxps[ii];
-						vxps[ii] = vxps[jj];
-						vxps[jj] = xp;
+						std::swap(vxps[ii], vxps[jj]);
 					}
 					else
 					{
@@ -215,9 +215,7 @@ bool Wu::_Triangulate(vxp& vxps, vector<int>& vars)
                 Log::PrintLogF(1, "\\item[Polynomial with linear degree:] Removing variable $x_{%d}$ from all other polynomials by reducing them with polynomial $p_{%d}$.\n\n", var, ii);
 
 				// move it to the next pos and reduce all remaining with it
-				XPolynomial* xp = vxps[ii];
-				vxps[ii] = vxps[pos1];
-				vxps[pos1] = xp;
+				std::swap(vxps[ii], vxps[pos1]);
 
 				for (jj = 0; jj < ii; jj++)
 				{

@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "AlgMethod.h"
+#include "../AlgebraicMethods/Log.h"
 #include "../AlgebraicMethods/PolyReader.h"
 #include "../AlgebraicMethods/Reduce.h"
 

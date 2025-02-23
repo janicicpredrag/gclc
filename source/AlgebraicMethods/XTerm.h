@@ -15,7 +15,7 @@ public:
 	XTerm();
 	~XTerm();
 
-	std::shared_ptr<XTerm> Clone();
+	std::shared_ptr<XTerm> Clone() const;
 	std::shared_ptr<XTerm> ClonePowers();
 
 	TERM_TYPE Type() const override;
@@ -46,5 +46,5 @@ public:
 	void Merge(Term* t) override;
 
 private:
-	XTerm *Clone_impl() override;
+	XTerm *Clone_impl() const override;
 };

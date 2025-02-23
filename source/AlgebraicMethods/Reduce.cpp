@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "Reduce.h"
 #include "PolyReader.h"
 #include <algorithm>

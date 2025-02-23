@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "Log.h"
 #include "UTerm.h"
 #include <cstddef>
 #include <cstdio>
@@ -24,12 +24,12 @@ UTerm::~UTerm()
 	DESTR("uterm");
 }
 
-std::shared_ptr<UTerm> UTerm::Clone()
+std::shared_ptr<UTerm> UTerm::Clone() const
 {
 	return std::shared_ptr<UTerm>(Clone_impl());
 }
 
-UTerm *UTerm::Clone_impl()
+UTerm *UTerm::Clone_impl() const
 {
 	std::unique_ptr<UTerm> utClone =
 	  std::unique_ptr<UTerm>(new UTerm(this->GetCoeff()));
@@ -122,11 +122,40 @@ int UTerm::Inverse()
 // printing
 
 //
+// print real number without trailing zeros
+//
+static void PrintREAL(REAL f)
+{
+	static char dst[37];
+	sprintf(dst, "%.20lf", f);
+
+	int len = 0;
+	while (dst[len])
+	{
+		len ++;
+	}
+	--len;
+
+	while (dst[len] == '0')
+	{
+		len --;
+	}
+
+	if (dst[len] == '.')
+	{
+		len --;
+	}
+	dst[len + 1] = 0;
+
+	Log::PrintLogF(0, "%s", dst);
+}
+
+//
 // {coeff, UP1, UP2, ...}
 void UTerm::PrettyPrint() const
 {
 	Log::PrintLogF(0, "{");
-	Object::PrintREAL(_coeff);
+	PrintREAL(_coeff);
 	Log::PrintLogF(0, ", ", _coeff);
 
 	uint size = this->GetPowerCount();
