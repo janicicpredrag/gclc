@@ -496,14 +496,13 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   pc2.AddTerm(tc2);
 
   // multiply second with c1g (create c1 and g)
-  XPolynomial *pc1g = new XPolynomial();
+  XPolynomial pc1g;
   std::shared_ptr<XTerm> tc1g = g->Clone();
   std::shared_ptr<UPolynomialFraction> c1Clone = c1f1->GetUFraction()->Clone();
   tc1g->SetUFraction(c1Clone);
-  pc1g->AddTerm(tc1g);
+  pc1g.AddTerm(tc1g);
   XPolynomial *xp2Clone = xp2->Clone();
-  xp2Clone->Mul(pc1g);
-  pc1g->Dispose();
+  xp2Clone->Mul(&pc1g);
 
   xp1->Mul(&pc2);
 
