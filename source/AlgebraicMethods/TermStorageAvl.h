@@ -177,7 +177,7 @@ private:
 class TermStorageAvlTree : public TermStorage
 {
 private:
-	// Disallow copying and assingment
+	// Disallow copying and assignment
    TermStorageAvlTree(const TermStorageAvlTree &);
    TermStorageAvlTree & operator=(const TermStorageAvlTree &);
 

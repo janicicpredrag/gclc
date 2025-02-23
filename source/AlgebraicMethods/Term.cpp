@@ -147,7 +147,7 @@ bool Term::Divisible(Term *t) const {
   uint i1 = 0, i2 = 0;
   uint s1 = (uint)_powers.size(), s2 = (uint)t->_powers.size();
 
-  // constant is divisable only with constant
+  // constant is divisible only with constant
   bool divisible = (s1 > 0) || (s2 == 0);
 
   while (i1 < s1 && i2 < s2 && divisible) {

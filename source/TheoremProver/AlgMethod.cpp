@@ -1134,7 +1134,7 @@ void CAlgMethod::_FindParallelLines(bool xAxis) {
         // resolve line angle
         l->Angle = xAxis ? 90 : 0;
 
-        // find aditional points and add them to the line
+        // find additional points and add them to the line
         for (kk = jj + 1; kk < size; kk++) {
           p3 = _points[kk];
           if (_HalfPointsEquals(p1, p3, xAxis)) {
@@ -1274,7 +1274,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
       }
       break;
     case p_interlc:
-      // point on line and point on circle conditionss
+      // point on line and point on circle conditions
       // three forms - line/circle, circle/line, circle/circle
       l1 = _FindLine(it->arg[3]);
       if (l1 == NULL) {
@@ -1485,7 +1485,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
 
 //
 // Add new condition to the list of conditions
-// Don't add zero conditions (which are alwaus true)
+// Don't add zero conditions (which are always true)
 // If parameter check is true, then check is there same
 // condition as the newly added (don't add twice the same condition)
 //
@@ -1923,7 +1923,7 @@ XPolynomial *CAlgMethod::_PerpendicularCondition(Point *p1, Point *p2,
 // ----------------------------------------------------------------------------
 
 //
-// Segment [p1, p2] has equal lenght as segment [q1, q2]
+// Segment [p1, p2] has equal length as segment [q1, q2]
 //
 // P = (p1.x - p2.x)^2 + (p1.y - p2.y)^2 - (q1.x - q2.x)^2 - (q1.y - q2.y)^2
 // P = P1 + P2
@@ -2594,7 +2594,7 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
         // this is not yet correct
         // sometimes it is not simple to determine is line parallel
         // to X or Y axis. For instance, line connecting medians of
-        // triangle is parallel to oposite segment.
+        // triangle is parallel to opposite segment.
         break;
 
       case ep_angle:
@@ -2656,7 +2656,7 @@ void CAlgMethod::_PropagateRationalExpression(CGCLCProverExpression *conjecture,
   case ep_sum:
   // similar as equality, but must propagate further
   case ep_mult:
-    // only propagate futher
+    // only propagate further
     if (e->GetType() != ep_mult) {
       // create helper expression
       er = new CGCLCProverExpression(ep_mult, e->GetArg(1 - index), *eDen);

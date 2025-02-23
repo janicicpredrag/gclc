@@ -330,7 +330,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
 
 			if (count == 0)
 			{
-				// this situation happend when some variable is ommited from the system
+				// this situation happened when some variable is omitted from the system
 				// depends on design, this could also be treated as error
 				var --;
 				// reduce max index also
@@ -447,7 +447,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
                             if (level == 1)
                             {
                                 Log::OutputDescriptionItemBegin("Stopping:");
-                                Log::OutputDescriptionItemEnd("maxt = %d has overriched maximum alowed value of %d!\n\n", (*pMaxt), Log::StopAfterMaxT);
+                                Log::OutputDescriptionItemEnd("maxt = %d has exceeded maximum allowed value of %d!\n\n", (*pMaxt), Log::StopAfterMaxT);
                             }
 							throw -1;
 						}
@@ -470,7 +470,7 @@ bool Reduce::Triangulate(vxp& vxps, std::vector<int>& vars, int level, uint* pMa
                     if (level == 1)
                     {
                         Log::OutputDescriptionItemBegin("Stopping:");
-                        Log::OutputDescriptionItemEnd("maxt = %d has overriched maximum alowed value of %d!\n\n", (*pMaxt), Log::StopAfterMaxT);
+                        Log::OutputDescriptionItemEnd("maxt = %d has exceeded maximum allowed value of %d!\n\n", (*pMaxt), Log::StopAfterMaxT);
                     }
 					throw -1;
 				}

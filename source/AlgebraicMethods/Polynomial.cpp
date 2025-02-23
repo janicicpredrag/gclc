@@ -50,7 +50,7 @@ void Polynomial::RemoveTerm(Term* t)
 	_terms->RemoveTerm(t);
 }
 
-// aritmetic operations
+// arithmetic operations
 
 //
 // Multiply with another polynomial

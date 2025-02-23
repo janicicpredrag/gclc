@@ -72,7 +72,7 @@ bool UTerm::IsUnit() const
 	return _powers.size() == 0 && _coeff == 1;
 }
 
-// aritmetic operations
+// arithmetic operations
 
 // merge powers and mul coefficients
 int UTerm::Mul(Term* t)
@@ -241,7 +241,7 @@ int UTerm::Compare(Term* other) const
 
 //
 // Merge with another term
-// this is actualy Sum operation
+// this is actually Sum operation
 //
 void UTerm::Merge(Term* t)
 {

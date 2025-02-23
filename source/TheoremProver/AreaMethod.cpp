@@ -999,7 +999,7 @@ bool CAreaMethod::EliminateIntersectionPoint(
       exp = (n2 / n1);
 
       // Lemma 4.8
-      std::string sExplanation = (std::string) "Lemma 37 (reciprocial " + sCond +
+      std::string sExplanation = (std::string) "Lemma 37 (reciprocal " + sCond +
                             ") (point $" + sPoint + "$ eliminated)";
 
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
@@ -1205,9 +1205,9 @@ bool CAreaMethod::EliminatePratioPoint(
       }
       exp = (n2 / n1);
 
-      // Lemma 4.10 (reciprocial)
+      // Lemma 4.10 (reciprocal)
       std::string sExplanation =
-          "Lemma 39 (reciprocial) (point $" + sPoint + "$ eliminated)";
+          "Lemma 39 (reciprocal) (point $" + sPoint + "$ eliminated)";
       OutputStep(*m_pConjecture, sExplanation, eps_geometric_elimination);
       return true;
     }

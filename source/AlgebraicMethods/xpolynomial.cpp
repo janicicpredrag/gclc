@@ -249,8 +249,8 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
                    this->GetTotalTermCount(), xp->GetTotalTermCount());
     if (Log::StopAfterMaxT > 0 &&
         this->GetTotalTermCount() > (uint)Log::StopAfterMaxT) {
-      Log::PrintLogF(1, "stopping wu alg because maxt = %d has overriched "
-                        "maximum alowed value of %d\n\n",
+      Log::PrintLogF(1, "stopping wu alg because maxt = %d has exceeded "
+                        "maximum allowed value of %d\n\n",
                      this->GetTotalTermCount(), Log::StopAfterMaxT);
       throw - 1;
     }

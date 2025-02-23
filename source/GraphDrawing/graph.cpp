@@ -372,7 +372,7 @@ void Graph::getAdjacencyMatrix(
 }
 
 bool Graph::isUnDirected() {
-  // allocate memmory for adjacency matrix
+  // allocate memory for adjacency matrix
   std::vector<std::vector<bool>> adjacencyMatrix =
     GraphUtil::allocateMatrix(getNodesNumber());
   int i;
