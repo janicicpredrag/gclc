@@ -21,11 +21,10 @@ bool Reduce::ReduceLineCircleIntersection(
     }
 #endif
 
-    XPolynomial *xp22;
     XPolynomial xp11(vecPointsFree[0], vecPointsIndex[0]);
     XPolynomial xp12(vecPointsFree[1], vecPointsIndex[1]);
     XPolynomial xp21(vecPointsFree[2], vecPointsIndex[2]);
-    xp22 = new XPolynomial(vecPointsFree[3], vecPointsIndex[3]);
+    XPolynomial xp22(vecPointsFree[3], vecPointsIndex[3]);
 
     bool bRet = true;
 
@@ -38,7 +37,7 @@ bool Reduce::ReduceLineCircleIntersection(
     PolyReader::PrintPolynomial(&xp12, level);
     Log::PrintLogF(level, "Second point:\n\n");
     PolyReader::PrintPolynomial(&xp21, level);
-    PolyReader::PrintPolynomial(xp22, level);
+    PolyReader::PrintPolynomial(&xp22, level);
 
 #if 1
     Log::PrintLogF(level, "Reducing second with first in x6:\n\n");
@@ -102,7 +101,7 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "x12 = :\n\n");
     PolyReader::PrintPolynomial(&xp12, level);
     Log::PrintLogF(level, "x22 = :\n\n");
-    PolyReader::PrintPolynomial(xp22, level);
+    PolyReader::PrintPolynomial(&xp22, level);
 
     for (ii = 0; ii <= size - 3; ii++)
     {
@@ -131,7 +130,7 @@ bool Reduce::ReduceLineCircleIntersection(
             polySystem[size - 2]->PseudoRemainder(x, vecPointsIndex[1], vecPointsFree[1]);
             PolyReader::PrintPolynomial(polySystem[size - 2], level);
         }
-        if (!xp22->IsZero() && x->LeadTerm(vecPointsIndex[3], vecPointsFree[3]))
+        if (!xp22.IsZero() && x->LeadTerm(vecPointsIndex[3], vecPointsFree[3]))
         {
             Log::PrintLogF(level, "Reducing last pol with x2 (fourth point) index %d:\n\n", vecPointsIndex[3]);
             polySystem[size - 1]->PseudoRemainder(x, vecPointsIndex[3], vecPointsFree[3]);
@@ -194,8 +193,6 @@ bool Reduce::ReduceLineCircleIntersection(
     // exit info
     Log::PrintLogF(level, "After reduction:\n\n");
     PolyReader::PrintPolynomials(polySystem, 1);
-
-    xp22->Dispose();
 
     // clean exit
     //throw -1;
