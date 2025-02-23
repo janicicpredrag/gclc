@@ -21,9 +21,9 @@ bool Reduce::ReduceLineCircleIntersection(
     }
 #endif
 
-    XPolynomial *xp12, *xp21, *xp22;
+    XPolynomial *xp21, *xp22;
     XPolynomial xp11(vecPointsFree[0], vecPointsIndex[0]);
-    xp12 = new XPolynomial(vecPointsFree[1], vecPointsIndex[1]);
+    XPolynomial xp12(vecPointsFree[1], vecPointsIndex[1]);
     xp21 = new XPolynomial(vecPointsFree[2], vecPointsIndex[2]);
     xp22 = new XPolynomial(vecPointsFree[3], vecPointsIndex[3]);
 
@@ -35,7 +35,7 @@ bool Reduce::ReduceLineCircleIntersection(
     PolyReader::PrintPolynomials(polySystem, level);
     Log::PrintLogF(level, "First point:\n\n");
     PolyReader::PrintPolynomial(&xp11, level);
-    PolyReader::PrintPolynomial(xp12, level);
+    PolyReader::PrintPolynomial(&xp12, level);
     Log::PrintLogF(level, "Second point:\n\n");
     PolyReader::PrintPolynomial(xp21, level);
     PolyReader::PrintPolynomial(xp22, level);
@@ -100,7 +100,7 @@ bool Reduce::ReduceLineCircleIntersection(
 
     // pols 0, size - 3 are linear in x11 and x21
     Log::PrintLogF(level, "x12 = :\n\n");
-    PolyReader::PrintPolynomial(xp12, level);
+    PolyReader::PrintPolynomial(&xp12, level);
     Log::PrintLogF(level, "x22 = :\n\n");
     PolyReader::PrintPolynomial(xp22, level);
 
@@ -121,7 +121,7 @@ bool Reduce::ReduceLineCircleIntersection(
         Log::PrintLogF(level, "Reducing with pol %d\n\n", ii);
         PolyReader::PrintPolynomial(x, level);
 
-        if (!xp12->IsZero() && x->LeadTerm(vecPointsIndex[1], vecPointsFree[1]))
+        if (!xp12.IsZero() && x->LeadTerm(vecPointsIndex[1], vecPointsFree[1]))
         {
             Log::PrintLogF(level, "Reducing last pol with x12 (second point) index %d:\n\n", vecPointsIndex[1]);
             polySystem[size - 1]->PseudoRemainder(x, vecPointsIndex[1], vecPointsFree[1]);
@@ -195,7 +195,6 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "After reduction:\n\n");
     PolyReader::PrintPolynomials(polySystem, 1);
 
-    xp12->Dispose();
     xp21->Dispose();
     xp22->Dispose();
 
