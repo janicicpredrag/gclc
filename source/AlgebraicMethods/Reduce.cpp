@@ -21,10 +21,10 @@ bool Reduce::ReduceLineCircleIntersection(
     }
 #endif
 
-    XPolynomial *xp21, *xp22;
+    XPolynomial *xp22;
     XPolynomial xp11(vecPointsFree[0], vecPointsIndex[0]);
     XPolynomial xp12(vecPointsFree[1], vecPointsIndex[1]);
-    xp21 = new XPolynomial(vecPointsFree[2], vecPointsIndex[2]);
+    XPolynomial xp21(vecPointsFree[2], vecPointsIndex[2]);
     xp22 = new XPolynomial(vecPointsFree[3], vecPointsIndex[3]);
 
     bool bRet = true;
@@ -37,7 +37,7 @@ bool Reduce::ReduceLineCircleIntersection(
     PolyReader::PrintPolynomial(&xp11, level);
     PolyReader::PrintPolynomial(&xp12, level);
     Log::PrintLogF(level, "Second point:\n\n");
-    PolyReader::PrintPolynomial(xp21, level);
+    PolyReader::PrintPolynomial(&xp21, level);
     PolyReader::PrintPolynomial(xp22, level);
 
 #if 1
@@ -49,7 +49,7 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "Subtracting last two pols:\n\n");
     PolyReader::PrintPolynomial(polySystem[2], level);
 
-    xp11.Subtract(xp21);
+    xp11.Subtract(&xp21);
     Log::PrintLogF(level, "Divide third with x7 - x2:\n\n");
     XPolynomial* xd1 = new XPolynomial();
     polySystem[2]->PseudoRemainder(&xp11, 7, false, xd1);
@@ -164,7 +164,7 @@ bool Reduce::ReduceLineCircleIntersection(
     // (e6) divide with (x11 - x21)
     Log::PrintLogF(level, "dividing last pol with (x11 - x21) (first - third point):\n\n");
     XPolynomial* xf = xp11.Clone();
-    xf->Subtract(xp21);
+    xf->Subtract(&xp21);
     Log::PrintLogF(level, "x11 - x21 = \n\n");
     PolyReader::PrintPolynomial(xf, level);
 
@@ -195,7 +195,6 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "After reduction:\n\n");
     PolyReader::PrintPolynomials(polySystem, 1);
 
-    xp21->Dispose();
     xp22->Dispose();
 
     // clean exit
