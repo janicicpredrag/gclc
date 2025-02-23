@@ -21,8 +21,8 @@ bool Reduce::ReduceLineCircleIntersection(
     }
 #endif
 
-    XPolynomial *xp11, *xp12, *xp21, *xp22;
-    xp11 = new XPolynomial(vecPointsFree[0], vecPointsIndex[0]);
+    XPolynomial *xp12, *xp21, *xp22;
+    XPolynomial xp11(vecPointsFree[0], vecPointsIndex[0]);
     xp12 = new XPolynomial(vecPointsFree[1], vecPointsIndex[1]);
     xp21 = new XPolynomial(vecPointsFree[2], vecPointsIndex[2]);
     xp22 = new XPolynomial(vecPointsFree[3], vecPointsIndex[3]);
@@ -34,7 +34,7 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "Reduce following polynomial system:\n\n");
     PolyReader::PrintPolynomials(polySystem, level);
     Log::PrintLogF(level, "First point:\n\n");
-    PolyReader::PrintPolynomial(xp11, level);
+    PolyReader::PrintPolynomial(&xp11, level);
     PolyReader::PrintPolynomial(xp12, level);
     Log::PrintLogF(level, "Second point:\n\n");
     PolyReader::PrintPolynomial(xp21, level);
@@ -49,10 +49,10 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "Subtracting last two pols:\n\n");
     PolyReader::PrintPolynomial(polySystem[2], level);
 
-    xp11->Subtract(xp21);
+    xp11.Subtract(xp21);
     Log::PrintLogF(level, "Divide third with x7 - x2:\n\n");
     XPolynomial* xd1 = new XPolynomial();
-    polySystem[2]->PseudoRemainder(xp11, 7, false, xd1);
+    polySystem[2]->PseudoRemainder(&xp11, 7, false, xd1);
     PolyReader::PrintPolynomial(polySystem[2], level);
     Log::PrintLogF(level, "Division remainder:\n\n");
     PolyReader::PrintPolynomial(polySystem[2], level);
@@ -163,7 +163,7 @@ bool Reduce::ReduceLineCircleIntersection(
     // (e5) last pol should have factor (x11 - x21)
     // (e6) divide with (x11 - x21)
     Log::PrintLogF(level, "dividing last pol with (x11 - x21) (first - third point):\n\n");
-    XPolynomial* xf = xp11->Clone();
+    XPolynomial* xf = xp11.Clone();
     xf->Subtract(xp21);
     Log::PrintLogF(level, "x11 - x21 = \n\n");
     PolyReader::PrintPolynomial(xf, level);
@@ -195,7 +195,6 @@ bool Reduce::ReduceLineCircleIntersection(
     Log::PrintLogF(level, "After reduction:\n\n");
     PolyReader::PrintPolynomials(polySystem, 1);
 
-    xp11->Dispose();
     xp12->Dispose();
     xp21->Dispose();
     xp22->Dispose();
