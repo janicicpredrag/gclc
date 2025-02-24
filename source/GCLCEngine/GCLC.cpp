@@ -1591,20 +1591,6 @@ GReturnValue CGCLC::GetValue(const std::string &sVarName, std::string &sValue) {
 
 // ----------------------------------------------------------------------------////
 
-GReturnValue CGCLC::GetPointValue(const std::string &sVarName, double &x,
-                                  double &y) {
-  std::map<std::string, GCLC_object>::iterator it =
-      m_pSymbolTable->find(sVarName);
-  if (it != m_pSymbolTable->end() && it->second.type == GCLC_POINT) {
-    x = it->second.p[0];
-    y = it->second.p[1];
-    return rvG_OK;
-  }
-  return rvG_InvalidInput;
-}
-
-// ----------------------------------------------------------------------------////
-
 bool CGCLC::EndOfInputData() { return m_Input->EndOfInputData(); }
 
 // ----------------------------------------------------------------------------////
