@@ -129,7 +129,7 @@ public:
 class CGCompiler {
 public:
   CGCompiler();
-  CGCompiler(CIntermediateRepresentation *pPrim);
+  CGCompiler(std::shared_ptr<CIntermediateRepresentation> pPrim);
   virtual ~CGCompiler();
   void CleanUp();
 
@@ -228,7 +228,7 @@ protected:
   GReturnValue AddTracePoint(unsigned char r, unsigned char g, unsigned char b,
                              const std::string &sName);
 
-  CIntermediateRepresentation *m_pPrim;
+  std::shared_ptr<CIntermediateRepresentation> m_pPrim;
 
 private:
   bool m_bExternIntermediateRepresentations;

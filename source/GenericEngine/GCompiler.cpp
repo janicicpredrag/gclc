@@ -8,11 +8,12 @@
 #include "../TheoremProver/GroebnerMethod.h"
 #include "../TheoremProver/WuMethod.h"
 #include "IntermediateRepresentation.h"
+#include <memory>
 
 // ----------------------------------------------------------------------------
 
 CGCompiler::CGCompiler() {
-  m_pPrim = new CIntermediateRepresentation;
+  m_pPrim = std::make_shared<CIntermediateRepresentation>();
   m_bExternIntermediateRepresentations = false;
 
   m_dLastThickness = 0.16;
@@ -23,7 +24,7 @@ CGCompiler::CGCompiler() {
 
 // ----------------------------------------------------------------------------
 
-CGCompiler::CGCompiler(CIntermediateRepresentation *pPrim) {
+CGCompiler::CGCompiler(std::shared_ptr<CIntermediateRepresentation> pPrim) {
   m_pPrim = pPrim;
   m_bExternIntermediateRepresentations = true;
 
@@ -40,8 +41,7 @@ CGCompiler::~CGCompiler() { CleanUp(); }
 // ----------------------------------------------------------------------------
 
 void CGCompiler::CleanUp() {
-  if (!m_bExternIntermediateRepresentations && m_pPrim != NULL) {
-    delete m_pPrim;
+  if (!m_bExternIntermediateRepresentations) {
     m_pPrim = NULL;
   }
   m_FixedPoints.clear();
