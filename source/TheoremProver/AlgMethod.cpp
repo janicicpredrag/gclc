@@ -2136,7 +2136,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
       _constants.emplace_back(c);
     }
     return new XPolynomial(true, c->Index);
-    break;
   case ep_inequality:
   case ep_unknown:
   case ep_point: // supported, but not on this place!
@@ -2173,7 +2172,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // this is tricky one
     Log::PrintLogF(0, "Not supported expression type %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_segment:
     // |P1 P2|
     xp = this->_SegmentSize(_FindPoint(e->GetArgName(0)),
@@ -2184,7 +2182,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // tricky, also contains division!
     Log::PrintLogF(0, "Not supported expression type %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_s3:
     // P(P1 P2 P3)
     p1 = _FindPoint(e->GetArgName(0));
@@ -2229,7 +2226,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // PD(P1 P2 P3 P4)
     Log::PrintLogF(0, "Not implemented yet %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_identical:
     // P1 = P2
     // |P1 P2|
@@ -2265,7 +2261,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // Harmonic(P1, P2, P3, P4)
     Log::PrintLogF(0, "Not implemented yet %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_diffx:
     // A.x - B.x
     xp = _DiffPoints(&_FindPoint(e->GetArgName(0))->X,
@@ -2308,7 +2303,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
   case ep_angle:
     Log::PrintLogF(1, "Angle command should be rationalized!\n");
     throw - 1;
-    break;
   case ep_tangens_num:
     // numerator of tangens rational expression
     xp = _TangensNum(_FindPoint(e->GetArgName(0)), _FindPoint(e->GetArgName(1)),
