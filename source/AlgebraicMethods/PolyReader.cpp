@@ -4,14 +4,6 @@
 #include <memory>
 #include <string>
 
-XPolynomial *PolyReader::ReadXPolynomial(char *stream) {
-  int start = 0, end = 0;
-  while (stream[end++])
-    ;
-
-  return _ReadXPolynomial(stream, start, end - 1);
-}
-
 //
 // XPolynomial is a comma separated list of xterms
 // {XT1, XT2, ...}
