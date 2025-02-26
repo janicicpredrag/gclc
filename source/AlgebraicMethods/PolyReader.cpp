@@ -5,30 +5,6 @@
 #include <string>
 
 //
-// XPolynomial is a comma separated list of xterms
-// {XT1, XT2, ...}
-//
-XPolynomial *PolyReader::_ReadXPolynomial(char *stream, int start, int end) {
-  XPolynomial *xpol = new XPolynomial();
-
-  int s1, e1 = start;
-
-  do {
-    s1 = _GotoOpenBracket(stream, e1 + 1, end);
-    if (s1 >= 0) {
-      e1 = _GotoCloseBracket(stream, s1 + 1, end);
-      _Assert(e1 >= 0, "Right bracket missing!");
-
-      // create XTerm and add it to the xpol
-      std::shared_ptr<XTerm> xt = _ReadXTerm(stream, s1, e1);
-      xpol->AddTerm(xt);
-    }
-  } while (s1 > 0);
-
-  return xpol;
-}
-
-//
 // XTerm is structure that begins with UFraction
 // (given by two UPolynomials) and list of Powers
 //
