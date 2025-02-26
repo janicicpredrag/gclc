@@ -5,69 +5,6 @@
 #include <string>
 
 //
-// XTerm is structure that begins with UFraction
-// (given by two UPolynomials) and list of Powers
-//
-// {{UP1, UP2}, XM1, XM2, ...} : type1
-//
-// Alternatively, it could start with a real coefficient
-// {C, XM1, XM2, ...} : type2
-//
-std::shared_ptr<XTerm> PolyReader::_ReadXTerm(char *stream, int s, int e) {
-  std::shared_ptr<XTerm> xt = std::make_shared<XTerm>();
-
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "xt: ");
-  _Print(stream, s, e);
-#endif
-
-  int s1, e1 = s;
-
-  // which type of xterm
-  char c = _GotoNextChar(stream, e1 + 1);
-
-  if (c == '{') {
-    // type 1
-
-    // read UFraction
-    s1 = _GotoOpenBracket(stream, e1 + 1, e);
-    _Assert(s1 >= 0, "Left bracket missing!");
-
-    e1 = _GotoCloseBracket(stream, s1 + 1, e);
-    _Assert(e1 >= 0, "Right bracket missing!");
-
-    std::shared_ptr<UPolynomialFraction> uf = _ReadUFraction(stream, s1, e1);
-    xt->SetUFraction(uf);
-  } else {
-    // type 2
-
-    // read real coeff
-    REAL cf;
-    sscanf(&stream[e1 + 1], "%lf", &cf);
-
-    std::shared_ptr<UPolynomialFraction> uf =
-      std::make_shared<UPolynomialFraction>(cf);
-    xt->SetUFraction(uf);
-  }
-
-  // read xmonoms
-  do {
-    s1 = _GotoOpenBracket(stream, e1 + 1, e);
-    if (s1 >= 0) {
-      e1 = _GotoCloseBracket(stream, s1 + 1, e);
-      _Assert(e1 >= 0, "Right bracket missing!");
-
-      // create Power and add it to the xpol
-      std::shared_ptr<Power> xp = _ReadXPower(stream, s1, e1);
-      xt->AddPower(xp);
-    }
-  } while (s1 > 0);
-
-  return xt;
-}
-
-//
 // UPolynomialFraction is a pair of two UPolynomials
 // the first is numerator and the second is denominator
 // {N, D}
