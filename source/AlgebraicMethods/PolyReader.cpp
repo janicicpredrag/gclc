@@ -22,25 +22,6 @@ void PolyReader::_Assert(bool assert, const char *msg) {
   }
 }
 
-int PolyReader::_GotoCloseBracket(char *stream, int s, int end) {
-  int diff = 1;
-  while (s <= end && diff != 0) {
-    if (stream[s] == '{') {
-      diff++;
-    }
-    if (stream[s] == '}') {
-      diff--;
-    }
-    s++;
-  }
-
-  if (s > end) {
-    return -1;
-  }
-
-  return s - 1;
-}
-
 char PolyReader::_GotoNextChar(char *stream, int s) {
   while (stream[s] == ' ' || stream[s] == '\t' || stream[s] == '\n') {
     s++;
