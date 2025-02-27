@@ -5,35 +5,6 @@
 #include <string>
 
 //
-// UPolynomial is a list of UTerms
-//
-UPolynomial *PolyReader::_ReadUPolynomial(char *stream, int s, int e) {
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "up: ");
-  _Print(stream, s, e);
-#endif
-
-  UPolynomial *upol = new UPolynomial();
-
-  int s1, e1 = s;
-
-  do {
-    s1 = _GotoOpenBracket(stream, e1 + 1, e);
-    if (s1 >= 0) {
-      e1 = _GotoCloseBracket(stream, s1 + 1, e);
-      _Assert(e1 >= 0, "Right bracket missing!");
-
-      // create UTerm and add it to the xpol
-      std::shared_ptr<UTerm> ut = _ReadUTerm(stream, s1, e1);
-      upol->AddTerm(ut);
-    }
-  } while (s1 > 0);
-
-  return upol;
-}
-
-//
 // UTerm is a structure where first item is a real coefficient
 // and then there is a list of Powers
 //
