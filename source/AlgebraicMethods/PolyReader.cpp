@@ -8,29 +8,6 @@
 // Power is a pair of index and degree
 // {1, 2}
 //
-std::shared_ptr<Power> PolyReader::_ReadUPower(char *stream, int s, int /*e*/) {
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "uw: ");
-  _Print(stream, s, e);
-#endif
-
-  int index, degree;
-  int c = sscanf(&stream[s], "{%d,%d}", &index, &degree);
-  _Assert(c == 2, "Failed to load upower!");
-
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "  index = %d, degree = %d\n", index, degree);
-#endif
-
-  return std::make_shared<Power>(index, degree, VAR_TYPE_U);
-}
-
-//
-// Power is a pair of index and degree
-// {1, 2}
-//
 std::shared_ptr<Power> PolyReader::_ReadXPower(char *stream, int s, int /*e*/) {
 #if DESER_DBG
   // debug
