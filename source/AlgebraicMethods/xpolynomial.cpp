@@ -279,7 +279,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
   // each term has varDeg1 degree of variable with index index
 
   // create lm(p, x)
-  XPolynomial *p = new XPolynomial();
+  XPolynomial p;
   for (int ii = 0, size = this->GetTermCount(); ii < size; ii++) {
     XTerm *xt = (XTerm *)this->GetTerm(ii);
 
@@ -306,7 +306,7 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
       }
 
       // add it to the polynomial
-      p->AddTerm(xtClone);
+      p.AddTerm(xtClone);
     }
   }
 
@@ -337,15 +337,15 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
 
   Log::PrintLogF(logLevel,
                  "\\hspace{20pt}              maxtP = %d, maxtQ = %d\n\n",
-                 p->GetTotalTermCount(), q->GetTotalTermCount());
+                 p.GetTotalTermCount(), q->GetTotalTermCount());
 
   Log::PrintLogF(logLevel, "lm1(p, x%d) = \n", index);
-  PolyReader::PrintPolynomial(p, logLevel);
+  PolyReader::PrintPolynomial(&p, logLevel);
   Log::PrintLogF(logLevel, "lm1(q, x%d) = \n", index);
   PolyReader::PrintPolynomial(q, logLevel);
 
   XPolynomial *xpClone = xp->Clone();
-  xpClone->Mul(p);
+  xpClone->Mul(&p);
 
   Log::PrintLogF(logLevel, "p1 * lm(p0) = \n");
   PolyReader::PrintPolynomial(xpClone, logLevel);
@@ -358,10 +358,9 @@ bool XPolynomial::_PseudoRemainder(XPolynomial *xp, int index, bool free,
   this->Subtract(xpClone);
 
   if (xpDivisionResult) {
-    xpDivisionResult->Add(p);
+    xpDivisionResult->Add(&p);
   }
   xpClone->Dispose();
-  p->Dispose();
   q->Dispose();
 
   Log::PrintLogF(logLevel, "prem(p, q, x%d) = \n", index);
