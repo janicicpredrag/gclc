@@ -4,11 +4,6 @@
 #include <memory>
 #include <string>
 
-void PolyReader::_Error(const char *msg) {
-  Log::PrintLogF(0, msg);
-  throw - 1;
-}
-
 void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
                                   int size) {
   Log::PrintLogF(1, "\\begin{eqnarray*}\n");
