@@ -7,7 +7,6 @@
 class PolyReader
 {
 private:
-	static int _GotoOpenBracket(char* stream, int pos, int end);
 	static int _GotoCloseBracket(char* stream, int s, int e);
 	static int _GotoSeparator(char* stream, int s, int e);
 	static char _GotoNextChar(char* stream, int s);
