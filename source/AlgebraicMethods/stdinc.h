@@ -30,8 +30,6 @@ typedef double REAL;
 #define E_TIMEOUTERROR 10024
 #define E_COMPLEX      10025
 
-#define DESER_DBG 0
-
 //
 // which TermStorage class to use
 // Vector
