@@ -7,7 +7,6 @@
 class PolyReader
 {
 private:
-	static void _Print(char* stream, int s, int e);
     static void _Error(const char* msg);
     static void _Assert(bool assert, const char* msg);
 
