@@ -17,9 +17,6 @@ private:
     static void _Error(const char* msg);
     static void _Assert(bool assert, const char* msg);
 
-	static std::shared_ptr<Power> _ReadXPower(char* stream, int s, int e);
-
-
 public:
 	static void PrintPolynomials(std::vector<XPolynomial*>& vpols, int level = 0, int size = -1);
 	static void PrintPolynomial(XPolynomial* xp, int level = 0, int index = -1, bool tabular = false);
