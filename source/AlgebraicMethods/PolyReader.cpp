@@ -5,49 +5,6 @@
 #include <string>
 
 //
-// UTerm is a structure where first item is a real coefficient
-// and then there is a list of Powers
-//
-std::shared_ptr<UTerm> PolyReader::_ReadUTerm(char *stream, int s, int e) {
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "ut: ");
-  _Print(stream, s, e);
-#endif
-
-  std::shared_ptr<UTerm> ut = std::make_shared<UTerm>();
-
-  // read real coefficient
-  int s1 = s + 1, e1;
-  e1 = _GotoSeparator(stream, s + 1, e);
-  _Assert(e1 >= 0, "Separator missing!");
-
-  REAL cf;
-  sscanf(&stream[s1], "%lf", &cf);
-
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "  cf = %lf\n", cf);
-#endif
-  ut->SetCoeff(cf);
-
-  // read upowers
-  do {
-    s1 = _GotoOpenBracket(stream, e1 + 1, e);
-    if (s1 >= 0) {
-      e1 = _GotoCloseBracket(stream, s1 + 1, e);
-      _Assert(e1 >= 0, "Right bracket missing!");
-
-      // create UTerm and add it to the xpol
-      std::shared_ptr<Power> up = _ReadUPower(stream, s1, e1);
-      ut->AddPower(up);
-    }
-  } while (s1 > 0);
-
-  return ut;
-}
-
-//
 // Power is a pair of index and degree
 // {1, 2}
 //
