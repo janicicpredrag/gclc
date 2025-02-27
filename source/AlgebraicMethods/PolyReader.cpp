@@ -9,12 +9,6 @@ void PolyReader::_Error(const char *msg) {
   throw - 1;
 }
 
-void PolyReader::_Assert(bool assert, const char *msg) {
-  if (!assert) {
-    _Error(msg);
-  }
-}
-
 void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
                                   int size) {
   Log::PrintLogF(1, "\\begin{eqnarray*}\n");
