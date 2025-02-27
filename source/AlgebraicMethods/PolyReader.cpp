@@ -22,13 +22,6 @@ void PolyReader::_Assert(bool assert, const char *msg) {
   }
 }
 
-char PolyReader::_GotoNextChar(char *stream, int s) {
-  while (stream[s] == ' ' || stream[s] == '\t' || stream[s] == '\n') {
-    s++;
-  }
-  return stream[s];
-}
-
 void PolyReader::PrintPolynomials(std::vector<XPolynomial *> &vpols, int level,
                                   int size) {
   Log::PrintLogF(1, "\\begin{eqnarray*}\n");
