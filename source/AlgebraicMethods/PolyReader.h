@@ -17,7 +17,6 @@ private:
     static void _Error(const char* msg);
     static void _Assert(bool assert, const char* msg);
 
-	static std::shared_ptr<UPolynomialFraction> _ReadUFraction(char* stream, int s, int e);
 	static UPolynomial* _ReadUPolynomial(char* stream, int s, int e);
 	static std::shared_ptr<UTerm> _ReadUTerm(char* stream, int s, int e);
 	static std::shared_ptr<Power> _ReadUPower(char* stream, int s, int e);

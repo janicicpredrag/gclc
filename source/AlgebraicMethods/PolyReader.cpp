@@ -5,50 +5,6 @@
 #include <string>
 
 //
-// UPolynomialFraction is a pair of two UPolynomials
-// the first is numerator and the second is denominator
-// {N, D}
-//
-std::shared_ptr<UPolynomialFraction> PolyReader::_ReadUFraction(char *stream, int s, int e) {
-#if DESER_DBG
-  // debug
-  Log::PrintLogF(0, "uf: ");
-  _Print(stream, s, e);
-#endif
-
-  // read numerator
-  int s1, e1 = s;
-  s1 = _GotoOpenBracket(stream, e1 + 1, e);
-  _Assert(s1 >= 0, "Left bracket missing!");
-
-  e1 = _GotoCloseBracket(stream, s1 + 1, e);
-  _Assert(e1 >= 0, "Right bracket missing!");
-
-  UPolynomial *up1 = _ReadUPolynomial(stream, s1, e1);
-
-  // read denominator
-  s1 = _GotoOpenBracket(stream, e1 + 1, e);
-  _Assert(s1 >= 0, "Left bracket missing!");
-
-  e1 = _GotoCloseBracket(stream, s1 + 1, e);
-  _Assert(e1 >= 0, "Right bracket missing!");
-
-  UPolynomial *up2 = _ReadUPolynomial(stream, s1, e1);
-
-  // create UFraction
-  std::shared_ptr<UPolynomialFraction> uf =
-    std::make_shared<UPolynomialFraction>();
-
-  uf->SetNumerator(up1);
-  up1->Dispose();
-
-  uf->SetDenominator(up2);
-  up2->Dispose();
-
-  return uf;
-}
-
-//
 // UPolynomial is a list of UTerms
 //
 UPolynomial *PolyReader::_ReadUPolynomial(char *stream, int s, int e) {
