@@ -171,6 +171,8 @@ bool Reduce::ReduceLineCircleIntersection(
     XPolynomial *xd = new XPolynomial();
     polySystem[size - 1]->PseudoRemainder(xf, vecPointsIndex[0], vecPointsFree[0], xd);
 
+    xf->Dispose();
+
     Log::PrintLogF(level, "division result is = \n\n");
     PolyReader::PrintPolynomial(xd, level);
 
