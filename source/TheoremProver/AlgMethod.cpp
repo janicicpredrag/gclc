@@ -1595,15 +1595,14 @@ XPolynomial *CAlgMethod::_MidpointCondition(Point *p, Point *q1, Point *q2, bool
 
     // xp = p - q1/2 - q2/2;
     XPolynomial *xp = new XPolynomial(bX ? p->X.Free : p->Y.Free, bX ? p->X.Index : p->Y.Index);
-    XPolynomial *x1 = new XPolynomial(bX ? q1->X.Free : q1->Y.Free, bX ? q1->X.Index : q1->Y.Index);
+    XPolynomial x1(bX ? q1->X.Free : q1->Y.Free, bX ? q1->X.Index : q1->Y.Index);
     XPolynomial *x2 = new XPolynomial(bX ? q2->X.Free : q2->Y.Free, bX ? q2->X.Index : q2->Y.Index);
     XPolynomial *h = new XPolynomial(2);
 
     xp->Mul(h);
-    xp->Subtract(x1);
+    xp->Subtract(&x1);
     xp->Subtract(x2);
     h->Dispose();
-    x1->Dispose();
     x2->Dispose();
 
     if (xp == NULL || xp->IsZero()) {
