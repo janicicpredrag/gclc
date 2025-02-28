@@ -253,7 +253,6 @@ private:
                                        Point *q2);
   XPolynomial *_EqualSegmentCondition(Point *p1, Point *p2, Point *q1,
                                       Point *q2);
-  XPolynomial *_PointOnConicCondition(Conic *h, Point *p);
   XPolynomial *_ParallelCondition(Point *p1, Point *p2, Point *q1, Point *q2);
   XPolynomial *_HelperCondition(HalfPoint *h1, HalfPoint *h2, HalfPoint *h3,
                                 HalfPoint *h4, HalfPoint *h5, HalfPoint *h6,
