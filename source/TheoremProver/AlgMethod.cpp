@@ -1950,68 +1950,6 @@ XPolynomial *CAlgMethod::_EqualSegmentCondition(Point *p1, Point *p2, Point *q1,
 // ----------------------------------------------------------------------------
 
 //
-// Point p is on conic h with parameters H1, H2, H3, H4, H5
-//
-// (x2, x1) on Conic(u1, u2, u3, u4, u5)
-// P = x2^2 + (u1x1 + u3)x2 + u2x1^2 + u4x1 + u5 = 0
-//
-XPolynomial *CAlgMethod::_PointOnConicCondition(Conic *h, Point *p) {
-  XPolynomial *x2 = new XPolynomial(p->X.Free, p->X.Index);
-  XPolynomial *x1 = new XPolynomial(p->Y.Free, p->Y.Index);
-  XPolynomial *u1 = new XPolynomial(h->H1.Free, h->H1.Index);
-  XPolynomial *u2 = new XPolynomial(h->H2.Free, h->H2.Index);
-  XPolynomial *u3 = new XPolynomial(h->H3.Free, h->H3.Index);
-  XPolynomial *u4 = new XPolynomial(h->H4.Free, h->H4.Index);
-  XPolynomial *u5 = new XPolynomial(h->H5.Free, h->H5.Index);
-
-  // x2
-  XPolynomial *xp = x2->Clone();
-  // x2^2
-  xp->Mul(x1);
-
-  // x1
-  XPolynomial *xp1 = x1->Clone();
-  // u1x1
-  xp1->Mul(u1);
-  // u1x1 + u3
-  xp1->Add(u3);
-  // (u1x1 + u3)x2
-  xp1->Mul(x2);
-
-  // x2^2 + (u1x1 + u3)x2
-  xp->Add(xp1);
-  xp1->Dispose();
-
-  // u2x1^2
-  xp1 = x1->Clone();
-  xp1->Mul(x1);
-  xp1->Mul(u2);
-
-  // x2^2 + (u1x1 + u3)x2 + u2x1^2
-  xp->Add(xp1);
-  xp1->Dispose();
-
-  // x2^2 + (u1x1 + u3)x2 + u2x1^2 + u4x1 + u5
-  xp1 = x1->Clone();
-  xp1->Mul(u4);
-  xp->Add(xp1);
-  xp1->Dispose();
-  xp->Add(u5);
-
-  x1->Dispose();
-  x2->Dispose();
-  u1->Dispose();
-  u2->Dispose();
-  u3->Dispose();
-  u4->Dispose();
-  u5->Dispose();
-
-  return xp;
-}
-
-// ----------------------------------------------------------------------------
-
-//
 // Create polynomial for the segment [p, q]
 //
 // P = (p.x - q.x)^2 + (p.y - q.y)^2
