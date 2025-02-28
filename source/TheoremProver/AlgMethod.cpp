@@ -1765,9 +1765,8 @@ XPolynomial *CAlgMethod::_DiffRatioCondition(HalfPoint *h1, HalfPoint *h2,
 //
 XPolynomial *CAlgMethod::_DiffPoints(HalfPoint *h1, HalfPoint *h2) {
   XPolynomial *xp = new XPolynomial(h1->Free, h1->Index);
-  XPolynomial *xp1 = new XPolynomial(h2->Free, h2->Index);
-  xp->Subtract(xp1);
-  xp1->Dispose();
+  XPolynomial xp1(h2->Free, h2->Index);
+  xp->Subtract(&xp1);
 
   return xp;
 }
