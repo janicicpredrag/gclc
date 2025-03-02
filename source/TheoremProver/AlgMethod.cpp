@@ -628,9 +628,9 @@ Constant *CAlgMethod::_FindConstant(const std::string &name) {
     return NULL;
   }
 
-  for (std::unique_ptr<Constant> &c : _constants) {
-    if (c->Name == name)
-      return c.get();
+  for (Constant &c : _constants) {
+    if (c.Name == name)
+      return &c;
   }
 
   return NULL;
@@ -2066,8 +2066,8 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     c = _FindConstant(e->GetName());
     if (c == NULL) {
       // create constant
-      c = new Constant(e->GetName(), ++lastFreeIndex);
-      _constants.emplace_back(c);
+      _constants.emplace_back(e->GetName(), ++lastFreeIndex);
+      c = &_constants.back();
     }
     return new XPolynomial(true, c->Index);
   case ep_inequality:
