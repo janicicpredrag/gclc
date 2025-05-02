@@ -55,7 +55,7 @@ void Log::PrintLogF(int level, const char *msg, ...) {
     // fetch parameters and print result
     va_list ap;
     va_start(ap, msg);
-    char buffer[2048];
+    char buffer[8192];
 
     if (_outFileLatex && level == 1) {
       vsprintf(buffer, msg, ap);

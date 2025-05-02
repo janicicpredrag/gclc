@@ -37,6 +37,7 @@ unsigned arity(enum GCLCexpression_type type) {
   case ep_midpoint:
   case ep_tangens_num:
   case ep_tangens_den:
+  case ep_algsumzero3:
     return 3;
 
   case ep_segment_ratio:
@@ -1842,8 +1843,10 @@ std::string CGCLCProverExpression::sPrintXML(int indent) const {
     break;
 
   case ep_algsumzero3:
-    s += "<algebraic_sum_is_zero>" + GetArg(0).sPrintXML(indent + 1) +
-         GetArg(1).sPrintXML(indent + 1) + GetArg(2).sPrintXML(indent + 1) +
+    s += make_indent(indent) + "<algebraic_sum_is_zero>" +
+         "<expression>\n" + GetArg(0).sPrintXML(indent + 1) + "</expression>\n" +
+         "<expression>\n" + GetArg(1).sPrintXML(indent + 1) + "</expression>\n" +
+         "<expression>\n" + GetArg(2).sPrintXML(indent + 1) + "</expression>\n" +
          "</algebraic_sum_is_zero>\n";
     break;
 

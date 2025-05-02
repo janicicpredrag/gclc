@@ -488,12 +488,15 @@ bool CAlgMethod::_FindPoints() {
       break;
     case online:
     case oncircle:
+      _AddDependantPoint(it->arg[0], &lastDepIndex, false);
+      /* Could be more efficient, but is more complicated, the version
+         below is flawed in case of horizontal lines:
       // half dependant point is defined
       p = new Point(false, true, it->arg[0]);
       p->Y.Determined = true;
       p->Y.Index = ++lastFreeIndex;
       p->X.Index = ++lastDepIndex;
-      _points.push_back(p);
+      _points.push_back(p);*/
       break;
     case perp:
     case med:
@@ -524,10 +527,10 @@ bool CAlgMethod::_AddDependantPoint(const std::string &name, int *pLastDepIndex,
     Point *p = new Point(false, false, name);
     _points.push_back(p);
 
-    p->Y.Determined = true;
-    p->Y.Index = ++(*pLastDepIndex);
     p->X.Determined = true;
     p->X.Index = ++(*pLastDepIndex);
+    p->Y.Determined = true;
+    p->Y.Index = ++(*pLastDepIndex);
 
     if (addCommand) {
       // add point command as this point is implicitly defined!
@@ -1383,7 +1386,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
       // 1) CD parallel BA
       // 2) sratio CD BA  = k, or AD parallel BC if k = 1 and B != A
       //                       and {C, B, A} not on the same line!
-      _AddCondition(
+ /*     _AddCondition(
           _ParallelCondition(_FindPoint(it->arg[1]), _FindPoint(it->arg[0]),
                              _FindPoint(it->arg[2]), _FindPoint(it->arg[3])));
       if (it->arg[4] == "1" && it->arg[2] == it->arg[3] &&
@@ -1398,9 +1401,25 @@ void CAlgMethod::_ExtractConditionPolynomials() {
         p3 = _FindPoint(it->arg[2]);
         p4 = _FindPoint(it->arg[3]);
         l1 = _FindLine(p2, p3);
-        _AddCondition(_DiffRatioCondition(p2, p1, p3, p4, l1, it->arg[4]),
+        _AddCondition(_DiffRatioCondition(p2, p1, p3, p4, l1, it->arg[4], true),
                       false);
-      }
+      }*/
+
+    //  p1 = _FindPoint(it->arg[0]);
+    //  p2 = _FindPoint(it->arg[1]);
+    // p3 = _FindPoint(it->arg[2]);
+    //  p4 = _FindPoint(it->arg[3]);
+    //  l1 = _FindLine(p2, p3);
+      p1 = _FindPoint(it->arg[0]);
+      p2 = _FindPoint(it->arg[1]);
+      p3 = _FindPoint(it->arg[2]);
+      p4 = _FindPoint(it->arg[3]);
+      l1 = _FindLine(p2, p3);
+      _AddCondition(_DiffRatioCondition(p2, p1, p3, p4, l1, it->arg[4], true),
+                    false);
+      _AddCondition(_DiffRatioCondition(p2, p1, p3, p4, l1, it->arg[4], false),
+                    false);
+
       break;
     /*
                     case p_tratio:
@@ -1708,7 +1727,7 @@ XPolynomial *CAlgMethod::_TangensDen(Point *b, Point *a, Point *c) {
 //
 XPolynomial *CAlgMethod::_DiffRatioCondition(Point *p1, Point *p2, Point *p3,
                                              Point *p4, Line *l,
-                                             const std::string &sr) {
+                                             const std::string &sr, bool bx) {
   XPolynomial *xp = NULL;
 
   // get real number
@@ -1727,6 +1746,9 @@ XPolynomial *CAlgMethod::_DiffRatioCondition(Point *p1, Point *p2, Point *p3,
     // diffy = false;
     diffy = true;
   }
+
+  diffy = !bx;
+
   if (diffy) {
     xp = _DiffRatioCondition(&p1->Y, &p2->Y, &p3->Y, &p4->Y, r);
   } else {

@@ -237,7 +237,7 @@ private:
   XPolynomial *_PointOnLineCondition(Point *p, Point *q1, Point *q2);
   XPolynomial *_MidpointCondition(Point *p, Point *q1, Point *q2, bool bX);
   XPolynomial *_DiffRatioCondition(Point *p1, Point *p2, Point *p3, Point *p4,
-                                   Line *l, const std::string &sr);
+                                   Line *l, const std::string &sr, bool bx);
   XPolynomial *_DiffRatioCondition(HalfPoint *h1, HalfPoint *h2, HalfPoint *h3,
                                    HalfPoint *h4, REAL r);
   XPolynomial *_DiffPoints(HalfPoint *h1, HalfPoint *h2);
