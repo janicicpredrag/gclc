@@ -17,7 +17,7 @@ BarycenterDrawing::BarycenterDrawing(Graph _graph, Settings _settings, std::map<
   if (isValid)
     computeCoordinates();
 
-  // restore orginal data
+  // restore original data
   if (graph!=originalGraph)
     {
       graph=originalGraph;
@@ -116,7 +116,7 @@ bool BarycenterDrawing::isArc(int u, int v)
       int nodeNumber=nodes[i].getNodeNumber();
       if (nodeNumber!=u && nodeNumber!=v)
 	{
-	  // is node colinear with u and v and between them
+	  // is node collinear with u and v and between them
 	  if ((GraphUtil::areCollinear(coordinates[u].x, coordinates[u].y, 
 				       coordinates[v].x, coordinates[v].y,
 				       coordinates[nodeNumber].x, coordinates[nodeNumber].y, 

@@ -9,7 +9,7 @@
 The class CGCompiler provides an abstract/generic interface
 between specific geometry engine and the main application,
 through a limited set of methods. Some of them aim at
-dymanic geometry features and are not relevant for the
+dynamic geometry features and are not relevant for the
 console version. The class CGCompiler is inherited by
 the class CGCLC (which implements all methods), while it
 can be inherited by some other similar class. So, any
@@ -129,7 +129,7 @@ public:
 class CGCompiler {
 public:
   CGCompiler();
-  CGCompiler(CIntermediateRepresentation *pPrim);
+  CGCompiler(std::shared_ptr<CIntermediateRepresentation> pPrim);
   virtual ~CGCompiler();
   void CleanUp();
 
@@ -140,8 +140,6 @@ public:
   GReturnValue Export(CGCLCOutput &Output);
 
   virtual GReturnValue GetValue(const std::string &sVarName, std::string &sValue) = 0;
-  virtual GReturnValue GetPointValue(const std::string &sVarName, double &x,
-                                     double &y) = 0;
   bool FixedPointExists(const std::string &sName);
 
   virtual bool GetAnimationFrames(int &iFrames, int &iSpeed) = 0;
@@ -228,7 +226,7 @@ protected:
   GReturnValue AddTracePoint(unsigned char r, unsigned char g, unsigned char b,
                              const std::string &sName);
 
-  CIntermediateRepresentation *m_pPrim;
+  std::shared_ptr<CIntermediateRepresentation> m_pPrim;
 
 private:
   bool m_bExternIntermediateRepresentations;

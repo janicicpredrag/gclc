@@ -273,7 +273,8 @@ CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, prover_config &ProverConfig,
 
 //----------------------------------------------------------------------------
 
-CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log, CIntermediateRepresentation *pL,
+CGCLC::CGCLC(CGCLCInput &input, CGCLCLog &Log,
+             std::shared_ptr<CIntermediateRepresentation> pL,
              std::shared_ptr<std::map<std::string, GCLCprocedure>> procedures,
              std::map<std::string, GCLC_object> *pTable, bool bXMLoutput,
              std::ofstream &hXMLOutput)
@@ -704,7 +705,7 @@ GReturnValue CGCLC::GetError(int &iErrorCode, std::string &sErrMessage,
     line = m_iWarnLine;
     break;
   case rvGCLCNoProceduresInBlocks:
-    sErrMessage = "Syntax erros: Procedures cannot be defined within "
+    sErrMessage = "Syntax error: Procedures cannot be defined within "
                   "while-blocks or procedures.";
     pos = m_iWarnPos;
     line = m_iWarnLine;
@@ -1586,20 +1587,6 @@ GReturnValue CGCLC::GetValue(const std::string &sVarName, std::string &sValue) {
   default:
     return rvG_EndOfData;
   }
-}
-
-// ----------------------------------------------------------------------------////
-
-GReturnValue CGCLC::GetPointValue(const std::string &sVarName, double &x,
-                                  double &y) {
-  std::map<std::string, GCLC_object>::iterator it =
-      m_pSymbolTable->find(sVarName);
-  if (it != m_pSymbolTable->end() && it->second.type == GCLC_POINT) {
-    x = it->second.p[0];
-    y = it->second.p[1];
-    return rvG_OK;
-  }
-  return rvG_InvalidInput;
 }
 
 // ----------------------------------------------------------------------------////

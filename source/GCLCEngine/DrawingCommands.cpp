@@ -1175,7 +1175,7 @@ GCLCError CGCLC::draw_graph_a() {
     if ((i = Nodes[sToken1]) == 0 || (j = Nodes[sToken2]) == 0) {
       return rvGCLCLInvalidGraphRepresentation;
     } else {
-      // adding verteces (since these are methods for drawing undirected
+      // adding vertices (since these are methods for drawing undirected
       // graphs), both direction edges have to be added (e.g.: 1->2 i 2->1)
       graph.addEdge(i, j);
       graph.addEdge(j, i);
@@ -1326,7 +1326,7 @@ GCLCError CGCLC::draw_graph_b() {
     if ((i = Nodes[sToken1]) == 0 || (j = Nodes[sToken2]) == 0) {
       return rvGCLCLInvalidGraphRepresentation;
     } else {
-      // adding verteces (since these are methods for drawing undirected
+      // adding vertices (since these are methods for drawing undirected
       // graphs), both direction edges have to be added (e.g.: 1->2 i 2->1)
       graph.addEdge(i, j);
       graph.addEdge(j, i);

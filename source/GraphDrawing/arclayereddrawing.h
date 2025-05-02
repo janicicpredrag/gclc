@@ -50,7 +50,7 @@ class ArcLayeredDrawing:public Drawing
    * \return unsigned int widest arc edge
    */
   unsigned int getWidestArcEdge(int);
-  //! Sets x coorinate for nodes
+  //! Sets x coordinate for nodes
   /*! Sets x coordinates for nodes in the drawing
    * \param int layer level
    * \param int widest layer width
@@ -95,16 +95,16 @@ class ArcLayeredDrawing:public Drawing
   //! Computers coordinates
   void computeCoordinates();
  public:
-  //! A constuctor
+  //! A constructor
   /*!
    * \param Graph graph that should be drawn
    * \param Settings settings object
    * \param string file name
    */
   ArcLayeredDrawing(Graph, Settings, std::string="");
-  //! A constuctor
+  //! A constructor
   /*! If center of the drawing and width of the drawing parameters are given,
-   * then offset and scaling factors from Settings object are overriden (they are
+   * then offset and scaling factors from Settings object are overridden (they are
    * calculated based on these two parameters).
    * 
    * \param Graph graph that should be drawn

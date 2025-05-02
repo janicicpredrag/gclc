@@ -22,7 +22,7 @@ PROVER_STATUS Groebner::Prove(vxp &vxps, XPolynomial *xpConclusion,
   try {
     // calculate Groebner basis
     if (GroebnerBasis2(vxps)) {
-      Log::OutputText("Groebner basis succesfully computed.\n\n");
+      Log::OutputText("Groebner basis successfully computed.\n\n");
 
       // reduce conclusion with Groebner basis
       // and check is it zero
@@ -59,7 +59,7 @@ PROVER_STATUS Groebner::Prove(vxp &vxps, XPolynomial *xpConclusion,
 // Groebner basis is computed in-place,
 // result basis is in the same container vector
 //
-// Return value is true if basis is successfuly computed
+// Return value is true if basis is successfully computed
 // false otherwise
 //
 bool Groebner::GroebnerBasis(vxp &vxps) {
@@ -91,7 +91,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
   Log::OutputText("Polynomial system after simple reduction:\n\n");
   PolyReader::PrintPolynomials(vxps, 1);
 
-  // k is the current size of Grobner basis
+  // k is the current size of Groebner basis
   // in each iteration introduce new Polynomial
   // create S-polynomial of that polynomial and
   // current base and reduce base
@@ -213,7 +213,7 @@ bool Groebner::GroebnerBasis(vxp &vxps) {
   Log::PrintLogF(1, "\\end{description}\n\n");
 
   if (stopProcessing) {
-    Log::OutputText("Groebner basis calculatation stopped.\n\n");
+    Log::OutputText("Groebner basis calculation stopped.\n\n");
     return false;
   }
 
@@ -383,7 +383,7 @@ int Groebner::CanReduce(XPolynomial *xp1, XPolynomial *xp2) {
     return -1;
   }
 
-  // lowest index of reducable term
+  // lowest index of reducible term
   return i;
 }
 
@@ -489,24 +489,22 @@ bool Groebner::Reduce(XPolynomial *xp1, XPolynomial *xp2) {
   g->Divide(c2f2);
 
   // multiply first with c2 (must create c2 first)
-  XPolynomial *pc2 = new XPolynomial();
+  XPolynomial pc2;
   std::shared_ptr<XTerm> tc2 = std::make_shared<XTerm>();
   std::shared_ptr<UPolynomialFraction> c2Clone = c2f2->GetUFraction()->Clone();
   tc2->SetUFraction(c2Clone);
-  pc2->AddTerm(tc2);
+  pc2.AddTerm(tc2);
 
   // multiply second with c1g (create c1 and g)
-  XPolynomial *pc1g = new XPolynomial();
+  XPolynomial pc1g;
   std::shared_ptr<XTerm> tc1g = g->Clone();
   std::shared_ptr<UPolynomialFraction> c1Clone = c1f1->GetUFraction()->Clone();
   tc1g->SetUFraction(c1Clone);
-  pc1g->AddTerm(tc1g);
+  pc1g.AddTerm(tc1g);
   XPolynomial *xp2Clone = xp2->Clone();
-  xp2Clone->Mul(pc1g);
-  pc1g->Dispose();
+  xp2Clone->Mul(&pc1g);
 
-  xp1->Mul(pc2);
-  pc2->Dispose();
+  xp1->Mul(&pc2);
 
   // subtract
   xp1->Subtract(xp2Clone);

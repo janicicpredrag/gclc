@@ -34,11 +34,11 @@ protected:
 public:
   //
   // input parameters:
-  // 1) vxps            - hyphotheses system
+  // 1) vxps            - hypotheses system
   // 2) xpConclusion    - conjecture to prove
   // 3) conjectureIndex - index of conjecture (if there is more than one
   // conjecture)
-  // 4) timeout         - if positive, time in miliseconds after which proof
+  // 4) timeout         - if positive, time in milliseconds after which proof
   // should be stopped
   //
   // return value:

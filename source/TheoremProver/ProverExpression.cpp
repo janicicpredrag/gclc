@@ -1531,7 +1531,7 @@ void CGCLCProverExpression::PrettyPrint() const {
     break;
 
   case ep_unknown:
-    Print(cout, "unkown");
+    Print(cout, "unknown");
     break;
 
   default:

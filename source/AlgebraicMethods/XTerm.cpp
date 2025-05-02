@@ -149,10 +149,9 @@ std::shared_ptr<XTerm> XTerm::CreatePolynomialConditionTerm(bool f1,
 	if (xt)
 	{
 		Log::PrintLogF(1, "CreatePolynomialConditionTerm(f1 = %d, index1 = %d, f2 = %d, index2 = %d)\n", f1, index1, f2, index2);
-		XPolynomial* xp = new XPolynomial();
-		xp->AddTerm(xt->Clone());
-		PolyReader::PrintPolynomial(xp);
-		xp->Dispose();
+		XPolynomial xp;
+		xp.AddTerm(xt->Clone());
+		PolyReader::PrintPolynomial(&xp);
 	}
 #endif
 
@@ -343,7 +342,7 @@ int XTerm::Compare(Term* t) const
 
 //
 // Merge with another term
-// this is actualy Sum operation
+// this is actually Sum operation
 //
 void XTerm::Merge(Term* t)
 {

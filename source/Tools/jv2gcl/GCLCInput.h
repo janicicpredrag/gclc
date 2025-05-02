@@ -14,7 +14,7 @@ public:
 	CGCLCInput();
 	virtual ~CGCLCInput();
 
-	// start read from the begining of the input
+	// start read from the beginning of the input
 	virtual void Reset() { 	m_iInputLine = 1; m_iPosition = 0; };	
 	virtual GReturnValue ReadChar(char* c)=0;
 	virtual bool EndOfInputData()=0;

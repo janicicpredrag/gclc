@@ -15,7 +15,7 @@ std::string GraphNode::getNodeLabel() const { return nodeLabel; }
 void GraphNode::setNodeLabel(std::string _nodeLabel) { nodeLabel = _nodeLabel; }
 
 void GraphNode::updateNodeLabel() {
-  // set node label if it is not allready set
+  // set node label if it is not already set
   if (nodeLabel == "") {
     std::stringstream strings;
     strings << nodeNumber;

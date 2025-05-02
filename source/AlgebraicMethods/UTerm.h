@@ -27,7 +27,7 @@ public:
 
 	bool IsUnit() const;
 
-	// aritmetic operations
+	// arithmetic operations
 	int Mul(Term* ut) override;
 	int Mul(REAL r) override;
 	int Divide(Term* ut) override;
@@ -38,7 +38,7 @@ public:
 	void PrettyPrint() const override;
 	void PrintLatex(std::ostream &os) const override;
 
-	// overriden methods
+	// overridden methods
 	int Compare(Term* other) const override;
 	void Merge(Term* t) override;
 

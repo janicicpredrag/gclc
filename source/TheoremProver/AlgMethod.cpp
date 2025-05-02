@@ -631,9 +631,9 @@ Constant *CAlgMethod::_FindConstant(const std::string &name) {
     return NULL;
   }
 
-  for (std::unique_ptr<Constant> &c : _constants) {
-    if (c->Name == name)
-      return c.get();
+  for (Constant &c : _constants) {
+    if (c.Name == name)
+      return &c;
   }
 
   return NULL;
@@ -1137,7 +1137,7 @@ void CAlgMethod::_FindParallelLines(bool xAxis) {
         // resolve line angle
         l->Angle = xAxis ? 90 : 0;
 
-        // find aditional points and add them to the line
+        // find additional points and add them to the line
         for (kk = jj + 1; kk < size; kk++) {
           p3 = _points[kk];
           if (_HalfPointsEquals(p1, p3, xAxis)) {
@@ -1277,7 +1277,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
       }
       break;
     case p_interlc:
-      // point on line and point on circle conditionss
+      // point on line and point on circle conditions
       // three forms - line/circle, circle/line, circle/circle
       l1 = _FindLine(it->arg[3]);
       if (l1 == NULL) {
@@ -1504,7 +1504,7 @@ void CAlgMethod::_ExtractConditionPolynomials() {
 
 //
 // Add new condition to the list of conditions
-// Don't add zero conditions (which are alwaus true)
+// Don't add zero conditions (which are always true)
 // If parameter check is true, then check is there same
 // condition as the newly added (don't add twice the same condition)
 //
@@ -1614,16 +1614,13 @@ XPolynomial *CAlgMethod::_MidpointCondition(Point *p, Point *q1, Point *q2, bool
 
     // xp = p - q1/2 - q2/2;
     XPolynomial *xp = new XPolynomial(bX ? p->X.Free : p->Y.Free, bX ? p->X.Index : p->Y.Index);
-    XPolynomial *x1 = new XPolynomial(bX ? q1->X.Free : q1->Y.Free, bX ? q1->X.Index : q1->Y.Index);
-    XPolynomial *x2 = new XPolynomial(bX ? q2->X.Free : q2->Y.Free, bX ? q2->X.Index : q2->Y.Index);
-    XPolynomial *h = new XPolynomial(2);
+    XPolynomial x1(bX ? q1->X.Free : q1->Y.Free, bX ? q1->X.Index : q1->Y.Index);
+    XPolynomial x2(bX ? q2->X.Free : q2->Y.Free, bX ? q2->X.Index : q2->Y.Index);
+    XPolynomial h(2);
 
-    xp->Mul(h);
-    xp->Subtract(x1);
-    xp->Subtract(x2);
-    h->Dispose();
-    x1->Dispose();
-    x2->Dispose();
+    xp->Mul(&h);
+    xp->Subtract(&x1);
+    xp->Subtract(&x2);
 
     if (xp == NULL || xp->IsZero()) {
         Log::OutputText("\n\nno condition");
@@ -1790,9 +1787,8 @@ XPolynomial *CAlgMethod::_DiffRatioCondition(HalfPoint *h1, HalfPoint *h2,
 //
 XPolynomial *CAlgMethod::_DiffPoints(HalfPoint *h1, HalfPoint *h2) {
   XPolynomial *xp = new XPolynomial(h1->Free, h1->Index);
-  XPolynomial *xp1 = new XPolynomial(h2->Free, h2->Index);
-  xp->Subtract(xp1);
-  xp1->Dispose();
+  XPolynomial xp1(h2->Free, h2->Index);
+  xp->Subtract(&xp1);
 
   return xp;
 }
@@ -1945,7 +1941,7 @@ XPolynomial *CAlgMethod::_PerpendicularCondition(Point *p1, Point *p2,
 // ----------------------------------------------------------------------------
 
 //
-// Segment [p1, p2] has equal lenght as segment [q1, q2]
+// Segment [p1, p2] has equal length as segment [q1, q2]
 //
 // P = (p1.x - p2.x)^2 + (p1.y - p2.y)^2 - (q1.x - q2.x)^2 - (q1.y - q2.y)^2
 // P = P1 + P2
@@ -1971,68 +1967,6 @@ XPolynomial *CAlgMethod::_EqualSegmentCondition(Point *p1, Point *p2, Point *q1,
     return xp1;
   }
   return NULL;
-}
-
-// ----------------------------------------------------------------------------
-
-//
-// Point p is on conic h with parameters H1, H2, H3, H4, H5
-//
-// (x2, x1) on Conic(u1, u2, u3, u4, u5)
-// P = x2^2 + (u1x1 + u3)x2 + u2x1^2 + u4x1 + u5 = 0
-//
-XPolynomial *CAlgMethod::_PointOnConicCondition(Conic *h, Point *p) {
-  XPolynomial *x2 = new XPolynomial(p->X.Free, p->X.Index);
-  XPolynomial *x1 = new XPolynomial(p->Y.Free, p->Y.Index);
-  XPolynomial *u1 = new XPolynomial(h->H1.Free, h->H1.Index);
-  XPolynomial *u2 = new XPolynomial(h->H2.Free, h->H2.Index);
-  XPolynomial *u3 = new XPolynomial(h->H3.Free, h->H3.Index);
-  XPolynomial *u4 = new XPolynomial(h->H4.Free, h->H4.Index);
-  XPolynomial *u5 = new XPolynomial(h->H5.Free, h->H5.Index);
-
-  // x2
-  XPolynomial *xp = x2->Clone();
-  // x2^2
-  xp->Mul(x1);
-
-  // x1
-  XPolynomial *xp1 = x1->Clone();
-  // u1x1
-  xp1->Mul(u1);
-  // u1x1 + u3
-  xp1->Add(u3);
-  // (u1x1 + u3)x2
-  xp1->Mul(x2);
-
-  // x2^2 + (u1x1 + u3)x2
-  xp->Add(xp1);
-  xp1->Dispose();
-
-  // u2x1^2
-  xp1 = x1->Clone();
-  xp1->Mul(x1);
-  xp1->Mul(u2);
-
-  // x2^2 + (u1x1 + u3)x2 + u2x1^2
-  xp->Add(xp1);
-  xp1->Dispose();
-
-  // x2^2 + (u1x1 + u3)x2 + u2x1^2 + u4x1 + u5
-  xp1 = x1->Clone();
-  xp1->Mul(u4);
-  xp->Add(xp1);
-  xp1->Dispose();
-  xp->Add(u5);
-
-  x1->Dispose();
-  x2->Dispose();
-  u1->Dispose();
-  u2->Dispose();
-  u3->Dispose();
-  u4->Dispose();
-  u5->Dispose();
-
-  return xp;
 }
 
 // ----------------------------------------------------------------------------
@@ -2154,11 +2088,10 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     c = _FindConstant(e->GetName());
     if (c == NULL) {
       // create constant
-      c = new Constant(e->GetName(), ++lastFreeIndex);
-      _constants.emplace_back(c);
+      _constants.emplace_back(e->GetName(), ++lastFreeIndex);
+      c = &_constants.back();
     }
     return new XPolynomial(true, c->Index);
-    break;
   case ep_inequality:
   case ep_unknown:
   case ep_point: // supported, but not on this place!
@@ -2195,7 +2128,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // this is tricky one
     Log::PrintLogF(0, "Not supported expression type %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_segment:
     // |P1 P2|
     xp = this->_SegmentSize(_FindPoint(e->GetArgName(0)),
@@ -2206,7 +2138,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // tricky, also contains division!
     Log::PrintLogF(0, "Not supported expression type %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_s3:
     // P(P1 P2 P3)
     p1 = _FindPoint(e->GetArgName(0));
@@ -2251,7 +2182,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // PD(P1 P2 P3 P4)
     Log::PrintLogF(0, "Not implemented yet %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_identical:
     // P1 = P2
     // |P1 P2|
@@ -2287,7 +2217,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
     // Harmonic(P1, P2, P3, P4)
     Log::PrintLogF(0, "Not implemented yet %d!\n\n", e->GetType());
     throw - 1;
-    break;
   case ep_diffx:
     // A.x - B.x
     xp = _DiffPoints(&_FindPoint(e->GetArgName(0))->X,
@@ -2330,7 +2259,6 @@ CAlgMethod::_ExtractPolynomialExpression(CGCLCProverExpression *e) {
   case ep_angle:
     Log::PrintLogF(1, "Angle command should be rationalized!\n");
     throw - 1;
-    break;
   case ep_tangens_num:
     // numerator of tangens rational expression
     xp = _TangensNum(_FindPoint(e->GetArgName(0)), _FindPoint(e->GetArgName(1)),
@@ -2616,7 +2544,7 @@ bool CAlgMethod::_RationalizeConjecture(CGCLCProverExpression *conjecture) {
         // this is not yet correct
         // sometimes it is not simple to determine is line parallel
         // to X or Y axis. For instance, line connecting medians of
-        // triangle is parallel to oposite segment.
+        // triangle is parallel to opposite segment.
         break;
 
       case ep_angle:
@@ -2678,7 +2606,7 @@ void CAlgMethod::_PropagateRationalExpression(CGCLCProverExpression *conjecture,
   case ep_sum:
   // similar as equality, but must propagate further
   case ep_mult:
-    // only propagate futher
+    // only propagate further
     if (e->GetType() != ep_mult) {
       // create helper expression
       er = new CGCLCProverExpression(ep_mult, e->GetArg(1 - index), *eDen);

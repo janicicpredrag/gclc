@@ -41,8 +41,8 @@ public:
    *\param _nodeLabel set node label to this value
    */
   void setNodeLabel(std::string _nodeLabel);
-  //! Updates node label acording to node number
-  /*! Updates node label if it isn't allready set. New node label will be
+  //! Updates node label according to node number
+  /*! Updates node label if it isn't already set. New node label will be
    * analogue to node number.
    */
   void updateNodeLabel();
