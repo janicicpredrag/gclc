@@ -112,8 +112,8 @@ add_executable(gclc
   source/Import/ListOfFaces.cpp 
 )
 
-# require ISO C++11
-target_compile_features(gclc PRIVATE cxx_std_11)
+# Update ISO to C++17
+target_compile_features(gclc PRIVATE cxx_std_17)
 
 install(TARGETS gclc
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}
