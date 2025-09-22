@@ -1172,7 +1172,8 @@ bool CTheoremProver::GetExpression(const std::string &conjecture, int &nPos,
       CGCLCProverExpression Right(0.0);
       if (!AddNDG(ep_inequality, Left, Right, "(conjecture based assumption)"))
         // return false;
-        return NULL; // changed on 11.2015.
+        // return NULL; // changed on 11.2015.
+        return false;
     }
 
     break;

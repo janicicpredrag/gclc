@@ -408,14 +408,14 @@ std::string XPolynomial::PrintLatex() const {
   // N1x => Nx
   // N1u => Nu
   // where N is non-number char
-  _ResReplace(str.data(), '+', '-', '-', false);
-  _ResReplace(str.data(), '-', '+', '-', false);
+  _ResReplace(str, '+', '-', '-', false);
+  _ResReplace(str, '-', '+', '-', false);
 
 #if 1
   // not safe for short latex output!
   // u_1x_2
-  _ResReplace(str.data(), '1', 'x', 'x', true);
-  _ResReplace(str.data(), '1', 'u', 'u', true);
+  _ResReplace(str, '1', 'x', 'x', true);
+  _ResReplace(str, '1', 'u', 'u', true);
 #endif
 
   return str;
@@ -427,31 +427,30 @@ void XPolynomial::PrintLatex(std::ostream & /* sb */) const {}
 // Improve latex output by removing unit constants
 // and merging +- combinations of operators
 //
-void XPolynomial::_ResReplace(char *res, char l1, char l2, char r1,
-                              bool nnCond) const {
-  bool replaced = true;
-  while (replaced) {
-    replaced = false;
+void XPolynomial::_ResReplace(std::string& res, char l1, char l2, char r1, bool nnCond) const  {
+    bool replaced = true;
+    while (replaced) {
+        replaced = false;
 
-    // search pattern
-    int ii = 0;
-    while (!replaced && res[ii]) {
-      if (res[ii] == l1 && res[ii + 1] == l2) {
-        // check non-number condition
-        if (!(nnCond && ii > 0 &&
-              ((res[ii - 1] <= '9' && res[ii - 1] >= '0') || res[ii] == '.'))) {
-          // pattern is found!
-          replaced = true;
+        // search pattern
+        unsigned ii = 0;
+        while (!replaced && ii+1 < res.length()) {
+            if (res[ii] == l1 && res[ii + 1] == l2) {
+                // check non-number condition
+                if (!(nnCond && ii > 0 &&
+                      ((res[ii - 1] <= '9' && res[ii - 1] >= '0') || res[ii] == '.'))) {
+                    // pattern is found!
+                    replaced = true;
 
-          // shift left
-          res[ii] = r1;
-          for (int jj = ii + 1; res[jj]; jj++) {
-            res[jj] = res[jj + 1];
-          }
+                    // shift left
+                    res[ii] = r1;
+                    for (unsigned jj = ii + 1; jj+1 < res.length(); jj++) {
+                        res[jj] = res[jj + 1];
+                    }
+                    res.resize(res.length()-1);
+                }
+            }
+            ii++;
         }
-      }
-
-      ii++;
     }
-  }
 }

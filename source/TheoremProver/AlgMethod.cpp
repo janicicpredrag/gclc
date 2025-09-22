@@ -460,8 +460,6 @@ void CAlgMethod::_PrintConic(Conic & /* c */) {}
 // and assign free and dependent variables to them
 //
 bool CAlgMethod::_FindPoints() {
-  int freeCount = 0;
-  Point *p = NULL;
   if (_pointsResolved)
     return 1;
 
@@ -472,7 +470,6 @@ bool CAlgMethod::_FindPoints() {
       // free point is defined
       if (_ExistsPoint(it->arg[0]) == false) {
         _AddFreePoint(it->arg[0], false, it->arg[1], it->arg[2]);
-        freeCount++;
       }
       break;
     case p_inter:

@@ -334,8 +334,8 @@ bool clip_segment(double x1, double y1, double x2, double y2, double x_lb,
       if (bet(x1, y1, x2c, y2c, x2, y2)) {
         x1c = x1;
         y1c = y1;
-        x2c = x2c;
-        y2c = y2c;
+        // x2c = x2c;
+        // y2c = y2c;
         return true;
       } else
         return false;
@@ -374,8 +374,8 @@ bool clip_segment(double x1, double y1, double x2, double y2, double x_lb,
       if (bet(x2, y2, x2c, y2c, x1, y1)) {
         x1c = x2;
         y1c = y2;
-        x2c = x2c;
-        y2c = y2c;
+        // x2c = x2c;
+        // y2c = y2c;
         return true;
       } else
         return false;

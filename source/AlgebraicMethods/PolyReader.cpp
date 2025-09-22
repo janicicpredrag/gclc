@@ -161,9 +161,9 @@ void PolyReader::PrintPolynomial(XPolynomial *xp, int level, int index,
     char ct = ltx[pos];
     ltx[pos] = 0;
 
-    Log::PrintLogF(level, "%s", &ltx.data()[posb]);
+    Log::PrintLogF(level, "%s", &ltx.c_str()[posb]);
     if (level == 1) {
-      Log::PrintLogF(2, "%s", &ltx.data()[posb]);
+      Log::PrintLogF(2, "%s", &ltx.c_str()[posb]);
     }
     if (tabular) {
       Log::PrintLogF(level, "\\\\");
