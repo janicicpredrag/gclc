@@ -47,7 +47,7 @@ const setupCompiler = () => {
     return;
   }
 
-  createModule().then((module: BaseWASMModule) => {
+  (createModule() as Promise<BaseWASMModule>).then((module: BaseWASMModule) => {
     Module = module;
 
     render = Module.cwrap("render", null, [
