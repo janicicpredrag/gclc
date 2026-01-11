@@ -117,6 +117,20 @@ GCLCError CGCLC::get_random() {
              0.00, 0.00, 0.00, 0.00);
 }
 
+
+// ----------------------------------------------------------------------------
+
+GCLCError CGCLC::get_random_seed() {
+    GCLCError iRv;
+    double seed;
+    if ((iRv = ReadNumber(seed)) != rvGCLCOK)
+        return iRv;
+
+    srand((unsigned)seed);
+
+    return rvGCLCOK;
+}
+
 // ----------------------------------------------------------------------------
 
 GCLCError CGCLC::get_expression() {

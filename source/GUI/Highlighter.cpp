@@ -28,6 +28,7 @@ Highlighter::Highlighter(QTextDocument *parent)
         << "\\bwhile\\b"
         << "\\bif_then_else\\b"
         << "\\brandom\\b"
+        << "\\brandom_seed\\b"
         << "\\bintersec\\b"
         << "\\bintersection\\b"
         << "\\bintersec2\\b"
@@ -254,17 +255,11 @@ void Highlighter::highlightBlock(const QString &text)
     foreach (rule, highlightingRules) {
        foreach (keyword, rule.keywords) {
           QRegularExpression expression(keyword);
-          // int index=text.indexOf(expression);
-          int index=0;
           QRegularExpressionMatchIterator i = expression.globalMatch(text);
-          // while (index >= 0) {
           while (i.hasNext()) {
              QRegularExpressionMatch match = i.next();
              int length = match.capturedLength();
-             // int length = expression.matchedLength();
-             setFormat(index, length, rule.format);
-             index += length;
-             index = text.indexOf(expression,index);
+             setFormat(match.capturedStart(), length, rule.format);
           }
        }
     }

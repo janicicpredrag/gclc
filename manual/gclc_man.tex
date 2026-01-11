@@ -9,7 +9,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
-\usepackage[english,serbian]{babel}
+\usepackage[english]{babel}
 \usepackage{hyperref}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 
@@ -161,7 +161,7 @@ parts, by Predrag Janičić and his collaborators:
 a co-author of the theorem prover based on the area method built into \gclc.
 
 \item Goran Predović (University of Belgrade, Serbia) --- the main
-author of the theorem prover based on the Wu's method and Gr\"obner 
+author of the theorem prover based on the Wu's method and Gröbner 
 based method built into \gclc.
 
 \item prof.~Pedro Quaresma (University of Coimbra, Portugal),
@@ -859,6 +859,10 @@ new value.
         The object with the specified identifier \verb|<n_id>| gets type {\sc number}
         and gets a (pseudo)random value between 0 and 1.
 
+\index{random\_seed@{{\tt random\_seed}}}
+\item \verb|random_seed <n_id>|
+        Seeds the (pseudo)random number generator (used by the \verb|random|) by a non-negative integer.
+
 \index{symbolic expressions}
 \index{expression@{{\tt expression}}}
 \item \verb|expression <n_id> {exp}|:
@@ -1276,41 +1280,41 @@ The current area can be changed by the \verb|area| command.
 
 \index{drawbezier3@{{\tt drawbezier3}}}
 \item \verb|drawbezier3 <p_id1> <p_id2> <p_id3>|
-        Generates com\-mands for drawing the quadratic B\'ezier
+        Generates com\-mands for drawing the quadratic Bézier
         curve determined by points \verb|<p_id1>|, \verb|<p_id2>|,
         \verb|<p_id3>| (it goes from \verb|<p_id1>| to \verb|<p_id3>|,
         while \verb|<p_id2>| is a control point).
-        \gclc draws B\'ezier curves segment by segment. The number of
+        \gclc draws Bézier curves segment by segment. The number of
         segments can be changed by the \verb|bezierprecision| command.
 
 \index{drawdashbezier3@{{\tt drawdashbezier3}}}
 \item \verb|drawdashbezier3 <p_id1> <p_id2> <p_id3>|
-        Generates com\-mands for drawing the quadratic B\'ezier
+        Generates com\-mands for drawing the quadratic Bézier
         curve determined by points \verb|<p_id1>|, \verb|<p_id2>|,
         \verb|<p_id3>| (it goes from \verb|<p_id1>| to \verb|<p_id3>|,
         while \verb|<p_id2>| is a control point).
-        \gclc draws B\'ezier curves segment by segment and in this
+        \gclc draws Bézier curves segment by segment and in this
         mode every third segment will not be drawn, so the length
         of dashes can be changed by the \verb|bezierprecision| command.
 
 \index{drawbezier4@{{\tt drawbezier4}}}
 \item \verb|drawbezier4 <p_id1> <p_id2> <p_id3> <p_id4>|
-        Generates com\-mands for drawing the cubic B\'ezier
+        Generates com\-mands for drawing the cubic Bézier
         curve determined by points \verb|<p_id1>|, \verb|<p_id2>|,
         \verb|<p_id3>|, \verb|<p_id4>| (it goes from \verb|<p_id1>|
         to \verb|<p_id4>|,  while \verb|<p_id2>| and \verb|<p_id3>|
         are control points).
-        \gclc draws B\'ezier curves segment by segment. The number of
+        \gclc draws Bézier curves segment by segment. The number of
         segments can be changed by the \verb|bezierprecision| command.
 
 \index{drawdashbezier4@{{\tt drawdashbezier4}}}
 \item \verb|drawdashbezier4 <p_id1> <p_id2> <p_id3> <p_id4>|
-        Generates com\-mands for drawing the cubic B\'ezier
+        Generates com\-mands for drawing the cubic Bézier
         curve determined by points \verb|<p_id1>|, \verb|<p_id2>|,
         \verb|<p_id3>|, \verb|<p_id4>| (it goes from \verb|<p_id1>|
         to \verb|<p_id4>|,  while \verb|<p_id2>| and \verb|<p_id3>|
         are control points).
-        \gclc draws B\'ezier curves segment by segment and in this
+        \gclc draws Bézier curves segment by segment and in this
         mode every third segment will not be drawn, so the length
         of dashes can be changed by the \verb|bezierprecision| command.
 
@@ -1755,7 +1759,7 @@ The current area can be changed by the \verb|area| command.
 
 \index{bezierprecision@{{\tt bezierprecision}}}
 \item \verb|bezierprecision <n>|
-        \gclc draws B\'ezier curves segment by segment. The default value
+        \gclc draws Bézier curves segment by segment. The default value
         is 36 segments for a curve. The number of segments can be changed
         by this command.
 
@@ -2547,7 +2551,7 @@ creating, opening and saving files,
 for zooming picture in and out, for theorem proving 
 (for turning on and off the prover based on the area method,
 for turning on and off the prover based on Wu's method,
-for turning on and off the prover based on Gr\"obner bases method, 
+for turning on and off the prover based on Gröbner bases method, 
 for turning deduction control on and off,
 for generating proofs in \LaTeX{}, 
 for generating proofs in {\sc xml}.
@@ -3261,14 +3265,14 @@ and then, finally, to {\sc pdf} (by some {\sc PostScript} to
 \index{theorem prover}
 \index{theorem prover!area method}
 \index{theorem prover!Wu's method}
-\index{theorem prover!Gr\"obner bases method}
+\index{theorem prover!Groebner bases method}
 There are three theorem provers built into \gclc{}:
 \begin{itemize}
 \item a theorem prover based on the Chou's {\em area method}\footnote{This
 theorem prover based on the area method was developed in collaboration with
 prof.~Pedro Quaresma, Department of Mathematics, University of
 Coimbra, Portugal. This work was partially supported by CISUC/FCT,
-Centro International de Matem\'atica (CIM), under the programme
+Centro International de Matemática (CIM), under the programme
 ``Research in Pairs'', while on visit to Coimbra University
 under the Coimbra Group Hospitality Scheme.}
 \cite{Chou93}; the prover produces traditional (i.e., geometric, not
@@ -3276,7 +3280,7 @@ algebraic, coordinate-based), readable proofs; the proofs are expressed in
 terms of higher-level geometry lemmas and expression simplifications.
 
 \item theorem provers based on the Wu's method \cite{wu1978,chou} and 
-on the Gr\"obner bases method 
+on the Gröbner bases method 
 \cite{buchbergerPhd,groebner_bases_and_applications};\footnote{The main 
 author of these theorem provers is Goran Predović (University of
 Belgrade).} these provers are algebraic theorem provers; they are based 
@@ -3288,7 +3292,7 @@ The theorem prover to be used is selected in the following way:
 \begin{itemize}
 \item in the command line version, by an appropriate parameter:
 \verb|-a| for the area method (default), \verb|-w| for the Wu's method,
-\verb|-g| for the Gr\"obner bases method.
+\verb|-g| for the Gröbner bases method.
 
 \item in the GUI version, the theorem prover is selected by checking 
 appropriate button in the toolbar or by checking the option 
@@ -3767,12 +3771,12 @@ following the ideas from \cite{Chou93}. However, some of the proofs
 can be very long and can take lot of time.
 
 
-\section{Wu's Method and Gr\"obner Bases Method}
+\section{Wu's Method and Gröbner Bases Method}
 
 \index{theorem prover!Wu's method}
-\index{theorem prover!Gr\"obner bases method}
+\index{theorem prover!Groebner bases method}
 One of the theorem prover built into \gclc{} is based on the Wu's
-method \cite{wu1978,chou} and one is based on the Gr\"obner bases
+method \cite{wu1978,chou} and one is based on the Gröbner bases
 method \cite{buchbergerPhd,groebner_bases_and_applications}. These
 methods are algebraic methods and they prove geometrical statements
 by manipulating polynomials corresponding to the constructions and
@@ -3923,7 +3927,7 @@ parallel (construction based assumption)
 }
 \vspace*{2mm}
 
-For proofs generated by the Wu's and Gr\"obner bases method, the
+For proofs generated by the Wu's and Gröbner bases method, the
 output consist of a summary of processing steps over the relevant
 set of polynomials.
 
@@ -4683,7 +4687,7 @@ Several small fixes were made and the following commands were added:
 
 \wingclc 2007: no changes in the Windows interface.
 
-Support for hyperbolic geometry (through Poincar\'e disc model)
+Support for hyperbolic geometry (through Poincaré disc model)
 is given via a sample file, as illustration of the mechanism of
 user-defined procedures (\verb|sample21_hyp.gcl|).
 
@@ -4771,7 +4775,7 @@ The following commands were added:
 \item[2008] \gclc 8.0:
 
 New theorem provers added: one based on the Wu's method
-and one based on the Gr\"obner bases method.
+and one based on the Gröbner bases method.
 
 New form of \verb|intersection| command (intersection of lines
 determined by the given four points).
@@ -4838,7 +4842,7 @@ The following commands were added:
 
 \verb|export_to_svg|
 
-New version of support for hyperbolic geometry (through Poincar\'e disc model)
+New version of support for hyperbolic geometry (through Poincaré disc model)
 is given via a new version of the sample file \verb|sample21_hyp.gcl|
 (co-authored with Zoran Lučić).
 
@@ -4858,6 +4862,10 @@ based automated theore provers. The code turns open-source and available on
 \item[2024] A web-based interface to \gclc released (authored by Nikola Ubavić):
 \url{http://www.matf.bg.ac.rs/~janicic/gclc/gclc-web/}. A new \verb|cmake| system
 (authored by Matthew Fernandez).
+
+\item[2025] Minor changes and fixes. The following command added:
+
+\verb|random_seed|
 \end{description}
 
 
@@ -4956,7 +4964,7 @@ and comments (2005);
 
 \item Goran Predović (University of Belgrade, Serbia and Microsoft
 Development Center Belgrade) --- the main author of the theorem provers
-based on the Wu's method and Gr\"obner based method (2008).
+based on the Wu's method and Gröbner based method (2008).
 
 \item Luka Tomašević (University of Belgrade, Serbia) --- the
 main author of the support for graph drawing (2008).
@@ -4977,18 +4985,28 @@ Aleksandra Nenadić, Marijana Lukić, Srđan Vukmirović,
 Goran Terzić, Milica Labus, Aleksandar Gogić, Aleksandar
 Samardžić, Ivan Čukić, Nikola Ubavić (1999/2022);
 
-\item Konrad Polthier (TU Berlin), Zach (Temple University, USA),
-Vladimir Baltić (University of Belgrade), Hristos Bitos (Greece),
-Aleksandar Gogić (DTA, Belgrade), Bob Schumacher (Cedarville
-University, Ohio, USA), Pedro Quaresma (University of Coimbra,
-Portugal), Zoran Lučić (University of Belgrade), Biljana
-Radovanović (University of Belgrade), Nedeljko Stefanović
-(University of Belgrade), Milan Mitrović (Slovenia), Thomas
-Speziale (USA), Ania Piktas (Poland), Bojan Radusinović (Serbia),
+\item Konrad Polthier (TU Berlin), 
+Zach (Temple University, USA),
+Vladimir Baltić (University of Belgrade), 
+Hristos Bitos (Greece),
+Aleksandar Gogić (DTA, Belgrade), 
+Bob Schumacher (Cedarville University, Ohio, USA), 
+Pedro Quaresma (University of Coimbra, Portugal), 
+Zoran Lučić (University of Belgrade), 
+Biljana Radovanović (University of Belgrade), 
+Nedeljko Stefanović (University of Belgrade), 
+Milan Mitrović (Slovenia), 
+Thomas Speziale (USA), 
+Ania Piktas (Poland), 
+Bojan Radusinović (Serbia),
 Pierre Larochelle (Florida Institute of Technology, USA),
-Robert Hartmann (TU Clausthal, Clausthal-Zellerfeld, Germany), and
-Xavier Allamigeon for useful feedback and suggestions on different
-versions of \gclc/\wingclc.
+Robert Hartmann (TU Clausthal, Clausthal-Zellerfeld, Germany), 
+Xavier Allamigeon,
+Milan Jere\-mić (University of Belgrade),
+and
+Branko Cvetković (University of Belgrade) 
+for useful feedback and suggestions on different
+versions of \gclc / \wingclc.
 
 \item All \gclc users for their support, feedback and
 suggestions.
@@ -5624,7 +5642,7 @@ B.~Buchberger.
 
 \bibitem{groebner_bases_and_applications}
 B.~Buchberger and F.~Winkler, editors.
-\newblock {\em Gr\"obner Bases and Applications}.
+\newblock {\em Gröbner Bases and Applications}.
 \newblock Cambridge University Press, 1998.
 
 \bibitem{chou}

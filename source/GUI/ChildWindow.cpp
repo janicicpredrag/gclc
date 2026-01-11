@@ -448,7 +448,6 @@ bool ChildWindow::Build(prover_config &Prover_params) {
     QRegularExpression rx_traced("\\b(trace)(\\s+)(\\w)+" + coordinate + coordinate +
                       coordinate);
     QString input = getEditor()->toPlainText(); // fixme to avoid copying string
-    QString point_decl;
 
     QRegularExpressionMatchIterator i = rx_traced.globalMatch(input);
     while (i.hasNext()) {

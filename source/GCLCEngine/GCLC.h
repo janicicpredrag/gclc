@@ -117,6 +117,7 @@ enum GCLCcommands {
   gclc_angle,
   gclc_angle_o,
   gclc_random,
+  gclc_random_seed,
   gclc_expression,
   gclc_array,
   gclc_while,
@@ -472,6 +473,7 @@ private:
   GCLCError get_distance();
   GCLCError get_angle(bool orientation);
   GCLCError get_random();
+  GCLCError get_random_seed();
   GCLCError get_expression();
   GCLCError get_array();
   GCLCError EvaluateIndex(std::string &sObjectName);

@@ -66,6 +66,7 @@ static std::map<std::string, enum GCLCcommands> KeyWords = {
     {"while", gclc_while},
     {"if_then_else", gclc_if_then_else},
     {"random", gclc_random},
+    {"random_seed", gclc_random_seed},
     {"angle", gclc_angle},
     {"angle_o", gclc_angle_o},
     {"intersec", gclc_intersec},
@@ -951,6 +952,9 @@ enum GCLCError CGCLC::Execute() {
       case gclc_random:
         err = get_random();
         break;
+      case gclc_random_seed:
+          err = get_random_seed();
+          break;
       case gclc_expression:
         err = get_expression();
         break;
