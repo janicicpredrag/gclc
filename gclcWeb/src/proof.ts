@@ -109,11 +109,14 @@ const saveProof = (exportType: string) => {
   const fileName = getFileName() + (exportType == "LATEX" ? ".tex" : ".xml");
 
   const downloadLink = document.createElement("a");
-  downloadLink.setAttribute("href", window.URL.createObjectURL(file));
+  const url = window.URL.createObjectURL(file);
+  downloadLink.setAttribute("href", url);
   downloadLink.setAttribute("download", fileName);
   downloadLink.style.display = "none";
 
   downloadLink.click();
+
+  setTimeout(() => window.URL.revokeObjectURL(url), 0);
   closePopups();
 };
 
