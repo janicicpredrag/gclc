@@ -60,7 +60,7 @@ jobs:
           path: gclcWeb/dist/web.zip
 
   buildLinuxStatic:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [buildManual]
     steps:
       - name: Checkout repository
