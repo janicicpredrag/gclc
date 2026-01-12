@@ -135,7 +135,7 @@ const compile = (
   let log = "";
   const logPtrValue = Module.getValue(logPtr, "i32");
   Module._free(logPtr);
-  if (outputPtrValue != 0) {
+  if (logPtrValue != 0) {
     log = Module.AsciiToString(logPtrValue);
     Module._free(logPtrValue);
   }
