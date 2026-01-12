@@ -10,19 +10,19 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@lezer/generator": "^1.6.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.1.0"
+    "@lezer/generator": "^1.8.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
   },
   "dependencies": {
-    "@codemirror/autocomplete": "^6.12.0",
-    "@codemirror/commands": "^6.3.3",
-    "@codemirror/language": "^6.10.1",
-    "@codemirror/lint": "^6.5.0",
-    "@codemirror/state": "^6.4.0",
-    "@codemirror/view": "^6.24.0",
-    "@panzoom/panzoom": "^4.5.1",
-    "codemirror": "^6.0.1",
+    "@codemirror/autocomplete": "^6.20.0",
+    "@codemirror/commands": "^6.10.1",
+    "@codemirror/language": "^6.12.1",
+    "@codemirror/lint": "^6.9.2",
+    "@codemirror/state": "^6.5.3",
+    "@codemirror/view": "^6.39.9",
+    "@panzoom/panzoom": "^4.6.1",
+    "codemirror": "^6.0.2",
     "lz-string": "^1.5.0"
   }
 }

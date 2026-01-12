@@ -60,7 +60,7 @@ jobs:
           path: gclcWeb/dist/web.zip
 
   buildLinuxStatic:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [buildManual]
     steps:
       - name: Checkout repository
@@ -99,7 +99,7 @@ jobs:
           ./init-repository --module-subset=essential,qtwayland
           mkdir build
           cd build
-          ../configure -static -release -no-pch -skip webengine -nomake tests -nomake examples -fontconfig -prefix '/qtStatic' -xcb-xlib
+          ../configure -static -release -no-pch -skip webengine -nomake tests -nomake examples -fontconfig -prefix '/qtStatic' -xcb-xlib -- -Wno-dev
           cmake --build . --parallel
           sudo cmake --install .
 
