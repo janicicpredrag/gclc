@@ -26,11 +26,14 @@ const saveCode = () => {
   const fileName = getFileName() + ".gcl";
 
   const downloadLink = document.createElement("a");
-  downloadLink.setAttribute("href", window.URL.createObjectURL(file));
+  const url = window.URL.createObjectURL(file);
+  downloadLink.setAttribute("href", url);
   downloadLink.setAttribute("download", fileName);
   downloadLink.style.display = "none";
 
   downloadLink.click();
+
+  setTimeout(() => window.URL.revokeObjectURL(url), 0);
 };
 
 const loadCode = () => {
@@ -157,11 +160,14 @@ const exportPicture = () => {
     getFileExtension(outputFormat);
 
   const downloadLink = document.createElement("a");
-  downloadLink.setAttribute("href", window.URL.createObjectURL(file));
+  const url = window.URL.createObjectURL(file);
+  downloadLink.setAttribute("href", url);
   downloadLink.setAttribute("download", fileName);
   downloadLink.style.display = "none";
 
   downloadLink.click();
+
+  setTimeout(() => window.URL.revokeObjectURL(url), 0);
 
   closePopups();
 };
