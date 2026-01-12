@@ -70,16 +70,20 @@ const setupCompiler = () => {
 const setInputMemory = (code: string): Pointer => {
   const codeSize = Module.lengthBytesUTF8(code) + 1;
 
-  if (codeSize > allocatedInputStringSize) {
+  if (allocatedInputStringPtr == 0 || codeSize > allocatedInputStringSize) {
     if (allocatedInputStringPtr != 0) {
       Module._free(allocatedInputStringPtr);
       allocatedInputStringPtr = 0;
     }
 
+    const newSize = Math.max(codeSize, allocatedInputStringSize * 2);
+
     try {
-      allocatedInputStringPtr = Module._malloc(codeSize * 2);
+      allocatedInputStringPtr = Module._malloc(newSize);
+      allocatedInputStringSize = newSize;
     } catch {
       allocatedInputStringPtr = 0;
+      allocatedInputStringSize = 0;
     }
   }
 
