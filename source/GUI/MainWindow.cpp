@@ -214,14 +214,24 @@ void MainWindow::saveDocument() {
 
 void MainWindow::saveDocumentAs() {
   ChildWindow *ActiveGCLCDoc = activeChild();
-  QString toSaveInFileName = QFileDialog::getSaveFileName(
-      this, tr("Save as GCLC File"), m_sWorkingGCLDirectory,
-      tr("GCLC Files (*.gcl)"));
-  if (toSaveInFileName == "")
-    return;
 
-  if (!toSaveInFileName.endsWith(".gcl"))
-    toSaveInFileName += ".gcl";
+  QString defaultPath = m_sWorkingGCLDirectory;
+  if (defaultPath.isEmpty()) {
+    defaultPath = QDir::homePath();
+  }
+  QString defaultFilePath = QDir(defaultPath).filePath("untitled.gcl");
+
+  QString selectedFilter;
+  QString toSaveInFileName = QFileDialog::getSaveFileName(
+      this,
+      tr("Save as GCLC File"),
+      defaultFilePath,
+      tr("GCLC Files (*.gcl);;All Files (*)"),
+      &selectedFilter
+  );
+
+  if (toSaveInFileName.isEmpty())
+    return;
 
   QFileInfo fileInfo(toSaveInFileName);
   m_sWorkingGCLDirectory = fileInfo.path();
