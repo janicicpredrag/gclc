@@ -942,15 +942,21 @@ void MainWindow::updateSlider(bool bNoFile) {
 // --------------------------------------------------------------------------------------------
 
 void MainWindow::openManual() {
-  QTemporaryDir dir;
-  if (!dir.isValid())
-    return;
-  QFile HelpFile(":/manual/gclc_man.pdf");
-  QString s = dir.path();
-  // QString s = qApp->applicationDirPath();
-  s.append("gclc_man.pdf");
-  if (HelpFile.copy(s))
-    QDesktopServices::openUrl(QUrl::fromLocalFile(s));
+  QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+  QDir().mkpath(cacheDir);
+
+  QString pdfPath = QDir(cacheDir).filePath("gclc_man.pdf");
+
+  if (!QFile::exists(pdfPath)) {
+    QFile helpFile(":/manual/gclc_man.pdf");
+    if (!helpFile.copy(pdfPath)) {
+      qWarning() << "Failed to extract manual PDF to:" << pdfPath;
+      return;
+    }
+    QFile::setPermissions(pdfPath, QFileDevice::ReadUser | QFileDevice::WriteUser | QFileDevice::ReadOwner);
+  }
+
+  QDesktopServices::openUrl(QUrl::fromLocalFile(pdfPath));
 }
 
 // --------------------------------------------------------------------------------------------
