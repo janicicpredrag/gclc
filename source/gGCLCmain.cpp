@@ -25,6 +25,12 @@ int main(int argc, char *argv[]) {
   lightPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
   lightPalette.setColor(QPalette::HighlightedText, Qt::white);
 
+  lightPalette.setColor(QPalette::Dark, QColor(160, 160, 160));
+  lightPalette.setColor(QPalette::Mid, QColor(160, 160, 160));
+  lightPalette.setColor(QPalette::Light, QColor(255, 255, 255));
+  lightPalette.setColor(QPalette::Midlight, QColor(227, 227, 227));
+  lightPalette.setColor(QPalette::Shadow, QColor(105, 105, 105));
+
   QApplication::setPalette(lightPalette);
 
   MainWindow w;
