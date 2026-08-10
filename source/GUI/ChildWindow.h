@@ -86,8 +86,9 @@ public:
   void zoomOut();
   void zoomNormal();
 
-  void setFilename(QString Name) { m_sFileName = Name; }
-  QString getFileName() { return m_sFileName; }
+  void setFilename(QString Name) {m_isUntitled=false ;  m_sFileName = Name; }
+  QString getFileName() { return m_isUntitled?"untitled.gcl": m_sFileName; }
+  bool isUntitled() const {return  m_isUntitled; }
 
   void setFileSaved(bool saved) { m_bFileSaved = saved; }
   bool isFileSaved() { return m_bFileSaved; }
@@ -157,6 +158,7 @@ private:
   qreal m_zoomFactor;
 
   QString m_sFileName;
+  bool m_isUntitled = true;
   QAction *m_Action;
   QPointF m_ViewCursorPosition;
   QString m_CursorPos;

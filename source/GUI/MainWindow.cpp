@@ -101,7 +101,7 @@ void MainWindow::newDocument() {
   ChildWindow *ActiveGCLCDoc = activeChild();
   if (ActiveGCLCDoc != NULL)
     ActiveGCLCDoc->hideWatchWindow();
-  createChild("untitled.gcl");
+  createChild();
   activeChild()->setFileSaved(false);
   updateStatusBar();
   updateMainMenu();
@@ -109,15 +109,17 @@ void MainWindow::newDocument() {
 
 // --------------------------------------------------------------------------------------------
 
-void MainWindow::createChild(QString fileName) {
+void MainWindow::createChild(std::optional<QString> fileName) {
   ChildWindow *childWindow = new ChildWindow(ui->mdiArea);
   childWindow->setAttribute(Qt::WA_DeleteOnClose);
   childWindow->showMaximized();
 
-  childWindow->setFilename(fileName);
+  if (fileName.has_value()) {
+    childWindow->setFilename(fileName.value());
+  }
 
   QAction *newAction = new QAction(this);
-  newAction->setText(fileName);
+  newAction->setText(childWindow->getFileName());
   ui->menuFile->insertAction(ui->actionClose, newAction);
   // QVariant v = qVariantFromValue((void *)childWindow);
   QObject *object = childWindow;
@@ -203,6 +205,32 @@ void MainWindow::activateChild() {
 
 void MainWindow::saveDocument() {
   ChildWindow *ActiveGCLCDoc = activeChild();
+
+  if (ActiveGCLCDoc->isUntitled()) {
+    QString defaultPath = m_sWorkingGCLDirectory;
+    if (defaultPath.isEmpty()) {
+      defaultPath = QDir::homePath();
+    }
+    QString defaultFilePath = QDir(defaultPath).filePath("untitled.gcl");
+
+    QString selectedFilter;
+    QString toSaveInFileName = QFileDialog::getSaveFileName(
+        this,
+        tr("Save as GCLC File"),
+        defaultFilePath,
+        tr("GCLC Files (*.gcl);;All Files (*)"),
+        &selectedFilter
+    );
+
+    if (toSaveInFileName.isEmpty())
+      return;
+
+    QFileInfo fileInfo(toSaveInFileName);
+    m_sWorkingGCLDirectory = fileInfo.path();
+
+    ActiveGCLCDoc->setFilename(toSaveInFileName);
+  }
+
   if (ActiveGCLCDoc->Save(ActiveGCLCDoc->getFileName())) {
     ActiveGCLCDoc->setFileSaved(true);
     updateStatusBar();
