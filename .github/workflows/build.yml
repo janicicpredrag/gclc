@@ -46,7 +46,7 @@ jobs:
       - name: Build web app
         working-directory: ./gclcWeb
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: Zip web app
