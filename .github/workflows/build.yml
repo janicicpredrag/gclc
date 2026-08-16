@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - uses: xu-cheng/latex-action@v3
+      - uses: xu-cheng/latex-action@v4
         with:
           working_directory: manual
           root_file: gclc_man.tex
@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install Emscripten
-        uses: mymindstorm/setup-emsdk@v14
+        uses: mymindstorm/setup-emsdk@v16
 
       - name: Write version info
         run: |
@@ -54,7 +54,7 @@ jobs:
         run: zip -r web.zip *
 
       - name: Upload web app
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: web-build-artifact
           path: gclcWeb/dist/web.zip
@@ -64,10 +64,10 @@ jobs:
     needs: [buildManual]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
@@ -118,7 +118,7 @@ jobs:
           cp build/source/gclc-gui executable/
 
       - name: Upload executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-static-build-artifact
           path: executable/
@@ -128,10 +128,10 @@ jobs:
     needs: [buildManual]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
@@ -162,7 +162,7 @@ jobs:
           cmake --build build --target install
 
       - name: Upload executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-dynamic-build-artifact
           path: executable/
@@ -172,10 +172,10 @@ jobs:
     needs: [buildManual]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
@@ -221,7 +221,7 @@ jobs:
           cp build/source/gclc-gui.exe executable/
 
       - name: Upload executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-build-artifact
           path: executable/
@@ -232,15 +232,15 @@ jobs:
       [buildManual, buildLinuxDynamic, buildLinuxStatic, buildWindows, buildWeb]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
       - name: Download Linux static build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: linux-static-build-artifact
 
@@ -248,7 +248,7 @@ jobs:
         run: zip -r linux.static.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
 
       - name: Download Linux dynamic build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: linux-dynamic-build-artifact
 
@@ -256,7 +256,7 @@ jobs:
         run: zip -r linux.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
 
       - name: Download windows build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: windows-build-artifact
 
@@ -264,12 +264,12 @@ jobs:
         run: zip -r windows.zip gclc.exe gclc-gui.exe gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support *.dll platforms/
 
       - name: Download web build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: web-build-artifact
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             linux.static.zip

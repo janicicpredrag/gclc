@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           fetch-tags: true
@@ -41,7 +41,7 @@ jobs:
           mv samples testFiles/
 
       - name: Upload test files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: testFiles
           path: testFiles/
@@ -51,7 +51,7 @@ jobs:
     needs: [buildAndDownload]
     steps:
       - name: Download test files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: testFiles
 
@@ -66,7 +66,7 @@ jobs:
     needs: [buildAndDownload]
     steps:
       - name: Download test files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: testFiles
 
