@@ -58,7 +58,7 @@ jobs:
 
       - name: Run tests
         run: |
-          sudo chmod +x compare_outputs.sh gclc-latest gclc-pr
+          chmod +x compare_outputs.sh gclc-latest gclc-pr
           ./compare_outputs.sh gclc-latest gclc-pr samples/basic_samples/
           cat diff-log >> $GITHUB_STEP_SUMMARY
 
@@ -73,6 +73,6 @@ jobs:
 
       - name: Run tests
         run: |
-          sudo chmod +x compare_proofs.sh gclc-latest gclc-pr
+          chmod +x compare_proofs.sh gclc-latest gclc-pr
           ./compare_proofs.sh gclc-latest gclc-pr samples/samples_prover/
           cat proof-log >> $GITHUB_STEP_SUMMARY
