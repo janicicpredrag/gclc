@@ -147,8 +147,8 @@ const gclCompletion = gcLang.data.of({
       {
         label: "bis",
         type: "function",
-        info: "Define a line that bisects and is perpendicular to the segment determined by the two given points",
-        detail: "Name Point₁ Point₂",
+        info: "Define a line that bisects the angle determined by the three given points",
+        detail: "Name Point₁ Point₂  Point₃",
       },
       {
         label: "perp",
@@ -222,8 +222,18 @@ const gclCompletion = gcLang.data.of({
         type: "function",
         detail: "Name Point₁ Point₂ coefficient",
       },
-      { label: "getx", type: "function", detail: "Name Point" },
-      { label: "getx", type: "function", detail: "Name Point" },
+      {
+        label: "getx",
+        type: "function",
+        info: "Define a new number which is equal to x coordinate of provided point",
+        detail: "Name Point",
+      },
+      {
+        label: "gety",
+        type: "function",
+        info: "Define a new number which is equal to y coordinate of provided point",
+        detail: "Name Point",
+      },
       { label: "distance", type: "function", detail: "Name P₁ P₂" },
       { label: "angle", type: "function", detail: "Name P₁ P₂ Point₃" },
       { label: "angle_o", type: "function", detail: "Name P₁ P₂ Point₃" },
@@ -311,12 +321,13 @@ const gclCompletion = gcLang.data.of({
       {
         label: "drawpolygon",
         type: "function",
-        detail: "Point₁ Point₂ Point₃ Point₄",
+        info: "Draw a regular polygon by providing a center, one vertex and number of sides",
+        detail: "Point₁ Point₂ n",
       },
       {
         label: "drawtree",
         type: "function",
-        detail: "Point n₁ n₂ n₃ n₄",
+        detail: "Point n₁ n₂ n₃ n₄ TreeDescription",
       },
       {
         label: "drawgraph_a",
@@ -324,9 +335,9 @@ const gclCompletion = gcLang.data.of({
         detail: "Point n₁ n₂ ListOfNodes ListOfEdges",
       },
       {
-        label: "drawgraph_b Label ListOfNodes ListOfEdges",
+        label: "drawgraph_b",
         type: "function",
-        detail: "Point₁ Point₂ Point₃ Point₄",
+        detail: "Label ListOfNodes ListOfEdges",
       },
       {
         label: "filltriangle",
@@ -343,12 +354,20 @@ const gclCompletion = gcLang.data.of({
       { label: "fillellipse", type: "function", detail: "Point r₁ r₂" },
       { label: "fillarc", type: "function", detail: "Point₁ Point₂ angle" },
       { label: "fillarc0", type: "function", detail: "Point₁ Point₂ angle" },
-      { label: "fillellipsearc", type: "function", detail: "Point r₁ r₂ startAngle angle" },
-      { label: "fillellipsearc0", type: "function", detail: "Point r₁ r₂ startAngle angle" },
+      {
+        label: "fillellipsearc",
+        type: "function",
+        detail: "Point r₁ r₂ startAngle angle",
+      },
+      {
+        label: "fillellipsearc0",
+        type: "function",
+        detail: "Point r₁ r₂ startAngle angle",
+      },
       {
         label: "cmark",
         type: "function",
-        info: "Denote the given point by name and small empty circle",
+        info: "Denote the given point by small empty circle",
         detail: "Point",
       },
       {
@@ -582,7 +601,7 @@ const gclCompletion = gcLang.data.of({
       {
         label: "fontsize",
         type: "function",
-        info: "Set the background color",
+        info: "Set the current font size",
         detail: "s",
       },
       {
@@ -658,19 +677,13 @@ const gclCompletion = gcLang.data.of({
       {
         label: "animation_frames",
         type: "function",
-        info: "Hides contents of all layers lower than n, including the layer n",
+        info: " Defines the total number of frames in the animation and the number of frames per second",
         detail: "n₁ n₂",
       },
       {
         label: "point",
         type: "type",
         info: "Define a moving point by its start and end coordinates",
-        detail: "Name x₁ y₁ x₂ y₂",
-      },
-      {
-        label: "trace",
-        type: "type",
-        info: "Trace a moving point defined by its start and end coordinates",
         detail: "Name x₁ y₁ x₂ y₂",
       },
       {
@@ -703,7 +716,7 @@ const gclCompletion = gcLang.data.of({
         info: "Set the name of the theorem",
         detail: "text",
       },
-    ])
+    ]),
   ),
 });
 
