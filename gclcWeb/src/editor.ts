@@ -22,11 +22,14 @@ import {
 } from "@codemirror/view";
 import { gclcLanguageSupport, highlightStyle } from "./gclcLanguage/gclcLang";
 import { getCodeFromUrl } from "./share";
-import { setOutputSize } from "./outputView";
+import { setOutputSize, setOutputView } from "./outputView";
+import { fastRender } from "./compiler";
 
 const initialCodeExample = `point A 50 65
 point B 45 35
 point C 90 35
+
+point D 99 39 49 39
 
 cmark_lt A
 cmark_lb B
@@ -57,6 +60,28 @@ const setCode = (code: string) => {
     },
   });
 };
+
+const repositionPoint = (name: string, x: number, y: number) => {
+  const code = getCode();
+
+  var regEx = new RegExp('point\\s+'+name+'\\s+(-?\\d+(\\.\\d+)?)\\s+(-?\\d+(\\.\\d+)?)', 'gi');
+  const newCode = code.replace(regEx, `point ${name} ${x.toLocaleString('en-US')} ${y.toLocaleString('en-US')}`)
+
+  setCode(newCode)
+  const [output] = fastRender(newCode)
+  setOutputView(output)
+}
+
+const repositionPoint2 = (name: string, x: number, y: number, z: number, w: number) => {
+  const code = getCode();
+
+  var regEx = new RegExp('point\\s+'+name+'\\s+(-?\\d+(\\.\\d+)?)\\s+(-?\\d+(\\.\\d+)?)\\s+(-?\\d+(\\.\\d+)?)\\s+(-?\\d+(\\.\\d+)?)', 'gi');
+  const newCode = code.replace(regEx, `point ${name} ${x.toLocaleString('en-US')} ${y.toLocaleString('en-US')} ${z.toLocaleString('en-US')} ${w.toLocaleString('en-US')}`)
+
+  setCode(newCode)
+  const [output] = fastRender(newCode)
+  setOutputView(output)
+}
 
 const resizeEditor = () => {
   editorView.requestMeasure();
@@ -110,4 +135,4 @@ const setEditorUI = () => {
   ro.observe(inputDiv);
 };
 
-export { getCode, setEditorUI, setCode, repaintEditor };
+export { getCode, setEditorUI, setCode, repaintEditor, repositionPoint, repositionPoint2 };

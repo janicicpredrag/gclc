@@ -75,7 +75,7 @@ main {
   display: flex;
   flex-direction: row;
   background-color: var(--color-bg);
-  padding: 0.5rem 1rem;
+  padding: var(--bar-padding) calc(var(--bar-padding)*2);
   border-bottom: 1px solid var(--color-border);
   justify-content: space-between;
   gap: 1rem;
@@ -145,7 +145,6 @@ button:disabled:hover {
 
 #output {
   background-color: var(--color-output-bg);
-  overflow: hidden;
 }
 
 #output > div {
@@ -155,13 +154,55 @@ button:disabled:hover {
   align-content: center;
   max-height: calc(100vh - 3rem - 200px);
   height: 100%;
-  overflow: hidden;
 }
 
 #svgBox {
   background-color: #fff;
   transition: 0.2s ease-in-out border;
   box-shadow: 0 0 0.5rem #0003;
+}
+
+.freePoint {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background-color: #009600;
+  color: var(--color-bg);
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  font-weight: bold;
+  border: 1px solid white;
+  transform-origin: 0 0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.freePoint:active {
+  cursor: grabbing;
+}
+
+.freePoint:hover {
+  background-color: #00b400;
+}
+
+.freePoint > div {
+  display: none;
+  position: absolute;
+}
+
+.hideFreePoints > .freePoint {
+  display: none;
+}
+
+.doubleFreePoint {
+  background-color: #e69500;
+}
+
+.doubleFreePoint:hover {
+  background-color: #ffaa22;
 }
 
 .cm-editor {
@@ -456,6 +497,10 @@ button.onlyIfProverEnabled {
   width: 6rem;
 }
 
+#showFreePointsButton {
+  width: 11rem;
+}
+
 #proofViewPopup {
   max-height: 80vh;
   overflow-y: scroll;
@@ -590,7 +635,8 @@ input[type="number"]:focus {
 
   #buildButton,
   #buildingButton,
-  #buttonPlay {
+  #buttonPlay,
+  #showFreePointsButton {
     width: initial;
   }
 
@@ -600,12 +646,18 @@ input[type="number"]:focus {
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   #bar {
     background: var(--color-bg);
   }
 
   #gclc {
     display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  :root {
+    --bar-padding: 0.25rem;
   }
 }
