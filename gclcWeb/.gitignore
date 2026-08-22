@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 
 src/*.wasm
+src/gclc.js
 src/lang.js
 src/lang.terms.js
