@@ -444,7 +444,7 @@ GReturnValue CGCLC::Import(eGCLC_conjecture_status &prover_output,
   m_iErrorCode = rvGCLCNoError;
   ResetLog();
   AddToLog("GCLC " GCLC_VERSION "\n");
-  AddToLog("Copyright (c) 1995-2024 by Predrag Janicic, University of "
+  AddToLog("Copyright (c) 1995-2026 by Predrag Janicic, University of "
            "Belgrade.\n");
   AddToLog("Licensed under the Creative Commons licence CC BY-ND.\n");
   // AddToLog("\n");

@@ -1,6 +1,6 @@
 Mathematical software GCLC (gclc, gclc-gui) is licensed under the MIT Licence.
 
-Copyright (c) 1995-2025
+Copyright (c) 1995-2026
 
     Author:
         Predrag Janičić
