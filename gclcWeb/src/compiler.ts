@@ -37,7 +37,7 @@ type Render = (
 
 type FastRender = (inputPtr: Pointer, outputPtr: Pointer) => void;
 
-let Module: BaseWASMModule, render: Render, fastRender: FastRender;
+let Module: BaseWASMModule, render_C: Render, fastRender_C: FastRender;
 
 let allocatedInputStringPtr: Pointer | 0 = 0;
 let allocatedInputStringSize: number = -1;
@@ -50,7 +50,7 @@ const setupCompiler = () => {
   (createModule() as Promise<BaseWASMModule>).then((module: BaseWASMModule) => {
     Module = module;
 
-    render = Module.cwrap("render", null, [
+    render_C = Module.cwrap("render", null, [
       "number", // char* input
       "number", // char* filename
       "number", // char** outputPtr
@@ -60,7 +60,7 @@ const setupCompiler = () => {
       "number", // char **logPtr
     ]) as Render;
 
-    fastRender = Module.cwrap("fastRender", null, [
+    fastRender_C = Module.cwrap("fastRender", null, [
       "number", // char* input
       "number", // char** outputPtr
     ]) as FastRender;
@@ -96,7 +96,7 @@ const setInputMemory = (code: string): Pointer => {
   return allocatedInputStringPtr;
 };
 
-const compile = (
+const render = (
   code: string,
   filename: string,
   outputType: OutputType,
@@ -112,7 +112,7 @@ const compile = (
   const outputPtr = Module._calloc(4);
   const logPtr = Module._calloc(4);
 
-  render(
+  render_C(
     inputPtr,
     filenamePtr,
     outputPtr,
@@ -162,11 +162,11 @@ const compile = (
   return [output, log, latexProof, xmlProof];
 };
 
-const fastCompile = (code: string): [string] => {
+const fastRender = (code: string): [string] => {
   const inputPtr = setInputMemory(code);
   const outputPtr = Module._calloc(4);
 
-  fastRender(inputPtr, outputPtr);
+  fastRender_C(inputPtr, outputPtr);
 
   let output = "";
   const outputPtrValue = Module.getValue(outputPtr, "i32");
@@ -207,4 +207,4 @@ const outputTypeValue = (code: OutputType): number => {
   }
 };
 
-export { compile, setupCompiler, fastCompile };
+export { render, setupCompiler, fastRender };

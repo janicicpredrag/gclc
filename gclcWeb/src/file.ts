@@ -1,4 +1,4 @@
-import { compile } from "./compiler";
+import { render } from "./compiler";
 import { getCode, setCode } from "./editor";
 import { openLink } from "./info";
 import { resetOutputView } from "./outputView";
@@ -135,7 +135,7 @@ const exportPicture = () => {
   const outputFormat = formatsSelect.value as OutputType;
 
   const code = getCode();
-  const [outputData, log] = compile(
+  const [outputData, log] = render(
     code,
     getFileName(),
     outputFormat,

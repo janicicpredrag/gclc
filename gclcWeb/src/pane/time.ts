@@ -1,4 +1,4 @@
-import { compile, fastCompile } from "../compiler";
+import { render, fastRender } from "../compiler";
 import { getCode } from "../editor";
 import { getFileName } from "../file";
 import { setOutputView } from "../outputView";
@@ -42,7 +42,7 @@ const onSliderInput = (e: Event) => {
     return;
   }
 
-  const [_, log] = compile(tempCode, getFileName(), "SVG", "None", false);
+  const [_, log] = render(tempCode, getFileName(), "SVG", "None", false);
 
   const errors = printLog(log);
   if (errors.length > 0) {
@@ -72,7 +72,7 @@ const renderAtTime = () => {
     }
   });
 
-  const [output] = fastCompile(newCode);
+  const [output] = fastRender(newCode);
   setOutputView(output);
 };
 
@@ -107,7 +107,7 @@ const startPlaying = () => {
     return;
   }
 
-  const [_, log] = compile(tempCode, getFileName(), "SVG", "None", false);
+  const [_, log] = render(tempCode, getFileName(), "SVG", "None", false);
 
   const errors = printLog(log);
   if (errors.length > 0) {

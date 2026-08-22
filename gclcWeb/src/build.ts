@@ -1,4 +1,4 @@
-import { compile } from "./compiler";
+import { render } from "./compiler";
 import { getCode } from "./editor";
 import { getFileName } from "./file";
 import { setOutputView } from "./outputView";
@@ -31,7 +31,7 @@ const buildEventHandler = () => {
   setTimeout(() => {
     const code = getCode();
 
-    const [output, log, latexProof, xmlProof] = compile(
+    const [output, log, latexProof, xmlProof] = render(
       code,
       getFileName(),
       "SVG",
