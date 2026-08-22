@@ -147,8 +147,8 @@ const gclCompletion = gcLang.data.of({
       {
         label: "bis",
         type: "function",
-        info: "Define a line that bisects and is perpendicular to the segment determined by the two given points",
-        detail: "Name Point₁ Point₂",
+        info: "Define a line that bisects the angle determined by the three given points",
+        detail: "Name Point₁ Point₂  Point₃",
       },
       {
         label: "perp",
@@ -222,8 +222,18 @@ const gclCompletion = gcLang.data.of({
         type: "function",
         detail: "Name Point₁ Point₂ coefficient",
       },
-      { label: "getx", type: "function", detail: "Name Point" },
-      { label: "getx", type: "function", detail: "Name Point" },
+      {
+        label: "getx",
+        type: "function",
+        info: "Define a new number which is equal to x coordinate of provided point",
+        detail: "Name Point",
+      },
+      {
+        label: "gety",
+        type: "function",
+        info: "Define a new number which is equal to y coordinate of provided point",
+        detail: "Name Point",
+      },
       { label: "distance", type: "function", detail: "Name P₁ P₂" },
       { label: "angle", type: "function", detail: "Name P₁ P₂ Point₃" },
       { label: "angle_o", type: "function", detail: "Name P₁ P₂ Point₃" },
@@ -311,12 +321,13 @@ const gclCompletion = gcLang.data.of({
       {
         label: "drawpolygon",
         type: "function",
-        detail: "Point₁ Point₂ Point₃ Point₄",
+        info: "Draw a regular polygon by providing a center, one vertex and number of sides",
+        detail: "Point₁ Point₂ n",
       },
       {
         label: "drawtree",
         type: "function",
-        detail: "Point n₁ n₂ n₃ n₄",
+        detail: "Point n₁ n₂ n₃ n₄ TreeDescription",
       },
       {
         label: "drawgraph_a",
@@ -324,9 +335,9 @@ const gclCompletion = gcLang.data.of({
         detail: "Point n₁ n₂ ListOfNodes ListOfEdges",
       },
       {
-        label: "drawgraph_b Label ListOfNodes ListOfEdges",
+        label: "drawgraph_b",
         type: "function",
-        detail: "Point₁ Point₂ Point₃ Point₄",
+        detail: "Label ListOfNodes ListOfEdges",
       },
       {
         label: "filltriangle",
@@ -343,12 +354,20 @@ const gclCompletion = gcLang.data.of({
       { label: "fillellipse", type: "function", detail: "Point r₁ r₂" },
       { label: "fillarc", type: "function", detail: "Point₁ Point₂ angle" },
       { label: "fillarc0", type: "function", detail: "Point₁ Point₂ angle" },
-      { label: "fillellipsearc", type: "function", detail: "Point r₁ r₂ startAngle angle" },
-      { label: "fillellipsearc0", type: "function", detail: "Point r₁ r₂ startAngle angle" },
+      {
+        label: "fillellipsearc",
+        type: "function",
+        detail: "Point r₁ r₂ startAngle angle",
+      },
+      {
+        label: "fillellipsearc0",
+        type: "function",
+        detail: "Point r₁ r₂ startAngle angle",
+      },
       {
         label: "cmark",
         type: "function",
-        info: "Denote the given point by name and small empty circle",
+        info: "Denote the given point by small empty circle",
         detail: "Point",
       },
       {
@@ -582,7 +601,7 @@ const gclCompletion = gcLang.data.of({
       {
         label: "fontsize",
         type: "function",
-        info: "Set the background color",
+        info: "Set the current font size",
         detail: "s",
       },
       {
@@ -632,6 +651,234 @@ const gclCompletion = gcLang.data.of({
         detail: "n₁ n₂ n₃ n₄",
       },
       {
+        label: "ang_picture",
+        type: "function",
+        info: "Define a rectangular area for Cartesian picture",
+        detail: "x₁ y₁ x₂ y₂",
+      },
+      {
+        label: "ang_origin",
+        type: "function",
+        info: "Define origin of the Cartesian coordinate system",
+        detail: "x y",
+      },
+      {
+        label: "ang_unit",
+        type: "function",
+        info: "Define the unit of the Cartesian coordinate system in millimeters",
+        detail: "n",
+      },
+      {
+        label: "ang_scale",
+        type: "function",
+        info: "Define the scale between y and x coordinates (1=regular, 2=logarithmic)",
+        detail: "type factor",
+      },
+      {
+        label: "ang_drawsystem_p",
+        type: "function",
+        info: "Draw Cartesian coordinate axes",
+        detail: "n₁ n₂ n₃ n₄ n₅",
+      },
+      {
+        label: "ang_drawsystem",
+        type: "function",
+        info: "Draw axes and denote integer points by small circles",
+      },
+      {
+        label: "ang_drawsystem0",
+        type: "function",
+        info: "Draw axes without denoting integer points",
+      },
+      {
+        label: "ang_drawsystem1",
+        type: "function",
+        info: "Draw axes and denote integer points by small dashes",
+      },
+      {
+        label: "ang_drawsystem_a",
+        type: "function",
+        info: "Same as ang_drawsystem, but denote the axes by x and y",
+      },
+      {
+        label: "ang_drawsystem0_a",
+        type: "function",
+        info: "Same as ang_drawsystem0, but denote the axes by x and y",
+      },
+      {
+        label: "ang_drawsystem1_a",
+        type: "function",
+        info: "Same as ang_drawsystem1, but denote the axes by x and y",
+      },
+      {
+        label: "ang_point",
+        type: "type",
+        info: "Define a point by Cartesian coordinates",
+        detail: "Name x y",
+      },
+      {
+        label: "ang_getx",
+        type: "function",
+        info: "Get the x-coordinate of a point in the Cartesian system",
+        detail: "Name Point",
+      },
+      {
+        label: "ang_gety",
+        type: "function",
+        info: "Get the y-coordinate of a point in the Cartesian system",
+        detail: "Name Point",
+      },
+      {
+        label: "ang_line",
+        type: "type",
+        info: "Define a line by coefficients of ax+by+c=0",
+        detail: "Name a b c",
+      },
+      {
+        label: "ang_conic",
+        type: "type",
+        info: "Define a conic by coefficients of ax²+2bxy+cy²+2dx+2ey+f=0",
+        detail: "Name a b c d e f",
+      },
+      {
+        label: "ang_intersec2",
+        type: "function",
+        info: "Define points by intersection of a line and a conic",
+        detail: "Name₁ Name₂ Line Conic",
+      },
+      {
+        label: "ang_intersection2",
+        type: "function",
+        info: "Define points by intersection of a line and a conic",
+        detail: "Name₁ Name₂ Line Conic",
+      },
+      {
+        label: "ang_tangent",
+        type: "function",
+        info: "Define a line tangent to a conic at a given point",
+        detail: "Name Point Conic",
+      },
+      {
+        label: "ang_drawline",
+        type: "function",
+        info: "Draw a Cartesian line",
+        detail: "Line",
+      },
+      {
+        label: "ang_drawline_p",
+        type: "function",
+        info: "Draw a line determined by two points in the Cartesian area",
+        detail: "Point₁ Point₂",
+      },
+      {
+        label: "ang_drawconic",
+        type: "function",
+        info: "Draw a conic",
+        detail: "Conic",
+      },
+      {
+        label: "ang_drawdashconic",
+        type: "function",
+        info: "Draw a dashed conic",
+        detail: "Conic",
+      },
+      {
+        label: "ang_draw_parametric_curve",
+        type: "function",
+        info: "Draw a parametric curve",
+        detail: "Parameter {start; condition; step} {x; y}",
+      },
+      {
+        label: "ang_conicprecision",
+        type: "function",
+        info: "Set the number of segments used to draw conics",
+        detail: "n",
+      },
+      {
+        label: "ang_plot_data",
+        type: "function",
+        info: "Draw a graph given by a sequence of points",
+        detail: "n { x₁ y₁ ... }",
+      },
+      {
+        label: "ang3d_picture",
+        type: "function",
+        info: "Define a rectangular area for 3D Cartesian picture",
+        detail: "x₁ y₁ x₂ y₂",
+      },
+      {
+        label: "ang3d_origin",
+        type: "function",
+        info: "Define a 3D Cartesian coordinate system",
+        detail: "x y angle₁ angle₂",
+      },
+      {
+        label: "ang3d_unit",
+        type: "function",
+        info: "Define the unit of the 3D coordinate system in millimeters",
+        detail: "n",
+      },
+      {
+        label: "ang3d_scale",
+        type: "function",
+        info: "Define the scale between y/x and z/x coordinates (1=regular, 2=logarithmic)",
+        detail: "type y_factor z_factor",
+      },
+      {
+        label: "ang3d_axes_drawing_range",
+        type: "function",
+        info: "Set the range for drawing 3D axes",
+        detail: "x₁ x₂ y₁ y₂ z₁ z₂",
+      },
+      {
+        label: "ang3d_drawsystem_p",
+        type: "function",
+        info: "Draw 3D coordinate axes",
+        detail: "n₁ n₂ n₃ n₄ n₅ n₆",
+      },
+      {
+        label: "ang3d_point",
+        type: "type",
+        info: "Define a point by 3D Cartesian coordinates",
+        detail: "Name x y z",
+      },
+      {
+        label: "ang3d_getx",
+        type: "function",
+        info: "Get the x-coordinate of a 3D point",
+        detail: "Name Point",
+      },
+      {
+        label: "ang3d_gety",
+        type: "function",
+        info: "Get the y-coordinate of a 3D point",
+        detail: "Name Point",
+      },
+      {
+        label: "ang3d_getz",
+        type: "function",
+        info: "Get the z-coordinate of a 3D point",
+        detail: "Name Point",
+      },
+      {
+        label: "ang3d_drawline_p",
+        type: "function",
+        info: "Draw a line determined by two 3D points",
+        detail: "Point₁ Point₂",
+      },
+      {
+        label: "ang3d_draw_parametric_surface",
+        type: "function",
+        info: "Draw a parametric surface",
+        detail: "u v {u-iter} {v-iter} {x; y; z}",
+      },
+      {
+        label: "ang3d_draw_parametric_curve",
+        type: "function",
+        info: "Draw a 3D parametric curve",
+        detail: "Parameter {start; condition; step} {x; y; z}",
+      },
+      {
         label: "layer",
         type: "function",
         info: "Declare a layer",
@@ -658,19 +905,13 @@ const gclCompletion = gcLang.data.of({
       {
         label: "animation_frames",
         type: "function",
-        info: "Hides contents of all layers lower than n, including the layer n",
+        info: " Defines the total number of frames in the animation and the number of frames per second",
         detail: "n₁ n₂",
       },
       {
         label: "point",
         type: "type",
         info: "Define a moving point by its start and end coordinates",
-        detail: "Name x₁ y₁ x₂ y₂",
-      },
-      {
-        label: "trace",
-        type: "type",
-        info: "Trace a moving point defined by its start and end coordinates",
         detail: "Name x₁ y₁ x₂ y₂",
       },
       {
@@ -703,7 +944,7 @@ const gclCompletion = gcLang.data.of({
         info: "Set the name of the theorem",
         detail: "text",
       },
-    ])
+    ]),
   ),
 });
 
