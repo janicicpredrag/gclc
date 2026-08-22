@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - uses: xu-cheng/latex-action@v3
+      - uses: xu-cheng/latex-action@v4
         with:
           working_directory: manual
           root_file: gclc_man.tex
@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install Emscripten
-        uses: mymindstorm/setup-emsdk@v14
+        uses: mymindstorm/setup-emsdk@v16
 
       - name: Write version info
         run: |
@@ -46,7 +46,7 @@ jobs:
       - name: Build web app
         working-directory: ./gclcWeb
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: Zip web app
@@ -54,7 +54,7 @@ jobs:
         run: zip -r web.zip *
 
       - name: Upload web app
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: web-build-artifact
           path: gclcWeb/dist/web.zip
@@ -64,10 +64,10 @@ jobs:
     needs: [buildManual]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
@@ -87,16 +87,15 @@ jobs:
             libx11-xcb-dev libxrender-dev libxi-dev libxcb-xinerama0 libglx-dev \
             libxcb-render-util0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-xfixes0-dev libxcb-xkb-dev \
             libxcb-sync-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-image0-dev \
-            libxcb-util-dev libxcb-cursor-dev libxkbcommon-dev libxkbcommon-x11-dev libxext-dev  \
-            libx11-dev clang-15 clang-tools-15 clang-format-15 clang-tidy-15 \
-            llvm-15-dev llvm-15-linker-tools llvm-15-tools llvm-15-runtime libclang-15-dev
+            libxcb-util-dev libxcb-cursor-dev libxkbcommon-dev libxkbcommon-x11-dev libxext-dev \
+            libx11-dev
 
       - name: Configure and install Qt
         run: |
           cd ..
           git clone --depth 1 -b 6.5.2 https://github.com/qt/qt5.git qt6
           cd qt6
-          ./init-repository --module-subset=essential,qtwayland
+          ./init-repository --module-subset=qtbase
           mkdir build
           cd build
           ../configure -static -release -no-pch -skip webengine -nomake tests -nomake examples -fontconfig -prefix '/qtStatic' -xcb-xlib -- -Wno-dev
@@ -118,7 +117,7 @@ jobs:
           cp build/source/gclc-gui executable/
 
       - name: Upload executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-static-build-artifact
           path: executable/
@@ -128,10 +127,10 @@ jobs:
     needs: [buildManual]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
@@ -162,7 +161,7 @@ jobs:
           cmake --build build --target install
 
       - name: Upload executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-dynamic-build-artifact
           path: executable/
@@ -172,10 +171,10 @@ jobs:
     needs: [buildManual]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
@@ -221,7 +220,7 @@ jobs:
           cp build/source/gclc-gui.exe executable/
 
       - name: Upload executables
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-build-artifact
           path: executable/
@@ -232,15 +231,15 @@ jobs:
       [buildManual, buildLinuxDynamic, buildLinuxStatic, buildWindows, buildWeb]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download manual
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manual-build-artifact
 
       - name: Download Linux static build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: linux-static-build-artifact
 
@@ -248,7 +247,7 @@ jobs:
         run: zip -r linux.static.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
 
       - name: Download Linux dynamic build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: linux-dynamic-build-artifact
 
@@ -256,7 +255,7 @@ jobs:
         run: zip -r linux.zip gclc gclc-gui gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support
 
       - name: Download windows build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: windows-build-artifact
 
@@ -264,12 +263,12 @@ jobs:
         run: zip -r windows.zip gclc.exe gclc-gui.exe gclc_man.pdf README.md LICENSE.md working_example samples LaTeX_packages XML_support *.dll platforms/
 
       - name: Download web build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: web-build-artifact
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             linux.static.zip

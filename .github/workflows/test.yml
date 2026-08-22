@@ -1,20 +1,22 @@
 name: Test
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [master]
+
+permissions:
+  contents: read
 
 jobs:
   buildAndDownload:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           fetch-tags: true
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          persist-credentials: false
 
       - name: Make CLI version
         run: |
@@ -40,7 +42,7 @@ jobs:
           mv samples testFiles/
 
       - name: Upload test files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: testFiles
           path: testFiles/
@@ -50,13 +52,13 @@ jobs:
     needs: [buildAndDownload]
     steps:
       - name: Download test files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: testFiles
 
       - name: Run tests
         run: |
-          sudo chmod +x compare_outputs.sh gclc-latest gclc-pr
+          chmod +x compare_outputs.sh gclc-latest gclc-pr
           ./compare_outputs.sh gclc-latest gclc-pr samples/basic_samples/
           cat diff-log >> $GITHUB_STEP_SUMMARY
 
@@ -65,12 +67,12 @@ jobs:
     needs: [buildAndDownload]
     steps:
       - name: Download test files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: testFiles
 
       - name: Run tests
         run: |
-          sudo chmod +x compare_proofs.sh gclc-latest gclc-pr
+          chmod +x compare_proofs.sh gclc-latest gclc-pr
           ./compare_proofs.sh gclc-latest gclc-pr samples/samples_prover/
           cat proof-log >> $GITHUB_STEP_SUMMARY
