@@ -89,10 +89,14 @@ MainWindow::~MainWindow() {
 // --------------------------------------------------------------------------------------------
 
 ChildWindow *MainWindow::activeChild() {
-  if (ui->mdiArea->activeSubWindow())
-    return qobject_cast<ChildWindow *>(ui->mdiArea->activeSubWindow());
-  else
-    return NULL;
+  QList<QMdiSubWindow *> windows = ui->mdiArea->subWindowList(QMdiArea::ActivationHistoryOrder);
+
+  if (!windows.isEmpty()) {
+    QMdiSubWindow *lastActive = windows.last();
+    return qobject_cast<ChildWindow *>(lastActive);
+  }
+
+  return NULL;
 }
 
 // --------------------------------------------------------------------------------------------
