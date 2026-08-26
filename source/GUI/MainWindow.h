@@ -91,7 +91,7 @@ protected:
   void closeEvent(QCloseEvent *event);
 
 private:
-  void createChild(QString fileName);
+  void createChild(std::optional<QString> fileName = std::nullopt);
 
   Ui::MainWindow *ui;
 

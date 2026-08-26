@@ -105,7 +105,7 @@ void MainWindow::newDocument() {
   ChildWindow *ActiveGCLCDoc = activeChild();
   if (ActiveGCLCDoc != NULL)
     ActiveGCLCDoc->hideWatchWindow();
-  createChild("untitled.gcl");
+  createChild();
   activeChild()->setFileSaved(false);
   updateStatusBar();
   updateMainMenu();
@@ -113,15 +113,17 @@ void MainWindow::newDocument() {
 
 // --------------------------------------------------------------------------------------------
 
-void MainWindow::createChild(QString fileName) {
+void MainWindow::createChild(std::optional<QString> fileName) {
   ChildWindow *childWindow = new ChildWindow(ui->mdiArea);
   childWindow->setAttribute(Qt::WA_DeleteOnClose);
   childWindow->showMaximized();
 
-  childWindow->setFilename(fileName);
+  if (fileName.has_value()) {
+    childWindow->setFilename(fileName.value());
+  }
 
   QAction *newAction = new QAction(this);
-  newAction->setText(fileName);
+  newAction->setText(childWindow->getFileName());
   ui->menuFile->insertAction(ui->actionClose, newAction);
   // QVariant v = qVariantFromValue((void *)childWindow);
   QObject *object = childWindow;
@@ -207,6 +209,32 @@ void MainWindow::activateChild() {
 
 void MainWindow::saveDocument() {
   ChildWindow *ActiveGCLCDoc = activeChild();
+
+  if (ActiveGCLCDoc->isUntitled()) {
+    QString defaultPath = m_sWorkingGCLDirectory;
+    if (defaultPath.isEmpty()) {
+      defaultPath = QDir::homePath();
+    }
+    QString defaultFilePath = QDir(defaultPath).filePath("untitled.gcl");
+
+    QString selectedFilter;
+    QString toSaveInFileName = QFileDialog::getSaveFileName(
+        this,
+        tr("Save as GCLC File"),
+        defaultFilePath,
+        tr("GCLC Files (*.gcl);;All Files (*)"),
+        &selectedFilter
+    );
+
+    if (toSaveInFileName.isEmpty())
+      return;
+
+    QFileInfo fileInfo(toSaveInFileName);
+    m_sWorkingGCLDirectory = fileInfo.path();
+
+    ActiveGCLCDoc->setFilename(toSaveInFileName);
+  }
+
   if (ActiveGCLCDoc->Save(ActiveGCLCDoc->getFileName())) {
     ActiveGCLCDoc->setFileSaved(true);
     updateStatusBar();
@@ -218,14 +246,24 @@ void MainWindow::saveDocument() {
 
 void MainWindow::saveDocumentAs() {
   ChildWindow *ActiveGCLCDoc = activeChild();
-  QString toSaveInFileName = QFileDialog::getSaveFileName(
-      this, tr("Save as GCLC File"), m_sWorkingGCLDirectory,
-      tr("GCLC Files (*.gcl)"));
-  if (toSaveInFileName == "")
-    return;
 
-  if (!toSaveInFileName.endsWith(".gcl"))
-    toSaveInFileName += ".gcl";
+  QString defaultPath = m_sWorkingGCLDirectory;
+  if (defaultPath.isEmpty()) {
+    defaultPath = QDir::homePath();
+  }
+  QString defaultFilePath = QDir(defaultPath).filePath("untitled.gcl");
+
+  QString selectedFilter;
+  QString toSaveInFileName = QFileDialog::getSaveFileName(
+      this,
+      tr("Save as GCLC File"),
+      defaultFilePath,
+      tr("GCLC Files (*.gcl);;All Files (*)"),
+      &selectedFilter
+  );
+
+  if (toSaveInFileName.isEmpty())
+    return;
 
   QFileInfo fileInfo(toSaveInFileName);
   m_sWorkingGCLDirectory = fileInfo.path();
@@ -564,35 +602,43 @@ void MainWindow::Export(enum exportFormat format) {
     break;
   }
 
-  QFileDialog dialog(this, title, m_sWorkingExportDirectory);
-  dialog.setAcceptMode(QFileDialog::AcceptSave);
-  dialog.setNameFilters(filters);
-  //    QString croped_fileName=ActiveGCLCDoc->getFileName().section(".",0,0);
-  dialog.setDirectory(m_sWorkingExportDirectory);
-  QFileInfo fileInfo(ActiveGCLCDoc->getFileName());
-  dialog.selectFile(fileInfo.baseName());
 
-  if (dialog.exec() == QDialog::Accepted) {
-    QString toSaveInFileName = dialog.selectedFiles()[0];
-    QString selectedFilter = dialog.selectedNameFilter();
+  QString defaultPath;
+  if (ActiveGCLCDoc->getFileName().toStdString() == "untitled.gcl") {
+    QString defaultDir = m_sWorkingGCLDirectory;
+    if (defaultDir.isEmpty() || defaultDir == ".") {
+      defaultDir =  QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    }
 
-    if (selectedFilter == "PNG Files (*.png)")
-      ext = ".png";
-    if (selectedFilter == "BMP Files (*.bmp)")
-      ext = ".bmp";
-    if (selectedFilter == "JPG Files (*.jpg)")
-      ext = ".jpg";
-
-    if (toSaveInFileName == "")
-      return;
-    if (!toSaveInFileName.endsWith(ext))
-      toSaveInFileName += ext;
-
-    ActiveGCLCDoc->Export(format, toSaveInFileName);
-
-    QFileInfo fileInfo(toSaveInFileName);
-    m_sWorkingExportDirectory = fileInfo.path();
+    defaultPath = QDir(defaultDir).filePath("untitled").append(ext);
   }
+  else {
+    defaultPath = ActiveGCLCDoc->getFileName();
+
+    qsizetype pos = defaultPath.lastIndexOf(".gcl");
+    if (pos != -1) {
+      defaultPath.truncate(pos);
+    }
+
+    defaultPath.append(ext);
+  }
+
+
+  QString toSaveInFileName = QFileDialog::getSaveFileName(
+      this,
+      title,
+      defaultPath,
+      filters.join(";;")
+  );
+
+  if (toSaveInFileName.isEmpty())
+    return;
+
+  ActiveGCLCDoc->Export(format, toSaveInFileName);
+
+  QFileInfo fileInfo(toSaveInFileName);
+  m_sWorkingExportDirectory = fileInfo.path();
+
 }
 
 // --------------------------------------------------------------------------------------------
@@ -626,26 +672,38 @@ void MainWindow::ExportXML() {
   if (!ActiveGCLCDoc->isFileCompiled())
     return;
 
-  QStringList filters;
-  QString title = "Export to XML Format Specification";
-  QString ext = ".xml";
-  filters << "XML Files (*.xml)";
+  QString defaultPath;
+  if (ActiveGCLCDoc->getFileName().toStdString() == "untitled.gcl") {
+    QString defaultDir = m_sWorkingGCLDirectory;
+    if (defaultDir.isEmpty() || defaultDir == ".") {
+      defaultDir =  QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    }
 
-  QFileDialog dialog(this, title, m_sWorkingGCLDirectory);
-  dialog.setAcceptMode(QFileDialog::AcceptSave);
-  dialog.setNameFilters(filters);
-
-  QString croped_fileName = ActiveGCLCDoc->getFileName().section(".", 0, 0);
-  dialog.selectFile(croped_fileName);
-
-  if (dialog.exec() == QDialog::Accepted) {
-    QString toSaveInFileName = dialog.selectedFiles()[0];
-    if (toSaveInFileName == "")
-      return;
-    if (!toSaveInFileName.endsWith(ext))
-      toSaveInFileName += ext;
-    ActiveGCLCDoc->ExportToXML(toSaveInFileName);
+    defaultPath = QDir(defaultDir).filePath("untitled").append(".xml");
   }
+  else {
+    defaultPath = ActiveGCLCDoc->getFileName();
+
+    qsizetype pos = defaultPath.lastIndexOf(".gcl");
+    if (pos != -1) {
+      defaultPath.truncate(pos);
+    }
+
+    defaultPath.append(".xml");
+  }
+
+
+  QString toSaveInFileName = QFileDialog::getSaveFileName(
+      this,
+      "Export to XML Format Specification",
+      defaultPath,
+      "XML Files (*.xml)"
+  );
+
+  if (toSaveInFileName.isEmpty())
+    return;
+
+  ActiveGCLCDoc->ExportToXML(toSaveInFileName);
 }
 
 // --------------------------------------------------------------------------------------------
@@ -936,15 +994,21 @@ void MainWindow::updateSlider(bool bNoFile) {
 // --------------------------------------------------------------------------------------------
 
 void MainWindow::openManual() {
-  QTemporaryDir dir;
-  if (!dir.isValid())
-    return;
-  QFile HelpFile(":/manual/gclc_man.pdf");
-  QString s = dir.path();
-  // QString s = qApp->applicationDirPath();
-  s.append("gclc_man.pdf");
-  if (HelpFile.copy(s))
-    QDesktopServices::openUrl(QUrl::fromLocalFile(s));
+  QString cacheDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+  QDir().mkpath(cacheDir);
+
+  QString pdfPath = QDir(cacheDir).filePath("gclc_man.pdf");
+
+  if (!QFile::exists(pdfPath)) {
+    QFile helpFile(":/manual/gclc_man.pdf");
+    if (!helpFile.copy(pdfPath)) {
+      qWarning() << "Failed to extract manual PDF to:" << pdfPath;
+      return;
+    }
+    QFile::setPermissions(pdfPath, QFileDevice::ReadUser | QFileDevice::WriteUser | QFileDevice::ReadOwner);
+  }
+
+  QDesktopServices::openUrl(QUrl::fromLocalFile(pdfPath));
 }
 
 // --------------------------------------------------------------------------------------------
