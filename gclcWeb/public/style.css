@@ -248,6 +248,10 @@ button:disabled:hover {
   background-color: var(--color-bg3) !important;
 }
 
+[data-theme="dark"] .cm-tooltip {
+  background-color: var(--color-bg2) !important;
+}
+
 .tagA {
   color: var(--color-groupA) !important;
   font-weight: 600;
