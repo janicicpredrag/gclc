@@ -24,6 +24,7 @@
   --color-groupF: #c000c0;
   --color-groupG: #168560;
   --color-number: #213f21;
+  --color-error-line: #ffd0d0;
 }
 
 [data-theme="dark"] {
@@ -46,6 +47,7 @@
   --color-groupF: #ecaeec;
   --color-groupG: #a1e2cc;
   --color-number: #9fcd9f;
+  --color-error-line: #6b2424;
 }
 
 html {
@@ -228,6 +230,10 @@ button:disabled:hover {
 
 .ͼ2 .cm-activeLine {
   background-color: transparent !important;
+}
+
+.cm-errorLine {
+  background-color: var(--color-error-line) !important;
 }
 
 .ͼ2 .cm-activeLineGutter {

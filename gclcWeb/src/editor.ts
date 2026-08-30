@@ -1,4 +1,4 @@
-import { EditorState } from "@codemirror/state";
+import { EditorState, StateEffect, StateField } from "@codemirror/state";
 import {
   autocompletion,
   closeBrackets,
@@ -12,6 +12,8 @@ import {
   syntaxHighlighting,
 } from "@codemirror/language";
 import {
+  Decoration,
+  type DecorationSet,
   drawSelection,
   EditorView,
   highlightActiveLine,
@@ -45,7 +47,55 @@ intersec O a b
 drawcircle O A
 `;
 
+const setErrorLinesEffect = StateEffect.define<readonly number[]>();
+
+const errorLineDecoration = Decoration.line({ class: "cm-errorLine" });
+
+const errorLinesField = StateField.define<DecorationSet>({
+  create() {
+    return Decoration.none;
+  },
+  update(decorations, transaction) {
+    for (const effect of transaction.effects) {
+      if (effect.is(setErrorLinesEffect)) {
+        const ranges = [...new Set(effect.value)]
+          .filter((line) => line >= 1 && line <= transaction.state.doc.lines)
+          .sort((a, b) => a - b)
+          .map((line) =>
+            errorLineDecoration.range(transaction.state.doc.line(line).from)
+          );
+        return Decoration.set(ranges);
+      }
+    }
+
+    if (transaction.docChanged) {
+      return Decoration.none;
+    }
+
+    return decorations;
+  },
+  provide: (field) => EditorView.decorations.from(field),
+});
+
 let editorView: EditorView;
+
+const setErrorLines = (lines: number[]) => {
+  if (editorView == undefined) {
+    return;
+  }
+
+  const validLines = [...new Set(lines)].filter(
+    (line) => line >= 1 && line <= editorView.state.doc.lines
+  );
+
+  const effects: StateEffect<unknown>[] = [setErrorLinesEffect.of(validLines)];
+  if (validLines.length > 0) {
+    const firstLine = editorView.state.doc.line(validLines[0]);
+    effects.push(EditorView.scrollIntoView(firstLine.from, { y: "nearest" }));
+  }
+
+  editorView.dispatch({ effects });
+};
 
 const getCode = (): string => {
   return editorView.state.doc.toString();
@@ -111,6 +161,7 @@ const setEditorUI = () => {
         closeBrackets(),
         autocompletion(),
         highlightActiveLine(),
+        errorLinesField,
         keymap.of([
           ...closeBracketsKeymap,
           ...defaultKeymap,
@@ -135,4 +186,12 @@ const setEditorUI = () => {
   ro.observe(inputDiv);
 };
 
-export { getCode, setEditorUI, setCode, repaintEditor, repositionPoint, repositionPoint2 };
+export {
+  getCode,
+  setEditorUI,
+  setCode,
+  setErrorLines,
+  repaintEditor,
+  repositionPoint,
+  repositionPoint2,
+};
