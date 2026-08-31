@@ -10,7 +10,7 @@ const POINT_RADIUS = 6;
 
 let panzoom: PanzoomObject;
 let svgBox: HTMLElement;
-let freePointsShown: boolean;
+let freePointsShown = false;
 let svgWidthMM: number, svgHeightMM: number;
 let svgWidthPx: number, svgHeightPx: number;
 
@@ -34,20 +34,21 @@ const setOutputViewUI = () => {
   document
     .getElementById("showFreePointsButton")
     ?.addEventListener("click", showFreePointsHandler);
-
-  freePointsShown = true;
 };
 
 const showFreePointsHandler = () => {
-  const buildButtonSpan = document.getElementById("showFreePointsSpan")!;
+  const button = document.getElementById("showFreePointsButton")!;
+  const buttonSpan = document.getElementById("showFreePointsSpan")!;
 
   freePointsShown = !freePointsShown;
 
   if (freePointsShown) {
-    buildButtonSpan.textContent = "Hide free points";
+    button.title = "Hide free points";
+    buttonSpan.textContent = "Hide free points";
     svgBox.classList.remove("hideFreePoints");
   } else {
-    buildButtonSpan.textContent = "Show free points";
+    button.title = "Show free points";
+    buttonSpan.textContent = "Show free points";
     svgBox.classList.add("hideFreePoints");
   }
 };
@@ -76,9 +77,7 @@ const setOutputView = (svgSource: string) => {
   svgWidthPx = svgBox.clientWidth;
   svgHeightPx = svgBox.clientHeight;
 
-  if (freePointsShown) {
-    constructFreePoints();
-  }
+  constructFreePoints();
 };
 
 const constructFreePoints = () => {

@@ -187,6 +187,11 @@ const nextFrame = (timeStamp: DOMHighResTimeStamp) => {
   window.requestAnimationFrame(nextFrame);
 };
 
+const refreshOutputAtCurrentTime = () => {
+  tempCode = getCode();
+  renderAtTime();
+};
+
 const resetTimer = () => {
   pausePlaying();
   currentTime = 0;
@@ -254,4 +259,4 @@ const setTimeUI = () => {
   }
 };
 
-export { setTimeUI, resetTimer };
+export { setTimeUI, resetTimer, refreshOutputAtCurrentTime };

@@ -22,8 +22,8 @@ import {
 } from "@codemirror/view";
 import { gclcLanguageSupport, highlightStyle } from "./gclcLanguage/gclcLang";
 import { getCodeFromUrl } from "./share";
-import { setOutputSize, setOutputView } from "./outputView";
-import { fastRender } from "./compiler";
+import { setOutputSize } from "./outputView";
+import { refreshOutputAtCurrentTime } from "./pane/time";
 
 const initialCodeExample = `point A 50 65
 point B 45 35
@@ -68,8 +68,7 @@ const repositionPoint = (name: string, x: number, y: number) => {
   const newCode = code.replace(regEx, `point ${name} ${x.toLocaleString('en-US')} ${y.toLocaleString('en-US')}`)
 
   setCode(newCode)
-  const [output] = fastRender(newCode)
-  setOutputView(output)
+  refreshOutputAtCurrentTime()
 }
 
 const repositionPoint2 = (name: string, x: number, y: number, z: number, w: number) => {
@@ -79,8 +78,7 @@ const repositionPoint2 = (name: string, x: number, y: number, z: number, w: numb
   const newCode = code.replace(regEx, `point ${name} ${x.toLocaleString('en-US')} ${y.toLocaleString('en-US')} ${z.toLocaleString('en-US')} ${w.toLocaleString('en-US')}`)
 
   setCode(newCode)
-  const [output] = fastRender(newCode)
-  setOutputView(output)
+  refreshOutputAtCurrentTime()
 }
 
 const resizeEditor = () => {
