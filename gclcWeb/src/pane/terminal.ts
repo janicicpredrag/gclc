@@ -1,3 +1,5 @@
+import { setErrorLines } from "../editor";
+
 const printLog = (log: string): number[] => {
   const terminal = document.getElementById("terminalPane")!;
 
@@ -17,11 +19,13 @@ const printLog = (log: string): number[] => {
   const containsError = log.match(errorRegex);
 
   if (containsError) {
-    const linNumbers = /^Error .*Line: (\d+).*/gm;
-    const errors = [...log.matchAll(linNumbers)]
+    const lineNumbers = /^Error .*Line: (\d+).*/gm;
+    const errors = [...log.matchAll(lineNumbers)]
       .map((m) => (m.length > 1 ? m[1] : undefined))
       .filter((m) => m !== undefined)
       .map((m) => Number(m));
+
+    setErrorLines(errors);
 
     if (errors.length > 0) {
       return errors;
@@ -30,6 +34,7 @@ const printLog = (log: string): number[] => {
     }
   }
 
+  setErrorLines([]);
   return [];
 };
 
