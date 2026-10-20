@@ -188,7 +188,7 @@ const proofMethodValue = (method: ProofMethod): number => {
     case "Wu":
       return 2;
     case "Grobner":
-      return 2;
+      return 3;
   }
 };
 
