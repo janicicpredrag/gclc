@@ -31,8 +31,6 @@ const initialCodeExample = `point A 50 65
 point B 45 35
 point C 90 35
 
-point D 99 39 49 39
-
 cmark_lt A
 cmark_lb B
 cmark_rb C
