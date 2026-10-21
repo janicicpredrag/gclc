@@ -9,8 +9,10 @@ import { setupCompiler } from "./compiler";
 import { setPanesUI } from "./pane/panes";
 import { initSettings, setSettingsUI } from "./pane/settings";
 import { setBuildUI } from "./build";
+import { setDropdownUI } from "./dropdown";
 
 const setUI = () => {
+  setDropdownUI();
   setProofUI();
   setEditorUI();
   setFileUI();
