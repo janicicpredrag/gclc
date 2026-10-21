@@ -36,6 +36,7 @@ jobs:
         run: |
           echo "#pragma once" > source/Utils/Version.h
           echo "#define GCLC_VERSION \"$(git describe --tags)\"" >> source/Utils/Version.h
+          echo "export const version = \"$(git describe --tags)\";" > gclcWeb/src/version.js
 
       - name: Make WASM version
         run: |
