@@ -37,11 +37,6 @@ const setProver = (status: boolean) => () => {
     dropdown.classList.remove("proverEnabled");
     buildButtonSpan.innerText = "Build";
   }
-
-  const dropdownButton = document.getElementById(
-    "proverDropdownButton"
-  ) as HTMLButtonElement;
-  dropdownButton.focus();
 };
 
 const setProofs = (latex: string, xml: string) => {
