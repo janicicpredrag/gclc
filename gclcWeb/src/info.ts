@@ -1,10 +1,16 @@
 import { showPopup } from "./popup";
+import { version } from "./version";
 
 const openLink = (url: string) => () => {
   window.open(url, "_blank")?.focus();
 };
 
 const setInfoUI = () => {
+  const title = document.getElementById("gclcTitle");
+  if (title) {
+    title.textContent = `GCLC Web ${version}`;
+  }
+
   document
     .getElementById("aboutButton")
     ?.addEventListener("click", showPopup("aboutPopup"));
